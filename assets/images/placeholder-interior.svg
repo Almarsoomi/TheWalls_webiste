@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#141413"/>
+      <stop offset="100%" stop-color="#0c0c0b"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c1a15" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#141210" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="windowLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c9a96e" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#c9a96e" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="wallLight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1c1a15"/>
+      <stop offset="50%" stop-color="#252220"/>
+      <stop offset="100%" stop-color="#1a1814"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+
+  <!-- Back wall -->
+  <rect x="80" y="120" width="640" height="520" fill="url(#wallLight)"/>
+
+  <!-- Floor -->
+  <polygon points="0,640 800,640 800,1000 0,1000" fill="url(#floorGrad)"/>
+
+  <!-- Floor perspective lines -->
+  <line x1="80" y1="640" x2="400" y2="780" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.18"/>
+  <line x1="200" y1="640" x2="400" y2="800" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.14"/>
+  <line x1="320" y1="640" x2="400" y2="820" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.12"/>
+  <line x1="480" y1="640" x2="400" y2="820" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.12"/>
+  <line x1="600" y1="640" x2="400" y2="800" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.14"/>
+  <line x1="720" y1="640" x2="400" y2="780" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.18"/>
+  <!-- Horizontal floor lines -->
+  <line x1="0" y1="680" x2="800" y2="680" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.1"/>
+  <line x1="0" y1="730" x2="800" y2="730" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="0" y1="800" x2="800" y2="800" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.06"/>
+  <line x1="0" y1="900" x2="800" y2="900" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.04"/>
+
+  <!-- Ceiling -->
+  <rect x="0" y="0" width="800" height="120" fill="#0c0c0b"/>
+  <!-- Ceiling coving detail -->
+  <line x1="80" y1="120" x2="720" y2="120" stroke="#c9a96e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="80" y1="115" x2="720" y2="115" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.15"/>
+  <!-- Ceiling panel lines -->
+  <line x1="160" y1="20" x2="160" y2="120" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.12"/>
+  <line x1="320" y1="20" x2="320" y2="120" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.12"/>
+  <line x1="480" y1="20" x2="480" y2="120" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.12"/>
+  <line x1="640" y1="20" x2="640" y2="120" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.12"/>
+  <line x1="80" y1="40" x2="720" y2="40" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="80" y1="80" x2="720" y2="80" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.08"/>
+
+  <!-- Left wall panel -->
+  <polygon points="0,0 80,120 80,640 0,1000" fill="#141210"/>
+  <!-- Left wall vertical lines -->
+  <line x1="0" y1="0" x2="80" y2="120" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+  <line x1="0" y1="1000" x2="80" y2="640" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+
+  <!-- Right wall panel -->
+  <polygon points="800,0 720,120 720,640 800,1000" fill="#141210"/>
+  <!-- Right wall vertical lines -->
+  <line x1="800" y1="0" x2="720" y2="120" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+  <line x1="800" y1="1000" x2="720" y2="640" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+
+  <!-- Back wall panelling - vertical lines -->
+  <line x1="80" y1="120" x2="80" y2="640" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+  <line x1="720" y1="120" x2="720" y2="640" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+  <line x1="200" y1="120" x2="200" y2="640" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.12"/>
+  <line x1="320" y1="120" x2="320" y2="640" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.12"/>
+  <line x1="480" y1="120" x2="480" y2="640" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.12"/>
+  <line x1="600" y1="120" x2="600" y2="640" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.12"/>
+  <!-- Back wall horizontal rail -->
+  <line x1="80" y1="320" x2="720" y2="320" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.2"/>
+  <line x1="80" y1="316" x2="720" y2="316" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.1"/>
+
+  <!-- Large window opening (back centre) -->
+  <rect x="280" y="140" width="240" height="320" fill="url(#windowLight)"/>
+  <rect x="280" y="140" width="240" height="320" fill="none" stroke="#c9a96e" stroke-width="0.8" stroke-opacity="0.45"/>
+  <!-- Window mullion -->
+  <line x1="400" y1="140" x2="400" y2="460" stroke="#c9a96e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="280" y1="300" x2="520" y2="300" stroke="#c9a96e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <!-- Window outer frame -->
+  <rect x="270" y="132" width="260" height="336" fill="none" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.2"/>
+
+  <!-- Chandelier -->
+  <line x1="400" y1="0" x2="400" y2="115" stroke="#c9a96e" stroke-width="0.8" stroke-opacity="0.4"/>
+  <!-- Chandelier arm -->
+  <line x1="340" y1="90" x2="460" y2="90" stroke="#c9a96e" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="360" y1="80" x2="440" y2="80" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.2"/>
+  <!-- Chandelier drops -->
+  <line x1="340" y1="90" x2="340" y2="108" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="360" y1="90" x2="360" y2="112" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="380" y1="90" x2="380" y2="115" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="400" y1="90" x2="400" y2="118" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="420" y1="90" x2="420" y2="115" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="440" y1="90" x2="440" y2="112" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="460" y1="90" x2="460" y2="108" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <!-- Chandelier gems -->
+  <circle cx="340" cy="110" r="1.5" fill="#c9a96e" fill-opacity="0.4"/>
+  <circle cx="360" cy="114" r="1.5" fill="#c9a96e" fill-opacity="0.4"/>
+  <circle cx="380" cy="117" r="1.5" fill="#c9a96e" fill-opacity="0.4"/>
+  <circle cx="400" cy="120" r="2" fill="#c9a96e" fill-opacity="0.5"/>
+  <circle cx="420" cy="117" r="1.5" fill="#c9a96e" fill-opacity="0.4"/>
+  <circle cx="440" cy="114" r="1.5" fill="#c9a96e" fill-opacity="0.4"/>
+  <circle cx="460" cy="110" r="1.5" fill="#c9a96e" fill-opacity="0.4"/>
+
+  <!-- Sofa (front centre, near floor line) -->
+  <!-- Sofa base -->
+  <rect x="180" y="590" width="440" height="50" rx="2" fill="#1c1a15" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <!-- Sofa back -->
+  <rect x="200" y="548" width="400" height="52" rx="2" fill="#1e1c17" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.35"/>
+  <!-- Sofa arms -->
+  <rect x="180" y="548" width="30" height="92" rx="2" fill="#1a1814" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <rect x="590" y="548" width="30" height="92" rx="2" fill="#1a1814" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <!-- Sofa cushion lines -->
+  <line x1="267" y1="548" x2="267" y2="590" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.2"/>
+  <line x1="400" y1="548" x2="400" y2="590" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.2"/>
+  <line x1="533" y1="548" x2="533" y2="590" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.2"/>
+  <!-- Sofa legs -->
+  <rect x="205" y="638" width="8" height="12" fill="#141210" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.25"/>
+  <rect x="350" y="638" width="8" height="12" fill="#141210" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.25"/>
+  <rect x="437" y="638" width="8" height="12" fill="#141210" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.25"/>
+  <rect x="587" y="638" width="8" height="12" fill="#141210" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.25"/>
+
+  <!-- Coffee table -->
+  <rect x="290" y="646" width="220" height="6" rx="1" fill="#1c1a14" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.35"/>
+  <!-- Table legs -->
+  <line x1="305" y1="652" x2="305" y2="676" stroke="#c9a96e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="495" y1="652" x2="495" y2="676" stroke="#c9a96e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <line x1="305" y1="676" x2="495" y2="676" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.2"/>
+  <!-- Table surface detail -->
+  <rect x="310" y="642" width="180" height="3" rx="0.5" fill="none" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.2"/>
+
+  <!-- Decorative vase on table -->
+  <ellipse cx="400" cy="642" rx="12" ry="3" fill="none" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.3"/>
+  <line x1="392" y1="642" x2="388" y2="615" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="408" y1="642" x2="412" y2="615" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="388" y1="615" x2="412" y2="615" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.25"/>
+  <ellipse cx="400" cy="615" rx="12" ry="2.5" fill="none" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.25"/>
+
+  <!-- Left side table / console -->
+  <rect x="100" y="490" width="100" height="6" rx="1" fill="#1c1a14" stroke="#c9a96e" stroke-width="0.4" stroke-opacity="0.3"/>
+  <line x1="112" y1="496" x2="112" y2="546" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+  <line x1="188" y1="496" x2="188" y2="546" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.25"/>
+  <line x1="112" y1="546" x2="188" y2="546" stroke="#c9a96e" stroke-width="0.3" stroke-opacity="0.2"/>
+
+  <!-- Right side floor lamp -->
+  <line x1="660" y1="640" x2="660" y2="380" stroke="#c9a96e" stroke-width="0.6" stroke-opacity="0.3"/>
+  <!-- Lamp base -->
+  <ellipse cx="660" cy="640" rx="15" ry="4" fill="none" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.3"/>
+  <!-- Lamp shade -->
+  <polygon points="640,380 680,380 670,420 650,420" fill="#1a1714" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.35"/>
+  <!-- Lamp glow -->
+  <ellipse cx="660" cy="380" rx="30" ry="8" fill="#c9a96e" fill-opacity="0.04"/>
+
+  <!-- Room corner shadow left -->
+  <polygon points="0,0 80,120 80,640 0,1000" fill="#0c0c0b" fill-opacity="0.4"/>
+  <!-- Room corner shadow right -->
+  <polygon points="800,0 720,120 720,640 800,1000" fill="#0c0c0b" fill-opacity="0.4"/>
+
+  <!-- Subtle ambient glow from window -->
+  <ellipse cx="400" cy="400" rx="180" ry="200" fill="#c9a96e" fill-opacity="0.02"/>
+
+  <!-- Bottom watermark strip -->
+  <rect x="0" y="940" width="800" height="60" fill="#0c0c0b" fill-opacity="0.7"/>
+  <line x1="0" y1="940" x2="800" y2="940" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.2"/>
+
+  <!-- THE WALLS wordmark watermark -->
+  <text x="400" y="968" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="300" letter-spacing="6" fill="#c9a96e" fill-opacity="0.35" text-decoration="none">THE WALLS</text>
+  <text x="400" y="984" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="300" letter-spacing="3" fill="#c9a96e" fill-opacity="0.2">DUBAI · INTERIOR FIT-OUT</text>
+
+  <!-- Outer frame -->
+  <rect x="1" y="1" width="798" height="998" fill="none" stroke="#c9a96e" stroke-width="0.5" stroke-opacity="0.15"/>
+</svg>
