@@ -80,6 +80,10 @@ body {
 }
 .cursor.h { width: 4px; height: 4px; }
 .cursor-ring.h { width: 52px; height: 52px; border-color: rgba(201,169,110,0.8); }
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto !important; }
+  .cursor, .cursor-ring { display: none !important; }
+}
 
 /* NAVIGATION */
 nav {
@@ -168,6 +172,7 @@ nav.sc {
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
   text-decoration: none; transition: all 0.3s;
 }
+button.btn-outline { background: transparent; cursor: pointer; }
 .btn-outline:hover { background: var(--champagne); color: var(--obsidian); }
 
 /* FORMS */
