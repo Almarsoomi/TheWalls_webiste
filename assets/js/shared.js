@@ -42,6 +42,11 @@ function _twLogos(theme) {
 }
 
 // ── COOKIE CONSENT (global — called by onclick in injected HTML) ────────────
+window.openCookieSettings = function() {
+  localStorage.removeItem('tw_cookie_consent');
+  if (!document.getElementById('cookieBanner')) _twInjectCookieBanner();
+};
+
 window.cookieConsent = function(choice) {
   localStorage.setItem('tw_cookie_consent', choice);
   // Fire analytics immediately when user accepts
@@ -162,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function(){
     entries.forEach(function(entry) {
       if (entry.isIntersecting) entry.target.classList.add('vis');
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 })();

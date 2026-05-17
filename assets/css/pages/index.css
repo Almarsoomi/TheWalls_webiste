@@ -479,6 +479,14 @@ footer { background: var(--obsidian); border-top: 0.5px solid rgba(201,169,110,.
   .process-step { min-width: 240px; flex-shrink: 0; scroll-snap-align: start; padding: 0 24px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
 }
+.process-swipe-hint { display: none; }
+@media (max-width:1024px) {
+  .process-swipe-hint { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--champagne-muted); margin-top: 20px; padding-left: 40px; }
+  .process-swipe-hint::after { content: '→'; font-size: 14px; }
+}
+@media (hover: none) {
+  .process-step:active .process-dot { background: var(--champagne); color: var(--obsidian); }
+}
 @media (max-width:640px) {
   nav { padding: 20px 20px; }
   nav.scrolled { padding: 14px 20px; }

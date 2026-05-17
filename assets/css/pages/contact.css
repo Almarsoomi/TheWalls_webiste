@@ -18,6 +18,7 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .cursor{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--champagne);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
 .cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:.5px solid rgba(201,169,110,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
 .cursor.h{width:4px;height:4px}.cursor-ring.h{width:52px;height:52px;border-color:rgba(201,169,110,.8)}
+@media(hover:none),(pointer:coarse){body{cursor:auto!important}.cursor,.cursor-ring{display:none!important}}
 
 /* PAGE HERO */
 .page-hero{padding:160px 60px 80px;background:var(--obsidian-2);position:relative;overflow:hidden}
@@ -29,21 +30,19 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .ph-desc{font-size:15px;line-height:1.85;color:var(--gray-mid);max-width:540px;margin-top:28px;opacity:0;animation:fu .8s .6s ease forwards}
 @keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* CONTACT METHODS GRID */
-.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding:80px 60px;background:var(--obsidian)}
-.contact-method{background:var(--obsidian-2);border:.5px solid rgba(201,169,110,.12);padding:40px;text-align:center;transition:border-color .3s;opacity:0;animation:fu .8s ease forwards}
-.contact-method:nth-child(2){animation-delay:.1s}
-.contact-method:nth-child(3){animation-delay:.2s}
-.contact-method:hover{border-color:rgba(201,169,110,.3)}
-.contact-icon{width:56px;height:56px;margin:0 auto 20px;border:.5px solid rgba(201,169,110,.25);display:flex;align-items:center;justify-content:center}
-.contact-icon svg{width:24px;height:24px;stroke:var(--champagne);fill:none;stroke-width:1.5}
-.contact-title{font-family:var(--serif);font-size:24px;font-weight:300;color:var(--cream);margin-bottom:8px}
-.contact-detail{font-size:14px;color:var(--gray-mid);margin-bottom:24px;line-height:1.7}
-.contact-btn-row{display:flex;gap:0;margin-top:24px;align-items:stretch}
-.contact-label-btn{flex:0 0 auto;padding:12px 14px;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.2);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--champagne-muted);display:flex;align-items:center;white-space:nowrap}
-.contact-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;background:var(--champagne);color:var(--obsidian);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;transition:background .3s;border:none;cursor:pointer}
-.contact-btn:hover{background:var(--champagne-light)}
-.contact-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;flex-shrink:0}
+/* SEND BUTTONS + FOLLOW LINK */
+.form-send-options{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.btn-send-wa{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:#25D366;color:#fff;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;flex-shrink:0}
+.btn-send-wa:hover{background:#1ebe59}
+.btn-send-wa svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+.btn-send-email{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:transparent;color:var(--champagne);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;border:.5px solid var(--champagne-muted);cursor:pointer;transition:all .3s;flex-shrink:0}
+.btn-send-email:hover{background:var(--champagne);color:var(--obsidian)}
+.btn-send-email svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;flex-shrink:0}
+.form-follow{margin-top:20px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-mid);flex-wrap:wrap}
+.follow-ig-link{display:inline-flex;align-items:center;gap:6px;color:var(--champagne);text-decoration:none;font-size:13px;border-bottom:.5px solid rgba(201,169,110,.3);transition:color .25s;padding-bottom:1px}
+.follow-ig-link:hover{color:var(--champagne-light)}
+.follow-ig-link svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;flex-shrink:0}
+@media(max-width:480px){.form-send-options{flex-direction:column}.btn-send-wa,.btn-send-email{justify-content:center}}
 
 /* MAP + FORM — 2-col desktop layout */
 .map-form-grid{padding:80px 60px;background:var(--obsidian-2);border-top:.5px solid rgba(201,169,110,.12);display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
