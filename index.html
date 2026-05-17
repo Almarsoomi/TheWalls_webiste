@@ -19,9 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="./assets/css/shared.css"/>
-<link rel="stylesheet" href="./assets/css/pages/index.css"/>
-<link rel="stylesheet" href="./assets/css/responsive.css"/>
+<link rel="stylesheet" href="./assets/css/style.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
 <script>
@@ -46,12 +44,12 @@
 <nav id="mainNav">
   <a href="#" class="nav-logo"><img src="./assets/images/logo.svg" alt="The Walls" style="height:32px;width:auto;"/></a>
   <div class="nav-links">
-    <a href="services.html" data-en="Services" data-ar="خدماتنا">Services</a>
-    <a href="portfolio.html" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a>
+    <a href="./pages/services.html" data-en="Services" data-ar="خدماتنا">Services</a>
+    <a href="./pages/portfolio.html" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a>
     <a href="#process" data-en="Process" data-ar="طريقة عملنا">Process</a>
-    <a href="about.html" data-en="About" data-ar="من نحن">About</a>
-    <a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a>
-    <a href="blog.html" data-en="Journal" data-ar="المدونة">Journal</a>
+    <a href="./pages/about.html" data-en="About" data-ar="من نحن">About</a>
+    <a href="./pages/contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+    <a href="./pages/blog.html" data-en="Journal" data-ar="المدونة">Journal</a>
   </div>
   <div class="nav-right">
     <div class="lang-toggle">
@@ -60,8 +58,8 @@
       <button class="lang-btn" id="btnAR" onclick="setLang('ar')" style="font-family:var(--arabic);font-size:13px;letter-spacing:0;">عربي</button>
     </div>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch to light mode"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
-    <a href="booking.html" class="nav-cta en-only">Book Consultation</a>
-    <a href="booking.html" class="nav-cta ar-only">احجز استشارة</a>
+    <a href="./pages/booking.html" class="nav-cta en-only">Book Consultation</a>
+    <a href="./pages/booking.html" class="nav-cta ar-only">احجز استشارة</a>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -180,8 +178,8 @@
       <h2 class="section-title en-only">Crafted from <em>first principles</em></h2>
       <h2 class="section-title ar-only">مصنوع من <em>الأساس</em></h2>
     </div>
-    <a href="services.html" class="section-link en-only">All services →</a>
-    <a href="services.html" class="section-link ar-only">جميع الخدمات ←</a>
+    <a href="./pages/services.html" class="section-link en-only">All services →</a>
+    <a href="./pages/services.html" class="section-link ar-only">جميع الخدمات ←</a>
   </div>
   <div class="services-grid">
     <div class="service-card reveal">
@@ -269,8 +267,8 @@
       <h2 class="section-title en-only">Selected <em>projects</em></h2>
       <h2 class="section-title ar-only">مشاريع <em>مختارة</em></h2>
     </div>
-    <a href="portfolio.html" class="section-link en-only">Full portfolio →</a>
-    <a href="portfolio.html" class="section-link ar-only">جميع الأعمال ←</a>
+    <a href="./pages/portfolio.html" class="section-link en-only">Full portfolio →</a>
+    <a href="./pages/portfolio.html" class="section-link ar-only">جميع الأعمال ←</a>
   </div>
   <div class="reveal" style="max-width:560px;">
     <p style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-muted);margin-bottom:10px;" class="en-only">AI project search</p>
@@ -850,13 +848,11 @@ document.querySelectorAll('.project-card[data-link]').forEach(card => {
 });
 
 </script>
-<script src="./assets/js/search.js"></script>
 <script>
 // Wire search after search.js is loaded
 wireSearch('searchInputEN', 'searchResults');
 wireSearch('searchInputAR', 'searchResults');
 </script>
-<script src="./assets/js/before-after.js"></script>
-<script src="./assets/js/shared.js"></script>
+<script src="./assets/js/main.js"></script>
 </body>
 </html>

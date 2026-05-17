@@ -1,3 +1,9 @@
+/* ============================================================
+   THE WALLS — main.js
+   Single JavaScript file for all pages
+   ============================================================ */
+
+/* ── SHARED CORE ── */
 /* THE WALLS — SHARED JAVASCRIPT
    All top-level variables are wrapped in IIFEs to prevent
    SyntaxError conflicts with page-level inline <script> blocks
@@ -196,7 +202,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Add Book Consultation CTA
   var cta = document.createElement('a');
-  cta.href = window.location.pathname.includes('/blog/') ? '../booking.html' : './booking.html';
+  cta.href = window.location.pathname.includes('/blog/')
+    ? '../pages/booking.html'
+    : window.location.pathname.includes('/pages/')
+      ? './booking.html'
+      : './pages/booking.html';
   cta.className = 'mob-cta';
   cta.textContent = 'Book Consultation';
   overlay.appendChild(cta);
@@ -278,3 +288,103 @@ document.addEventListener('DOMContentLoaded', function(){
 
   document.addEventListener('DOMContentLoaded', setActiveNav);
 })();
+
+/* ── BEFORE / AFTER SLIDER ── */
+(function() {
+  const slider = document.getElementById('baSlider');
+  const after = document.getElementById('baAfter');
+  if (!slider || !after) return;
+
+  let dragging = false;
+
+  function setBA(pct) {
+    const p = Math.max(0, Math.min(100, pct));
+    after.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+    document.getElementById('baDivider').style.left = p + '%';
+    document.getElementById('baHandle').style.left = p + '%';
+  }
+
+  setBA(50);
+  slider.addEventListener('mousedown', () => dragging = true);
+  slider.addEventListener('touchstart', () => dragging = true, { passive: true });
+  window.addEventListener('mouseup', () => dragging = false);
+  window.addEventListener('touchend', () => dragging = false);
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const r = slider.getBoundingClientRect();
+    setBA((e.clientX - r.left) / r.width * 100);
+  });
+  window.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    const r = slider.getBoundingClientRect();
+    setBA((e.touches[0].clientX - r.left) / r.width * 100);
+  }, { passive: true });
+})();
+
+/* ── FAQ ACCORDION ── */
+function toggleFAQ(item) {
+  document.querySelectorAll('.faq-item').forEach(i => {
+    if (i !== item) i.classList.remove('open');
+  });
+  item.classList.toggle('open');
+}
+
+/* ── SEARCH ── */
+const PROJECTS = [
+  { name: 'Palm Jumeirah Villa', type: 'Residential', location: 'Palm Jumeirah', tags: 'villa joinery luxury residential', link: './case-study-villa.html' },
+  { name: 'DIFC Corporate HQ', type: 'Office', location: 'DIFC', tags: 'office fit-out corporate joinery', link: './case-study-office.html' },
+  { name: 'Dubai Hills Medical Clinic', type: 'Medical', location: 'Dubai Hills', tags: 'clinic medical healthcare fit-out', link: './case-study-clinic.html' },
+  { name: 'Modern Penthouse — Downtown', type: 'Residential', location: 'Downtown Dubai', tags: 'penthouse residential luxury', link: './portfolio.html' },
+  { name: 'Jumeirah Retail Boutique', type: 'Retail', location: 'Jumeirah', tags: 'retail boutique shop fitout', link: './portfolio.html' },
+  { name: 'Business Bay Apartment', type: 'Residential', location: 'Business Bay', tags: 'apartment residential modern', link: './portfolio.html' },
+  { name: 'JBR Hospitality Suite', type: 'Hospitality', location: 'JBR', tags: 'hotel suite hospitality luxury', link: './portfolio.html' },
+  { name: 'Al Barsha Restaurant', type: 'Hospitality', location: 'Al Barsha', tags: 'restaurant hospitality fit-out', link: './portfolio.html' },
+  { name: 'Mirdif Family Villa', type: 'Residential', location: 'Mirdif', tags: 'villa residential family joinery', link: './portfolio.html' },
+];
+
+let _searchTimer = null;
+
+function doSearch(inputId, resultsId) {
+  const inputEl = document.getElementById(inputId);
+  const container = document.getElementById(resultsId);
+  if (!inputEl || !container) return;
+
+  const q = inputEl.value.trim().toLowerCase();
+  if (!q || q.length < 2) {
+    container.classList.remove('show');
+    return;
+  }
+
+  const matches = PROJECTS.filter(p =>
+    [p.name, p.type, p.location, p.tags].some(f => f.toLowerCase().includes(q))
+  );
+
+  container.innerHTML = matches.length
+    ? matches.map(p =>
+        `<a class="search-result-item" href="${p.link}">
+           <span class="sr-name">${p.name}</span>
+           <span class="sr-meta">${p.type} &middot; ${p.location}</span>
+         </a>`
+      ).join('')
+    : `<p class="sr-empty">No results for "${q}"</p>`;
+
+  container.classList.toggle('show', true);
+}
+
+function wireSearch(inputId, resultsId) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  el.addEventListener('input', () => {
+    clearTimeout(_searchTimer);
+    _searchTimer = setTimeout(() => doSearch(inputId, resultsId), 200);
+  });
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch(inputId, resultsId);
+  });
+  document.addEventListener('click', e => {
+    if (!el.contains(e.target)) {
+      const c = document.getElementById(resultsId);
+      if (c) c.classList.remove('show');
+    }
+  });
+}
