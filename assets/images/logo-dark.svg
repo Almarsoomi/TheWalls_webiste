@@ -1,18 +1,18 @@
 <svg viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
-  <!-- Dark version: Obsidian on transparent -->
-  
-  <!-- Geometric mark: Thin square outline -->
+  <!-- Dark version: Obsidian on transparent (for light theme) -->
+
+  <!-- Geometric mark: Outer obsidian square, inner muted gold square -->
   <g id="mark">
     <rect x="2" y="4" width="20" height="20" fill="none" stroke="#0c0c0b" stroke-width="0.8"/>
-    <rect x="5" y="7" width="14" height="14" fill="none" stroke="#0c0c0b" stroke-width="0.5" opacity="0.6"/>
+    <rect x="5" y="7" width="14" height="14" fill="none" stroke="#9a7a50" stroke-width="0.6" opacity="0.8"/>
   </g>
-  
+
   <!-- THE (smaller) -->
-  <text x="28" y="10" font-family="Cormorant Garamond, serif" font-size="8" font-weight="300" letter-spacing="0.8" fill="#0c0c0b" text-transform="uppercase">THE</text>
-  
+  <text x="28" y="10" font-family="Cormorant Garamond, serif" font-size="8" font-weight="300" letter-spacing="0.8" fill="#0c0c0b">THE</text>
+
   <!-- WALLS (larger) -->
-  <text x="28" y="28" font-family="Cormorant Garamond, serif" font-size="16" font-weight="400" letter-spacing="1.2" fill="#0c0c0b" text-transform="uppercase">WALLS</text>
-  
-  <!-- Accent underline -->
-  <line x1="28" y1="30" x2="80" y2="30" stroke="#0c0c0b" stroke-width="0.5" opacity="0.4"/>
+  <text x="28" y="28" font-family="Cormorant Garamond, serif" font-size="16" font-weight="400" letter-spacing="1.2" fill="#0c0c0b">WALLS</text>
+
+  <!-- Muted gold accent underline -->
+  <line x1="28" y1="30" x2="80" y2="30" stroke="#9a7a50" stroke-width="0.5" opacity="0.5"/>
 </svg>
