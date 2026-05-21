@@ -92,11 +92,18 @@
         <input type="text" class="form-input" id="qfName" required/>
       </div>
       <div class="form-group">
-        <label class="form-label">Phone / WhatsApp *</label>
+        <label class="form-label en-only">Phone / WhatsApp *</label>
+        <label class="form-label ar-only">رقم الهاتف / واتساب *</label>
         <input type="tel" class="form-input" id="qfPhone" placeholder="+971 50 XXX XXXX" required/>
       </div>
       <div class="form-group">
-        <label class="form-label">Your Message *</label>
+        <label class="form-label en-only">Email Address *</label>
+        <label class="form-label ar-only">البريد الإلكتروني *</label>
+        <input type="email" class="form-input" id="qfEmail" placeholder="you@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label en-only">Your Message *</label>
+        <label class="form-label ar-only">رسالتك *</label>
         <textarea class="form-textarea" id="qfMessage" required></textarea>
       </div>
       <div class="form-send-options">
@@ -122,17 +129,22 @@
 </div>
 
 <!-- OFFICE INFO STRIP -->
-<div class="office-info rev">
-  <div class="office-info-item">
-    <div class="office-info-label">Business Hours</div>
-    <div class="office-info-content">Mon–Fri: 9:00 AM–6:00 PM<br/>Sat: 10:00 AM–2:00 PM</div>
+<div class="office-info">
+  <div class="office-info-item rev">
+    <div class="office-info-label en-only">Business Hours</div>
+    <div class="office-info-label ar-only">ساعات العمل</div>
+    <div class="office-info-content en-only">Mon – Sat: 8:00 AM – 6:00 PM<br/>Sunday: Closed</div>
+    <div class="office-info-content ar-only">الاثنين – السبت: 8:00 ص – 6:00 م<br/>الأحد: مغلق</div>
   </div>
-  <div class="office-info-item">
-    <div class="office-info-label">Location</div>
-    <div class="office-info-content">Dubai, United Arab Emirates</div>
+  <div class="office-info-item rev rd1">
+    <div class="office-info-label en-only">Location</div>
+    <div class="office-info-label ar-only">الموقع</div>
+    <div class="office-info-content en-only">Warehouse no.4, 22nd St<br/>Al Quoz 3 – Al Quoz – Dubai</div>
+    <div class="office-info-content ar-only">مستودع رقم 4، شارع 22<br/>القوز 3 – القوز – دبي</div>
   </div>
-  <div class="office-info-item">
-    <div class="office-info-label">Languages</div>
+  <div class="office-info-item rev rd2">
+    <div class="office-info-label en-only">Languages</div>
+    <div class="office-info-label ar-only">اللغات</div>
     <div class="office-info-content">English · Arabic</div>
   </div>
 </div>
@@ -276,21 +288,39 @@ document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
 
 // Form helpers
 function getFormData(){
-  const name=document.getElementById('qfName').value.trim();
-  const phone=document.getElementById('qfPhone').value.trim();
-  const msg=document.getElementById('qfMessage').value.trim();
-  if(!name||!phone||!msg){alert('Please fill in all fields.');return null;}
-  return{name,phone,msg};
+  const name  = document.getElementById('qfName').value.trim();
+  const phone = document.getElementById('qfPhone').value.trim();
+  const email = document.getElementById('qfEmail').value.trim();
+  const msg   = document.getElementById('qfMessage').value.trim();
+  const lang  = document.documentElement.getAttribute('lang') || 'en';
+  const isAr  = lang === 'ar';
+
+  if(!name || !phone || !email || !msg){
+    alert(isAr ? 'يرجى ملء جميع الحقول.' : 'Please fill in all fields.');
+    return null;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert(isAr ? 'يرجى إدخال بريد إلكتروني صحيح.' : 'Please enter a valid email address.');
+    return null;
+  }
+  const cleanPhone = phone.replace(/[\s\-]/g, '');
+  if(!/^(\+971|00971|0)?[0-9]{8,12}$/.test(cleanPhone)){
+    alert(isAr ? 'يرجى إدخال رقم هاتف إماراتي صحيح.' : 'Please enter a valid UAE phone number (e.g. +971 50 XXX XXXX).');
+    return null;
+  }
+  return {name, phone, email, msg};
 }
 function sendViaWhatsApp(){
-  const d=getFormData();if(!d)return;
-  const text=`Hi! I'm ${d.name}. ${d.msg} — Phone: ${d.phone}`;
+  const d = getFormData(); if(!d) return;
+  const sep = '──────────────────';
+  const text = `Hello, my name is ${d.name}.\n\n📋 Message:\n${d.msg}\n\n${sep}\n📞 Phone:  ${d.phone}\n📧 Email:  ${d.email}\n${sep}\nSent from The Walls website`;
   window.open('https://wa.me/971544996788?text='+encodeURIComponent(text),'_blank');
   document.querySelector('.quick-form').reset();
 }
 function sendViaEmail(){
-  const d=getFormData();if(!d)return;
-  const body=`Name: ${d.name}\nPhone: ${d.phone}\n\n${d.msg}`;
+  const d = getFormData(); if(!d) return;
+  const sep = '──────────────────────────────';
+  const body = `Name:    ${d.name}\nPhone:   ${d.phone}\nEmail:   ${d.email}\n\n${sep}\n\n${d.msg}\n\n${sep}\nSent via The Walls website contact form.`;
   window.open('mailto:info@thewalls.ae?subject='+encodeURIComponent('Inquiry from '+d.name)+'&body='+encodeURIComponent(body));
   document.querySelector('.quick-form').reset();
 }

@@ -24,6 +24,7 @@ window.toggleTheme = function() {
   localStorage.setItem('tw_theme', next);
   _twThemeBtn(next);
   _twLogos(next);
+  _twFonts(next);
 };
 
 function _twThemeBtn(theme) {
@@ -45,6 +46,17 @@ function _twLogos(theme) {
       img.setAttribute('src', src.replace('logo-dark.svg', 'logo.svg'));
     }
   });
+}
+
+function _twFonts(theme) {
+  var root = document.documentElement;
+  if (theme === 'light') {
+    root.style.setProperty('--serif', "'DM Sans', sans-serif");
+    root.style.setProperty('--display', "'DM Sans', sans-serif");
+  } else {
+    root.style.setProperty('--serif', "'Cormorant Garamond', Georgia, serif");
+    root.style.setProperty('--display', "'Bebas Neue', sans-serif");
+  }
 }
 
 // ── COOKIE CONSENT (global — called by onclick in injected HTML) ────────────
@@ -115,11 +127,12 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-// THEME BUTTON INIT + LOGO INIT + COOKIE BANNER INIT
+// THEME BUTTON INIT + LOGO INIT + FONT INIT + COOKIE BANNER INIT
 document.addEventListener('DOMContentLoaded', function(){
   var theme = document.documentElement.getAttribute('data-theme') || 'dark';
   _twThemeBtn(theme);
   _twLogos(theme);
+  _twFonts(theme);
   if (!localStorage.getItem('tw_cookie_consent')) {
     _twInjectCookieBanner();
   }
@@ -178,7 +191,36 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 })();
 
-// Language init handled per-page via setLang() + tw_lang localStorage key
+// GLOBAL LANGUAGE TOGGLE — shared across all pages
+// Fallback for pages with no inline setLang (e.g. about, blog, booking, etc.)
+window.setLang = window.setLang || function(lang) {
+  var root  = document.documentElement;
+  var btnEN = document.getElementById('btnEN');
+  var btnAR = document.getElementById('btnAR');
+  root.setAttribute('lang', lang);
+  root.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+  if (btnEN) btnEN.classList.toggle('active', lang !== 'ar');
+  if (btnAR) btnAR.classList.toggle('active', lang === 'ar');
+  localStorage.setItem('tw_lang', lang);
+  document.querySelectorAll('.nav-links a[data-en]').forEach(function(a) {
+    a.textContent = lang === 'ar' ? (a.dataset.ar || a.textContent) : (a.dataset.en || a.textContent);
+  });
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Wrap any page-specific setLang so that:
+  // 1. localStorage always persists on every click (even if page version forgot)
+  // 2. Nav link text always updates in Arabic/English (not all page versions do this)
+  var _orig = window.setLang;
+  window.setLang = function(lang) {
+    localStorage.setItem('tw_lang', lang);
+    if (_orig) _orig(lang);
+    document.querySelectorAll('.nav-links a[data-en]').forEach(function(a) {
+      a.textContent = lang === 'ar' ? (a.dataset.ar || a.textContent) : (a.dataset.en || a.textContent);
+    });
+  };
+  window.setLang(localStorage.getItem('tw_lang') || 'en');
+});
 
 // MOBILE HAMBURGER NAV
 // Uses a body-level overlay to avoid the backdrop-filter containing-block bug:
@@ -331,15 +373,15 @@ function toggleFAQ(item) {
 
 /* ── SEARCH ── */
 const PROJECTS = [
-  { name: 'Palm Jumeirah Villa', type: 'Residential', location: 'Palm Jumeirah', tags: 'villa joinery luxury residential', link: './case-study-villa.html' },
-  { name: 'DIFC Corporate HQ', type: 'Office', location: 'DIFC', tags: 'office fit-out corporate joinery', link: './case-study-office.html' },
-  { name: 'Dubai Hills Medical Clinic', type: 'Medical', location: 'Dubai Hills', tags: 'clinic medical healthcare fit-out', link: './case-study-clinic.html' },
-  { name: 'Modern Penthouse — Downtown', type: 'Residential', location: 'Downtown Dubai', tags: 'penthouse residential luxury', link: './portfolio.html' },
-  { name: 'Jumeirah Retail Boutique', type: 'Retail', location: 'Jumeirah', tags: 'retail boutique shop fitout', link: './portfolio.html' },
-  { name: 'Business Bay Apartment', type: 'Residential', location: 'Business Bay', tags: 'apartment residential modern', link: './portfolio.html' },
-  { name: 'JBR Hospitality Suite', type: 'Hospitality', location: 'JBR', tags: 'hotel suite hospitality luxury', link: './portfolio.html' },
-  { name: 'Al Barsha Restaurant', type: 'Hospitality', location: 'Al Barsha', tags: 'restaurant hospitality fit-out', link: './portfolio.html' },
-  { name: 'Mirdif Family Villa', type: 'Residential', location: 'Mirdif', tags: 'villa residential family joinery', link: './portfolio.html' },
+  { name: 'Palm Jumeirah Villa', type: 'Residential', location: 'Palm Jumeirah', tags: 'villa joinery luxury residential', link: './pages/case-study-villa.html' },
+  { name: 'DIFC Corporate HQ', type: 'Office', location: 'DIFC', tags: 'office fit-out corporate joinery', link: './pages/case-study-office.html' },
+  { name: 'Dubai Hills Medical Clinic', type: 'Medical', location: 'Dubai Hills', tags: 'clinic medical healthcare fit-out', link: './pages/case-study-clinic.html' },
+  { name: 'Modern Penthouse — Downtown', type: 'Residential', location: 'Downtown Dubai', tags: 'penthouse residential luxury', link: './pages/portfolio.html' },
+  { name: 'Jumeirah Retail Boutique', type: 'Retail', location: 'Jumeirah', tags: 'retail boutique shop fitout', link: './pages/portfolio.html' },
+  { name: 'Business Bay Apartment', type: 'Residential', location: 'Business Bay', tags: 'apartment residential modern', link: './pages/portfolio.html' },
+  { name: 'JBR Hospitality Suite', type: 'Hospitality', location: 'JBR', tags: 'hotel suite hospitality luxury', link: './pages/portfolio.html' },
+  { name: 'Al Barsha Restaurant', type: 'Hospitality', location: 'Al Barsha', tags: 'restaurant hospitality fit-out', link: './pages/portfolio.html' },
+  { name: 'Mirdif Family Villa', type: 'Residential', location: 'Mirdif', tags: 'villa residential family joinery', link: './pages/portfolio.html' },
 ];
 
 let _searchTimer = null;
