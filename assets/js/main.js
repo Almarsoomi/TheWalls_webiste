@@ -382,6 +382,7 @@ const PROJECTS = [
   { name: 'JBR Hospitality Suite', type: 'Hospitality', location: 'JBR', tags: 'hotel suite hospitality luxury', link: './pages/portfolio.html' },
   { name: 'Al Barsha Restaurant', type: 'Hospitality', location: 'Al Barsha', tags: 'restaurant hospitality fit-out', link: './pages/portfolio.html' },
   { name: 'Mirdif Family Villa', type: 'Residential', location: 'Mirdif', tags: 'villa residential family joinery', link: './pages/portfolio.html' },
+  { name: 'Lento Restaurant', type: 'Hospitality', location: 'Um Al Sheif', tags: 'restaurant hospitality fit-out', link: './pages/case-study-lento.html' },
 ];
 
 let _searchTimer = null;
