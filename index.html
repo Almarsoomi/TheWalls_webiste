@@ -1,1043 +1,1665 @@
 <!-- The Walls Website -->
 <!DOCTYPE html>
 <html lang="en" dir="ltr" id="htmlRoot">
+
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>The Walls — Fit-Out & Interior Design, Dubai</title>
-<meta name="description" content="The Walls delivers premium fit-out, joinery and interior design services in Dubai. Discover luxury villas, offices, retail and hospitality spaces built with custom craftsmanship and architectural precision."/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://thewalls.ae/"/>
-<meta property="og:title" content="The Walls — Fit-Out & Interior Design, Dubai"/>
-<meta property="og:description" content="The Walls delivers premium fit-out, joinery and interior design services in Dubai. Discover luxury villas, offices, retail and hospitality spaces built with custom craftsmanship and architectural precision."/>
-<meta property="og:url" content="https://thewalls.ae/"/>
-<meta property="og:type" content="website"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:site" content="@the_walls_dubai"/>
-<meta name="theme-color" content="#0c0c0b"/>
-<link rel="icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico"/>
-<link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png"/>
-<link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png"/>
-<link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-touch-icon.png"/>
-<link rel="manifest" href="./assets/images/favicon/site.webmanifest"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="./assets/css/style.css"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
-<script>
-  window._twLoadAnalytics=function(){
-    if(window._twAnalyticsLoaded)return;window._twAnalyticsLoaded=true;
-    var s=document.createElement('script');s.async=true;
-    s.src='https://www.googletagmanager.com/gtag/js?id=G-XEX65YMBMD';
-    document.head.appendChild(s);
-    window.dataLayer=window.dataLayer||[];
-    function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
-    gtag('js',new Date());gtag('config','G-XEX65YMBMD');gtag('config','GT-PHXZLZR');
-  };
-  if(localStorage.getItem('tw_cookie_consent')==='accept'){window._twLoadAnalytics();}
-</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Walls — Fit-Out & Interior Design, Dubai</title>
+  <meta name="description"
+    content="The Walls delivers premium fit-out, joinery and interior design services in Dubai. Discover luxury villas, offices, retail and hospitality spaces built with custom craftsmanship and architectural precision." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thewalls.ae/" />
+  <meta property="og:title" content="The Walls — Fit-Out & Interior Design, Dubai" />
+  <meta property="og:description"
+    content="The Walls delivers premium fit-out, joinery and interior design services in Dubai. Discover luxury villas, offices, retail and hospitality spaces built with custom craftsmanship and architectural precision." />
+  <meta property="og:url" content="https://thewalls.ae/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@the_walls_dubai" />
+  <meta name="theme-color" content="#0c0c0b" />
+  <link rel="icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="./assets/images/favicon/site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('tw_theme') || 'dark');</script>
+  <script>
+    window._twLoadAnalytics = function () {
+      if (window._twAnalyticsLoaded) return; window._twAnalyticsLoaded = true;
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XEX65YMBMD';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); } window.gtag = gtag;
+      gtag('js', new Date()); gtag('config', 'G-XEX65YMBMD'); gtag('config', 'GT-PHXZLZR');
+    };
+    if (localStorage.getItem('tw_cookie_consent') === 'accept') { window._twLoadAnalytics(); }
+  </script>
 </head>
+
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
-<nav id="mainNav">
-  <a href="#" class="nav-logo">
-    <img src="./assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
-  </a>
-  <div class="nav-links">
-    <a href="./pages/services.html" data-en="Services" data-ar="خدماتنا">Services</a>
-    <a href="./pages/portfolio.html" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a>
-    <a href="./pages/about.html" data-en="About" data-ar="من نحن">About</a>
-    <a href="./pages/contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a>
-    <a href="./pages/blog.html" data-en="Journal" data-ar="المدونة">Journal</a>
-  </div>
-  <div class="nav-right">
-    <div class="lang-toggle">
-      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
-      <div class="lang-sep"></div>
-      <button class="lang-btn" id="btnAR" onclick="setLang('ar')" style="font-family:var(--arabic);font-size:13px;letter-spacing:0;">عربي</button>
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="#" class="nav-logo">
+      <img src="./assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;" />
+    </a>
+    <div class="nav-links">
+      <a href="./pages/services.html" data-en="Services" data-ar="خدماتنا">Services</a>
+      <a href="./pages/portfolio.html" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a>
+      <a href="./pages/about.html" data-en="About" data-ar="من نحن">About</a>
+      <a href="./pages/contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+      <a href="./pages/blog.html" data-en="Journal" data-ar="المدونة">Journal</a>
     </div>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch to light mode"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
-    <a href="./pages/booking.html" class="nav-cta en-only">Book Consultation</a>
-    <a href="./pages/booking.html" class="nav-cta ar-only">احجز استشارة</a>
-  </div>
-  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+        <div class="lang-sep"></div>
+        <button class="lang-btn" id="btnAR" onclick="setLang('ar')"
+          style="font-family:var(--arabic);font-size:13px;letter-spacing:0;">عربي</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch to light mode"><svg
+          viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4.5" />
+          <line x1="12" y1="2" x2="12" y2="4.5" />
+          <line x1="12" y1="19.5" x2="12" y2="22" />
+          <line x1="2" y1="12" x2="4.5" y2="12" />
+          <line x1="19.5" y1="12" x2="22" y2="12" />
+          <line x1="4.93" y1="4.93" x2="6.7" y2="6.7" />
+          <line x1="17.3" y1="17.3" x2="19.07" y2="19.07" />
+          <line x1="4.93" y1="19.07" x2="6.7" y2="17.3" />
+          <line x1="17.3" y1="6.7" x2="19.07" y2="4.93" />
+        </svg></button>
+      <a href="./pages/booking.html" class="nav-cta en-only">Book Consultation</a>
+      <a href="./pages/booking.html" class="nav-cta ar-only">احجز استشارة</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-pattern"></div>
-  <div class="hero-image-blocks">
-    <div class="hero-block"><div class="hero-block-inner"></div></div>
-    <div class="hero-block"><div class="hero-block-inner"></div></div>
-    <div class="hero-block"><div class="hero-block-inner"></div></div>
-  </div>
-  <div class="hero-scroll en-only">Scroll</div>
-  <div class="hero-scroll ar-only" style="font-family:var(--arabic);letter-spacing:0;">تمرير</div>
-  <div class="hero-content">
-    <div class="hero-eyebrow en-only">Dubai · UAE · Est. 2018</div>
-    <div class="hero-eyebrow ar-only">دبي · الإمارات · تأسست 2018</div>
-    <h1 class="hero-h1 en-only">We craft <em>spaces</em><br/>that endure</h1>
-    <h1 class="hero-h1 ar-only">نصنع <em>مساحات</em><br/>تدوم عبر الزمن</h1>
-    <div class="hero-bottom">
-      <p class="hero-desc en-only">Specialists in joinery, solid surfaces, and aluminum works. Custom fit-out solutions designed and built by architects — for offices, villas, and retail across the UAE.</p>
-      <p class="hero-desc ar-only">متخصصون في أعمال النجارة والأسطح الصلبة والأعمال الألمنيوم. حلول تشطيب مخصصة يصممها ويُنفذها مهندسون معماريون — للمكاتب والفلل والمحلات التجارية في جميع أنحاء الإمارات.</p>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num">250<span>+</span></div>
-          <div class="hero-stat-label en-only">Projects Delivered</div>
-          <div class="hero-stat-label ar-only">مشروع منجز</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">8<span>+</span></div>
-          <div class="hero-stat-label en-only">Years in Dubai</div>
-          <div class="hero-stat-label ar-only">سنوات في دبي</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">100<span>%</span></div>
-          <div class="hero-stat-label en-only">Custom Made</div>
-          <div class="hero-stat-label ar-only">تصنيع مخصص</div>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-pattern"></div>
+    <div class="hero-image-blocks">
+      <div class="hero-block">
+        <div class="hero-block-inner"></div>
+      </div>
+      <div class="hero-block">
+        <div class="hero-block-inner"></div>
+      </div>
+      <div class="hero-block">
+        <div class="hero-block-inner"></div>
+      </div>
+    </div>
+    <div class="hero-scroll en-only">Scroll</div>
+    <div class="hero-scroll ar-only" style="font-family:var(--arabic);letter-spacing:0;">تمرير</div>
+    <div class="hero-content">
+      <div class="hero-eyebrow en-only">Dubai · UAE · Est. 2018</div>
+      <div class="hero-eyebrow ar-only">دبي · الإمارات · تأسست 2018</div>
+      <h1 class="hero-h1 en-only">We craft <em>spaces</em><br />that endure</h1>
+      <h1 class="hero-h1 ar-only">نصنع <em>مساحات</em><br />تدوم عبر الزمن</h1>
+      <div class="hero-bottom">
+        <p class="hero-desc en-only">Specialists in joinery, solid surfaces, and aluminum works. Custom fit-out
+          solutions designed and built by architects — for offices, villas, and retail across the UAE.</p>
+        <p class="hero-desc ar-only">متخصصون في أعمال النجارة والأسطح الصلبة والأعمال الألمنيوم. حلول تشطيب مخصصة يصممها
+          ويُنفذها مهندسون معماريون — للمكاتب والفلل والمحلات التجارية في جميع أنحاء الإمارات.</p>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">250<span>+</span></div>
+            <div class="hero-stat-label en-only">Projects Delivered</div>
+            <div class="hero-stat-label ar-only">مشروع منجز</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">8<span>+</span></div>
+            <div class="hero-stat-label en-only">Years in Dubai</div>
+            <div class="hero-stat-label ar-only">سنوات في دبي</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">100<span>%</span></div>
+            <div class="hero-stat-label en-only">Custom Made</div>
+            <div class="hero-stat-label ar-only">تصنيع مخصص</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track" id="marqueeTrack">
-    <!-- EN -->
-    <div class="marquee-item en-only"><span>Joinery</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Solid Surfaces</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Aluminum Works</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Custom Wardrobes</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>TV Units</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Parametric Design</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Curtain Walls</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Interior Design</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Joinery</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Solid Surfaces</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Aluminum Works</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Custom Wardrobes</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>TV Units</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Parametric Design</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Curtain Walls</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item en-only"><span>Interior Design</span><div class="marquee-dot"></div></div>
-    <!-- AR -->
-    <div class="marquee-item ar-only"><span>أعمال النجارة</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>الأسطح الصلبة</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>الأعمال الألمنيوم</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>خزائن مخصصة</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>وحدات تلفزيون</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>التصميم البارامتري</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>الجدران الزجاجية</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>التصميم الداخلي</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>أعمال النجارة</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>الأسطح الصلبة</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>الأعمال الألمنيوم</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>خزائن مخصصة</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>وحدات تلفزيون</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>التصميم البارامتري</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>الجدران الزجاجية</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item ar-only"><span>التصميم الداخلي</span><div class="marquee-dot"></div></div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section class="about-strip" id="about">
-  <div>
-    <div class="about-label reveal en-only">About the studio</div>
-    <div class="about-label reveal ar-only">عن الاستوديو</div>
-    <h2 class="about-heading reveal reveal-delay-1 en-only">Founded by <em>architects</em>,<br/>built for permanence</h2>
-    <h2 class="about-heading reveal reveal-delay-1 ar-only">أسّسه <em>المعماريون</em>،<br/>بُني للديمومة</h2>
-    <p class="about-body reveal reveal-delay-2 en-only">The Walls was founded by architects and designers who bring design intelligence into every stage — from concept through manufacturing and on-site supervision. We don't outsource quality; we build it from the inside out.<br/><br/>Based in Dubai, we serve clients across the UAE and GCC, delivering custom joinery, solid surfaces, aluminum works, and complete fit-out solutions that reflect both regional aesthetics and international standards.</p>
-    <p class="about-body reveal reveal-delay-2 ar-only">تأسست "ذا وولز" على يد مهندسين معماريين ومصممين يُدمجون خبرتهم في كل مرحلة من مراحل المشروع — من الفكرة الأولى حتى التصنيع والإشراف الميداني. لا نفوّض الجودة لأحد؛ نبنيها من الداخل إلى الخارج.<br/><br/>نعمل من دبي ونخدم عملاءنا في الإمارات ودول الخليج، ونقدم حلولاً تشطيبية مخصصة تجمع بين الهوية الخليجية والمعايير الدولية.</p>
-    <div style="margin-top:36px;" class="reveal reveal-delay-3">
-      <a href="#portfolio" class="btn-outline en-only">View our portfolio</a>
-      <a href="#portfolio" class="btn-outline ar-only">استعرض أعمالنا</a>
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+      <!-- EN -->
+      <div class="marquee-item en-only"><span>Joinery</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Solid Surfaces</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Aluminum Works</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Custom Wardrobes</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>TV Units</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Parametric Design</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Curtain Walls</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Interior Design</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Joinery</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Solid Surfaces</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Aluminum Works</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Custom Wardrobes</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>TV Units</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Parametric Design</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Curtain Walls</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item en-only"><span>Interior Design</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <!-- AR -->
+      <div class="marquee-item ar-only"><span>أعمال النجارة</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>الأسطح الصلبة</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>الأعمال الألمنيوم</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>خزائن مخصصة</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>وحدات تلفزيون</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>التصميم البارامتري</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>الجدران الزجاجية</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>التصميم الداخلي</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>أعمال النجارة</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>الأسطح الصلبة</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>الأعمال الألمنيوم</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>خزائن مخصصة</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>وحدات تلفزيون</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>التصميم البارامتري</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>الجدران الزجاجية</span>
+        <div class="marquee-dot"></div>
+      </div>
+      <div class="marquee-item ar-only"><span>التصميم الداخلي</span>
+        <div class="marquee-dot"></div>
+      </div>
     </div>
   </div>
-  <div class="about-right reveal reveal-delay-2">
-    <div class="about-accent"></div>
-    <div class="about-image-main"></div>
+
+  <!-- ABOUT -->
+  <section class="about-strip" id="about">
+    <div>
+      <div class="about-label reveal en-only">About the studio</div>
+      <div class="about-label reveal ar-only">عن الاستوديو</div>
+      <h2 class="about-heading reveal reveal-delay-1 en-only">Founded by <em>architects</em>,<br />built for permanence
+      </h2>
+      <h2 class="about-heading reveal reveal-delay-1 ar-only">أسّسه <em>المعماريون</em>،<br />بُني للديمومة</h2>
+      <p class="about-body reveal reveal-delay-2 en-only">The Walls was founded by architects and designers who bring
+        design intelligence into every stage — from concept through manufacturing and on-site supervision. We don't
+        outsource quality; we build it from the inside out.<br /><br />Based in Dubai, we serve clients across the UAE
+        and GCC, delivering custom joinery, solid surfaces, aluminum works, and complete fit-out solutions that reflect
+        both regional aesthetics and international standards.</p>
+      <p class="about-body reveal reveal-delay-2 ar-only">تأسست "ذا وولز" على يد مهندسين معماريين ومصممين يُدمجون خبرتهم
+        في كل مرحلة من مراحل المشروع — من الفكرة الأولى حتى التصنيع والإشراف الميداني. لا نفوّض الجودة لأحد؛ نبنيها من
+        الداخل إلى الخارج.<br /><br />نعمل من دبي ونخدم عملاءنا في الإمارات ودول الخليج، ونقدم حلولاً تشطيبية مخصصة تجمع
+        بين الهوية الخليجية والمعايير الدولية.</p>
+      <div style="margin-top:36px;" class="reveal reveal-delay-3">
+        <a href="#portfolio" class="btn-outline en-only">View our portfolio</a>
+        <a href="#portfolio" class="btn-outline ar-only">استعرض أعمالنا</a>
+      </div>
+    </div>
+    <div class="about-right reveal reveal-delay-2">
+      <div class="about-accent"></div>
+      <div class="about-image-main"></div>
+      <!--
+    // Reomve the Est 2024 badge and floating image for now since we don't have the final design assets ready yet. Will add back in once we have the final photos and design direction for those elements.
     <div class="about-image-float"></div>
-  </div>
-</section>
+    -->
+    </div>
+  </section>
 
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label" data-num="02">
-        <span class="en-only">What we do</span>
-        <span class="ar-only">ما نقدمه</span>
-      </div>
-      <h2 class="section-title en-only">Crafted from <em>first principles</em></h2>
-      <h2 class="section-title ar-only">مصنوع من <em>الأساس</em></h2>
-    </div>
-    <a href="./pages/services.html" class="section-link en-only">All services →</a>
-    <a href="./pages/services.html" class="section-link ar-only">جميع الخدمات ←</a>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-num">01</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-      <div class="service-name en-only">Joinery & Carpentry</div>
-      <div class="service-name ar-only">النجارة والأعمال الخشبية</div>
-      <p class="service-desc en-only">Custom doors, wardrobes, TV units, shelving, and parametric designs — all manufactured to your exact specifications with precision woodworking.</p>
-      <p class="service-desc ar-only">أبواب وخزائن ووحدات تلفزيون ورفوف وتصاميم بارامترية مخصصة — تُصنَّع وفق مواصفاتك الدقيقة بأعلى جودة نجارة.</p>
-      <div class="service-tags">
-        <span class="service-tag en-only">Custom Doors</span><span class="service-tag en-only">Wardrobes</span><span class="service-tag en-only">TV Units</span>
-        <span class="service-tag ar-only">أبواب مخصصة</span><span class="service-tag ar-only">خزائن</span><span class="service-tag ar-only">وحدات تلفزيون</span>
-      </div>
-    </div>
-    <div class="service-card reveal reveal-delay-1">
-      <div class="service-num">02</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg></div>
-      <div class="service-name en-only">Solid Surfaces</div>
-      <div class="service-name ar-only">الأسطح الصلبة</div>
-      <p class="service-desc en-only">Seamless countertops, reception desks, cladding, and decorative panels in Corian, Dekton, porcelain, and natural stone.</p>
-      <p class="service-desc ar-only">أسطح عمل وطاولات استقبال وكسوة وألواح زخرفية من كوريان وديكتون والخزف والحجر الطبيعي.</p>
-      <div class="service-tags">
-        <span class="service-tag en-only">Corian</span><span class="service-tag en-only">Dekton</span><span class="service-tag en-only">Stone</span>
-        <span class="service-tag ar-only">كوريان</span><span class="service-tag ar-only">ديكتون</span><span class="service-tag ar-only">حجر طبيعي</span>
-      </div>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="service-num">03</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
-      <div class="service-name en-only">Aluminum Works</div>
-      <div class="service-name ar-only">الأعمال الألمنيوم</div>
-      <p class="service-desc en-only">Aluminum windows, doors, curtain walls, and cladding systems — engineered for Dubai's climate and aesthetics.</p>
-      <p class="service-desc ar-only">نوافذ وأبواب وجدران زجاجية وأنظمة كسوة ألمنيوم — مصممة لتناسب مناخ دبي ومتطلباتها الجمالية.</p>
-      <div class="service-tags">
-        <span class="service-tag en-only">Windows</span><span class="service-tag en-only">Curtain Walls</span>
-        <span class="service-tag ar-only">نوافذ</span><span class="service-tag ar-only">جدران زجاجية</span>
-      </div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">04</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-      <div class="service-name en-only">Interior Design</div>
-      <div class="service-name ar-only">التصميم الداخلي</div>
-      <p class="service-desc en-only">Full interior design services from concept to FF&E specification — our architects and designers handle every detail of your space.</p>
-      <p class="service-desc ar-only">خدمات تصميم داخلي متكاملة من الفكرة حتى تحديد المفروشات والتجهيزات — يتولى مهندسونا ومصممونا كل تفصيلة في مساحتك.</p>
-      <div class="service-tags">
-        <span class="service-tag en-only">Concept Design</span><span class="service-tag en-only">FF&E</span>
-        <span class="service-tag ar-only">التصميم المفاهيمي</span><span class="service-tag ar-only">المفروشات والتجهيزات</span>
-      </div>
-    </div>
-    <div class="service-card reveal reveal-delay-1">
-      <div class="service-num">05</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
-      <div class="service-name en-only">Complete Fit-Out</div>
-      <div class="service-name ar-only">التشطيب الكامل</div>
-      <p class="service-desc en-only">End-to-end fit-out for offices, retail, villas, and hospitality — we design, manufacture, and supervise on-site to deliver a turnkey result.</p>
-      <p class="service-desc ar-only">تشطيب متكامل من الألف إلى الياء للمكاتب والمحلات والفلل والضيافة — نصمم وننتج ونشرف ميدانياً لتسليم مشروعك جاهزاً للسكن.</p>
-      <div class="service-tags">
-        <span class="service-tag en-only">Offices</span><span class="service-tag en-only">Villas</span><span class="service-tag en-only">Retail</span>
-        <span class="service-tag ar-only">مكاتب</span><span class="service-tag ar-only">فلل</span><span class="service-tag ar-only">محلات</span>
-      </div>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="service-num">06</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div class="service-name en-only">Architecture & Supervision</div>
-      <div class="service-name ar-only">الهندسة المعمارية والإشراف</div>
-      <p class="service-desc en-only">Our licensed architects supervise every project through manufacturing and installation — ensuring design intent is faithfully delivered.</p>
-      <p class="service-desc ar-only">يشرف مهندسونا المعتمدون على كل مشروع خلال التصنيع والتركيب — لضمان تنفيذ الرؤية التصميمية بأمانة كاملة.</p>
-      <div class="service-tags">
-        <span class="service-tag en-only">Site Supervision</span><span class="service-tag en-only">QA/QC</span>
-        <span class="service-tag ar-only">الإشراف الميداني</span><span class="service-tag ar-only">ضبط الجودة</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO -->
-<section class="portfolio" id="portfolio">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label" data-num="03">
-        <span class="en-only">Our work</span><span class="ar-only">أعمالنا</span>
-      </div>
-      <h2 class="section-title en-only">Selected <em>projects</em></h2>
-      <h2 class="section-title ar-only">مشاريع <em>مختارة</em></h2>
-    </div>
-    <a href="./pages/portfolio.html" class="section-link en-only">Full portfolio →</a>
-    <a href="./pages/portfolio.html" class="section-link ar-only">جميع الأعمال ←</a>
-  </div>
-  <div class="reveal" style="max-width:560px;">
-    <p style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-muted);margin-bottom:10px;" class="en-only">Project Search</p>
-    <p style="font-size:14px;color:var(--champagne-muted);margin-bottom:10px;font-family:var(--arabic);" class="ar-only">البحث الذكي في المشاريع</p>
-    <div class="search-bar">
-      <input type="text" class="search-input en-only" placeholder="Try: luxury office in DIFC, villa in Palm…" id="searchInputEN"/>
-      <input type="text" class="search-input ar-only" placeholder="مثال: مكتب فاخر في ديفك، فيلا في النخلة…" id="searchInputAR" style="display:none;"/>
-      <button class="search-btn" onclick="var _q=document.getElementById('searchInputAR').value.trim();doSearch(_q?'searchInputAR':'searchInputEN','searchResults')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-    </div>
-    <div class="search-results" id="searchResults"></div>
-    </div>
-  </div>
-  <div class="portfolio-grid">
-    <!-- LENTO RESTAURANT — featured full-width card -->
-    <!-- for full-width cardstyle="grid-column:1/-1;aspect-ratio:21/7;" -->
-    <div class="project-card reveal" data-link="./pages/case-study-lento.html">
-      <div class="project-bg" style="background-image:url('./assets/images/LENTO_PROJ/LENTO%201.jpg');background-size:cover;background-position:center;"></div><div class="project-inner-lines"></div>
-      <div class="project-info">
-        <div class="project-cat en-only">Hospitality · Um Al Sheif, Dubai · 2024</div>
-        <div class="project-cat ar-only">ضيافة · أم الشيف، دبي · 2024</div>
-        <div class="project-name en-only">Lento Restaurant</div>
-        <div class="project-name ar-only">مطعم لينتو</div>
-        <div class="project-loc en-only">Custom furniture & signage · 18+ bespoke pieces · Steel, concrete & leather</div>
-        <div class="project-loc ar-only">أثاث مخصص وإشارات · 18+ قطعة فريدة · فولاذ وخرسانة وجلد</div>
-      </div>
-      <div class="project-hover-cta"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-    </div>
-    <!-- TODO: Replace with real project photo when client provides -->
-    <div class="project-card reveal" data-link="./pages/case-study-office.html">
-      <div class="project-bg"></div><div class="project-inner-lines"></div>
-      <div class="project-info">
-        <div class="project-cat en-only">Office · DIFC · 2024</div>
-        <div class="project-cat ar-only">مكتب · ديفك · 2024</div>
-        <div class="project-name en-only">Corporate HQ — Gate District</div>
-        <div class="project-name ar-only">المقر الرئيسي — حي البوابة</div>
-        <div class="project-loc en-only">Full fit-out · 1,400 sqm · Joinery, Solid Surfaces, Aluminum</div>
-        <div class="project-loc ar-only">تشطيب كامل · 1,400 م² · نجارة وأسطح صلبة وألمنيوم</div>
-      </div>
-      <div class="project-hover-cta"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-    </div>
-    <!-- TODO: Replace um.jpg with final selected hero photo from Palm_PROJ folder when ready -->
-    <div class="project-card reveal reveal-delay-1" data-link="./pages/case-study-villa.html">
-      <div class="project-bg" style="background-image:url('./assets/images/Palm_PROJ/um.jpg');background-size:cover;background-position:center;"></div><div class="project-inner-lines"></div>
-      <div class="project-info">
-        <div class="project-cat en-only">Residential · Palm Jumeirah · 2024</div>
-        <div class="project-cat ar-only">سكني · نخلة جميرا · 2024</div>
-        <div class="project-name en-only">Luxury Villa — The Palm</div>
-        <div class="project-name ar-only">فيلا فاخرة — النخلة</div>
-        <div class="project-loc en-only">Complete interior · Custom wardrobes & joinery</div>
-        <div class="project-loc ar-only">تشطيب داخلي متكامل · خزائن وأعمال نجارة مخصصة</div>
-      </div>
-      <div class="project-hover-cta"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-    </div>
-    <!-- TODO: Replace with real project photo when client provides -->
-    <div class="project-card reveal reveal-delay-2" data-link="./pages/portfolio.html">
-      <div class="project-bg"></div><div class="project-inner-lines"></div>
-      <div class="project-info">
-        <div class="project-cat en-only">Retail · Downtown Dubai · 2023</div>
-        <div class="project-cat ar-only">تجاري · وسط مدينة دبي · 2023</div>
-        <div class="project-name en-only">Boutique — Dubai Mall</div>
-        <div class="project-name ar-only">بوتيك — دبي مول</div>
-        <div class="project-loc en-only">Custom joinery · Display units · Solid surfaces</div>
-        <div class="project-loc ar-only">نجارة مخصصة · وحدات عرض · أسطح صلبة</div>
-      </div>
-      <div class="project-hover-cta"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-    </div>
-    <!-- TODO: replace placeholder with real photo when client provides -->
-    <div class="project-card reveal reveal-delay-3" data-link="./pages/portfolio.html">
-      <div class="project-bg"></div><div class="project-inner-lines"></div>
-      <div class="project-info">
-        <div class="project-cat en-only">Residential · Downtown Dubai · 2025</div>
-        <div class="project-cat ar-only">سكني · وسط مدينة دبي · 2025</div>
-        <div class="project-name en-only">Modern Penthouse — Downtown</div>
-        <div class="project-name ar-only">بنتهاوس عصري — وسط المدينة</div>
-        <div class="project-loc en-only">Bespoke joinery · Feature walls · Solid surfaces</div>
-        <div class="project-loc ar-only">نجارة مخصصة · جدران مميزة · أسطح صلبة</div>
-      </div>
-      <div class="project-hover-cta"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
-    </div>
-  </div>
-</section>
-
-<!-- 360° PROJECT ROOM TOURS (BETA) -->
-<section class="tours-360" id="tours-360">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label" data-num="07">
-        <span class="en-only">Immersive tours</span>
-        <span class="ar-only">جولات غامرة</span>
-      </div>
-      <h2 class="section-title en-only">360° Project <em>Room Tours</em> <span class="beta-badge">Beta</span></h2>
-      <h2 class="section-title ar-only">جولات المشاريع <em>360°</em> <span class="beta-badge">تجريبي</span></h2>
-    </div>
-  </div>
-  <p class="tours-360-desc reveal en-only">Immersive 360° panorama tours of completed projects. Click to explore, see details and material finishes up close.</p>
-  <p class="tours-360-desc reveal ar-only">جولات بانورامية غامرة بزاوية 360° للمشاريع المنجزة. انقر للاستكشاف وشاهد التفاصيل ولمسات المواد عن قرب.</p>
-  <div class="tours-grid">
-    <div class="tour-card reveal">
-      <div class="tour-img">
-        <div class="tour-img-inner" style="background-image:url('./assets/images/placeholder-interior.svg');"></div>
-        <div class="tour-360-badge">360°</div>
-        <div class="tour-overlay">
-          <div class="tour-360-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-          </div>
-        </div>
-        <div class="tour-coming">
-          <div class="tour-label en-only">Hospitality · Um Al Sheif, Dubai</div>
-          <div class="tour-label ar-only">ضيافة · أم الشيف، دبي</div>
-          <div class="tour-title en-only">Lento Restaurant</div>
-          <div class="tour-title ar-only">مطعم لينتو</div>
-          <span class="tour-status en-only">Coming Soon</span>
-          <span class="tour-status ar-only">قريباً</span>
-        </div>
-      </div>
-    </div>
-    <div class="tour-card reveal reveal-delay-1">
-      <div class="tour-img">
-        <div class="tour-img-inner" style="background-image:url('./assets/images/placeholder-interior.svg');"></div>
-        <div class="tour-360-badge">360°</div>
-        <div class="tour-overlay">
-          <div class="tour-360-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-          </div>
-        </div>
-        <div class="tour-coming">
-          <div class="tour-label en-only">Residential · Palm Jumeirah</div>
-          <div class="tour-label ar-only">سكني · نخلة جميرا</div>
-          <div class="tour-title en-only">Luxury Villa — The Palm</div>
-          <div class="tour-title ar-only">فيلا فاخرة — النخلة</div>
-          <span class="tour-status en-only">Coming Soon</span>
-          <span class="tour-status ar-only">قريباً</span>
-        </div>
-      </div>
-    </div>
-    <div class="tour-card reveal reveal-delay-2">
-      <div class="tour-img">
-        <div class="tour-img-inner" style="background-image:url('./assets/images/placeholder-interior.svg');"></div>
-        <div class="tour-360-badge">360°</div>
-        <div class="tour-overlay">
-          <div class="tour-360-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-          </div>
-        </div>
-        <div class="tour-coming">
-          <div class="tour-label en-only">Commercial · DIFC</div>
-          <div class="tour-label ar-only">تجاري · مركز دبي المالي</div>
-          <div class="tour-title en-only">Corporate HQ — Gate District</div>
-          <div class="tour-title ar-only">المقر الرئيسي — حي البوابة</div>
-          <span class="tour-status en-only">Coming Soon</span>
-          <span class="tour-status ar-only">الجولة قريباً</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS MAP -->
-<section class="projects-map-section" id="projects-map">
-  <div class="pm-header reveal">
-    <div class="pm-label en-only">Our Presence</div>
-    <div class="pm-label ar-only">حضورنا</div>
-    <h2 class="pm-title en-only">Projects <em>Across Dubai</em></h2>
-    <h2 class="pm-title ar-only">مشاريعنا <em>في دبي</em></h2>
-    <p class="pm-desc en-only">From Palm Jumeirah to Business Bay — The Walls has delivered across Dubai's most prestigious addresses.</p>
-    <p class="pm-desc ar-only">من نخلة جميرا إلى بيزنس باي — نفّذ ذا وولز مشاريع في أرقى العناوين في دبي.</p>
-  </div>
-  <div class="pm-map-wrap">
-    <div id="projectsMap"></div>
-  </div>
-</section>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-(function(){
-  var projects=[
-    {name:'Lento Restaurant',type:'Hospitality Fit-Out',lat:25.1453,lng:55.1957,link:'./pages/case-study-lento.html'},
-    {name:'Palm Jumeirah Villa',type:'Residential Fit-Out',lat:25.1124,lng:55.1390,link:'./pages/case-study-villa.html'},
-    {name:'DIFC Corporate Office',type:'Commercial Interior',lat:25.2107,lng:55.2810,link:'./pages/case-study-office.html'},
-    {name:'Dubai Hills Clinic',type:'Medical Fit-Out',lat:25.1011,lng:55.2456,link:'./pages/case-study-clinic.html'},
-    {name:'JVC Residence',type:'Joinery & Surfaces',lat:25.0505,lng:55.2057,link:null},
-    {name:'Business Bay Showroom',type:'Retail & Commercial',lat:25.1840,lng:55.2595,link:null}
-  ];
-
-  var map=L.map('projectsMap',{
-    center:[25.1500,55.2200],zoom:11,
-    scrollWheelZoom:false,
-    zoomControl:true,
-    attributionControl:false
-  });
-
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-    maxZoom:19,subdomains:'abcd'
-  }).addTo(map);
-
-  projects.forEach(function(p,i){
-    var icon=L.divIcon({
-      className:'pm-dot-icon',
-      html:'<div class="pm-dot"></div>',
-      iconSize:[16,16],iconAnchor:[8,8]
-    });
-    var marker=L.marker([p.lat,p.lng],{icon:icon}).addTo(map);
-    var popupHtml='<div class="pm-popup"><div class="pm-popup-name">'+p.name+'</div><div class="pm-popup-type">'+p.type+'</div>'+(p.link?'<a href="'+p.link+'" class="pm-popup-link">View Project →</a>':'')+'</div>';
-    marker.bindPopup(popupHtml,{className:'pm-leaflet-popup',closeButton:false,offset:[0,-4]});
-  });
-})();
-</script>
-
-<!-- BEFORE/AFTER -->
-<section class="ba-section">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label" data-num="04">
-        <span class="en-only">Transformation</span><span class="ar-only">التحول</span>
-      </div>
-      <h2 class="section-title en-only">Before & <em>after</em></h2>
-      <h2 class="section-title ar-only">قبل <em>وبعد</em></h2>
-    </div>
-    <p style="font-size:13px;color:var(--gray-mid);max-width:260px;text-align:right;align-self:flex-end;" class="en-only">Drag the slider to reveal the transformation.</p>
-    <p style="font-size:15px;color:var(--gray-mid);max-width:260px;text-align:left;align-self:flex-end;font-family:var(--arabic);" class="ar-only">اسحب المنزلق لمشاهدة التحول المذهل.</p>
-  </div>
-  <div class="ba-slider-wrap reveal" id="baSlider">
-    <!-- TODO: Replace before.png with the actual client before-photo when available -->
-    <div class="ba-before">
-      <div class="ba-before-bg" style="background-image:url('./assets/images/before.png');background-size:cover;background-position:center;"></div>
-    </div>
-    <!-- TODO: Replace after.jpg with the actual client after-photo when available -->
-    <div class="ba-after" id="baAfter">
-      <div class="ba-after-bg" style="background-image:url('./assets/images/after.jpg');background-size:cover;background-position:center;"></div>
-    </div>
-    <div class="ba-label ba-label-before en-only">Before</div>
-    <div class="ba-label ba-label-after en-only">After</div>
-    <div class="ba-label ba-label-before ar-only">قبل</div>
-    <div class="ba-label ba-label-after ar-only">بعد</div>
-    <div class="ba-divider" id="baDivider"></div>
-    <div class="ba-handle" id="baHandle"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/><polyline points="9 18 3 12 9 6" style="transform:translateX(8px)"/></svg></div>
-  </div>
-</section>
-
-<!-- ESTIMATOR -->
-<section class="estimator" id="estimator">
-  <div class="estimator-intro reveal">
-    <div class="estimator-tag en-only">Estimate Tool</div>
-    <div class="estimator-tag ar-only">أداة مدعومة بالذكاء الاصطناعي</div>
-    <h2 class="estimator-heading en-only">Get an instant <em>cost estimate</em></h2>
-    <h2 class="estimator-heading ar-only">احصل على <em>تقدير فوري</em> للتكلفة</h2>
-    <p class="estimator-sub en-only">Enter your project details and receive a ballpark fit-out budget in AED — instantly. No sales calls required for a first indication.</p>
-    <p class="estimator-sub ar-only">أدخل تفاصيل مشروعك واحصل على تقدير مبدئي للميزانية بالدرهم الإماراتي — فوراً. لا حاجة لمكالمة مبيعات للحصول على رقم أولي.</p>
-    <div style="margin-top:40px;padding-top:40px;border-top:0.5px solid rgba(201,169,110,.15);">
-      <div style="display:flex;gap:32px;flex-wrap:wrap;">
-        <div>
-          <div style="font-family:var(--display);font-size:40px;color:var(--champagne);line-height:1;">AED 800</div>
-          <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-muted);margin-top:4px;" class="en-only">Standard / sqm</div>
-          <div style="font-size:13px;color:var(--gray-muted);margin-top:4px;font-family:var(--arabic);" class="ar-only">قياسي / م²</div>
-        </div>
-        <div>
-          <div style="font-family:var(--display);font-size:40px;color:var(--champagne);line-height:1;">AED 1,800</div>
-          <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-muted);margin-top:4px;" class="en-only">Premium / sqm</div>
-          <div style="font-size:13px;color:var(--gray-muted);margin-top:4px;font-family:var(--arabic);" class="ar-only">بريميوم / م²</div>
-        </div>
-        <div>
-          <div style="font-family:var(--display);font-size:40px;color:var(--champagne);line-height:1;">AED 3,500</div>
-          <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-muted);margin-top:4px;" class="en-only">Luxury / sqm</div>
-          <div style="font-size:13px;color:var(--gray-muted);margin-top:4px;font-family:var(--arabic);" class="ar-only">فاخر / م²</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="estimator-form reveal reveal-delay-1">
-    <div class="form-row">
-      <label class="form-label en-only">Space type</label>
-      <label class="form-label ar-only">نوع المساحة</label>
-      <select class="form-select" id="spaceType" onchange="calcEstimate()">
-        <option value="" class="en-only">Select space type…</option>
-        <option value="office" data-en="Office" data-ar="مكتب">Office</option>
-        <option value="villa" data-en="Villa / Apartment" data-ar="فيلا / شقة">Villa / Apartment</option>
-        <option value="retail" data-en="Retail / Showroom" data-ar="محل / معرض">Retail / Showroom</option>
-        <option value="hospitality" data-en="Restaurant / Hospitality" data-ar="مطعم / ضيافة">Restaurant / Hospitality</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label class="form-label en-only">Area (sqm)</label>
-      <label class="form-label ar-only">المساحة (م²)</label>
-      <div class="range-current" id="sqmDisplay">100 sqm</div>
-      <input type="range" class="form-range" id="sqmRange" min="20" max="2000" step="10" value="100" oninput="updateSqm(this.value)"/>
-      <div class="range-values"><span>20</span><span>2,000</span></div>
-    </div>
-    <div class="form-row">
-      <label class="form-label en-only">Fit-out tier</label>
-      <label class="form-label ar-only">درجة التشطيب</label>
-      <div class="tier-buttons">
-        <button class="tier-btn active" onclick="setTier(this,'standard')"><span class="en-only">Standard</span><span class="ar-only">قياسي</span></button>
-        <button class="tier-btn" onclick="setTier(this,'premium')"><span class="en-only">Premium</span><span class="ar-only">بريميوم</span></button>
-        <button class="tier-btn" onclick="setTier(this,'luxury')"><span class="en-only">Luxury</span><span class="ar-only">فاخر</span></button>
-      </div>
-    </div>
-    <div class="estimate-result show" id="estimateResult">
-      <div class="estimate-from en-only">Estimated investment range</div>
-      <div class="estimate-from ar-only">نطاق الاستثمار المقدّر</div>
-      <div class="estimate-range" id="estimateRange">AED 80,000 – AED 120,000</div>
-      <div class="estimate-note en-only">This is an indicative range. Request a detailed quote for your exact scope.</div>
-      <div class="estimate-note ar-only">هذا تقدير مبدئي. اطلب عرض سعر تفصيلياً لنطاق مشروعك الدقيق.</div>
-    </div>
-    <div class="form-row" style="margin-top:20px;">
-      <label class="form-label en-only">Your Name *</label>
-      <label class="form-label ar-only">اسمك *</label>
-      <input type="text" class="form-input" id="estimateName" placeholder="Ahmed Al Rashidi"/>
-    </div>
-    <div class="form-row">
-      <label class="form-label en-only">Email Address</label>
-      <label class="form-label ar-only">البريد الإلكتروني</label>
-      <input type="email" class="form-input" id="estimateEmail" placeholder="you@example.com"/>
-    </div>
-    <button class="btn-send-db" id="btnSaveEstimate" onclick="saveEstimate()">
-      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      <span class="en-only">Save Estimate Request</span><span class="ar-only">حفظ طلب التقدير</span>
-    </button>
-    <div id="estimateStatus" class="form-status"></div>
-    <div class="form-send-alt-row" style="margin-top:4px;">
-      <button class="btn-send-wa en-only" onclick="sendEstimate()">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Request quote via WhatsApp
-      </button>
-      <button class="btn-send-wa ar-only" onclick="sendEstimate()">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        اطلب عرضاً عبر واتساب
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label" data-num="05"><span class="en-only">What clients say</span><span class="ar-only">ماذا يقول عملاؤنا</span></div>
-      <h2 class="section-title en-only">Built on <em>trust</em></h2>
-      <h2 class="section-title ar-only">بُنينا على <em>الثقة</em></h2>
-    </div>
-    <a href="https://share.google/svuYy5mTTzA5TUwda" target="_blank" rel="noopener noreferrer" class="section-link en-only">See Google reviews →</a>
-    <a href="https://share.google/svuYy5mTTzA5TUwda" target="_blank" rel="noopener noreferrer" class="section-link ar-only">مراجعات Google ←</a>
-  </div>
-  <div style="text-align:center;margin-bottom:40px;font-size:14px;color:var(--gray-mid);"><span style="color:var(--champagne);font-weight:500;">★★★★★ 5.0</span> · Based on Google reviews · <a href="https://share.google/svuYy5mTTzA5TUwda" target="_blank" rel="noopener noreferrer" style="color:var(--champagne);text-decoration:none;">View all reviews →</a></div>
-  <div class="testimonials-track reveal">
-    <div class="testimonials-marquee" aria-label="Customer testimonials">
-      <!-- SET 1 (original 8 cards) -->
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Had a great experience with Eng. Mustafa from The Walls in one of the clinics in Dubai Hills Park."</p>
-        <p class="testimonial-quote ar-only">"كان لدينا تجربة رائعة مع المهندس مصطفى من ذا وولز في إحدى العيادات في دبي هيلز بارك."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Medical Clinic · Dubai Hills Park</div><div class="author-title ar-only">عيادة طبية · دبي هيلز بارك</div></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Incredible woodwork from this wonderful company. My table is beautifully engraved and the wood feels utterly alive. Truly great."</p>
-        <p class="testimonial-quote ar-only">"أعمال نجارة رائعة من هذه الشركة الرائعة. طاولتي محفورة بجمال والخشب يبدو حياً تماماً. رائع جداً."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Joinery & Carpentry</div><div class="author-title ar-only">النجارة والأعمال الخشبية</div></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"The Walls Company is highly skilled in aluminum and glass work, demonstrating remarkable expertise and craftsmanship. Their attention to detail and precision are evident in every project."</p>
-        <p class="testimonial-quote ar-only">"شركة ذا وولز ماهرة جداً في أعمال الألمنيوم والزجاج، وتظهر خبرة استثنائية وحرفية عالية. اهتمامهم بالتفاصيل والدقة واضح في كل مشروع يقومون به."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Aluminum Works · Glass</div><div class="author-title ar-only">الأعمال الألمنيوم والزجاج</div></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"I had an amazing experience with The Walls. I highly recommend them. The quality of their aluminum products is exceptional."</p>
-        <p class="testimonial-quote ar-only">"كانت لدي تجربة رائعة مع ذا وولز. أنصح بهم بشدة. جودة منتجات الألمنيوم لديهم استثنائية."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Aluminum Products · Quality</div><div class="author-title ar-only">منتجات الألمنيوم عالية الجودة</div></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"The quality and craftsmanship is outstanding. Mustafa's team truly delivers world-class interiors. Every detail was considered and executed perfectly."</p>
-        <p class="testimonial-quote ar-only">"الجودة والحرفية استثنائية. فريق مصطفى يقدم حقاً تشطيبات داخلية على مستوى عالمي. كل تفصيلة كانت موضع اعتبار ونُفّذت ببراعة."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Interior Design · Dubai Marina</div><div class="author-title ar-only">تصميم داخلي · دبي مارينا</div></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Excellent work on our walk-in wardrobe. Precise, beautiful, and delivered ahead of schedule. We couldn't be happier with the result."</p>
-        <p class="testimonial-quote ar-only">"عمل ممتاز على غرفة الملابس لدينا. دقيق وجميل وسُلّم قبل الموعد المحدد. لا يمكننا أن نكون أكثر سعادة بالنتيجة."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Custom Wardrobes · Jumeirah</div><div class="author-title ar-only">خزائن مخصصة · جميرا</div></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Complete fit-out of our DIFC office was handled professionally from day one to handover. No surprises, no delays. The team knows what they are doing."</p>
-        <p class="testimonial-quote ar-only">"تم التعامل مع التشطيب الكامل لمكتبنا في مركز دبي المالي العالمي باحترافية من اليوم الأول حتى التسليم. بدون مفاجآت ولا تأخير."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Office Fit-Out · DIFC</div><div class="author-title ar-only">تشطيب مكتبي · مركز دبي المالي</div></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Stunning Dekton kitchen worktops — the finish is seamless and exactly what we envisioned. The Walls team was professional and thorough throughout."</p>
-        <p class="testimonial-quote ar-only">"أسطح مطبخ ديكتون رائعة — التشطيب سلس تماماً وبالضبط ما تصورناه. كان فريق ذا وولز محترفاً ودقيقاً طوال الوقت."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Solid Surfaces · Palm Jumeirah</div><div class="author-title ar-only">أسطح صلبة · نخلة جميرا</div></div></div>
-      </div>
-      <!-- SET 2 (duplicate for seamless loop) -->
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Had a great experience with Eng. Mustafa from The Walls in one of the clinics in Dubai Hills Park."</p>
-        <p class="testimonial-quote ar-only">"كان لدينا تجربة رائعة مع المهندس مصطفى من ذا وولز في إحدى العيادات في دبي هيلز بارك."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Medical Clinic · Dubai Hills Park</div><div class="author-title ar-only">عيادة طبية · دبي هيلز بارك</div></div></div>
-      </div>
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Incredible woodwork from this wonderful company. My table is beautifully engraved and the wood feels utterly alive. Truly great."</p>
-        <p class="testimonial-quote ar-only">"أعمال نجارة رائعة من هذه الشركة الرائعة. طاولتي محفورة بجمال والخشب يبدو حياً تماماً. رائع جداً."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Joinery & Carpentry</div><div class="author-title ar-only">النجارة والأعمال الخشبية</div></div></div>
-      </div>
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"The Walls Company is highly skilled in aluminum and glass work, demonstrating remarkable expertise and craftsmanship. Their attention to detail and precision are evident in every project."</p>
-        <p class="testimonial-quote ar-only">"شركة ذا وولز ماهرة جداً في أعمال الألمنيوم والزجاج، وتظهر خبرة استثنائية وحرفية عالية. اهتمامهم بالتفاصيل والدقة واضح في كل مشروع يقومون به."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Aluminum Works · Glass</div><div class="author-title ar-only">الأعمال الألمنيوم والزجاج</div></div></div>
-      </div>
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"I had an amazing experience with The Walls. I highly recommend them. The quality of their aluminum products is exceptional."</p>
-        <p class="testimonial-quote ar-only">"كانت لدي تجربة رائعة مع ذا وولز. أنصح بهم بشدة. جودة منتجات الألمنيوم لديهم استثنائية."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Aluminum Products · Quality</div><div class="author-title ar-only">منتجات الألمنيوم عالية الجودة</div></div></div>
-      </div>
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"The quality and craftsmanship is outstanding. Mustafa's team truly delivers world-class interiors. Every detail was considered and executed perfectly."</p>
-        <p class="testimonial-quote ar-only">"الجودة والحرفية استثنائية. فريق مصطفى يقدم حقاً تشطيبات داخلية على مستوى عالمي. كل تفصيلة كانت موضع اعتبار ونُفّذت ببراعة."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Interior Design · Dubai Marina</div><div class="author-title ar-only">تصميم داخلي · دبي مارينا</div></div></div>
-      </div>
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Excellent work on our walk-in wardrobe. Precise, beautiful, and delivered ahead of schedule. We couldn't be happier with the result."</p>
-        <p class="testimonial-quote ar-only">"عمل ممتاز على غرفة الملابس لدينا. دقيق وجميل وسُلّم قبل الموعد المحدد. لا يمكننا أن نكون أكثر سعادة بالنتيجة."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Custom Wardrobes · Jumeirah</div><div class="author-title ar-only">خزائن مخصصة · جميرا</div></div></div>
-      </div>
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Complete fit-out of our DIFC office was handled professionally from day one to handover. No surprises, no delays. The team knows what they are doing."</p>
-        <p class="testimonial-quote ar-only">"تم التعامل مع التشطيب الكامل لمكتبنا في مركز دبي المالي العالمي باحترافية من اليوم الأول حتى التسليم. بدون مفاجآت ولا تأخير."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Office Fit-Out · DIFC</div><div class="author-title ar-only">تشطيب مكتبي · مركز دبي المالي</div></div></div>
-      </div>
-      <div class="testimonial-card" aria-hidden="true">
-        <div class="testimonial-google"><div class="g-dot" style="background:#4285F4;"></div><div class="g-dot" style="background:#EA4335;"></div><div class="g-dot" style="background:#FBBC05;"></div><div class="g-dot" style="background:#34A853;"></div>Google</div>
-        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-        <p class="testimonial-quote en-only">"Stunning Dekton kitchen worktops — the finish is seamless and exactly what we envisioned. The Walls team was professional and thorough throughout."</p>
-        <p class="testimonial-quote ar-only">"أسطح مطبخ ديكتون رائعة — التشطيب سلس تماماً وبالضبط ما تصورناه. كان فريق ذا وولز محترفاً ودقيقاً طوال الوقت."</p>
-        <div class="testimonial-author"><div class="author-avatar">G</div><div><div class="author-name en-only">Verified Google Review</div><div class="author-name ar-only">تقييم Google معتمد</div><div class="author-title en-only">Solid Surfaces · Palm Jumeirah</div><div class="author-title ar-only">أسطح صلبة · نخلة جميرا</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-strip" id="contact">
-  <div class="cta-sub reveal en-only">Ready to transform your space?</div>
-  <div class="cta-sub reveal ar-only">هل أنت مستعد لتحويل مساحتك؟</div>
-  <h2 class="cta-heading reveal reveal-delay-1 en-only">Let's start<br/>your <em>project</em></h2>
-  <h2 class="cta-heading reveal reveal-delay-1 ar-only">لنبدأ<br/><em>مشروعك</em> معاً</h2>
-  <div class="cta-buttons reveal reveal-delay-2">
-    <a href="https://wa.me/971544996788?text=Hi%2C%20I%20would%20like%20to%20discuss%20a%20fit-out%20project." class="btn-wa en-only" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp us</a>
-    <a href="https://wa.me/971544996788?text=مرحباً%2C%20أرغب%20في%20مناقشة%20مشروع%20تشطيب." class="btn-wa ar-only" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>راسلنا على واتساب</a>
-    <a href="mailto:info@thewalls.ae" class="btn-outline en-only">Send an email</a>
-    <a href="mailto:info@thewalls.ae" class="btn-outline ar-only">أرسل بريداً إلكترونياً</a>
-  </div>
-  <p class="reveal reveal-delay-3" style="font-size:12px;color:var(--gray-muted);margin-top:24px;">info@thewalls.ae &nbsp;·&nbsp; Dubai, UAE &nbsp;·&nbsp; www.thewalls.ae</p>
-</section>
-
-<!-- MAP -->
-<div style="position:relative;background:var(--obsidian-2);border-top:0.5px solid rgba(201,169,110,0.12);border-bottom:0.5px solid rgba(201,169,110,0.12);">
-  <div style="position:relative;width:100%;height:300px;overflow:hidden;">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14449.545431970506!2d55.2209567!3d25.1226256!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b3022e84ee7%3A0x1c03557023d6d8cc!2sThe%20Walls%20DXB!5e0!3m2!1sen!2sae!4v1691660793560!5m2!1sen!2sae"
-      width="100%" height="100%" style="border:0;filter:grayscale(40%) contrast(1.1) brightness(0.85);"
-      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 60px;background:linear-gradient(to top,rgba(12,12,11,0.88) 0%,transparent 100%);display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none;">
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-header reveal">
       <div>
-        <div style="font-size:14px;color:var(--cream);margin-bottom:2px;" class="en-only">The Walls DXB — Dubai, UAE</div>
-        <div style="font-size:14px;color:var(--cream);margin-bottom:2px;" class="ar-only">ذا وولز DXB — دبي، الإمارات</div>
-        <div style="font-size:11px;color:var(--champagne-muted);letter-spacing:0.08em;" class="en-only">Exact address available on WhatsApp</div>
-        <div style="font-size:11px;color:var(--champagne-muted);letter-spacing:0.08em;" class="ar-only">العنوان التفصيلي متاح عبر واتساب</div>
+        <div class="section-label" data-num="02">
+          <span class="en-only">What we do</span>
+          <span class="ar-only">ما نقدمه</span>
+        </div>
+        <h2 class="section-title en-only">Crafted from <em>first principles</em></h2>
+        <h2 class="section-title ar-only">مصنوع من <em>الأساس</em></h2>
       </div>
-      <a href="https://maps.google.com/?q=The+Walls+DXB" target="_blank" rel="noopener" style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--champagne);border:0.5px solid rgba(201,169,110,0.4);padding:8px 18px;text-decoration:none;pointer-events:all;" class="en-only">Get Directions</a>
-      <a href="https://maps.google.com/?q=The+Walls+DXB" target="_blank" rel="noopener" style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--champagne);border:0.5px solid rgba(201,169,110,0.4);padding:8px 18px;text-decoration:none;pointer-events:all;" class="ar-only">احصل على الاتجاهات</a>
+      <a href="./pages/services.html" class="section-link en-only">All services →</a>
+      <a href="./pages/services.html" class="section-link ar-only">جميع الخدمات ←</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg></div>
+        <div class="service-name en-only">Joinery & Carpentry</div>
+        <div class="service-name ar-only">النجارة والأعمال الخشبية</div>
+        <p class="service-desc en-only">Custom doors, wardrobes, TV units, shelving, and parametric designs — all
+          manufactured to your exact specifications with precision woodworking.</p>
+        <p class="service-desc ar-only">أبواب وخزائن ووحدات تلفزيون ورفوف وتصاميم بارامترية مخصصة — تُصنَّع وفق مواصفاتك
+          الدقيقة بأعلى جودة نجارة.</p>
+        <div class="service-tags">
+          <span class="service-tag en-only">Custom Doors</span><span class="service-tag en-only">Wardrobes</span><span
+            class="service-tag en-only">TV Units</span>
+          <span class="service-tag ar-only">أبواب مخصصة</span><span class="service-tag ar-only">خزائن</span><span
+            class="service-tag ar-only">وحدات تلفزيون</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">02</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <line x1="3" y1="9" x2="21" y2="9" />
+            <line x1="3" y1="15" x2="21" y2="15" />
+          </svg></div>
+        <div class="service-name en-only">Solid Surfaces</div>
+        <div class="service-name ar-only">الأسطح الصلبة</div>
+        <p class="service-desc en-only">Seamless countertops, reception desks, cladding, and decorative panels in
+          Corian, Dekton, porcelain, and natural stone.</p>
+        <p class="service-desc ar-only">أسطح عمل وطاولات استقبال وكسوة وألواح زخرفية من كوريان وديكتون والخزف والحجر
+          الطبيعي.</p>
+        <div class="service-tags">
+          <span class="service-tag en-only">Corian</span><span class="service-tag en-only">Dekton</span><span
+            class="service-tag en-only">Stone</span>
+          <span class="service-tag ar-only">كوريان</span><span class="service-tag ar-only">ديكتون</span><span
+            class="service-tag ar-only">حجر طبيعي</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">03</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+          </svg></div>
+        <div class="service-name en-only">Aluminum Works</div>
+        <div class="service-name ar-only">الأعمال الألمنيوم</div>
+        <p class="service-desc en-only">Aluminum windows, doors, curtain walls, and cladding systems — engineered for
+          Dubai's climate and aesthetics.</p>
+        <p class="service-desc ar-only">نوافذ وأبواب وجدران زجاجية وأنظمة كسوة ألمنيوم — مصممة لتناسب مناخ دبي
+          ومتطلباتها الجمالية.</p>
+        <div class="service-tags">
+          <span class="service-tag en-only">Windows</span><span class="service-tag en-only">Curtain Walls</span>
+          <span class="service-tag ar-only">نوافذ</span><span class="service-tag ar-only">جدران زجاجية</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+          </svg></div>
+        <div class="service-name en-only">Interior Design</div>
+        <div class="service-name ar-only">التصميم الداخلي</div>
+        <p class="service-desc en-only">Full interior design services from concept to FF&E specification — our
+          architects and designers handle every detail of your space.</p>
+        <p class="service-desc ar-only">خدمات تصميم داخلي متكاملة من الفكرة حتى تحديد المفروشات والتجهيزات — يتولى
+          مهندسونا ومصممونا كل تفصيلة في مساحتك.</p>
+        <div class="service-tags">
+          <span class="service-tag en-only">Concept Design</span><span class="service-tag en-only">FF&E</span>
+          <span class="service-tag ar-only">التصميم المفاهيمي</span><span class="service-tag ar-only">المفروشات
+            والتجهيزات</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">05</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24">
+            <path
+              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+          </svg></div>
+        <div class="service-name en-only">Complete Fit-Out</div>
+        <div class="service-name ar-only">التشطيب الكامل</div>
+        <p class="service-desc en-only">End-to-end fit-out for offices, retail, villas, and hospitality — we design,
+          manufacture, and supervise on-site to deliver a turnkey result.</p>
+        <p class="service-desc ar-only">تشطيب متكامل من الألف إلى الياء للمكاتب والمحلات والفلل والضيافة — نصمم وننتج
+          ونشرف ميدانياً لتسليم مشروعك جاهزاً للسكن.</p>
+        <div class="service-tags">
+          <span class="service-tag en-only">Offices</span><span class="service-tag en-only">Villas</span><span
+            class="service-tag en-only">Retail</span>
+          <span class="service-tag ar-only">مكاتب</span><span class="service-tag ar-only">فلل</span><span
+            class="service-tag ar-only">محلات</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">06</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg></div>
+        <div class="service-name en-only">Architecture & Supervision</div>
+        <div class="service-name ar-only">الهندسة المعمارية والإشراف</div>
+        <p class="service-desc en-only">Our licensed architects supervise every project through manufacturing and
+          installation — ensuring design intent is faithfully delivered.</p>
+        <p class="service-desc ar-only">يشرف مهندسونا المعتمدون على كل مشروع خلال التصنيع والتركيب — لضمان تنفيذ الرؤية
+          التصميمية بأمانة كاملة.</p>
+        <div class="service-tags">
+          <span class="service-tag en-only">Site Supervision</span><span class="service-tag en-only">QA/QC</span>
+          <span class="service-tag ar-only">الإشراف الميداني</span><span class="service-tag ar-only">ضبط الجودة</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label" data-num="03">
+          <span class="en-only">Our work</span><span class="ar-only">أعمالنا</span>
+        </div>
+        <h2 class="section-title en-only">Selected <em>projects</em></h2>
+        <h2 class="section-title ar-only">مشاريع <em>مختارة</em></h2>
+      </div>
+      <a href="./pages/portfolio.html" class="section-link en-only">Full portfolio →</a>
+      <a href="./pages/portfolio.html" class="section-link ar-only">جميع الأعمال ←</a>
+    </div>
+    <div class="reveal" style="max-width:560px;">
+      <p style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-muted);margin-bottom:10px;"
+        class="en-only">Project Search</p>
+      <p style="font-size:14px;color:var(--champagne-muted);margin-bottom:10px;font-family:var(--arabic);"
+        class="ar-only">البحث الذكي في المشاريع</p>
+      <div class="search-bar">
+        <input type="text" class="search-input en-only" placeholder="Try: luxury office in DIFC, villa in Palm…"
+          id="searchInputEN" />
+        <input type="text" class="search-input ar-only" placeholder="مثال: مكتب فاخر في ديفك، فيلا في النخلة…"
+          id="searchInputAR" style="display:none;" />
+        <button class="search-btn"
+          onclick="var _q=document.getElementById('searchInputAR').value.trim();doSearch(_q?'searchInputAR':'searchInputEN','searchResults')"><svg
+            viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg></button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    </div>
+    <div class="portfolio-grid">
+      <!-- LENTO RESTAURANT — featured full-width card -->
+      <!-- for full-width cardstyle="grid-column:1/-1;aspect-ratio:21/7;" -->
+      <div class="project-card reveal" data-link="./pages/case-study-lento.html">
+        <div class="project-bg"
+          style="background-image:url('./assets/images/LENTO_PROJ/LENTO%201.jpg');background-size:cover;background-position:center;">
+        </div>
+        <div class="project-inner-lines"></div>
+        <div class="project-info">
+          <div class="project-cat en-only">Hospitality · Um Al Sheif, Dubai · 2024</div>
+          <div class="project-cat ar-only">ضيافة · أم الشيف، دبي · 2024</div>
+          <div class="project-name en-only">Lento Restaurant</div>
+          <div class="project-name ar-only">مطعم لينتو</div>
+          <div class="project-loc en-only">Custom furniture & signage · 18+ bespoke pieces · Steel, concrete & leather
+          </div>
+          <div class="project-loc ar-only">أثاث مخصص وإشارات · 18+ قطعة فريدة · فولاذ وخرسانة وجلد</div>
+        </div>
+        <div class="project-hover-cta"><svg viewBox="0 0 24 24">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg></div>
+      </div>
+      <!-- TODO: Replace with real project photo when client provides -->
+      <div class="project-card reveal" data-link="./pages/case-study-office.html">
+        <div class="project-bg"></div>
+        <div class="project-inner-lines"></div>
+        <div class="project-info">
+          <div class="project-cat en-only">Office · DIFC · 2024</div>
+          <div class="project-cat ar-only">مكتب · ديفك · 2024</div>
+          <div class="project-name en-only">Corporate HQ — Gate District</div>
+          <div class="project-name ar-only">المقر الرئيسي — حي البوابة</div>
+          <div class="project-loc en-only">Full fit-out · 1,400 sqm · Joinery, Solid Surfaces, Aluminum</div>
+          <div class="project-loc ar-only">تشطيب كامل · 1,400 م² · نجارة وأسطح صلبة وألمنيوم</div>
+        </div>
+        <div class="project-hover-cta"><svg viewBox="0 0 24 24">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg></div>
+      </div>
+      <!-- TODO: Replace um.jpg with final selected hero photo from Palm_PROJ folder when ready -->
+      <div class="project-card reveal reveal-delay-1" data-link="./pages/case-study-villa.html">
+        <div class="project-bg"
+          style="background-image:url('./assets/images/Palm_PROJ/um.jpg');background-size:cover;background-position:center;">
+        </div>
+        <div class="project-inner-lines"></div>
+        <div class="project-info">
+          <div class="project-cat en-only">Residential · Palm Jumeirah · 2024</div>
+          <div class="project-cat ar-only">سكني · نخلة جميرا · 2024</div>
+          <div class="project-name en-only">Luxury Villa — The Palm</div>
+          <div class="project-name ar-only">فيلا فاخرة — النخلة</div>
+          <div class="project-loc en-only">Complete interior · Custom wardrobes & joinery</div>
+          <div class="project-loc ar-only">تشطيب داخلي متكامل · خزائن وأعمال نجارة مخصصة</div>
+        </div>
+        <div class="project-hover-cta"><svg viewBox="0 0 24 24">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg></div>
+      </div>
+      <!-- TODO: Replace with real project photo when client provides -->
+      <div class="project-card reveal reveal-delay-2" data-link="./pages/portfolio.html">
+        <div class="project-bg"></div>
+        <div class="project-inner-lines"></div>
+        <div class="project-info">
+          <div class="project-cat en-only">Retail · Downtown Dubai · 2023</div>
+          <div class="project-cat ar-only">تجاري · وسط مدينة دبي · 2023</div>
+          <div class="project-name en-only">Boutique — Dubai Mall</div>
+          <div class="project-name ar-only">بوتيك — دبي مول</div>
+          <div class="project-loc en-only">Custom joinery · Display units · Solid surfaces</div>
+          <div class="project-loc ar-only">نجارة مخصصة · وحدات عرض · أسطح صلبة</div>
+        </div>
+        <div class="project-hover-cta"><svg viewBox="0 0 24 24">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg></div>
+      </div>
+      <!-- TODO: replace placeholder with real photo when client provides -->
+      <div class="project-card reveal reveal-delay-3" data-link="./pages/portfolio.html">
+        <div class="project-bg"></div>
+        <div class="project-inner-lines"></div>
+        <div class="project-info">
+          <div class="project-cat en-only">Residential · Downtown Dubai · 2025</div>
+          <div class="project-cat ar-only">سكني · وسط مدينة دبي · 2025</div>
+          <div class="project-name en-only">Modern Penthouse — Downtown</div>
+          <div class="project-name ar-only">بنتهاوس عصري — وسط المدينة</div>
+          <div class="project-loc en-only">Bespoke joinery · Feature walls · Solid surfaces</div>
+          <div class="project-loc ar-only">نجارة مخصصة · جدران مميزة · أسطح صلبة</div>
+        </div>
+        <div class="project-hover-cta"><svg viewBox="0 0 24 24">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 360° PROJECT ROOM TOURS (BETA) -->
+  <section class="tours-360" id="tours-360">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label" data-num="07">
+          <span class="en-only">Immersive tours</span>
+          <span class="ar-only">جولات غامرة</span>
+        </div>
+        <h2 class="section-title en-only">360° Project <em>Room Tours</em> <span class="beta-badge">Beta</span></h2>
+        <h2 class="section-title ar-only">جولات المشاريع <em>360°</em> <span class="beta-badge">تجريبي</span></h2>
+      </div>
+    </div>
+    <p class="tours-360-desc reveal en-only">Immersive 360° panorama tours of completed projects. Click to explore, see
+      details and material finishes up close.</p>
+    <p class="tours-360-desc reveal ar-only">جولات بانورامية غامرة بزاوية 360° للمشاريع المنجزة. انقر للاستكشاف وشاهد
+      التفاصيل ولمسات المواد عن قرب.</p>
+    <div class="tours-grid">
+      <div class="tour-card reveal">
+        <div class="tour-img">
+          <div class="tour-img-inner" style="background-image:url('./assets/images/placeholder-interior.svg');"></div>
+          <div class="tour-360-badge">360°</div>
+          <div class="tour-overlay">
+            <div class="tour-360-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
+              </svg>
+            </div>
+          </div>
+          <div class="tour-coming">
+            <!--
+                  // Placeholder content for now until we have the final project photos and details ready for these tours. Will update with real project info and photos once we have those assets finalized.
+                  <div class="tour-label en-only">Hospitality · Um Al Sheif, Dubai</div>
+                  <div class="tour-label ar-only">ضيافة · أم الشيف، دبي</div>
+                  <div class="tour-title en-only">Lento Restaurant</div>
+                  <div class="tour-title ar-only">مطعم لينتو</div>
+                   -->
+            <span class="tour-status en-only">Coming Soon</span>
+            <span class="tour-status ar-only">قريباً</span>
+          </div>
+        </div>
+      </div>
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img">
+          <div class="tour-img-inner" style="background-image:url('./assets/images/placeholder-interior.svg');"></div>
+          <div class="tour-360-badge">360°</div>
+          <div class="tour-overlay">
+            <div class="tour-360-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
+              </svg>
+            </div>
+          </div>
+          <div class="tour-coming">
+            <!--
+            // Placeholder content for now until we have the final project photos and details ready for these tours. Will update with real project info and photos once we have those assets finalized.
+            <div class="tour-label en-only">Residential · Palm Jumeirah</div>
+            <div class="tour-label ar-only">سكني · نخلة جميرا</div>
+            <div class="tour-title en-only">Luxury Villa — The Palm</div>
+            <div class="tour-title ar-only">فيلا فاخرة — النخلة</div>
+            !-->
+            <span class="tour-status en-only">Coming Soon</span>
+            <span class="tour-status ar-only">قريباً</span>
+          </div>
+        </div>
+      </div>
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img">
+          <div class="tour-img-inner" style="background-image:url('./assets/images/placeholder-interior.svg');"></div>
+          <div class="tour-360-badge">360°</div>
+          <div class="tour-overlay">
+            <div class="tour-360-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
+              </svg>
+            </div>
+          </div>
+          <div class="tour-coming">
+            <!--
+            // Placeholder content for now until we have the final project photos and details ready for these tours. Will update with real project info and photos once we have those assets finalized.
+            <div class="tour-label en-only">Commercial · DIFC</div>
+            <div class="tour-label ar-only">تجاري · مركز دبي المالي</div>
+            <div class="tour-title en-only">Corporate HQ — Gate District</div>
+            <div class="tour-title ar-only">المقر الرئيسي — حي البوابة</div>
+            !-->
+            <span class="tour-status en-only">Coming Soon</span>
+            <span class="tour-status ar-only">الجولة قريباً</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS MAP -->
+  <section class="projects-map-section" id="projects-map">
+    <div class="pm-header reveal">
+      <div class="pm-label en-only">Our Presence</div>
+      <div class="pm-label ar-only">حضورنا</div>
+      <h2 class="pm-title en-only">Projects <em>Across Dubai</em></h2>
+      <h2 class="pm-title ar-only">مشاريعنا <em>في دبي</em></h2>
+      <p class="pm-desc en-only">From Palm Jumeirah to Business Bay — The Walls has delivered across Dubai's most
+        prestigious addresses.</p>
+      <p class="pm-desc ar-only">من نخلة جميرا إلى بيزنس باي — نفّذ ذا وولز مشاريع في أرقى العناوين في دبي.</p>
+    </div>
+    <div class="pm-map-wrap">
+      <div id="projectsMap"></div>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function () {
+      var projects = [
+        { name: 'Lento Restaurant', type: 'Hospitality Fit-Out', lat: 25.1453, lng: 55.1957, link: './pages/case-study-lento.html' },
+        { name: 'Palm Jumeirah Villa', type: 'Residential Fit-Out', lat: 25.1124, lng: 55.1390, link: './pages/case-study-villa.html' },
+        { name: 'DIFC Corporate Office', type: 'Commercial Interior', lat: 25.2107, lng: 55.2810, link: './pages/case-study-office.html' },
+        { name: 'Dubai Hills Clinic', type: 'Medical Fit-Out', lat: 25.1011, lng: 55.2456, link: './pages/case-study-clinic.html' },
+        { name: 'JVC Residence', type: 'Joinery & Surfaces', lat: 25.0505, lng: 55.2057, link: null },
+        { name: 'Business Bay Showroom', type: 'Retail & Commercial', lat: 25.1840, lng: 55.2595, link: null }
+      ];
+
+      var map = L.map('projectsMap', {
+        center: [25.1500, 55.2200], zoom: 11,
+        scrollWheelZoom: false,
+        zoomControl: true,
+        attributionControl: false
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19, subdomains: 'abcd'
+      }).addTo(map);
+
+      projects.forEach(function (p, i) {
+        var icon = L.divIcon({
+          className: 'pm-dot-icon',
+          html: '<div class="pm-dot"></div>',
+          iconSize: [16, 16], iconAnchor: [8, 8]
+        });
+        var marker = L.marker([p.lat, p.lng], { icon: icon }).addTo(map);
+        var popupHtml = '<div class="pm-popup"><div class="pm-popup-name">' + p.name + '</div><div class="pm-popup-type">' + p.type + '</div>' + (p.link ? '<a href="' + p.link + '" class="pm-popup-link">View Project →</a>' : '') + '</div>';
+        marker.bindPopup(popupHtml, { className: 'pm-leaflet-popup', closeButton: false, offset: [0, -4] });
+      });
+    })();
+  </script>
+
+  <!-- BEFORE/AFTER -->
+  <section class="ba-section">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label" data-num="04">
+          <span class="en-only">Transformation</span><span class="ar-only">التحول</span>
+        </div>
+        <h2 class="section-title en-only">Before & <em>after</em></h2>
+        <h2 class="section-title ar-only">قبل <em>وبعد</em></h2>
+      </div>
+      <p style="font-size:13px;color:var(--gray-mid);max-width:260px;text-align:right;align-self:flex-end;"
+        class="en-only">Drag the slider to reveal the transformation.</p>
+      <p style="font-size:15px;color:var(--gray-mid);max-width:260px;text-align:left;align-self:flex-end;font-family:var(--arabic);"
+        class="ar-only">اسحب المنزلق لمشاهدة التحول المذهل.</p>
+    </div>
+    <div class="ba-slider-wrap reveal" id="baSlider">
+      <!-- TODO: Replace before.png with the actual client before-photo when available -->
+      <div class="ba-before">
+        <div class="ba-before-bg"
+          style="background-image:url('./assets/images/before.png');background-size:cover;background-position:center;">
+        </div>
+      </div>
+      <!-- TODO: Replace after.jpg with the actual client after-photo when available -->
+      <div class="ba-after" id="baAfter">
+        <div class="ba-after-bg"
+          style="background-image:url('./assets/images/after.jpg');background-size:cover;background-position:center;">
+        </div>
+      </div>
+      <div class="ba-label ba-label-before en-only">Before</div>
+      <div class="ba-label ba-label-after en-only">After</div>
+      <div class="ba-label ba-label-before ar-only">قبل</div>
+      <div class="ba-label ba-label-after ar-only">بعد</div>
+      <div class="ba-divider" id="baDivider"></div>
+      <div class="ba-handle" id="baHandle"><svg viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6" />
+          <polyline points="9 18 3 12 9 6" style="transform:translateX(8px)" />
+        </svg></div>
+    </div>
+  </section>
+
+  <!-- ESTIMATOR -->
+  <section class="estimator" id="estimator">
+    <div class="estimator-intro reveal">
+      <div class="estimator-tag en-only">Estimate Tool</div>
+      <div class="estimator-tag ar-only">أداة مدعومة بالذكاء الاصطناعي</div>
+      <h2 class="estimator-heading en-only">Get an instant <em>cost estimate</em></h2>
+      <h2 class="estimator-heading ar-only">احصل على <em>تقدير فوري</em> للتكلفة</h2>
+      <p class="estimator-sub en-only">Enter your project details and receive a ballpark fit-out budget in AED —
+        instantly. No sales calls required for a first indication.</p>
+      <p class="estimator-sub ar-only">أدخل تفاصيل مشروعك واحصل على تقدير مبدئي للميزانية بالدرهم الإماراتي — فوراً. لا
+        حاجة لمكالمة مبيعات للحصول على رقم أولي.</p>
+      <div style="margin-top:40px;padding-top:40px;border-top:0.5px solid rgba(201,169,110,.15);">
+        <div style="display:flex;gap:32px;flex-wrap:wrap;">
+          <div>
+            <div style="font-family:var(--display);font-size:40px;color:var(--champagne);line-height:1;">AED 800</div>
+            <div
+              style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-muted);margin-top:4px;"
+              class="en-only">Standard / sqm</div>
+            <div style="font-size:13px;color:var(--gray-muted);margin-top:4px;font-family:var(--arabic);"
+              class="ar-only">قياسي / م²</div>
+          </div>
+          <div>
+            <div style="font-family:var(--display);font-size:40px;color:var(--champagne);line-height:1;">AED 1,800</div>
+            <div
+              style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-muted);margin-top:4px;"
+              class="en-only">Premium / sqm</div>
+            <div style="font-size:13px;color:var(--gray-muted);margin-top:4px;font-family:var(--arabic);"
+              class="ar-only">بريميوم / م²</div>
+          </div>
+          <div>
+            <div style="font-family:var(--display);font-size:40px;color:var(--champagne);line-height:1;">AED 3,500</div>
+            <div
+              style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-muted);margin-top:4px;"
+              class="en-only">Luxury / sqm</div>
+            <div style="font-size:13px;color:var(--gray-muted);margin-top:4px;font-family:var(--arabic);"
+              class="ar-only">فاخر / م²</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="estimator-form reveal reveal-delay-1">
+      <div class="form-row">
+        <label class="form-label en-only">Space type</label>
+        <label class="form-label ar-only">نوع المساحة</label>
+        <select class="form-select" id="spaceType" onchange="calcEstimate()">
+          <option value="" class="en-only">Select space type…</option>
+          <option value="office" data-en="Office" data-ar="مكتب">Office</option>
+          <option value="villa" data-en="Villa / Apartment" data-ar="فيلا / شقة">Villa / Apartment</option>
+          <option value="retail" data-en="Retail / Showroom" data-ar="محل / معرض">Retail / Showroom</option>
+          <option value="hospitality" data-en="Restaurant / Hospitality" data-ar="مطعم / ضيافة">Restaurant / Hospitality
+          </option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label en-only">Area (sqm)</label>
+        <label class="form-label ar-only">المساحة (م²)</label>
+        <div class="range-current" id="sqmDisplay">100 sqm</div>
+        <input type="range" class="form-range" id="sqmRange" min="20" max="2000" step="10" value="100"
+          oninput="updateSqm(this.value)" />
+        <div class="range-values"><span>20</span><span>2,000</span></div>
+      </div>
+      <div class="form-row">
+        <label class="form-label en-only">Fit-out tier</label>
+        <label class="form-label ar-only">درجة التشطيب</label>
+        <div class="tier-buttons">
+          <button class="tier-btn active" onclick="setTier(this,'standard')"><span class="en-only">Standard</span><span
+              class="ar-only">قياسي</span></button>
+          <button class="tier-btn" onclick="setTier(this,'premium')"><span class="en-only">Premium</span><span
+              class="ar-only">بريميوم</span></button>
+          <button class="tier-btn" onclick="setTier(this,'luxury')"><span class="en-only">Luxury</span><span
+              class="ar-only">فاخر</span></button>
+        </div>
+      </div>
+      <div class="estimate-result show" id="estimateResult">
+        <div class="estimate-from en-only">Estimated investment range</div>
+        <div class="estimate-from ar-only">نطاق الاستثمار المقدّر</div>
+        <div class="estimate-range" id="estimateRange">AED 80,000 – AED 120,000</div>
+        <div class="estimate-note en-only">This is an indicative range. Request a detailed quote for your exact scope.
+        </div>
+        <div class="estimate-note ar-only">هذا تقدير مبدئي. اطلب عرض سعر تفصيلياً لنطاق مشروعك الدقيق.</div>
+      </div>
+      <div class="form-row" style="margin-top:20px;">
+        <label class="form-label en-only">Your Name *</label>
+        <label class="form-label ar-only">اسمك *</label>
+        <input type="text" class="form-input" id="estimateName" placeholder="Ahmed Al Rashidi" />
+      </div>
+      <div class="form-row">
+        <label class="form-label en-only">Email Address</label>
+        <label class="form-label ar-only">البريد الإلكتروني</label>
+        <input type="email" class="form-input" id="estimateEmail" placeholder="you@example.com" />
+      </div>
+      <button class="btn-send-db" id="btnSaveEstimate" onclick="saveEstimate()">
+        <svg viewBox="0 0 24 24">
+          <line x1="22" y1="2" x2="11" y2="13" />
+          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+        </svg>
+        <span class="en-only">Save Estimate Request</span><span class="ar-only">حفظ طلب التقدير</span>
+      </button>
+      <div id="estimateStatus" class="form-status"></div>
+      <div class="form-send-alt-row" style="margin-top:4px;">
+        <button class="btn-send-wa en-only" onclick="sendEstimate()">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Request quote via WhatsApp
+        </button>
+        <button class="btn-send-wa ar-only" onclick="sendEstimate()">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          اطلب عرضاً عبر واتساب
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label" data-num="05"><span class="en-only">What clients say</span><span class="ar-only">ماذا
+            يقول عملاؤنا</span></div>
+        <h2 class="section-title en-only">Built on <em>trust</em></h2>
+        <h2 class="section-title ar-only">بُنينا على <em>الثقة</em></h2>
+      </div>
+      <a href="https://share.google/svuYy5mTTzA5TUwda" target="_blank" rel="noopener noreferrer"
+        class="section-link en-only">See Google reviews →</a>
+      <a href="https://share.google/svuYy5mTTzA5TUwda" target="_blank" rel="noopener noreferrer"
+        class="section-link ar-only">مراجعات Google ←</a>
+    </div>
+    <div style="text-align:center;margin-bottom:40px;font-size:14px;color:var(--gray-mid);"><span
+        style="color:var(--champagne);font-weight:500;">★★★★★ 5.0</span> · Based on Google reviews · <a
+        href="https://share.google/svuYy5mTTzA5TUwda" target="_blank" rel="noopener noreferrer"
+        style="color:var(--champagne);text-decoration:none;">View all reviews →</a></div>
+    <div class="testimonials-track reveal">
+      <div class="testimonials-marquee" aria-label="Customer testimonials">
+        <!-- SET 1 (original 8 cards) -->
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Had a great experience with Eng. Mustafa from The Walls in one of the
+            clinics in Dubai Hills Park."</p>
+          <p class="testimonial-quote ar-only">"كان لدينا تجربة رائعة مع المهندس مصطفى من ذا وولز في إحدى العيادات في
+            دبي هيلز بارك."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Medical Clinic · Dubai Hills Park</div>
+              <div class="author-title ar-only">عيادة طبية · دبي هيلز بارك</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Incredible woodwork from this wonderful company. My table is beautifully
+            engraved and the wood feels utterly alive. Truly great."</p>
+          <p class="testimonial-quote ar-only">"أعمال نجارة رائعة من هذه الشركة الرائعة. طاولتي محفورة بجمال والخشب يبدو
+            حياً تماماً. رائع جداً."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Joinery & Carpentry</div>
+              <div class="author-title ar-only">النجارة والأعمال الخشبية</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"The Walls Company is highly skilled in aluminum and glass work,
+            demonstrating remarkable expertise and craftsmanship. Their attention to detail and precision are evident in
+            every project."</p>
+          <p class="testimonial-quote ar-only">"شركة ذا وولز ماهرة جداً في أعمال الألمنيوم والزجاج، وتظهر خبرة استثنائية
+            وحرفية عالية. اهتمامهم بالتفاصيل والدقة واضح في كل مشروع يقومون به."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Aluminum Works · Glass</div>
+              <div class="author-title ar-only">الأعمال الألمنيوم والزجاج</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"I had an amazing experience with The Walls. I highly recommend them. The
+            quality of their aluminum products is exceptional."</p>
+          <p class="testimonial-quote ar-only">"كانت لدي تجربة رائعة مع ذا وولز. أنصح بهم بشدة. جودة منتجات الألمنيوم
+            لديهم استثنائية."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Aluminum Products · Quality</div>
+              <div class="author-title ar-only">منتجات الألمنيوم عالية الجودة</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"The quality and craftsmanship is outstanding. Mustafa's team truly
+            delivers world-class interiors. Every detail was considered and executed perfectly."</p>
+          <p class="testimonial-quote ar-only">"الجودة والحرفية استثنائية. فريق مصطفى يقدم حقاً تشطيبات داخلية على مستوى
+            عالمي. كل تفصيلة كانت موضع اعتبار ونُفّذت ببراعة."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Interior Design · Dubai Marina</div>
+              <div class="author-title ar-only">تصميم داخلي · دبي مارينا</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Excellent work on our walk-in wardrobe. Precise, beautiful, and
+            delivered ahead of schedule. We couldn't be happier with the result."</p>
+          <p class="testimonial-quote ar-only">"عمل ممتاز على غرفة الملابس لدينا. دقيق وجميل وسُلّم قبل الموعد المحدد.
+            لا يمكننا أن نكون أكثر سعادة بالنتيجة."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Custom Wardrobes · Jumeirah</div>
+              <div class="author-title ar-only">خزائن مخصصة · جميرا</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Complete fit-out of our DIFC office was handled professionally from day
+            one to handover. No surprises, no delays. The team knows what they are doing."</p>
+          <p class="testimonial-quote ar-only">"تم التعامل مع التشطيب الكامل لمكتبنا في مركز دبي المالي العالمي
+            باحترافية من اليوم الأول حتى التسليم. بدون مفاجآت ولا تأخير."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Office Fit-Out · DIFC</div>
+              <div class="author-title ar-only">تشطيب مكتبي · مركز دبي المالي</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Stunning Dekton kitchen worktops — the finish is seamless and exactly
+            what we envisioned. The Walls team was professional and thorough throughout."</p>
+          <p class="testimonial-quote ar-only">"أسطح مطبخ ديكتون رائعة — التشطيب سلس تماماً وبالضبط ما تصورناه. كان فريق
+            ذا وولز محترفاً ودقيقاً طوال الوقت."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Solid Surfaces · Palm Jumeirah</div>
+              <div class="author-title ar-only">أسطح صلبة · نخلة جميرا</div>
+            </div>
+          </div>
+        </div>
+        <!-- SET 2 (duplicate for seamless loop) -->
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Had a great experience with Eng. Mustafa from The Walls in one of the
+            clinics in Dubai Hills Park."</p>
+          <p class="testimonial-quote ar-only">"كان لدينا تجربة رائعة مع المهندس مصطفى من ذا وولز في إحدى العيادات في
+            دبي هيلز بارك."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Medical Clinic · Dubai Hills Park</div>
+              <div class="author-title ar-only">عيادة طبية · دبي هيلز بارك</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Incredible woodwork from this wonderful company. My table is beautifully
+            engraved and the wood feels utterly alive. Truly great."</p>
+          <p class="testimonial-quote ar-only">"أعمال نجارة رائعة من هذه الشركة الرائعة. طاولتي محفورة بجمال والخشب يبدو
+            حياً تماماً. رائع جداً."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Joinery & Carpentry</div>
+              <div class="author-title ar-only">النجارة والأعمال الخشبية</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"The Walls Company is highly skilled in aluminum and glass work,
+            demonstrating remarkable expertise and craftsmanship. Their attention to detail and precision are evident in
+            every project."</p>
+          <p class="testimonial-quote ar-only">"شركة ذا وولز ماهرة جداً في أعمال الألمنيوم والزجاج، وتظهر خبرة استثنائية
+            وحرفية عالية. اهتمامهم بالتفاصيل والدقة واضح في كل مشروع يقومون به."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Aluminum Works · Glass</div>
+              <div class="author-title ar-only">الأعمال الألمنيوم والزجاج</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"I had an amazing experience with The Walls. I highly recommend them. The
+            quality of their aluminum products is exceptional."</p>
+          <p class="testimonial-quote ar-only">"كانت لدي تجربة رائعة مع ذا وولز. أنصح بهم بشدة. جودة منتجات الألمنيوم
+            لديهم استثنائية."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Aluminum Products · Quality</div>
+              <div class="author-title ar-only">منتجات الألمنيوم عالية الجودة</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"The quality and craftsmanship is outstanding. Mustafa's team truly
+            delivers world-class interiors. Every detail was considered and executed perfectly."</p>
+          <p class="testimonial-quote ar-only">"الجودة والحرفية استثنائية. فريق مصطفى يقدم حقاً تشطيبات داخلية على مستوى
+            عالمي. كل تفصيلة كانت موضع اعتبار ونُفّذت ببراعة."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Interior Design · Dubai Marina</div>
+              <div class="author-title ar-only">تصميم داخلي · دبي مارينا</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Excellent work on our walk-in wardrobe. Precise, beautiful, and
+            delivered ahead of schedule. We couldn't be happier with the result."</p>
+          <p class="testimonial-quote ar-only">"عمل ممتاز على غرفة الملابس لدينا. دقيق وجميل وسُلّم قبل الموعد المحدد.
+            لا يمكننا أن نكون أكثر سعادة بالنتيجة."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Custom Wardrobes · Jumeirah</div>
+              <div class="author-title ar-only">خزائن مخصصة · جميرا</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Complete fit-out of our DIFC office was handled professionally from day
+            one to handover. No surprises, no delays. The team knows what they are doing."</p>
+          <p class="testimonial-quote ar-only">"تم التعامل مع التشطيب الكامل لمكتبنا في مركز دبي المالي العالمي
+            باحترافية من اليوم الأول حتى التسليم. بدون مفاجآت ولا تأخير."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Office Fit-Out · DIFC</div>
+              <div class="author-title ar-only">تشطيب مكتبي · مركز دبي المالي</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-google">
+            <div class="g-dot" style="background:#4285F4;"></div>
+            <div class="g-dot" style="background:#EA4335;"></div>
+            <div class="g-dot" style="background:#FBBC05;"></div>
+            <div class="g-dot" style="background:#34A853;"></div>Google
+          </div>
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <p class="testimonial-quote en-only">"Stunning Dekton kitchen worktops — the finish is seamless and exactly
+            what we envisioned. The Walls team was professional and thorough throughout."</p>
+          <p class="testimonial-quote ar-only">"أسطح مطبخ ديكتون رائعة — التشطيب سلس تماماً وبالضبط ما تصورناه. كان فريق
+            ذا وولز محترفاً ودقيقاً طوال الوقت."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">G</div>
+            <div>
+              <div class="author-name en-only">Verified Google Review</div>
+              <div class="author-name ar-only">تقييم Google معتمد</div>
+              <div class="author-title en-only">Solid Surfaces · Palm Jumeirah</div>
+              <div class="author-title ar-only">أسطح صلبة · نخلة جميرا</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip" id="contact">
+    <div class="cta-sub reveal en-only">Ready to transform your space?</div>
+    <div class="cta-sub reveal ar-only">هل أنت مستعد لتحويل مساحتك؟</div>
+    <h2 class="cta-heading reveal reveal-delay-1 en-only">Let's start<br />your <em>project</em></h2>
+    <h2 class="cta-heading reveal reveal-delay-1 ar-only">لنبدأ<br /><em>مشروعك</em> معاً</h2>
+    <div class="cta-buttons reveal reveal-delay-2">
+      <a href="https://wa.me/971544996788?text=Hi%2C%20I%20would%20like%20to%20discuss%20a%20fit-out%20project."
+        class="btn-wa en-only" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>WhatsApp us</a>
+      <a href="https://wa.me/971544996788?text=مرحباً%2C%20أرغب%20في%20مناقشة%20مشروع%20تشطيب." class="btn-wa ar-only"
+        target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>راسلنا على واتساب</a>
+      <a href="mailto:info@thewalls.ae" class="btn-outline en-only">Send an email</a>
+      <a href="mailto:info@thewalls.ae" class="btn-outline ar-only">أرسل بريداً إلكترونياً</a>
+    </div>
+    <p class="reveal reveal-delay-3" style="font-size:12px;color:var(--gray-muted);margin-top:24px;">info@thewalls.ae
+      &nbsp;·&nbsp; Dubai, UAE &nbsp;·&nbsp; www.thewalls.ae</p>
+  </section>
+
+  <!-- MAP -->
+  <div
+    style="position:relative;background:var(--obsidian-2);border-top:0.5px solid rgba(201,169,110,0.12);border-bottom:0.5px solid rgba(201,169,110,0.12);">
+    <div style="position:relative;width:100%;height:300px;overflow:hidden;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14449.545431970506!2d55.2209567!3d25.1226256!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b3022e84ee7%3A0x1c03557023d6d8cc!2sThe%20Walls%20DXB!5e0!3m2!1sen!2sae!4v1691660793560!5m2!1sen!2sae"
+        width="100%" height="100%" style="border:0;filter:grayscale(40%) contrast(1.1) brightness(0.85);"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div
+        style="position:absolute;bottom:0;left:0;right:0;padding:16px 60px;background:linear-gradient(to top,rgba(12,12,11,0.88) 0%,transparent 100%);display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none;">
+        <div>
+          <div style="font-size:14px;color:var(--cream);margin-bottom:2px;" class="en-only">The Walls DXB — Dubai, UAE
+          </div>
+          <div style="font-size:14px;color:var(--cream);margin-bottom:2px;" class="ar-only">ذا وولز DXB — دبي، الإمارات
+          </div>
+          <div style="font-size:11px;color:var(--champagne-muted);letter-spacing:0.08em;" class="en-only">Exact address
+            available on WhatsApp</div>
+          <div style="font-size:11px;color:var(--champagne-muted);letter-spacing:0.08em;" class="ar-only">العنوان
+            التفصيلي متاح عبر واتساب</div>
+        </div>
+        <a href="https://maps.google.com/?q=The+Walls+DXB" target="_blank" rel="noopener"
+          style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--champagne);border:0.5px solid rgba(201,169,110,0.4);padding:8px 18px;text-decoration:none;pointer-events:all;"
+          class="en-only">Get Directions</a>
+        <a href="https://maps.google.com/?q=The+Walls+DXB" target="_blank" rel="noopener"
+          style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--champagne);border:0.5px solid rgba(201,169,110,0.4);padding:8px 18px;text-decoration:none;pointer-events:all;"
+          class="ar-only">احصل على الاتجاهات</a>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand en-only">The <span>Walls</span></div>
-      <div class="footer-brand ar-only">ذا <span>وولز</span></div>
-      <p class="footer-tagline en-only">Specialists in joinery, solid surfaces, aluminum works, furniture, and complete fit-out. Founded by architects. Based in Dubai.</p>
-      <p class="footer-tagline ar-only">متخصصون في النجارة والأسطح الصلبة والأعمال الألمنيوم والأثاث والتشطيب الكامل. أسّسه معماريون. مقرنا دبي.</p>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand en-only">The <span>Walls</span></div>
+        <div class="footer-brand ar-only">ذا <span>وولز</span></div>
+        <p class="footer-tagline en-only">Specialists in joinery, solid surfaces, aluminum works, furniture, and
+          complete fit-out. Founded by architects. Based in Dubai.</p>
+        <p class="footer-tagline ar-only">متخصصون في النجارة والأسطح الصلبة والأعمال الألمنيوم والأثاث والتشطيب الكامل.
+          أسّسه معماريون. مقرنا دبي.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title en-only">Services</div>
+        <div class="footer-col-title ar-only">الخدمات</div>
+        <a href="./services.html" class="en-only">Joinery & Carpentry</a><a href="./services.html" class="en-only">Solid
+          Surfaces</a><a href="./services.html" class="en-only">Aluminum Works</a><a href="./services.html"
+          class="en-only">Interior Design</a>
+        <a href="./services.html" class="ar-only">النجارة والأعمال الخشبية</a><a href="./services.html"
+          class="ar-only">الأسطح الصلبة</a><a href="./services.html" class="ar-only">الأعمال الألمنيوم</a><a
+          href="./services.html" class="ar-only">التصميم الداخلي</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title en-only">Company</div>
+        <div class="footer-col-title ar-only">الشركة</div>
+        <a href="./about.html" class="en-only">About Us</a><a href="./portfolio.html" class="en-only">Portfolio</a><a
+          href="./pages/services.html#how-we-work" class="en-only">How We Work</a><a href="./booking.html"
+          class="en-only">Book a Consultation</a>
+        <a href="./about.html" class="ar-only">من نحن</a><a href="./portfolio.html" class="ar-only">أعمالنا</a><a
+          href="./pages/services.html#how-we-work" class="ar-only">كيف نعمل</a><a href="./booking.html"
+          class="ar-only">احجز استشارة</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title en-only">Contact</div>
+        <div class="footer-col-title ar-only">تواصل معنا</div>
+        <p>Dubai, UAE</p>
+        <a href="mailto:info@thewalls.ae">info@thewalls.ae</a>
+        <a href="https://thewalls.ae">thewalls.ae</a>
+        <a href="https://wa.me/971544996788">WhatsApp</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <div class="footer-col-title en-only">Services</div>
-      <div class="footer-col-title ar-only">الخدمات</div>
-      <a href="./services.html" class="en-only">Joinery & Carpentry</a><a href="./services.html" class="en-only">Solid Surfaces</a><a href="./services.html" class="en-only">Aluminum Works</a><a href="./services.html" class="en-only">Interior Design</a>
-      <a href="./services.html" class="ar-only">النجارة والأعمال الخشبية</a><a href="./services.html" class="ar-only">الأسطح الصلبة</a><a href="./services.html" class="ar-only">الأعمال الألمنيوم</a><a href="./services.html" class="ar-only">التصميم الداخلي</a>
+    <div class="footer-bottom">
+      <span class="en-only">© 2025 The Walls LLC. All rights reserved.</span>
+      <span class="ar-only">© 2025 ذا وولز. جميع الحقوق محفوظة.</span>
+      <div class="footer-legal">
+        <a href="./privacy-policy.html" class="en-only">Privacy Policy</a><a href="./terms-of-use.html"
+          class="en-only">Terms of Use</a><a href="javascript:void(0)" onclick="openCookieSettings()"
+          class="en-only">Cookie Preferences</a>
+        <a href="./privacy-policy.html" class="ar-only">سياسة الخصوصية</a><a href="./terms-of-use.html"
+          class="ar-only">شروط الاستخدام</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <div class="footer-col-title en-only">Company</div>
-      <div class="footer-col-title ar-only">الشركة</div>
-      <a href="./about.html" class="en-only">About Us</a><a href="./portfolio.html" class="en-only">Portfolio</a><a href="./pages/services.html#how-we-work" class="en-only">How We Work</a><a href="./booking.html" class="en-only">Book a Consultation</a>
-      <a href="./about.html" class="ar-only">من نحن</a><a href="./portfolio.html" class="ar-only">أعمالنا</a><a href="./pages/services.html#how-we-work" class="ar-only">كيف نعمل</a><a href="./booking.html" class="ar-only">احجز استشارة</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title en-only">Contact</div>
-      <div class="footer-col-title ar-only">تواصل معنا</div>
-      <p>Dubai, UAE</p>
-      <a href="mailto:info@thewalls.ae">info@thewalls.ae</a>
-      <a href="https://thewalls.ae">thewalls.ae</a>
-      <a href="https://wa.me/971544996788">WhatsApp</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="en-only">© 2025 The Walls LLC. All rights reserved.</span>
-    <span class="ar-only">© 2025 ذا وولز. جميع الحقوق محفوظة.</span>
-    <div class="footer-legal">
-      <a href="./privacy-policy.html" class="en-only">Privacy Policy</a><a href="./terms-of-use.html" class="en-only">Terms of Use</a><a href="javascript:void(0)" onclick="openCookieSettings()" class="en-only">Cookie Preferences</a>
-      <a href="./privacy-policy.html" class="ar-only">سياسة الخصوصية</a><a href="./terms-of-use.html" class="ar-only">شروط الاستخدام</a>
-    </div>
-  </div>
-</footer>
+  </footer>
 
-<!-- SCROLL TO TOP -->
-<button class="scroll-top" id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
+  <!-- SCROLL TO TOP -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
 
-<!-- FLOATING BUTTONS -->
-<a class="wa-float" href="https://wa.me/971544996788?text=Hi%20The%20Walls%2C%20I%20found%20you%20on%20your%20website%20and%20would%20like%20to%20get%20a%20quote." target="_blank" rel="noopener noreferrer">
-  <div class="wa-pulse"></div>
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+  <!-- FLOATING BUTTONS -->
+  <a class="wa-float"
+    href="https://wa.me/971544996788?text=Hi%20The%20Walls%2C%20I%20found%20you%20on%20your%20website%20and%20would%20like%20to%20get%20a%20quote."
+    target="_blank" rel="noopener noreferrer">
+    <div class="wa-pulse"></div>
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  </a>
 
-<script>
-// ── CURSOR ──
-const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function tick(){cursor.style.left=mx+'px';cursor.style.top=my+'px';rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
-document.querySelectorAll('a,button,.project-card,.service-card,.testimonial-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.classList.add('hover');ring.classList.add('hover');});
-  el.addEventListener('mouseleave',()=>{cursor.classList.remove('hover');ring.classList.remove('hover');});
-});
-
-// ── NAV SCROLL ──
-const nav=document.getElementById('mainNav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
-
-// ── SCROLL REVEAL ──
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-
-// ── LANGUAGE TOGGLE ──
-let currentLang = localStorage.getItem('tw_lang') || 'en';
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('tw_lang', lang);
-  const root = document.getElementById('htmlRoot');
-  const btnEN = document.getElementById('btnEN');
-  const btnAR = document.getElementById('btnAR');
-
-  if (lang === 'ar') {
-    root.setAttribute('lang','ar');
-    root.setAttribute('dir','rtl');
-    document.body.style.fontFamily = 'var(--arabic)';
-    if(btnAR) btnAR.classList.add('active');
-    if(btnEN) btnEN.classList.remove('active');
-    document.querySelectorAll('.nav-links a[data-ar]').forEach(a=>a.textContent=a.dataset.ar);
-    const sqmEl = document.getElementById('sqmRange');
-    if(sqmEl) document.getElementById('sqmDisplay').textContent = sqmEl.value + ' م²';
-  } else {
-    root.setAttribute('lang','en');
-    root.setAttribute('dir','ltr');
-    document.body.style.fontFamily = 'var(--sans)';
-    if(btnEN) btnEN.classList.add('active');
-    if(btnAR) btnAR.classList.remove('active');
-    document.querySelectorAll('.nav-links a[data-en]').forEach(a=>a.textContent=a.dataset.en);
-    const sqmEl = document.getElementById('sqmRange');
-    if(sqmEl) document.getElementById('sqmDisplay').textContent = sqmEl.value + ' sqm';
-  }
-
-  // Re-trigger reveal animations
-  document.querySelectorAll('.reveal').forEach(el=>el.classList.remove('visible'));
-  setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>obs.observe(el)),100);
-}
-// Initialize from saved preference
-(function(){ setLang(currentLang); })();
-
-// ── BEFORE/AFTER SLIDER ──
-const slider=document.getElementById('baSlider');
-const after=document.getElementById('baAfter');
-let dragging=false;
-function setBA(pct){
-  const p=Math.max(0,Math.min(100,pct));
-  after.style.clipPath=`inset(0 ${100-p}% 0 0)`;
-  document.getElementById('baDivider').style.left=p+'%';
-  document.getElementById('baHandle').style.left=p+'%';
-}
-setBA(50);
-slider.addEventListener('mousedown',()=>dragging=true);
-slider.addEventListener('touchstart',()=>dragging=true,{passive:true});
-window.addEventListener('mouseup',()=>dragging=false);
-window.addEventListener('touchend',()=>dragging=false);
-window.addEventListener('mousemove',e=>{if(!dragging)return;const r=slider.getBoundingClientRect();setBA((e.clientX-r.left)/r.width*100);});
-window.addEventListener('touchmove',e=>{if(!dragging)return;const r=slider.getBoundingClientRect();setBA((e.touches[0].clientX-r.left)/r.width*100);},{passive:true});
-
-// ── SUPABASE ──
-const _sb = supabase.createClient(
-  'https://xpdfohzjjomrbzfatkpy.supabase.co',
-  'sb_publishable_Ty3WM5F5Vp7Yuijz3UVSxw_r3RTb7c2'
-);
-
-async function _notifyTeam(formType, data){
-  try {
-    await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/notify-email',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({formType, data})
+  <script>
+    // ── CURSOR ──
+    const cursor = document.getElementById('cursor'), ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function tick() { cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; rx += (mx - rx) * .18; ry += (my - ry) * .18; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(tick); })();
+    document.querySelectorAll('a,button,.project-card,.service-card,.testimonial-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
-  } catch(e){ console.warn('Notification skipped:', e); }
-}
 
-function showEstimateModal(){
-  document.getElementById('estimateModal').classList.add('show');
-}
-function closeEstimateModal(){
-  document.getElementById('estimateModal').classList.remove('show');
-}
-function resetEstimatorForm(){
-  document.getElementById('spaceType').value = '';
-  const sqmEl = document.getElementById('sqmRange');
-  sqmEl.value = 100;
-  const unit = currentLang === 'ar' ? ' م²' : ' sqm';
-  document.getElementById('sqmDisplay').textContent = '100' + unit;
-  document.getElementById('estimateName').value = '';
-  document.getElementById('estimateEmail').value = '';
-  document.getElementById('estimateResult').classList.remove('show');
-  document.querySelectorAll('.tier-btn').forEach((b,i) => b.classList.toggle('active', i===0));
-  currentTier = 'standard';
-  document.getElementById('estimateStatus').className = 'form-status';
-}
+    // ── NAV SCROLL ──
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
 
-// ── COST ESTIMATOR ──
-async function saveEstimate(){
-  const spaceEl = document.getElementById('spaceType');
-  const name = document.getElementById('estimateName').value.trim();
-  const email = document.getElementById('estimateEmail').value.trim();
-  const isAr = currentLang === 'ar';
-  if(!spaceEl.value){alert(isAr?'يرجى اختيار نوع المساحة أولاً.':'Please select a space type first.');return;}
-  if(!name){alert(isAr?'يرجى إدخال اسمك.':'Please enter your name.');document.getElementById('estimateName').focus();return;}
-  const btn = document.getElementById('btnSaveEstimate');
-  const status = document.getElementById('estimateStatus');
-  btn.disabled = true;
-  btn.querySelector('span.en-only').textContent = 'Saving…';
-  btn.querySelector('span.ar-only').textContent = 'جارٍ الحفظ…';
-  status.className = 'form-status';
-  const {error} = await _sb.from('estimate_requests').insert({
-    space_type: spaceEl.value,
-    area_sqm: parseInt(document.getElementById('sqmRange').value),
-    tier: currentTier,
-    estimate_range: document.getElementById('estimateRange').textContent,
-    name,
-    email: email || null
-  });
-  btn.disabled = false;
-  btn.querySelector('span.en-only').textContent = 'Save Estimate Request';
-  btn.querySelector('span.ar-only').textContent = 'حفظ طلب التقدير';
-  if(error){
-    status.className = 'form-status error';
-    status.textContent = isAr?'حدث خطأ. يرجى المحاولة مرة أخرى.':'Something went wrong. Please try again.';
-    return;
-  }
-  _notifyTeam('estimate', {name, email:email||null, space_type:spaceEl.value, area_sqm:parseInt(document.getElementById('sqmRange').value), tier:currentTier, estimate_range:document.getElementById('estimateRange').textContent});
-  resetEstimatorForm();
-  showEstimateModal();
-}
+    // ── SCROLL REVEAL ──
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-function sendEstimate(){
-  const spaceEl=document.getElementById('spaceType');
-  const spaceVal=spaceEl.value;
-  const isAr=currentLang==='ar';
-  if(!spaceVal){alert(isAr?'يرجى اختيار نوع المساحة أولاً.':'Please select a space type first.');return;}
-  const spaceLabel=spaceEl.options[spaceEl.selectedIndex].getAttribute('data-en')||spaceVal;
-  const sqm=document.getElementById('sqmRange').value;
-  const tier=currentTier.charAt(0).toUpperCase()+currentTier.slice(1);
-  const range=document.getElementById('estimateRange').textContent;
-  const name=document.getElementById('estimateName').value.trim();
-  const email=document.getElementById('estimateEmail').value.trim();
-  const nameLine=name?'\nName: '+name:'';
-  const emailLine=email?'\nEmail: '+email:'';
-  const msg='Hi The Walls, I used your cost estimator and got the following estimate:\n\nSpace Type: '+spaceLabel+'\nArea: '+sqm+' sqm\nFit-out Tier: '+tier+'\nEstimated Range: '+range+nameLine+emailLine+'\n\nPlease send me a detailed quote for my project.';
-  window.open('https://wa.me/971544996788?text='+encodeURIComponent(msg),'_blank');
-  _notifyTeam('estimate', {name:name||'(via WhatsApp)', email:email||null, space_type:spaceVal, area_sqm:parseInt(sqm), tier:currentTier, estimate_range:range});
-  resetEstimatorForm();
-  showEstimateModal();
-}
-let currentTier='standard';
-const tierRates={standard:{min:800,max:1200},premium:{min:1800,max:2500},luxury:{min:3500,max:5000}};
-function updateSqm(val){
-  const unit = currentLang==='ar' ? ' م²' : ' sqm';
-  document.getElementById('sqmDisplay').textContent=val+unit;
-  calcEstimate();
-}
-function setTier(btn,tier){
-  document.querySelectorAll('.tier-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  currentTier=tier;
-  calcEstimate();
-}
-function calcEstimate(){
-  const space=document.getElementById('spaceType').value;
-  if(!space)return;
-  const rates=tierRates[currentTier];
-  const mult={office:1,villa:1.05,retail:.95,hospitality:1.1}[space]||1;
-  const sqm=parseInt(document.getElementById('sqmRange').value);
-  const low=Math.round(sqm*rates.min*mult/1000)*1000;
-  const high=Math.round(sqm*rates.max*mult/1000)*1000;
-  document.getElementById('estimateRange').textContent='AED '+low.toLocaleString()+' – AED '+high.toLocaleString();
-  document.getElementById('estimateResult').classList.add('show');
-}
 
-// ── PROJECT CARD CLICK DELEGATION ──
-document.querySelectorAll('.project-card[data-link]').forEach(card => {
-  card.addEventListener('click', () => window.location.href = card.dataset.link);
-});
+    // ── LANGUAGE TOGGLE ──
+    let currentLang = localStorage.getItem('tw_lang') || 'en';
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('tw_lang', lang);
+      const root = document.getElementById('htmlRoot');
+      const btnEN = document.getElementById('btnEN');
+      const btnAR = document.getElementById('btnAR');
 
-</script>
-<script>
-// Wire search after search.js is loaded
-wireSearch('searchInputEN', 'searchResults');
-wireSearch('searchInputAR', 'searchResults');
-</script>
-<script src="./assets/js/main.js"></script>
+      if (lang === 'ar') {
+        root.setAttribute('lang', 'ar');
+        root.setAttribute('dir', 'rtl');
+        document.body.style.fontFamily = 'var(--arabic)';
+        if (btnAR) btnAR.classList.add('active');
+        if (btnEN) btnEN.classList.remove('active');
+        document.querySelectorAll('.nav-links a[data-ar]').forEach(a => a.textContent = a.dataset.ar);
+        const sqmEl = document.getElementById('sqmRange');
+        if (sqmEl) document.getElementById('sqmDisplay').textContent = sqmEl.value + ' م²';
+      } else {
+        root.setAttribute('lang', 'en');
+        root.setAttribute('dir', 'ltr');
+        document.body.style.fontFamily = 'var(--sans)';
+        if (btnEN) btnEN.classList.add('active');
+        if (btnAR) btnAR.classList.remove('active');
+        document.querySelectorAll('.nav-links a[data-en]').forEach(a => a.textContent = a.dataset.en);
+        const sqmEl = document.getElementById('sqmRange');
+        if (sqmEl) document.getElementById('sqmDisplay').textContent = sqmEl.value + ' sqm';
+      }
 
-<!-- ESTIMATE SENT MODAL -->
-<div id="estimateModal" class="est-modal-overlay" onclick="closeEstimateModal()">
-  <div class="est-modal" onclick="event.stopPropagation()">
-    <div class="est-modal-icon">
-      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      // Re-trigger reveal animations
+      document.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
+      setTimeout(() => document.querySelectorAll('.reveal').forEach(el => obs.observe(el)), 100);
+    }
+    // Initialize from saved preference
+    (function () { setLang(currentLang); })();
+
+    // ── BEFORE/AFTER SLIDER ──
+    const slider = document.getElementById('baSlider');
+    const after = document.getElementById('baAfter');
+    let dragging = false;
+    function setBA(pct) {
+      const p = Math.max(0, Math.min(100, pct));
+      after.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+      document.getElementById('baDivider').style.left = p + '%';
+      document.getElementById('baHandle').style.left = p + '%';
+    }
+    setBA(50);
+    slider.addEventListener('mousedown', () => dragging = true);
+    slider.addEventListener('touchstart', () => dragging = true, { passive: true });
+    window.addEventListener('mouseup', () => dragging = false);
+    window.addEventListener('touchend', () => dragging = false);
+    window.addEventListener('mousemove', e => { if (!dragging) return; const r = slider.getBoundingClientRect(); setBA((e.clientX - r.left) / r.width * 100); });
+    window.addEventListener('touchmove', e => { if (!dragging) return; const r = slider.getBoundingClientRect(); setBA((e.touches[0].clientX - r.left) / r.width * 100); }, { passive: true });
+
+    // ── SUPABASE ──
+    const _sb = supabase.createClient(
+      'https://xpdfohzjjomrbzfatkpy.supabase.co',
+      'sb_publishable_Ty3WM5F5Vp7Yuijz3UVSxw_r3RTb7c2'
+    );
+
+    async function _notifyTeam(formType, data) {
+      try {
+        await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/notify-email', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ formType, data })
+        });
+      } catch (e) { console.warn('Notification skipped:', e); }
+    }
+
+    function showEstimateModal() {
+      document.getElementById('estimateModal').classList.add('show');
+    }
+    function closeEstimateModal() {
+      document.getElementById('estimateModal').classList.remove('show');
+    }
+    function resetEstimatorForm() {
+      document.getElementById('spaceType').value = '';
+      const sqmEl = document.getElementById('sqmRange');
+      sqmEl.value = 100;
+      const unit = currentLang === 'ar' ? ' م²' : ' sqm';
+      document.getElementById('sqmDisplay').textContent = '100' + unit;
+      document.getElementById('estimateName').value = '';
+      document.getElementById('estimateEmail').value = '';
+      document.getElementById('estimateResult').classList.remove('show');
+      document.querySelectorAll('.tier-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+      currentTier = 'standard';
+      document.getElementById('estimateStatus').className = 'form-status';
+    }
+
+    // ── COST ESTIMATOR ──
+    async function saveEstimate() {
+      const spaceEl = document.getElementById('spaceType');
+      const name = document.getElementById('estimateName').value.trim();
+      const email = document.getElementById('estimateEmail').value.trim();
+      const isAr = currentLang === 'ar';
+      if (!spaceEl.value) { alert(isAr ? 'يرجى اختيار نوع المساحة أولاً.' : 'Please select a space type first.'); return; }
+      if (!name) { alert(isAr ? 'يرجى إدخال اسمك.' : 'Please enter your name.'); document.getElementById('estimateName').focus(); return; }
+      const btn = document.getElementById('btnSaveEstimate');
+      const status = document.getElementById('estimateStatus');
+      btn.disabled = true;
+      btn.querySelector('span.en-only').textContent = 'Saving…';
+      btn.querySelector('span.ar-only').textContent = 'جارٍ الحفظ…';
+      status.className = 'form-status';
+      const { error } = await _sb.from('estimate_requests').insert({
+        space_type: spaceEl.value,
+        area_sqm: parseInt(document.getElementById('sqmRange').value),
+        tier: currentTier,
+        estimate_range: document.getElementById('estimateRange').textContent,
+        name,
+        email: email || null
+      });
+      btn.disabled = false;
+      btn.querySelector('span.en-only').textContent = 'Save Estimate Request';
+      btn.querySelector('span.ar-only').textContent = 'حفظ طلب التقدير';
+      if (error) {
+        status.className = 'form-status error';
+        status.textContent = isAr ? 'حدث خطأ. يرجى المحاولة مرة أخرى.' : 'Something went wrong. Please try again.';
+        return;
+      }
+      _notifyTeam('estimate', { name, email: email || null, space_type: spaceEl.value, area_sqm: parseInt(document.getElementById('sqmRange').value), tier: currentTier, estimate_range: document.getElementById('estimateRange').textContent });
+      resetEstimatorForm();
+      showEstimateModal();
+    }
+
+    function sendEstimate() {
+      const spaceEl = document.getElementById('spaceType');
+      const spaceVal = spaceEl.value;
+      const isAr = currentLang === 'ar';
+      if (!spaceVal) { alert(isAr ? 'يرجى اختيار نوع المساحة أولاً.' : 'Please select a space type first.'); return; }
+      const spaceLabel = spaceEl.options[spaceEl.selectedIndex].getAttribute('data-en') || spaceVal;
+      const sqm = document.getElementById('sqmRange').value;
+      const tier = currentTier.charAt(0).toUpperCase() + currentTier.slice(1);
+      const range = document.getElementById('estimateRange').textContent;
+      const name = document.getElementById('estimateName').value.trim();
+      const email = document.getElementById('estimateEmail').value.trim();
+      const nameLine = name ? '\nName: ' + name : '';
+      const emailLine = email ? '\nEmail: ' + email : '';
+      const msg = 'Hi The Walls, I used your cost estimator and got the following estimate:\n\nSpace Type: ' + spaceLabel + '\nArea: ' + sqm + ' sqm\nFit-out Tier: ' + tier + '\nEstimated Range: ' + range + nameLine + emailLine + '\n\nPlease send me a detailed quote for my project.';
+      window.open('https://wa.me/971544996788?text=' + encodeURIComponent(msg), '_blank');
+      _notifyTeam('estimate', { name: name || '(via WhatsApp)', email: email || null, space_type: spaceVal, area_sqm: parseInt(sqm), tier: currentTier, estimate_range: range });
+      resetEstimatorForm();
+      showEstimateModal();
+    }
+    let currentTier = 'standard';
+    const tierRates = { standard: { min: 800, max: 1200 }, premium: { min: 1800, max: 2500 }, luxury: { min: 3500, max: 5000 } };
+    function updateSqm(val) {
+      const unit = currentLang === 'ar' ? ' م²' : ' sqm';
+      document.getElementById('sqmDisplay').textContent = val + unit;
+      calcEstimate();
+    }
+    function setTier(btn, tier) {
+      document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentTier = tier;
+      calcEstimate();
+    }
+    function calcEstimate() {
+      const space = document.getElementById('spaceType').value;
+      if (!space) return;
+      const rates = tierRates[currentTier];
+      const mult = { office: 1, villa: 1.05, retail: .95, hospitality: 1.1 }[space] || 1;
+      const sqm = parseInt(document.getElementById('sqmRange').value);
+      const low = Math.round(sqm * rates.min * mult / 1000) * 1000;
+      const high = Math.round(sqm * rates.max * mult / 1000) * 1000;
+      document.getElementById('estimateRange').textContent = 'AED ' + low.toLocaleString() + ' – AED ' + high.toLocaleString();
+      document.getElementById('estimateResult').classList.add('show');
+    }
+
+    // ── PROJECT CARD CLICK DELEGATION ──
+    document.querySelectorAll('.project-card[data-link]').forEach(card => {
+      card.addEventListener('click', () => window.location.href = card.dataset.link);
+    });
+
+  </script>
+  <script>
+    // Wire search after search.js is loaded
+    wireSearch('searchInputEN', 'searchResults');
+    wireSearch('searchInputAR', 'searchResults');
+  </script>
+  <script src="./assets/js/main.js"></script>
+
+  <!-- ESTIMATE SENT MODAL -->
+  <div id="estimateModal" class="est-modal-overlay" onclick="closeEstimateModal()">
+    <div class="est-modal" onclick="event.stopPropagation()">
+      <div class="est-modal-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+      <h3 class="est-modal-title en-only">Estimate Sent!</h3>
+      <h3 class="est-modal-title ar-only">تم الإرسال!</h3>
+      <p class="est-modal-msg en-only">Thank you! We've received your estimate request and will get back to you within 2
+        hours.</p>
+      <p class="est-modal-msg ar-only">شكراً! لقد استلمنا طلبك وسنتواصل معك خلال ساعتين.</p>
+      <button class="est-modal-close" onclick="closeEstimateModal()">
+        <span class="en-only">Close</span><span class="ar-only">إغلاق</span>
+      </button>
     </div>
-    <h3 class="est-modal-title en-only">Estimate Sent!</h3>
-    <h3 class="est-modal-title ar-only">تم الإرسال!</h3>
-    <p class="est-modal-msg en-only">Thank you! We've received your estimate request and will get back to you within 2 hours.</p>
-    <p class="est-modal-msg ar-only">شكراً! لقد استلمنا طلبك وسنتواصل معك خلال ساعتين.</p>
-    <button class="est-modal-close" onclick="closeEstimateModal()">
-      <span class="en-only">Close</span><span class="ar-only">إغلاق</span>
-    </button>
   </div>
-</div>
 </body>
+
 </html>
