@@ -67,9 +67,13 @@ window.openCookieSettings = function() {
 
 window.cookieConsent = function(choice) {
   localStorage.setItem('tw_cookie_consent', choice);
-  // Fire analytics immediately when user accepts
-  if (choice === 'accept' && typeof window._twLoadAnalytics === 'function') {
-    window._twLoadAnalytics();
+  if (choice === 'accept') {
+    localStorage.setItem('tw_cookie_analytics', 'true');
+    localStorage.setItem('tw_cookie_personalization', 'true');
+    _twFireAnalytics();
+  } else if (choice === 'reject') {
+    localStorage.setItem('tw_cookie_analytics', 'false');
+    localStorage.setItem('tw_cookie_personalization', 'false');
   }
   var banner = document.getElementById('cookieBanner');
   if (banner) {
@@ -81,27 +85,225 @@ window.cookieConsent = function(choice) {
   }
 };
 
+// Fires GA (defined in each page's <head>) + Microsoft Clarity
+function _twFireAnalytics() {
+  if (typeof window._twLoadAnalytics === 'function') window._twLoadAnalytics();
+  if (!window._twClarityLoaded) {
+    window._twClarityLoaded = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window,document,'clarity','script','wwp0sbrkx6');
+  }
+}
+
+window.openCookieCustomize = function() {
+  if (document.getElementById('cookieModalOverlay')) return;
+
+  // Build toggle switches via DOM so no smart-quote issues with type/id attrs
+  function mkToggle(id, defaultChecked, disabled) {
+    var lbl = document.createElement('label');
+    lbl.className = 'cp-toggle';
+    var inp = document.createElement('input');
+    inp.type = 'checkbox';
+    if (id) inp.id = id;
+    inp.checked = !!defaultChecked;
+    if (disabled) inp.disabled = true;
+    var trk = document.createElement('span');
+    trk.className = 'cp-toggle-track';
+    lbl.appendChild(inp);
+    lbl.appendChild(trk);
+    return lbl;
+  }
+
+  function mkBullets(items) {
+    var ul = document.createElement('ul');
+    ul.className = 'cookie-pref-bullets';
+    items.forEach(function(t) {
+      var li = document.createElement('li');
+      li.textContent = t;
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+
+  function mkCategory(name, toggleId, defaultChecked, alwaysOn, subText, bullets) {
+    var item = document.createElement('div');
+    item.className = 'cookie-pref-item';
+    var hdr = document.createElement('div');
+    hdr.className = 'cookie-pref-header';
+    var nameEl = document.createElement('span');
+    nameEl.className = 'cookie-pref-name';
+    nameEl.textContent = name;
+    hdr.appendChild(nameEl);
+    if (alwaysOn) {
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'display:flex;align-items:center;gap:10px';
+      var badge = document.createElement('span');
+      badge.className = 'cookie-pref-badge';
+      badge.textContent = 'Always On';
+      wrap.appendChild(badge);
+      wrap.appendChild(mkToggle(null, true, true));
+      hdr.appendChild(wrap);
+    } else {
+      hdr.appendChild(mkToggle(toggleId, defaultChecked, false));
+    }
+    item.appendChild(hdr);
+    var sub = document.createElement('p');
+    sub.className = 'cookie-pref-sub';
+    sub.textContent = subText;
+    item.appendChild(sub);
+    item.appendChild(mkBullets(bullets));
+    return item;
+  }
+
+  var overlay = document.createElement('div');
+  overlay.id = 'cookieModalOverlay';
+  overlay.className = 'cookie-modal-overlay';
+
+  var modal = document.createElement('div');
+  modal.className = 'cookie-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+
+  var hdr = document.createElement('div');
+  hdr.className = 'cookie-modal-header';
+  var titleEl = document.createElement('span');
+  titleEl.className = 'cookie-modal-title';
+  titleEl.textContent = 'Cookie Preferences';
+  var closeBtn = document.createElement('button');
+  closeBtn.className = 'cookie-modal-close-btn';
+  closeBtn.innerHTML = '&times;';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.onclick = function() { window.closeCookieModal(); };
+  hdr.appendChild(titleEl);
+  hdr.appendChild(closeBtn);
+  modal.appendChild(hdr);
+
+  // Scrollable body — desc + categories scroll; action buttons stay outside
+  var body = document.createElement('div');
+  body.className = 'cookie-modal-body';
+
+  var descEl = document.createElement('p');
+  descEl.className = 'cookie-modal-desc';
+  descEl.textContent = 'Choose which cookies you allow. Essential cookies are always active as they are required for the site to function properly.';
+  body.appendChild(descEl);
+
+  var list = document.createElement('div');
+  list.className = 'cookie-pref-list';
+  list.appendChild(mkCategory('Personalization', 'pref-personalization', true, false,
+    'Remembers your preferences to give you a personalised experience.',
+    ['Remember your language preference', 'Store theme settings (dark mode, etc.)']));
+  list.appendChild(mkCategory('Analytics & Performance', 'pref-analytics', false, false,
+    'Helps us understand how visitors interact with the site so we can improve it.',
+    ['Track how users interact with the site', 'Measure page load times and user behaviour', 'Help developers understand which features are used most']));
+  list.appendChild(mkCategory('Session Management', null, true, true,
+    'Essential for normal site operation.',
+    ['Track your preferences during a browsing session']));
+  list.appendChild(mkCategory('Security', null, true, true,
+    'Protects you and the site from fraud and unauthorised access.',
+    ['Verify you are who you claim to be', 'Prevent fraud and unauthorised access', 'Store security tokens']));
+  body.appendChild(list);
+  modal.appendChild(body);
+
+  var actions = document.createElement('div');
+  actions.className = 'cookie-modal-actions';
+  var saveBtn = document.createElement('button');
+  saveBtn.className = 'btn-primary';
+  saveBtn.textContent = 'Save Preferences';
+  saveBtn.onclick = function() { window.saveCookiePrefs(); };
+  var acceptBtn = document.createElement('button');
+  acceptBtn.className = 'btn-outline';
+  acceptBtn.textContent = 'Accept All';
+  acceptBtn.onclick = function() { window.cookieConsent('accept'); window.closeCookieModal(); };
+  actions.appendChild(saveBtn);
+  actions.appendChild(acceptBtn);
+  modal.appendChild(actions);
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  setTimeout(function() { overlay.classList.add('cm-visible'); }, 40);
+};
+
+window.closeCookieModal = function() {
+  var overlay = document.getElementById('cookieModalOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('cm-visible');
+  setTimeout(function() {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+  }, 350);
+};
+
+window.saveCookiePrefs = function() {
+  var analytics = document.getElementById('pref-analytics');
+  var personalization = document.getElementById('pref-personalization');
+  var analyticsOn = analytics ? analytics.checked : false;
+  var personalizationOn = personalization ? personalization.checked : true;
+
+  localStorage.setItem('tw_cookie_consent', 'custom');
+  localStorage.setItem('tw_cookie_analytics', analyticsOn ? 'true' : 'false');
+  localStorage.setItem('tw_cookie_personalization', personalizationOn ? 'true' : 'false');
+
+  if (analyticsOn) _twFireAnalytics();
+
+  window.closeCookieModal();
+  // Also dismiss the banner
+  var banner = document.getElementById('cookieBanner');
+  if (banner) {
+    banner.classList.remove('cookie-visible');
+    banner.classList.add('cookie-hiding');
+    setTimeout(function() {
+      if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
+    }, 420);
+  }
+};
+
+function _mkBtn(cls, text, fn) {
+  var btn = document.createElement('button');
+  btn.className = cls;
+  btn.textContent = text;
+  btn.onclick = fn;
+  return btn;
+}
+
 function _twInjectCookieBanner() {
   var b = document.createElement('div');
   b.id = 'cookieBanner';
   b.className = 'cookie-banner';
-  b.innerHTML =
-    '<div class="cookie-inner">' +
-      '<div class="cookie-text">' +
-        '<h4 class="en-only">We value your privacy</h4>' +
-        '<h4 class="ar-only">نحن نقدر خصوصيتكم</h4>' +
-        '<p class="en-only">We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking “Accept All”, you consent to our use of cookies.</p>' +
-        '<p class="ar-only">نحن نستخدم ملفات تعريف الارتباط لتحسين تجربة التصفح الخاصة بك، وتقديم إعلانات أو محتوى مخصص، وتحليل حركة المرور لدينا. بالنقر فوق “قبول الكل”، فإنك توافق على استخدامنا لملفات تعريف الارتباط.</p>' +
-      '</div>' +
-      '<div class="cookie-actions">' +
-        '<button class="btn-primary en-only" onclick="cookieConsent(\'accept\')">Accept All</button>' +
-        '<button class="btn-primary ar-only" onclick="cookieConsent(\'accept\')">قبول الكل</button>' +
-        '<button class="btn-outline en-only" onclick="cookieConsent(\'reject\')">Reject All</button>' +
-        '<button class="btn-outline ar-only" onclick="cookieConsent(\'reject\')">رفض الكل</button>' +
-        '<button class="btn-outline en-only" onclick="cookieConsent(\'customize\')">Customize</button>' +
-        '<button class="btn-outline ar-only" onclick="cookieConsent(\'customize\')">تخصيص</button>' +
-      '</div>' +
-    '</div>';
+
+  var inner = document.createElement('div');
+  inner.className = 'cookie-inner';
+
+  var textDiv = document.createElement('div');
+  textDiv.className = 'cookie-text';
+  var h4en = document.createElement('h4');
+  h4en.className = 'en-only';
+  h4en.textContent = 'We value your privacy';
+  var h4ar = document.createElement('h4');
+  h4ar.className = 'ar-only';
+  h4ar.textContent = 'نحن نقدر خصوصيتكم';
+  var pen = document.createElement('p');
+  pen.className = 'en-only';
+  pen.textContent = 'We use cookies to enhance your browsing experience, serve personalised content, and analyse our traffic. By clicking “Accept All”, you consent to our use of cookies.';
+  var par = document.createElement('p');
+  par.className = 'ar-only';
+  par.textContent = 'نحن نستخدم ملفات تعريف الارتباط لتحسين تجربة التصفح وتقديم محتوى مخصص. بالنقر فوق “قبول الكل” توافق على استخدامنا.';
+  textDiv.appendChild(h4en); textDiv.appendChild(h4ar);
+  textDiv.appendChild(pen); textDiv.appendChild(par);
+
+  var actDiv = document.createElement('div');
+  actDiv.className = 'cookie-actions';
+  actDiv.appendChild(_mkBtn('btn-primary en-only', 'Accept All', function(){ window.cookieConsent('accept'); }));
+  actDiv.appendChild(_mkBtn('btn-primary ar-only', 'قبول الكل', function(){ window.cookieConsent('accept'); }));
+  actDiv.appendChild(_mkBtn('btn-outline en-only', 'Reject All', function(){ window.cookieConsent('reject'); }));
+  actDiv.appendChild(_mkBtn('btn-outline ar-only', 'رفض الكل', function(){ window.cookieConsent('reject'); }));
+  actDiv.appendChild(_mkBtn('btn-outline en-only', 'Customize', function(){ window.openCookieCustomize(); }));
+  actDiv.appendChild(_mkBtn('btn-outline ar-only', 'تخصيص', function(){ window.openCookieCustomize(); }));
+
+  inner.appendChild(textDiv);
+  inner.appendChild(actDiv);
+  b.appendChild(inner);
   document.body.appendChild(b);
   // Short delay lets the browser paint the translateY(100%) position before animating in
   setTimeout(function() { b.classList.add('cookie-visible'); }, 80);
@@ -127,14 +329,22 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-// THEME BUTTON INIT + LOGO INIT + FONT INIT + COOKIE BANNER INIT
+// THEME BUTTON INIT + LOGO INIT + FONT INIT + COOKIE BANNER INIT + ANALYTICS
 document.addEventListener('DOMContentLoaded', function(){
   var theme = document.documentElement.getAttribute('data-theme') || 'dark';
   _twThemeBtn(theme);
   _twLogos(theme);
   _twFonts(theme);
-  if (!localStorage.getItem('tw_cookie_consent')) {
+
+  var consent = localStorage.getItem('tw_cookie_consent');
+  if (!consent) {
     _twInjectCookieBanner();
+  } else if (consent === 'custom' && localStorage.getItem('tw_cookie_analytics') === 'true') {
+    // Head script only fires GA on 'accept'; handle 'custom' + Clarity here
+    _twFireAnalytics();
+  } else if (consent === 'accept') {
+    // Clarity may not have been loaded yet (head script loads GA only)
+    _twFireAnalytics();
   }
 });
 
