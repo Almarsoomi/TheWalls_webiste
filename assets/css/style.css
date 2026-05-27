@@ -2011,9 +2011,12 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
   position:fixed;inset:0;z-index:9998;
   background:rgba(12,12,11,.75);backdrop-filter:blur(4px);
   display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;transition:opacity .3s ease;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
 }
-.cookie-modal-overlay.cm-visible{opacity:1}
+.cookie-modal-overlay.cm-visible{opacity:1;pointer-events:auto}
+/* Save-preferences toast */
+.tw-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--obsidian-2,#141413);border:.5px solid rgba(201,169,110,.4);color:var(--cream,#f5f0e8);font-size:12px;letter-spacing:.1em;padding:10px 24px;z-index:10000;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;font-family:var(--sans,'DM Sans',sans-serif)}
+.tw-toast.tw-toast-visible{opacity:1;transform:translateX(-50%) translateY(0)}
 .cookie-modal{
   width:100%;max-width:680px;max-height:85vh;overflow:hidden;
   display:flex;flex-direction:column;

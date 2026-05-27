@@ -190,12 +190,17 @@ window.openCookieCustomize = function() {
   descEl.textContent = 'Choose which cookies you allow. Essential cookies are always active as they are required for the site to function properly.';
   body.appendChild(descEl);
 
+  var savedAnalytics = localStorage.getItem('tw_cookie_analytics');
+  var savedPersonalization = localStorage.getItem('tw_cookie_personalization');
+  var analyticsDefault = savedAnalytics !== null ? savedAnalytics === 'true' : false;
+  var personalizationDefault = savedPersonalization !== null ? savedPersonalization === 'true' : true;
+
   var list = document.createElement('div');
   list.className = 'cookie-pref-list';
-  list.appendChild(mkCategory('Personalization', 'pref-personalization', true, false,
+  list.appendChild(mkCategory('Personalization', 'pref-personalization', personalizationDefault, false,
     'Remembers your preferences to give you a personalised experience.',
     ['Remember your language preference', 'Store theme settings (dark mode, etc.)']));
-  list.appendChild(mkCategory('Analytics & Performance', 'pref-analytics', false, false,
+  list.appendChild(mkCategory('Analytics & Performance', 'pref-analytics', analyticsDefault, false,
     'Helps us understand how visitors interact with the site so we can improve it.',
     ['Track how users interact with the site', 'Measure page load times and user behaviour', 'Help developers understand which features are used most']));
   list.appendChild(mkCategory('Session Management', null, true, true,
@@ -217,8 +222,13 @@ window.openCookieCustomize = function() {
   acceptBtn.className = 'btn-outline';
   acceptBtn.textContent = 'Accept All';
   acceptBtn.onclick = function() { window.cookieConsent('accept'); window.closeCookieModal(); };
+  var rejectBtn = document.createElement('button');
+  rejectBtn.className = 'btn-outline';
+  rejectBtn.textContent = 'Reject All';
+  rejectBtn.onclick = function() { window.cookieConsent('reject'); window.closeCookieModal(); };
   actions.appendChild(saveBtn);
   actions.appendChild(acceptBtn);
+  actions.appendChild(rejectBtn);
   modal.appendChild(actions);
 
   overlay.appendChild(modal);
@@ -248,6 +258,18 @@ window.saveCookiePrefs = function() {
   if (analyticsOn) _twFireAnalytics();
 
   window.closeCookieModal();
+
+  // Brief success toast
+  var toast = document.createElement('div');
+  toast.className = 'tw-toast';
+  toast.textContent = 'Preferences saved';
+  document.body.appendChild(toast);
+  setTimeout(function() { toast.classList.add('tw-toast-visible'); }, 30);
+  setTimeout(function() {
+    toast.classList.remove('tw-toast-visible');
+    setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 350);
+  }, 2200);
+
   // Also dismiss the banner
   var banner = document.getElementById('cookieBanner');
   if (banner) {
