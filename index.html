@@ -31,6 +31,74 @@
   <link rel="stylesheet" href="./assets/css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://thewalls.ae/#website",
+        "url": "https://thewalls.ae/",
+        "name": "The Walls",
+        "inLanguage": ["en", "ar"],
+        "description": "Premium fit-out, joinery and interior design services in Dubai, UAE",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://thewalls.ae/pages/portfolio.html?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+        "@id": "https://thewalls.ae/#business",
+        "name": "The Walls",
+        "alternateName": "The Walls Dubai",
+        "description": "Specialists in joinery, solid surfaces, aluminum works, furniture, and complete fit-out. Founded by architects. Based in Dubai.",
+        "url": "https://thewalls.ae/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://thewalls.ae/assets/images/Logo/TheWallsLogo.png"
+        },
+        "image": "https://thewalls.ae/assets/images/Logo/TheWallsLogo.png",
+        "telephone": "+971544996788",
+        "email": "info@thewalls.ae",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Warehouse No. 4, 22nd Street, Al Quoz 3",
+          "addressLocality": "Dubai",
+          "addressRegion": "Dubai",
+          "addressCountry": "AE"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Dubai" },
+          { "@type": "AdministrativeArea", "name": "United Arab Emirates" }
+        ],
+        "foundingDate": "2018",
+        "priceRange": "$$$$",
+        "sameAs": [
+          "https://www.instagram.com/the_walls_dubai",
+          "https://twitter.com/the_walls_dubai"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Fit-Out & Interior Design Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Joinery & Carpentry" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Solid Surfaces" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aluminum Works" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Interior Design" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Complete Fit-Out" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Architecture & Supervision" } }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('tw_theme') || 'dark');</script>
   <script>
     window._twLoadAnalytics = function () {

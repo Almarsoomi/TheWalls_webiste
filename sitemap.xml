@@ -1,71 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
   <url>
     <loc>https://thewalls.ae/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Core pages -->
   <url>
     <loc>https://thewalls.ae/pages/services.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/pages/portfolio.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/pages/about.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/pages/booking.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/pages/contact.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/pages/blog.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Case studies -->
   <url>
     <loc>https://thewalls.ae/pages/case-study-villa.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/pages/case-study-office.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/pages/case-study-clinic.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://thewalls.ae/pages/privacy-policy.html</loc>
-    <priority>0.4</priority>
+    <loc>https://thewalls.ae/pages/case-study-lento.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://thewalls.ae/pages/terms-of-use.html</loc>
-    <priority>0.4</priority>
-  </url>
+
+  <!-- Blog articles -->
   <url>
     <loc>https://thewalls.ae/blog/villa-fitout-timeline-dubai.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>never</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/blog/joinery-vs-offshelf-furniture.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>never</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/blog/solid-surfaces-corian-vs-quartz.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>never</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/blog/hiring-fitout-contractor-uae.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>never</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thewalls.ae/blog/office-fitout-difc-dmcc-checklist.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>never</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Legal pages -->
+  <url>
+    <loc>https://thewalls.ae/pages/privacy-policy.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://thewalls.ae/pages/terms-of-use.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
 </urlset>
