@@ -1,0 +1,24 @@
+# Service Image-Generation Prompts — The Walls
+
+Image-generation prompts (one per service on `pages/services.html`) for Nano Banana.
+
+**Shared specs for cohesion:** All images are **4:3 aspect ratio** (matching the
+`.svc-img-main` and `.svc-gal-item` slots on the page). Every prompt uses the same
+visual language — photorealistic commercial photography, an obsidian-black / warm-walnut /
+muted antique-gold (`#C9A96E`) palette, warm cinematic directional lighting, full-frame
+camera with a 35–50mm lens and shallow depth of field — so the full set looks like one
+consistent shoot. No text, logos, or watermarks in any image.
+
+---
+
+1. **Joinery** → Photorealistic professional commercial interior photograph of a bespoke walk-in wardrobe in a luxury Dubai villa, fluted walnut veneer panels and custom cabinetry with brushed antique-gold handles and integrated warm LED strip lighting. Setting: an elegant dark dressing room; composition a three-quarter angle showing depth and craftsmanship; soft directional key light raking across the wood grain, deep shadows, moody refined atmosphere. Color palette of obsidian black, warm walnut, and muted antique gold (#C9A96E). Shot on a full-frame camera, 35mm lens, shallow depth of field. No text, no logos, no watermarks. 4:3 aspect ratio.
+
+2. **Solid Surfaces** → Photorealistic professional commercial interior photograph of a seamless solid-surface kitchen island and curved reception-style counter in matte stone-white Corian with invisible joints and a precise mitred waterfall edge, set against a dark backlit feature wall. Setting: a high-end minimalist Dubai interior; composition a low three-quarter hero angle emphasising the flawless continuous surface; soft diffused light with a warm grazing highlight along the edge, gentle reflections, calm luxurious mood. Color palette of obsidian black, soft stone white, warm walnut accents, and muted antique gold (#C9A96E). Full-frame camera, 50mm lens, shallow depth of field. No text, no logos, no watermarks. 4:3 aspect ratio.
+
+3. **Aluminum Works** → Photorealistic professional architectural photograph of floor-to-ceiling slim-frame aluminum windows and a glass curtain-wall corner of a modern luxury Dubai villa, slender bronze-toned thermally-broken frames framing a dusk skyline. Setting: contemporary facade at the golden-hour to blue-hour transition; composition a strong upward three-quarter angle with clean geometric lines; warm interior glow against cool twilight exterior, crisp shadows, sophisticated mood. Color palette of obsidian black, warm bronze, and muted antique gold (#C9A96E). Full-frame camera, 35mm lens, deep yet selective focus. No text, no logos, no watermarks. 4:3 aspect ratio.
+
+4. **Interior Design** → Photorealistic professional commercial photograph of an architect's design table styled flat-lay-to-perspective: material and finish boards, walnut and stone samples, brass hardware swatches, rolled technical drawings and a 3D render print, arranged on a dark stone surface. Setting: a refined Dubai design studio; composition an elegant overhead-to-three-quarter angle with intentional negative space; soft warm directional light, gentle shadows, creative and curated mood. Color palette of obsidian black, warm walnut, soft stone, and muted antique gold (#C9A96E). Full-frame camera, 50mm lens, shallow depth of field. No text, no logos, no watermarks. 4:3 aspect ratio.
+
+5. **Complete Fit-Out** → Photorealistic professional interior photograph of a fully completed turnkey luxury corporate office and lounge in Dubai, immaculately fitted with bespoke walnut joinery, a seamless stone reception desk, slim aluminum glazing and designer furniture, fully finished and ready for handover. Setting: a polished commercial interior; composition a wide establishing three-quarter shot showing the whole resolved space; warm cinematic ambient light balanced with architectural spot lighting, soft shadows, confident premium mood. Color palette of obsidian black, warm walnut, soft stone, and muted antique gold (#C9A96E). Full-frame camera, 35mm lens, balanced depth of field. No text, no logos, no watermarks. 4:3 aspect ratio.
+
+6. **Architecture & Supervision** → Photorealistic professional photograph of an architect in a refined hard hat reviewing technical drawings on a tablet at a high-end Dubai fit-out site, a physical scale model and rolled blueprints on a table beside finished walnut and stone surfaces. Setting: an elegant near-complete interior under supervision; composition a three-quarter angle capturing both the person and the documents; soft warm directional daylight with deep shadows, focused and authoritative mood. Color palette of obsidian black, warm walnut, and muted antique gold (#C9A96E). Full-frame camera, 35mm lens, shallow depth of field. No text, no logos, no watermarks. 4:3 aspect ratio.
