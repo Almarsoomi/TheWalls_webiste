@@ -692,10 +692,7 @@ function wireSearch(inputId, resultsId) {
     });
   }
 
-  // wait for hero entrance animation before starting
-  setTimeout(function () {
-    setInterval(swapSlots, 3200);
-  }, 2000);
+  setInterval(swapSlots, 3200);
 }());
 
 // ── PROCESS LINE FILL ON SCROLL ──────────────────────────────────────────────
