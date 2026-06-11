@@ -663,3 +663,118 @@ function wireSearch(inputId, resultsId) {
     }
   });
 }
+
+// ── HERO WORD CYCLE ──────────────────────────────────────────────────────────
+(function () {
+  const sequences = [
+    ['craft',    'design',    'build',    'shape'   ],
+    ['spaces',   'interiors', 'villas',   'offices' ],
+    ['endure',   'inspire',   'impress',  'perform' ],
+  ];
+  let idx = 0;
+
+  function swapSlots() {
+    idx = (idx + 1) % sequences[0].length;
+    document.querySelectorAll('.hero-h1.en-only .hero-cycle-slot').forEach(function (slot, i) {
+      const word = slot.querySelector('.hero-cycle-word');
+      // slide current word up and out
+      word.classList.add('is-out');
+      setTimeout(function () {
+        // jump next word in from below (no transition)
+        word.textContent = sequences[i][idx];
+        word.classList.remove('is-out');
+        word.classList.add('is-in');
+        // force reflow so the no-transition reset registers
+        word.getBoundingClientRect();
+        // now animate it into place
+        word.classList.remove('is-in');
+      }, 480);
+    });
+  }
+
+  // wait for hero entrance animation before starting
+  setTimeout(function () {
+    setInterval(swapSlots, 3200);
+  }, 2000);
+}());
+
+// ── PROCESS LINE FILL ON SCROLL ──────────────────────────────────────────────
+(function () {
+  var fill = document.querySelector('#pt-main .pt-line-fill');
+  var timeline = document.getElementById('pt-main');
+  if (!fill || !timeline) return;
+
+  function updateFill() {
+    var rect = timeline.getBoundingClientRect();
+    var vh = window.innerHeight;
+    // start filling when top of timeline enters bottom of viewport
+    // finish filling when bottom of timeline reaches top of viewport
+    var progress = (vh - rect.top) / (rect.height + vh * 0.3);
+    progress = Math.max(0, Math.min(1, progress));
+    fill.style.height = (progress * 100) + '%';
+  }
+
+  window.addEventListener('scroll', updateFill, { passive: true });
+  updateFill();
+}());
+
+// ── PULSE GLOW — Before/After instruction text ───────────────────────────────
+(function () {
+  var targets = document.querySelectorAll('.shimmer-text');
+  if (!targets.length) return;
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('pulse-active');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.8 });
+
+  targets.forEach(function (el) { obs.observe(el); });
+}());
+
+// ── SCROLL DIVIDER EXPAND ────────────────────────────────────────────────────
+(function () {
+  var dividers = document.querySelectorAll('[data-divider]');
+  if (!dividers.length) return;
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-expanded');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '-42% 0px -42% 0px' });
+
+  dividers.forEach(function (d) { obs.observe(d); });
+}());
+
+// ── PROCESS TIMELINE SCROLL ACTIVATION ───────────────────────────────────────
+(function () {
+  var steps = document.querySelectorAll('.pt-step');
+  if (!steps.length) return;
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      entry.target.classList.toggle('is-active', entry.isIntersecting);
+    });
+  }, { threshold: 0.35 });
+
+  steps.forEach(function (step) { obs.observe(step); });
+
+  // reveal footer link when last step activates
+  var footer = document.querySelector('.pt-footer');
+  if (footer) {
+    var lastStep = steps[steps.length - 1];
+    var footerObs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        setTimeout(function () { footer.classList.add('is-visible'); }, 300);
+        footerObs.disconnect();
+      }
+    }, { threshold: 0.5 });
+    footerObs.observe(lastStep);
+  }
+}());
