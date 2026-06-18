@@ -870,9 +870,6 @@
         <label class="form-label ar-only">البريد الإلكتروني</label>
         <input type="email" class="form-input" id="estimateEmail" placeholder="you@example.com" />
       </div>
-      <!-- Honeypot: bots fill this, humans don't see it -->
-      <input type="text" name="website" id="hp_website" style="display:none!important" tabindex="-1" autocomplete="off"
-        aria-hidden="true" />
       <!-- Turnstile human verification -->
       <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-bottom:16px;">
       </div>
@@ -1767,8 +1764,6 @@
 
     // ── COST ESTIMATOR ──
     async function saveEstimate() {
-      // Honeypot: if filled, silently reject (bot)
-      if (document.getElementById('hp_website').value) return;
 
       const spaceEl = document.getElementById('spaceType');
       const name = document.getElementById('estimateName').value.trim();

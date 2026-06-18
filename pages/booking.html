@@ -195,8 +195,6 @@
         </div>
 
         <div class="form-submit-row">
-          <!-- Honeypot -->
-          <input type="text" name="website" id="hp_website" style="display:none!important" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <!-- Turnstile -->
           <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-bottom:16px;"></div>
           <button class="btn-send-db" id="btnBookingDb" onclick="submitToDatabase()">
@@ -384,7 +382,6 @@ function _getBookingData(){
 }
 
 async function submitToDatabase(){
-  if(document.getElementById('hp_website').value) return;
   const data = _getBookingData();
   if(!data) return;
   const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;

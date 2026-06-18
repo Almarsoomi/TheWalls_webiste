@@ -118,8 +118,6 @@
         <label class="form-label ar-only">رسالتك *</label>
         <textarea class="form-textarea" id="qfMessage" required></textarea>
       </div>
-      <!-- Honeypot -->
-      <input type="text" name="website" id="hp_website" style="display:none!important" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <!-- Turnstile -->
       <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-bottom:16px;"></div>
       <div class="form-send-options">
@@ -356,7 +354,6 @@ async function _notifyTeam(formType, data){
 }
 
 async function sendToDatabase(){
-  if(document.getElementById('hp_website').value) return;
   const d = getFormData();
   if(!d) return;
   const isAr = document.documentElement.getAttribute('lang') === 'ar';
