@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Client Portal | The Walls</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<nav id="mainNav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
+  </a>
+  <div class="nav-links">
+    <a href="./services.html">Services</a>
+    <a href="./portfolio.html">Portfolio</a>
+    <a href="./about.html">About</a>
+    <a href="./contact.html">Contact</a>
+    <a href="./blog.html">Journal</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
+    <a href="./booking.html" class="nav-cta">Book Consultation</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="portal-login-wrap">
+  <div class="portal-login-card" id="loginCard">
+    <div class="portal-login-eyebrow">Client Access</div>
+    <h1 class="portal-login-title">Track your<br/><em>project</em></h1>
+    <p class="portal-login-desc">Enter the email address associated with your project. We'll send you a secure one-click link to view your project status, photos, and updates.</p>
+
+    <div class="form-group" style="margin-top:32px;">
+      <label class="form-label">Email address</label>
+      <input type="email" class="form-input" id="portalEmail" placeholder="you@example.com" oninput="clearPortalErr()"/>
+      <div class="form-error-msg" id="portalEmailErr" style="display:none;">Please enter a valid email address.</div>
+    </div>
+
+    <button class="btn-send-db" id="btnSendLink" onclick="sendMagicLink()" style="margin-top:24px;width:100%;">
+      <span>Send Secure Link</span>
+    </button>
+
+    <div class="form-status" id="portalStatus" style="display:none;margin-top:16px;"></div>
+  </div>
+
+  <div class="portal-login-card portal-sent-card" id="sentCard" style="display:none;">
+    <div class="portal-sent-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+    </div>
+    <h2 class="portal-sent-title">Check your inbox</h2>
+    <p class="portal-sent-msg">We've sent a secure link to <strong id="sentEmailDisplay"></strong>. Click it to access your project dashboard — the link expires in 1 hour.</p>
+    <p class="portal-sent-note">Didn't receive it? Check your spam folder or <button class="portal-link-btn" onclick="showLoginCard()">try a different email</button>.</p>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const _sb = supabase.createClient(
+  'https://xpdfohzjjomrbzfatkpy.supabase.co',
+  'sb_publishable_Ty3WM5F5Vp7Yuijz3UVSxw_r3RTb7c2'
+);
+
+function clearPortalErr() {
+  document.getElementById('portalEmailErr').style.display = 'none';
+  document.getElementById('portalEmail').classList.remove('err');
+}
+
+function showLoginCard() {
+  document.getElementById('sentCard').style.display = 'none';
+  document.getElementById('loginCard').style.display = 'block';
+}
+
+async function sendMagicLink() {
+  const email = document.getElementById('portalEmail').value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('portalEmailErr').style.display = 'block';
+    document.getElementById('portalEmail').classList.add('err');
+    return;
+  }
+
+  const btn = document.getElementById('btnSendLink');
+  const status = document.getElementById('portalStatus');
+  btn.disabled = true;
+  btn.querySelector('span').textContent = 'Sending…';
+  status.style.display = 'none';
+
+  const { error } = await _sb.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: window.location.origin + '/pages/portal-project.html',
+    },
+  });
+
+  if (error) {
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'Send Secure Link';
+    status.className = 'form-status error';
+    status.textContent = 'Something went wrong. Please try again.';
+    status.style.display = 'block';
+    return;
+  }
+
+  document.getElementById('sentEmailDisplay').textContent = email;
+  document.getElementById('loginCard').style.display = 'none';
+  document.getElementById('sentCard').style.display = 'block';
+}
+
+// If already logged in, go straight to project
+(async () => {
+  const { data: { session } } = await _sb.auth.getSession();
+  if (session) window.location.href = './portal-project.html';
+})();
+</script>
+</body>
+</html>

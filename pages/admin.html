@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin | The Walls</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<div class="admin-login-wrap">
+  <div class="admin-login-card">
+    <div class="admin-login-logo">
+      <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:80px;width:auto;filter:brightness(0.9);"/>
+    </div>
+    <div class="admin-login-eyebrow">Internal Access</div>
+    <h1 class="admin-login-title">Dashboard</h1>
+    <p class="admin-login-desc">Enter your admin password to access the project management dashboard.</p>
+
+    <div class="form-group" style="margin-top:28px;">
+      <label class="form-label">Admin Password</label>
+      <input type="password" class="form-input" id="adminPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+      <div class="form-error-msg" id="adminPwdErr" style="display:none;">Incorrect password. Please try again.</div>
+    </div>
+
+    <button class="btn-send-db" id="btnAdminLogin" onclick="doLogin()" style="margin-top:20px;width:100%;">
+      <span>Enter Dashboard</span>
+    </button>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-projects';
+
+if (sessionStorage.getItem('admin_key')) verifyAndRedirect(sessionStorage.getItem('admin_key'));
+
+async function verifyAndRedirect(key) {
+  try {
+    const res = await fetch(ADMIN_PROJECTS_URL, { headers: { 'x-admin-key': key } });
+    if (res.ok) {
+      sessionStorage.setItem('admin_key', key);
+      window.location.href = './admin-dashboard.html';
+    }
+  } catch (e) { /* not logged in */ }
+}
+
+async function doLogin() {
+  const pwd = document.getElementById('adminPwd').value;
+  const btn = document.getElementById('btnAdminLogin');
+  const err = document.getElementById('adminPwdErr');
+  if (!pwd) return;
+
+  btn.disabled = true;
+  btn.querySelector('span').textContent = 'Verifying…';
+  err.style.display = 'none';
+
+  try {
+    const res = await fetch(ADMIN_PROJECTS_URL, { headers: { 'x-admin-key': pwd } });
+    if (res.ok) {
+      sessionStorage.setItem('admin_key', pwd);
+      window.location.href = './admin-dashboard.html';
+    } else {
+      err.style.display = 'block';
+      document.getElementById('adminPwd').classList.add('err');
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Enter Dashboard';
+    }
+  } catch (e) {
+    err.textContent = 'Connection error. Please try again.';
+    err.style.display = 'block';
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'Enter Dashboard';
+  }
+}
+</script>
+</body>
+</html>

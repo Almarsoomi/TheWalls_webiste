@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Edit Project | The Walls Admin</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<nav id="mainNav" class="admin-nav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
+  </a>
+  <div class="nav-links">
+    <a href="./admin-dashboard.html" style="color:var(--gray-mid);font-size:12px;">← All Projects</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
+    <button class="nav-cta" onclick="adminLogout()" style="background:transparent;border:0.5px solid rgba(201,169,110,0.4);cursor:pointer;">Log Out</button>
+  </div>
+</nav>
+
+<div class="admin-wrap">
+
+  <!-- PROJECT HEADER -->
+  <div class="admin-page-header" id="adminProjectHeader" style="display:none;">
+    <div>
+      <div class="admin-eyebrow">Project Editor</div>
+      <h1 class="admin-page-title" id="adminProjectTitle">—</h1>
+      <div class="admin-project-subtitle" id="adminProjectSubtitle"></div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <button class="admin-status-btn" id="adminStatusBtn" onclick="toggleStatusMenu()">
+        <span id="adminStatusLabel">Status</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="admin-status-menu" id="adminStatusMenu" style="display:none;">
+        <button onclick="updateStatus('active')">In Progress</button>
+        <button onclick="updateStatus('on-hold')">On Hold</button>
+        <button onclick="updateStatus('completed')">Completed</button>
+      </div>
+      <a href="" id="viewPortalLink" target="_blank" class="admin-view-portal-btn" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Client View
+      </a>
+    </div>
+  </div>
+
+  <div class="admin-loading" id="adminProjectLoading">
+    <div class="portal-loading-spinner"></div>
+    <p>Loading project…</p>
+  </div>
+
+  <div id="adminProjectContent" style="display:none;">
+
+    <!-- TWO-COLUMN GRID -->
+    <div class="admin-two-col">
+
+      <!-- LEFT COL: MILESTONES + MESSAGES -->
+      <div class="admin-col">
+
+        <!-- MILESTONES -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Milestones</div>
+          </div>
+          <div class="milestone-admin-list" id="milestoneAdminList"></div>
+          <div class="admin-add-row">
+            <input type="text" class="form-input" id="newMilestoneInput" placeholder="Add milestone title…" onkeydown="if(event.key==='Enter')addMilestone()"/>
+            <button class="admin-add-btn" onclick="addMilestone()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add
+            </button>
+          </div>
+        </div>
+
+        <!-- MESSAGES -->
+        <div class="admin-card" style="margin-top:24px;">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Team Updates</div>
+            <div class="admin-card-sub">Posted to client's update feed</div>
+          </div>
+          <div class="admin-message-list" id="adminMessageList"></div>
+          <div class="admin-message-compose">
+            <textarea class="form-input" id="newMessageInput" placeholder="Write a project update for the client…" rows="3" style="resize:vertical;"></textarea>
+            <button class="admin-add-btn" onclick="postMessage()" style="margin-top:8px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Post Update
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COL: PHOTOS + DOCUMENTS -->
+      <div class="admin-col">
+
+        <!-- PHOTOS -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Site Photos</div>
+          </div>
+          <div class="admin-photo-grid" id="adminPhotoGrid"></div>
+          <div class="admin-upload-row" style="margin-top:16px;">
+            <input type="text" class="form-input" id="photoCaption" placeholder="Caption (optional)" style="margin-bottom:8px;"/>
+            <label class="admin-file-label" id="photoFileLabel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span id="photoFileLabelText">Choose photo</span>
+              <input type="file" id="photoFileInput" accept="image/*" style="display:none;" onchange="onPhotoSelected(this)"/>
+            </label>
+            <button class="admin-add-btn" id="btnUploadPhoto" onclick="uploadPhoto()" style="margin-top:8px;display:none;">
+              Upload Photo
+            </button>
+          </div>
+          <div class="form-status" id="photoStatus" style="display:none;margin-top:8px;"></div>
+        </div>
+
+        <!-- DOCUMENTS -->
+        <div class="admin-card" style="margin-top:24px;">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Documents</div>
+            <div class="admin-card-sub">PDF, images, spreadsheets</div>
+          </div>
+          <div class="admin-doc-list" id="adminDocList"></div>
+          <div class="admin-upload-row" style="margin-top:16px;">
+            <input type="text" class="form-input" id="docName" placeholder="Document name *" style="margin-bottom:8px;"/>
+            <label class="admin-file-label" id="docFileLabel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span id="docFileLabelText">Choose file</span>
+              <input type="file" id="docFileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" style="display:none;" onchange="onDocSelected(this)"/>
+            </label>
+            <button class="admin-add-btn" id="btnUploadDoc" onclick="uploadDocument()" style="margin-top:8px;display:none;">
+              Upload Document
+            </button>
+          </div>
+          <div class="form-status" id="docStatus" style="display:none;margin-top:8px;"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const ADMIN_KEY = sessionStorage.getItem('admin_key');
+const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-projects';
+const ADMIN_CONTENT_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-content';
+const SUPABASE_PHOTOS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/storage/v1/object/public/project-photos/';
+
+if (!ADMIN_KEY) window.location.href = './admin.html';
+
+const projectId = new URLSearchParams(window.location.search).get('id');
+if (!projectId) window.location.href = './admin-dashboard.html';
+
+let _projectData = null;
+
+function adminLogout() {
+  sessionStorage.removeItem('admin_key');
+  window.location.href = './admin.html';
+}
+
+// ── STATUS ─────────────────────────────────────────────────────
+
+function toggleStatusMenu() {
+  const m = document.getElementById('adminStatusMenu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.admin-status-btn') && !e.target.closest('.admin-status-menu')) {
+    const m = document.getElementById('adminStatusMenu');
+    if (m) m.style.display = 'none';
+  }
+});
+
+async function updateStatus(status) {
+  document.getElementById('adminStatusMenu').style.display = 'none';
+  const map = { active: 'In Progress', completed: 'Completed', 'on-hold': 'On Hold' };
+  document.getElementById('adminStatusLabel').textContent = map[status];
+  await fetch(ADMIN_PROJECTS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'update', id: projectId, ...(_projectData.project), status }),
+  });
+  if (_projectData.project) _projectData.project.status = status;
+}
+
+// ── MILESTONES ─────────────────────────────────────────────────
+
+const statusCycle = { pending: 'active', active: 'done', done: 'pending' };
+const statusLabel = { pending: 'Upcoming', active: 'In Progress', done: 'Done' };
+
+function renderMilestones(milestones) {
+  const list = document.getElementById('milestoneAdminList');
+  list.innerHTML = '';
+  if (!milestones || milestones.length === 0) {
+    list.innerHTML = '<div class="admin-empty-note">No milestones yet.</div>';
+    return;
+  }
+  milestones.forEach(m => {
+    const item = document.createElement('div');
+    item.className = `milestone-admin-item milestone-admin-${m.status}`;
+    item.dataset.id = m.id;
+    item.innerHTML = `
+      <button class="milestone-admin-cycle" onclick="cycleMilestone('${m.id}','${statusCycle[m.status]}')" title="Click to change status">
+        <span class="milestone-admin-dot milestone-dot-${m.status}"></span>
+      </button>
+      <div class="milestone-admin-info">
+        <div class="milestone-admin-title">${m.title}</div>
+        <div class="milestone-admin-tag">${statusLabel[m.status]}</div>
+      </div>
+      <button class="admin-delete-btn" onclick="deleteMilestone('${m.id}')" title="Delete">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+      </button>
+    `;
+    list.appendChild(item);
+  });
+}
+
+async function addMilestone() {
+  const input = document.getElementById('newMilestoneInput');
+  const title = input.value.trim();
+  if (!title) return;
+  input.value = '';
+  const position = (_projectData.milestones || []).length;
+  const res = await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'add-milestone', project_id: projectId, title, position }),
+  });
+  const data = await res.json();
+  if (data.success) {
+    _projectData.milestones = [...(_projectData.milestones || []), data.milestone];
+    renderMilestones(_projectData.milestones);
+  }
+}
+
+async function cycleMilestone(id, newStatus) {
+  await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'update-milestone', id, status: newStatus }),
+  });
+  const m = _projectData.milestones.find(x => x.id === id);
+  if (m) m.status = newStatus;
+  renderMilestones(_projectData.milestones);
+}
+
+async function deleteMilestone(id) {
+  if (!confirm('Delete this milestone?')) return;
+  await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'delete-milestone', id }),
+  });
+  _projectData.milestones = _projectData.milestones.filter(m => m.id !== id);
+  renderMilestones(_projectData.milestones);
+}
+
+// ── MESSAGES ───────────────────────────────────────────────────
+
+function formatDate(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function renderMessages(updates) {
+  const list = document.getElementById('adminMessageList');
+  list.innerHTML = '';
+  if (!updates || updates.length === 0) {
+    list.innerHTML = '<div class="admin-empty-note">No updates posted yet.</div>';
+    return;
+  }
+  updates.forEach(u => {
+    const item = document.createElement('div');
+    item.className = 'admin-message-item';
+    item.innerHTML = `
+      <div class="admin-message-body">${u.message.replace(/\n/g, '<br/>')}</div>
+      <div class="admin-message-footer">
+        <span>${formatDate(u.created_at)}</span>
+        <button class="admin-delete-btn" onclick="deleteMessage('${u.id}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+        </button>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+async function postMessage() {
+  const ta = document.getElementById('newMessageInput');
+  const msg = ta.value.trim();
+  if (!msg) return;
+  ta.value = '';
+  const res = await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'add-message', project_id: projectId, message: msg }),
+  });
+  const data = await res.json();
+  if (data.success) {
+    _projectData.updates = [data.update, ...(_projectData.updates || [])];
+    renderMessages(_projectData.updates);
+  }
+}
+
+async function deleteMessage(id) {
+  if (!confirm('Delete this update?')) return;
+  await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'delete-message', id }),
+  });
+  _projectData.updates = _projectData.updates.filter(u => u.id !== id);
+  renderMessages(_projectData.updates);
+}
+
+// ── PHOTOS ─────────────────────────────────────────────────────
+
+function renderPhotos(photos) {
+  const grid = document.getElementById('adminPhotoGrid');
+  grid.innerHTML = '';
+  if (!photos || photos.length === 0) {
+    grid.innerHTML = '<div class="admin-empty-note" style="grid-column:1/-1;">No photos uploaded yet.</div>';
+    return;
+  }
+  photos.forEach(p => {
+    const item = document.createElement('div');
+    item.className = 'admin-photo-item';
+    item.innerHTML = `
+      <img src="${SUPABASE_PHOTOS_URL}${p.storage_path}" alt="${p.caption || ''}"/>
+      ${p.caption ? `<div class="admin-photo-caption">${p.caption}</div>` : ''}
+      <button class="admin-photo-delete" onclick="deletePhoto('${p.id}')">×</button>
+    `;
+    grid.appendChild(item);
+  });
+}
+
+function onPhotoSelected(input) {
+  if (input.files[0]) {
+    document.getElementById('photoFileLabelText').textContent = input.files[0].name;
+    document.getElementById('btnUploadPhoto').style.display = 'flex';
+  }
+}
+
+async function uploadPhoto() {
+  const fileInput = document.getElementById('photoFileInput');
+  const caption = document.getElementById('photoCaption').value.trim();
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  const btn = document.getElementById('btnUploadPhoto');
+  const status = document.getElementById('photoStatus');
+  btn.disabled = true; btn.textContent = 'Uploading…';
+  status.style.display = 'none';
+
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const res = await fetch(ADMIN_CONTENT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ action: 'upload-photo', project_id: projectId, file: e.target.result, caption, filename: file.name }),
+    });
+    const data = await res.json();
+    btn.disabled = false; btn.textContent = 'Upload Photo';
+    if (data.success) {
+      _projectData.photos = [data.photo, ...(_projectData.photos || [])];
+      renderPhotos(_projectData.photos);
+      fileInput.value = '';
+      document.getElementById('photoFileLabelText').textContent = 'Choose photo';
+      document.getElementById('photoCaption').value = '';
+      btn.style.display = 'none';
+    } else {
+      status.className = 'form-status error'; status.textContent = data.error || 'Upload failed.'; status.style.display = 'block';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function deletePhoto(id) {
+  if (!confirm('Delete this photo?')) return;
+  await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'delete-photo', id }),
+  });
+  _projectData.photos = _projectData.photos.filter(p => p.id !== id);
+  renderPhotos(_projectData.photos);
+}
+
+// ── DOCUMENTS ──────────────────────────────────────────────────
+
+function renderDocuments(documents) {
+  const list = document.getElementById('adminDocList');
+  list.innerHTML = '';
+  if (!documents || documents.length === 0) {
+    list.innerHTML = '<div class="admin-empty-note">No documents uploaded yet.</div>';
+    return;
+  }
+  documents.forEach(d => {
+    const item = document.createElement('div');
+    item.className = 'doc-item';
+    item.innerHTML = `
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="doc-info"><div class="doc-name">${d.name}</div><div class="doc-date">${formatDate(d.created_at)}</div></div>
+      <button class="admin-delete-btn" onclick="deleteDocument('${d.id}')" style="margin-left:auto;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+      </button>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function onDocSelected(input) {
+  if (input.files[0]) {
+    document.getElementById('docFileLabelText').textContent = input.files[0].name;
+    document.getElementById('btnUploadDoc').style.display = 'flex';
+    if (!document.getElementById('docName').value.trim()) {
+      document.getElementById('docName').value = input.files[0].name.replace(/\.[^.]+$/, '');
+    }
+  }
+}
+
+async function uploadDocument() {
+  const fileInput = document.getElementById('docFileInput');
+  const name = document.getElementById('docName').value.trim();
+  const file = fileInput.files[0];
+  if (!file || !name) {
+    document.getElementById('docStatus').className = 'form-status error';
+    document.getElementById('docStatus').textContent = 'Please choose a file and enter a name.';
+    document.getElementById('docStatus').style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('btnUploadDoc');
+  const status = document.getElementById('docStatus');
+  btn.disabled = true; btn.textContent = 'Uploading…';
+  status.style.display = 'none';
+
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const res = await fetch(ADMIN_CONTENT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ action: 'upload-document', project_id: projectId, file: e.target.result, name, filename: file.name }),
+    });
+    const data = await res.json();
+    btn.disabled = false; btn.textContent = 'Upload Document';
+    if (data.success) {
+      _projectData.documents = [data.document, ...(_projectData.documents || [])];
+      renderDocuments(_projectData.documents);
+      fileInput.value = '';
+      document.getElementById('docFileLabelText').textContent = 'Choose file';
+      document.getElementById('docName').value = '';
+      btn.style.display = 'none';
+    } else {
+      status.className = 'form-status error'; status.textContent = data.error || 'Upload failed.'; status.style.display = 'block';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function deleteDocument(id) {
+  if (!confirm('Delete this document?')) return;
+  await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'delete-document', id }),
+  });
+  _projectData.documents = _projectData.documents.filter(d => d.id !== id);
+  renderDocuments(_projectData.documents);
+}
+
+// ── LOAD ───────────────────────────────────────────────────────
+
+async function loadProject() {
+  const res = await fetch(`${ADMIN_PROJECTS_URL}?id=${projectId}`, {
+    headers: { 'x-admin-key': ADMIN_KEY },
+  });
+
+  if (res.status === 401) { window.location.href = './admin.html'; return; }
+
+  const data = await res.json();
+  _projectData = data;
+
+  document.getElementById('adminProjectLoading').style.display = 'none';
+
+  const p = data.project;
+  document.getElementById('adminProjectTitle').textContent = p.name;
+  document.getElementById('adminProjectSubtitle').textContent = `${p.client_name} · ${p.client_email}`;
+
+  const map = { active: 'In Progress', completed: 'Completed', 'on-hold': 'On Hold' };
+  document.getElementById('adminStatusLabel').textContent = map[p.status] || p.status;
+
+  document.getElementById('adminProjectHeader').style.display = 'flex';
+  document.getElementById('adminProjectContent').style.display = 'block';
+
+  renderMilestones(data.milestones);
+  renderMessages(data.updates);
+  renderPhotos(data.photos);
+  renderDocuments(data.documents);
+}
+
+loadProject();
+</script>
+</body>
+</html>

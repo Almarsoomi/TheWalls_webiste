@@ -1980,6 +1980,251 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .article-body h3{font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-muted);margin:32px 0 12px}
 .article-body ul{list-style:none;margin-bottom:24px}
 .article-body ul li{font-size:15px;line-height:1.9;color:var(--gray-mid);padding-left:20px;position:relative;margin-bottom:10px}
+
+/* ── PAGE: CLIENT PORTAL ── */
+
+.portal-login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;background:var(--obsidian)}
+.portal-login-card{background:var(--obsidian-2);border:.5px solid rgba(201,169,110,.14);padding:56px 48px;max-width:480px;width:100%}
+.portal-login-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.portal-login-eyebrow::before{content:'';width:28px;height:.5px;background:var(--champagne)}
+.portal-login-title{font-family:var(--serif);font-size:clamp(36px,5vw,56px);font-weight:300;line-height:.95;color:var(--cream);margin:0 0 20px}
+.portal-login-title em{font-style:italic;color:var(--champagne)}
+.portal-login-desc{font-size:14px;line-height:1.7;color:var(--gray-mid);margin:0}
+
+.portal-sent-card{text-align:center}
+.portal-sent-icon{width:64px;height:64px;border:1px solid rgba(201,169,110,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;color:var(--champagne)}
+.portal-sent-icon svg{width:28px;height:28px}
+.portal-sent-title{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--cream);margin:0 0 16px}
+.portal-sent-msg{font-size:14px;line-height:1.7;color:var(--gray-mid);margin:0 0 16px}
+.portal-sent-note{font-size:13px;color:var(--gray-muted);margin:0}
+.portal-link-btn{background:none;border:none;color:var(--champagne);font-size:inherit;cursor:pointer;padding:0;text-decoration:underline;font-family:var(--sans)}
+
+/* Portal loading */
+.portal-loading{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;color:var(--gray-muted);font-size:14px;padding-top:80px}
+.portal-loading-spinner{width:32px;height:32px;border:1.5px solid rgba(201,169,110,.2);border-top-color:var(--champagne);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* No project */
+.portal-no-project{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center}
+.portal-no-project-inner{max-width:440px}
+.portal-nop-icon{width:80px;height:80px;border:.5px solid rgba(201,169,110,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;color:var(--champagne-muted)}
+.portal-nop-icon svg{width:36px;height:36px}
+.portal-nop-title{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--cream);margin:0 0 16px}
+.portal-nop-desc{font-size:14px;line-height:1.7;color:var(--gray-mid);margin:0}
+
+/* Portal project wrap */
+.portal-project-wrap{padding-top:80px}
+
+/* Project header */
+.portal-project-header{background:var(--obsidian-2);border-bottom:.5px solid rgba(201,169,110,.1);padding:60px 0 40px}
+.portal-project-header-inner{max-width:1100px;margin:0 auto;padding:0 60px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.portal-project-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:14px}
+.portal-project-name{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--cream);margin:0 0 12px;line-height:1}
+.portal-project-meta{font-size:13px;color:var(--gray-muted);letter-spacing:.04em}
+.portal-project-status-wrap{padding-top:8px}
+
+/* Status chips */
+.portal-status-chip{display:inline-block;padding:6px 14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;font-family:var(--sans)}
+.portal-status-active{background:rgba(201,169,110,.12);color:var(--champagne);border:.5px solid rgba(201,169,110,.3)}
+.portal-status-completed{background:rgba(100,180,100,.1);color:#7acc7a;border:.5px solid rgba(100,180,100,.3)}
+.portal-status-on-hold{background:rgba(150,150,150,.1);color:var(--gray-mid);border:.5px solid rgba(150,150,150,.2)}
+
+/* Sections */
+.portal-section{padding:72px 0}
+.portal-section-alt{background:var(--obsidian-2)}
+.portal-section-inner{max-width:1100px;margin:0 auto;padding:0 60px}
+.portal-section-label{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:40px;display:flex;align-items:center;gap:14px}
+.portal-section-label::before{content:'';width:28px;height:.5px;background:var(--champagne)}
+
+/* Milestone track */
+.milestone-track{display:flex;flex-wrap:wrap;gap:0;position:relative}
+.milestone-step{display:flex;flex-direction:column;align-items:center;flex:1;min-width:100px;position:relative}
+.milestone-connector{flex:1;height:.5px;background:rgba(201,169,110,.15);width:100%;margin-top:19px}
+.milestone-connector.first,.milestone-connector.last{background:transparent}
+.milestone-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;position:relative}
+.milestone-dot svg{width:18px;height:18px}
+.milestone-pending .milestone-dot{border:1.5px solid rgba(201,169,110,.25);color:var(--gray-muted);background:var(--obsidian)}
+.milestone-active .milestone-dot{border:1.5px solid var(--champagne);color:var(--champagne);background:var(--obsidian)}
+.milestone-done .milestone-dot{background:var(--champagne);color:var(--obsidian);border:1.5px solid var(--champagne)}
+.milestone-label{font-size:12px;color:var(--cream);text-align:center;margin-top:14px;max-width:100px;line-height:1.4}
+.milestone-status-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+.milestone-pending .milestone-status-tag{color:var(--gray-muted)}
+.milestone-active .milestone-status-tag{color:var(--champagne)}
+.milestone-done .milestone-status-tag{color:#7acc7a}
+.milestone-empty{font-size:14px;color:var(--gray-muted);padding:24px 0}
+
+/* Update feed */
+.update-feed{display:flex;flex-direction:column;gap:0}
+.update-item{display:flex;gap:24px;padding:24px 0;border-bottom:.5px solid rgba(201,169,110,.06)}
+.update-item:last-child{border-bottom:none}
+.update-dot{width:8px;height:8px;border-radius:50%;background:var(--champagne);flex-shrink:0;margin-top:7px}
+.update-content{flex:1}
+.update-message{font-size:14px;line-height:1.75;color:var(--cream)}
+.update-date{font-size:12px;color:var(--gray-muted);margin-top:8px}
+.update-empty{font-size:14px;color:var(--gray-muted);padding:24px 0}
+
+/* Photo grid */
+.portal-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.portal-photo-item{position:relative;overflow:hidden;background:var(--obsidian-3);aspect-ratio:4/3}
+.portal-photo-item img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s var(--transition)}
+.portal-photo-item:hover img{transform:scale(1.03)}
+.portal-photo-caption{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(12,12,11,.85));font-size:12px;color:var(--cream-dark)}
+.photo-empty{font-size:14px;color:var(--gray-muted);padding:24px 0;grid-column:1/-1}
+
+/* Lightbox */
+.portal-lightbox{position:fixed;inset:0;background:rgba(12,12,11,.95);z-index:9000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:40px}
+.portal-lightbox.open{display:flex}
+.portal-lightbox-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--gray-mid);cursor:pointer;padding:8px;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.portal-lightbox-close:hover{color:var(--cream)}
+.portal-lightbox-close svg{width:20px;height:20px}
+.portal-lightbox-img{max-width:100%;max-height:80vh;object-fit:contain}
+.portal-lightbox-caption{font-size:13px;color:var(--gray-mid);text-align:center}
+
+/* Doc list */
+.doc-list{display:flex;flex-direction:column;gap:2px}
+.doc-item{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.06);transition:border-color .2s}
+.doc-item:hover{border-color:rgba(201,169,110,.18)}
+.doc-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--champagne-muted)}
+.doc-icon svg{width:20px;height:20px}
+.doc-info{flex:1;min-width:0}
+.doc-name{font-size:14px;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-date{font-size:12px;color:var(--gray-muted);margin-top:2px}
+.doc-download{display:flex;align-items:center;gap:8px;padding:8px 16px;background:transparent;border:.5px solid rgba(201,169,110,.3);color:var(--champagne);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);white-space:nowrap;transition:background .2s,border-color .2s;flex-shrink:0}
+.doc-download:hover{background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.5)}
+.doc-download svg{width:14px;height:14px}
+.doc-empty{font-size:14px;color:var(--gray-muted);padding:24px 0}
+
+/* Portal footer note */
+.portal-footer-note{text-align:center;padding:48px 60px;border-top:.5px solid rgba(201,169,110,.06)}
+.portal-footer-note p{font-size:13px;color:var(--gray-muted)}
+.portal-footer-note a{color:var(--champagne);text-decoration:none}
+.portal-footer-note a:hover{text-decoration:underline}
+
+/* ── ADMIN LOGIN ── */
+.admin-login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:var(--obsidian)}
+.admin-login-card{background:var(--obsidian-2);border:.5px solid rgba(201,169,110,.12);padding:48px;max-width:420px;width:100%;text-align:center}
+.admin-login-logo{margin-bottom:32px}
+.admin-login-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:12px}
+.admin-login-title{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cream);margin:0 0 12px}
+.admin-login-desc{font-size:13px;color:var(--gray-muted);line-height:1.6;margin:0}
+
+/* ── ADMIN DASHBOARD ── */
+.admin-wrap{max-width:1200px;margin:0 auto;padding:120px 60px 80px}
+.admin-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:8px}
+.admin-page-title{font-family:var(--serif);font-size:clamp(28px,4vw,48px);font-weight:300;color:var(--cream);margin:0}
+.admin-page-header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+.admin-loading{display:flex;align-items:center;gap:16px;padding:60px 0;color:var(--gray-muted);font-size:14px}
+.admin-table-wrap{overflow-x:auto}
+.admin-table{width:100%;border-collapse:collapse;font-size:13px;font-family:var(--sans)}
+.admin-table th{text-align:left;padding:10px 16px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-muted);border-bottom:.5px solid rgba(201,169,110,.12);font-weight:400}
+.admin-table td{padding:16px;border-bottom:.5px solid rgba(201,169,110,.06);color:var(--cream);vertical-align:middle}
+.admin-table tr:hover td{background:rgba(201,169,110,.03)}
+.admin-td-project{font-family:var(--serif);font-size:16px}
+.admin-project-link{color:var(--cream);text-decoration:none}
+.admin-project-link:hover{color:var(--champagne)}
+.admin-client-name{font-size:13px;color:var(--cream)}
+.admin-client-email{font-size:12px;color:var(--gray-muted);margin-top:2px}
+.admin-edit-btn{color:var(--champagne);text-decoration:none;font-size:12px;letter-spacing:.08em;white-space:nowrap}
+.admin-edit-btn:hover{text-decoration:underline}
+.admin-empty{padding:48px 0;color:var(--gray-muted);font-size:14px;text-align:center}
+.admin-modal{width:100%}
+
+/* ── ADMIN PROJECT PAGE ── */
+.admin-project-subtitle{font-size:13px;color:var(--gray-muted);margin-top:8px}
+.admin-status-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.2);color:var(--cream);font-size:12px;cursor:pointer;font-family:var(--sans);letter-spacing:.06em;position:relative}
+.admin-status-btn:hover{border-color:rgba(201,169,110,.4)}
+.admin-status-menu{position:absolute;top:calc(100% + 4px);right:0;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.2);min-width:140px;z-index:100}
+.admin-status-menu button{display:block;width:100%;padding:10px 16px;background:none;border:none;color:var(--cream);font-size:13px;text-align:left;cursor:pointer;font-family:var(--sans)}
+.admin-status-menu button:hover{background:rgba(201,169,110,.08);color:var(--champagne)}
+.admin-view-portal-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;background:transparent;border:.5px solid rgba(201,169,110,.2);color:var(--champagne);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-family:var(--sans)}
+.admin-view-portal-btn:hover{background:rgba(201,169,110,.06)}
+
+.admin-two-col{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
+.admin-col{display:flex;flex-direction:column}
+.admin-card{background:var(--obsidian-2);border:.5px solid rgba(201,169,110,.1);padding:28px}
+.admin-card-header{margin-bottom:20px}
+.admin-card-title{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--cream)}
+.admin-card-sub{font-size:12px;color:var(--gray-muted);margin-top:4px}
+.admin-empty-note{font-size:13px;color:var(--gray-muted);padding:16px 0}
+
+/* Milestone admin */
+.milestone-admin-list{display:flex;flex-direction:column;gap:2px;margin-bottom:16px}
+.milestone-admin-item{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.06);transition:border-color .2s}
+.milestone-admin-item:hover{border-color:rgba(201,169,110,.16)}
+.milestone-admin-cycle{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;width:28px;height:28px;flex-shrink:0}
+.milestone-admin-dot{width:14px;height:14px;border-radius:50%;display:block;transition:background .2s}
+.milestone-dot-pending{background:var(--obsidian-4);border:1.5px solid rgba(201,169,110,.3)}
+.milestone-dot-active{background:var(--champagne)}
+.milestone-dot-done{background:#7acc7a}
+.milestone-admin-info{flex:1}
+.milestone-admin-title{font-size:14px;color:var(--cream)}
+.milestone-admin-tag{font-size:11px;margin-top:2px}
+.milestone-admin-pending .milestone-admin-tag{color:var(--gray-muted)}
+.milestone-admin-active .milestone-admin-tag{color:var(--champagne)}
+.milestone-admin-done .milestone-admin-tag{color:#7acc7a}
+
+/* Admin add row */
+.admin-add-row{display:flex;gap:8px;align-items:center}
+.admin-add-btn{display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--champagne);color:var(--obsidian);border:none;font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);font-weight:500;white-space:nowrap;flex-shrink:0}
+.admin-add-btn:hover{background:var(--champagne-light)}
+.admin-add-btn:disabled{opacity:.5;cursor:not-allowed}
+.admin-add-btn svg{width:14px;height:14px}
+
+/* Admin delete button */
+.admin-delete-btn{background:none;border:none;color:var(--gray-muted);cursor:pointer;padding:4px;display:flex;align-items:center;flex-shrink:0;opacity:.6}
+.admin-delete-btn:hover{color:#e07070;opacity:1}
+.admin-delete-btn svg{width:15px;height:15px}
+
+/* Messages */
+.admin-message-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.admin-message-item{background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.07);padding:14px 16px}
+.admin-message-body{font-size:13px;color:var(--cream);line-height:1.65}
+.admin-message-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.admin-message-footer span{font-size:11px;color:var(--gray-muted)}
+.admin-message-compose{display:flex;flex-direction:column}
+
+/* Admin photos grid */
+.admin-photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-height:40px}
+.admin-photo-item{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--obsidian-3)}
+.admin-photo-item img{width:100%;height:100%;object-fit:cover}
+.admin-photo-caption{font-size:10px;color:var(--gray-muted);padding:4px 6px;background:rgba(12,12,11,.7);position:absolute;bottom:0;left:0;right:0}
+.admin-photo-delete{position:absolute;top:4px;right:4px;background:rgba(12,12,11,.75);border:none;color:var(--cream);width:22px;height:22px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.admin-photo-delete:hover{background:rgba(200,50,50,.8)}
+
+/* Admin file upload */
+.admin-file-label{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.15);color:var(--gray-mid);font-size:13px;cursor:pointer;transition:border-color .2s}
+.admin-file-label:hover{border-color:rgba(201,169,110,.35);color:var(--cream)}
+.admin-file-label svg{width:16px;height:16px;flex-shrink:0}
+.admin-upload-row{display:flex;flex-direction:column}
+
+/* Admin doc list */
+.admin-doc-list{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+
+/* Responsive — portal */
+@media(max-width:900px){
+  .portal-project-header-inner{padding:0 24px;flex-direction:column}
+  .portal-section-inner{padding:0 24px}
+  .portal-footer-note{padding:40px 24px}
+  .admin-wrap{padding:100px 24px 60px}
+  .admin-two-col{grid-template-columns:1fr}
+  .portal-photo-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+  .milestone-track{gap:8px}
+  .milestone-step{min-width:80px}
+}
+@media(max-width:600px){
+  .portal-login-card{padding:36px 24px}
+  .portal-project-header-inner{padding:0 16px}
+  .portal-section-inner{padding:0 16px}
+  .portal-section{padding:48px 0}
+  .admin-photo-grid{grid-template-columns:repeat(2,1fr)}
+  .milestone-track{flex-direction:column;gap:0}
+  .milestone-step{flex-direction:row;min-width:auto;width:100%}
+  .milestone-connector{width:.5px;height:24px;margin:0 19px}
+  .milestone-connector.first,.milestone-connector.last{background:transparent;height:12px}
+  .milestone-dot{flex-shrink:0}
+  .milestone-label{text-align:left;margin-top:0;margin-left:16px;max-width:none}
+  .milestone-status-tag{margin-left:8px;margin-top:0}
+}
 .article-body ul li::before{content:'';position:absolute;left:0;top:12px;width:4px;height:4px;background:var(--champagne);border-radius:50%}
 .article-body a{color:var(--champagne);text-decoration:none;border-bottom:.5px solid rgba(201,169,110,.3);transition:border-color .25s}
 .article-body a:hover{border-color:var(--champagne)}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Dashboard | The Walls</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- ADMIN NAV -->
+<nav id="mainNav" class="admin-nav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
+  </a>
+  <div class="nav-links">
+    <span style="color:var(--champagne);font-size:11px;letter-spacing:.18em;text-transform:uppercase;">Admin Panel</span>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
+    <button class="nav-cta" onclick="adminLogout()" style="background:transparent;border:0.5px solid rgba(201,169,110,0.4);cursor:pointer;">Log Out</button>
+  </div>
+</nav>
+
+<div class="admin-wrap">
+  <div class="admin-page-header">
+    <div>
+      <div class="admin-eyebrow">The Walls</div>
+      <h1 class="admin-page-title">Projects</h1>
+    </div>
+    <button class="btn-send-db" onclick="openNewProjectModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;margin-right:8px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span>New Project</span>
+    </button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="admin-loading" id="adminLoading">
+    <div class="portal-loading-spinner"></div>
+    <p>Loading projects…</p>
+  </div>
+
+  <!-- PROJECTS TABLE -->
+  <div class="admin-table-wrap" id="adminTableWrap" style="display:none;">
+    <table class="admin-table" id="projectsTable">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Client</th>
+          <th>Status</th>
+          <th>Milestones</th>
+          <th>Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="projectsBody"></tbody>
+    </table>
+    <div class="admin-empty" id="adminEmpty" style="display:none;">
+      <p>No projects yet. Create your first one above.</p>
+    </div>
+  </div>
+</div>
+
+<!-- NEW PROJECT MODAL -->
+<div class="est-modal-overlay" id="newProjectModal" onclick="closeNewProjectModal()">
+  <div class="est-modal admin-modal" onclick="event.stopPropagation()" style="max-width:520px;">
+    <h3 class="est-modal-title">New Project</h3>
+    <div class="form-grid" style="margin-top:24px;">
+      <div class="form-group full">
+        <label class="form-label">Project name *</label>
+        <input type="text" class="form-input" id="npName" placeholder="Marina Penthouse Fit-Out"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Client name *</label>
+        <input type="text" class="form-input" id="npClientName" placeholder="Ahmed Al Rashidi"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Client email *</label>
+        <input type="email" class="form-input" id="npClientEmail" placeholder="client@example.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Start date</label>
+        <input type="date" class="form-input" id="npStartDate"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Expected completion</label>
+        <input type="date" class="form-input" id="npCompletion"/>
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Status</label>
+        <select class="form-input" id="npStatus">
+          <option value="active">In Progress</option>
+          <option value="on-hold">On Hold</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-status" id="newProjectStatus" style="display:none;margin-top:12px;"></div>
+    <div style="display:flex;gap:12px;margin-top:24px;">
+      <button class="btn-send-db" id="btnCreateProject" onclick="createProject()" style="flex:1;"><span>Create Project</span></button>
+      <button class="est-modal-close" onclick="closeNewProjectModal()" style="flex:0 0 auto;padding:14px 20px;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const ADMIN_KEY = sessionStorage.getItem('admin_key');
+const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-projects';
+
+if (!ADMIN_KEY) window.location.href = './admin.html';
+
+function adminLogout() {
+  sessionStorage.removeItem('admin_key');
+  window.location.href = './admin.html';
+}
+
+function openNewProjectModal() {
+  document.getElementById('newProjectModal').classList.add('open');
+}
+function closeNewProjectModal() {
+  document.getElementById('newProjectModal').classList.remove('open');
+  document.getElementById('newProjectStatus').style.display = 'none';
+  ['npName','npClientName','npClientEmail','npStartDate','npCompletion'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('npStatus').value = 'active';
+}
+
+function statusBadge(s) {
+  const map = { active: 'In Progress', completed: 'Completed', 'on-hold': 'On Hold' };
+  return `<span class="portal-status-chip portal-status-${s}">${map[s] || s}</span>`;
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function milestoneCount(project) {
+  const arr = project.milestones;
+  if (!arr || arr.length === 0) return '0';
+  return Array.isArray(arr) ? arr[0]?.count ?? arr.length : '0';
+}
+
+async function loadProjects() {
+  try {
+    const res = await fetch(ADMIN_PROJECTS_URL, { headers: { 'x-admin-key': ADMIN_KEY } });
+    if (res.status === 401) { window.location.href = './admin.html'; return; }
+    const projects = await res.json();
+
+    document.getElementById('adminLoading').style.display = 'none';
+    document.getElementById('adminTableWrap').style.display = 'block';
+
+    const body = document.getElementById('projectsBody');
+    body.innerHTML = '';
+
+    if (!projects || projects.length === 0) {
+      document.getElementById('adminEmpty').style.display = 'block';
+      return;
+    }
+
+    projects.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="admin-td-project"><a href="./admin-project.html?id=${p.id}" class="admin-project-link">${p.name}</a></td>
+        <td><div class="admin-client-name">${p.client_name}</div><div class="admin-client-email">${p.client_email}</div></td>
+        <td>${statusBadge(p.status)}</td>
+        <td>${milestoneCount(p)}</td>
+        <td>${formatDate(p.created_at)}</td>
+        <td><a href="./admin-project.html?id=${p.id}" class="admin-edit-btn">Edit →</a></td>
+      `;
+      body.appendChild(tr);
+    });
+  } catch (e) {
+    document.getElementById('adminLoading').textContent = 'Failed to load projects.';
+  }
+}
+
+async function createProject() {
+  const name = document.getElementById('npName').value.trim();
+  const clientName = document.getElementById('npClientName').value.trim();
+  const clientEmail = document.getElementById('npClientEmail').value.trim();
+  const status = document.getElementById('npStatus').value;
+  const startDate = document.getElementById('npStartDate').value;
+  const completion = document.getElementById('npCompletion').value;
+
+  if (!name || !clientName || !clientEmail) {
+    const s = document.getElementById('newProjectStatus');
+    s.className = 'form-status error'; s.textContent = 'Please fill in all required fields.'; s.style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('btnCreateProject');
+  btn.disabled = true; btn.querySelector('span').textContent = 'Creating…';
+
+  const res = await fetch(ADMIN_PROJECTS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'create', name, client_name: clientName, client_email: clientEmail, status, start_date: startDate || null, expected_completion: completion || null }),
+  });
+
+  const data = await res.json();
+  btn.disabled = false; btn.querySelector('span').textContent = 'Create Project';
+
+  if (data.success) {
+    closeNewProjectModal();
+    window.location.href = `./admin-project.html?id=${data.project.id}`;
+  } else {
+    const s = document.getElementById('newProjectStatus');
+    s.className = 'form-status error'; s.textContent = data.error || 'Failed to create project.'; s.style.display = 'block';
+  }
+}
+
+loadProjects();
+</script>
+</body>
+</html>
