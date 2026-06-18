@@ -552,6 +552,16 @@ body.nav-open { overflow: hidden; }
 }
 .mob-cta:hover { background: var(--champagne, #c9a96e); color: var(--obsidian, #0c0c0b); }
 
+.mob-portal {
+  font-size: 12px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gray-mid, #9a9a96);
+  text-decoration: none;
+  transition: color .2s;
+}
+.mob-portal:hover { color: var(--champagne, #c9a96e); }
+
 .mob-close {
   position: absolute;
   top: 20px;

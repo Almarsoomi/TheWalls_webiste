@@ -467,6 +467,17 @@ document.addEventListener('DOMContentLoaded', function() {
     overlay.appendChild(clone);
   }
 
+  // Add Client Login (portal) link
+  var portal = document.createElement('a');
+  portal.href = window.location.pathname.includes('/blog/')
+    ? '../pages/portal.html'
+    : window.location.pathname.includes('/pages/')
+      ? './portal.html'
+      : './pages/portal.html';
+  portal.className = 'mob-portal';
+  portal.textContent = 'Client Login';
+  overlay.appendChild(portal);
+
   // Add Book Consultation CTA
   var cta = document.createElement('a');
   cta.href = window.location.pathname.includes('/blog/')
