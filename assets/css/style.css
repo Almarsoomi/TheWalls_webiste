@@ -585,7 +585,7 @@ body.nav-open { overflow: hidden; }
   .nav-right .nav-cta { display: none !important; }
   .nav-cta    { display: none !important; }
   /* Always show logout/sign-out on mobile (no hamburger menu for auth pages) */
-  .nav-logout { display: flex !important; padding: 7px 14px !important; font-size: 11px !important; }
+  .nav-right .nav-cta.nav-logout { display: flex !important; padding: 7px 14px !important; font-size: 11px !important; }
 
   /* Compact controls for small screens */
   .lang-btn   { padding: 6px 10px !important; font-size: 10px !important; }
