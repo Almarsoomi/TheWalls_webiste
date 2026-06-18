@@ -60,6 +60,11 @@
     <p>Loading project…</p>
   </div>
 
+  <div class="admin-load-error" id="adminLoadError" style="display:none;">
+    <p id="adminLoadErrorMsg">Failed to load project.</p>
+    <a href="./admin-dashboard.html" style="color:var(--champagne);font-size:13px;">← Back to dashboard</a>
+  </div>
+
   <div id="adminProjectContent" style="display:none;">
 
     <!-- TWO-COLUMN GRID -->
@@ -157,10 +162,10 @@ const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v
 const ADMIN_CONTENT_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-content';
 const SUPABASE_PHOTOS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/storage/v1/object/public/project-photos/';
 
-if (!ADMIN_KEY) window.location.href = './admin.html';
+if (!ADMIN_KEY) { window.location.href = './admin.html'; throw new Error('Not logged in'); }
 
 const projectId = new URLSearchParams(window.location.search).get('id');
-if (!projectId) window.location.href = './admin-dashboard.html';
+if (!projectId) { window.location.href = './admin-dashboard.html'; throw new Error('No project ID'); }
 
 let _projectData = null;
 
@@ -486,31 +491,44 @@ async function deleteDocument(id) {
 // ── LOAD ───────────────────────────────────────────────────────
 
 async function loadProject() {
-  const res = await fetch(`${ADMIN_PROJECTS_URL}?id=${projectId}`, {
-    headers: { 'x-admin-key': ADMIN_KEY },
-  });
+  try {
+    const res = await fetch(`${ADMIN_PROJECTS_URL}?id=${projectId}`, {
+      headers: { 'x-admin-key': ADMIN_KEY },
+    });
 
-  if (res.status === 401) { window.location.href = './admin.html'; return; }
+    if (res.status === 401) { window.location.href = './admin.html'; return; }
 
-  const data = await res.json();
-  _projectData = data;
+    const data = await res.json();
 
-  document.getElementById('adminProjectLoading').style.display = 'none';
+    if (!res.ok || data.error || !data.project) {
+      throw new Error(data.error || `Server returned ${res.status}`);
+    }
 
-  const p = data.project;
-  document.getElementById('adminProjectTitle').textContent = p.name;
-  document.getElementById('adminProjectSubtitle').textContent = `${p.client_name} · ${p.client_email}`;
+    _projectData = data;
 
-  const map = { active: 'In Progress', completed: 'Completed', 'on-hold': 'On Hold' };
-  document.getElementById('adminStatusLabel').textContent = map[p.status] || p.status;
+    document.getElementById('adminProjectLoading').style.display = 'none';
 
-  document.getElementById('adminProjectHeader').style.display = 'flex';
-  document.getElementById('adminProjectContent').style.display = 'block';
+    const p = data.project;
+    document.getElementById('adminProjectTitle').textContent = p.name;
+    document.getElementById('adminProjectSubtitle').textContent = `${p.client_name} · ${p.client_email}`;
 
-  renderMilestones(data.milestones);
-  renderMessages(data.updates);
-  renderPhotos(data.photos);
-  renderDocuments(data.documents);
+    const map = { active: 'In Progress', completed: 'Completed', 'on-hold': 'On Hold' };
+    document.getElementById('adminStatusLabel').textContent = map[p.status] || p.status;
+
+    document.getElementById('adminProjectHeader').style.display = 'flex';
+    document.getElementById('adminProjectContent').style.display = 'block';
+
+    renderMilestones(data.milestones);
+    renderMessages(data.updates);
+    renderPhotos(data.photos);
+    renderDocuments(data.documents);
+  } catch (e) {
+    console.error('loadProject error:', e);
+    document.getElementById('adminProjectLoading').style.display = 'none';
+    const errEl = document.getElementById('adminLoadError');
+    document.getElementById('adminLoadErrorMsg').textContent = 'Error: ' + e.message;
+    errEl.style.display = 'block';
+  }
 }
 
 loadProject();
