@@ -113,13 +113,13 @@
 
 <script src="../assets/js/main.js"></script>
 <script>
-const ADMIN_KEY = sessionStorage.getItem('admin_key');
+const ADMIN_KEY = localStorage.getItem('admin_key');
 const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-projects';
 
 if (!ADMIN_KEY) window.location.href = './admin.html';
 
 function adminLogout() {
-  sessionStorage.removeItem('admin_key');
+  localStorage.removeItem('admin_key');
   window.location.href = './admin.html';
 }
 
