@@ -52,7 +52,7 @@ Deno.serve(async (req: Request) => {
     if (req.method === 'GET') {
       const { data, error } = await supabase
         .from('projects')
-        .select('*, milestones(count)')
+        .select('*')
         .order('created_at', { ascending: false })
       if (error) throw error
       return json(data)

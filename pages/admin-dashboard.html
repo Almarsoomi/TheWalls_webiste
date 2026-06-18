@@ -144,9 +144,7 @@ function formatDate(iso) {
 }
 
 function milestoneCount(project) {
-  const arr = project.milestones;
-  if (!arr || arr.length === 0) return '0';
-  return Array.isArray(arr) ? arr[0]?.count ?? arr.length : '0';
+  return '—';
 }
 
 async function loadProjects() {
