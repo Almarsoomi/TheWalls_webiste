@@ -201,13 +201,14 @@ function renderProjects(list) {
       <td><div class="admin-client-name">${p.client_name}</div><div class="admin-client-email">${p.client_email}</div></td>
       <td>${statusBadge(p.status)}</td>
       <td>${formatDate(p.created_at)}</td>
-      <td style="display:flex;gap:8px;align-items:center;">
+      <td class="admin-td-actions">
         <a href="./admin-project.html?id=${p.id}" class="admin-edit-btn">Edit →</a>
-        <button class="admin-delete-row-btn" onclick="deleteProject('${p.id}','${p.name.replace(/'/g,"\\'")}'" title="Delete project">
+        <button class="admin-delete-row-btn" title="Delete project">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
         </button>
       </td>
     `;
+    tr.querySelector('.admin-delete-row-btn').addEventListener('click', () => deleteProject(p.id, p.name));
     body.appendChild(tr);
   });
 }
