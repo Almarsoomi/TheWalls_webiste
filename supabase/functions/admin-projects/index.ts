@@ -66,7 +66,7 @@ Deno.serve(async (req: Request) => {
       if (action === 'create') {
         const { data, error } = await supabase
           .from('projects')
-          .insert({ name, client_name, client_email, status: status || 'active', start_date: start_date || null, expected_completion: expected_completion || null })
+          .insert({ name, client_name, client_email: client_email.toLowerCase(), status: status || 'active', start_date: start_date || null, expected_completion: expected_completion || null })
           .select()
           .single()
         if (error) throw error
@@ -76,7 +76,7 @@ Deno.serve(async (req: Request) => {
       if (action === 'update') {
         const { error } = await supabase
           .from('projects')
-          .update({ name, client_name, client_email, status, start_date: start_date || null, expected_completion: expected_completion || null })
+          .update({ name, client_name, client_email: client_email.toLowerCase(), status, start_date: start_date || null, expected_completion: expected_completion || null })
           .eq('id', id)
         if (error) throw error
         return json({ success: true })
