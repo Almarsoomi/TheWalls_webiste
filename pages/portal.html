@@ -70,6 +70,19 @@
   </div>
 </div>
 
+<!-- Email-not-registered popup -->
+<div class="est-modal-overlay" id="notRegisteredModal" onclick="if(event.target===this)closeNotRegistered()">
+  <div class="est-modal">
+    <div class="est-modal-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <h2 class="est-modal-title">Email not registered</h2>
+    <p class="est-modal-msg">We couldn't find a project linked to <strong id="nrEmail" style="color:var(--cream)"></strong>. Please verify the email with The Walls team on WhatsApp, or try again later.</p>
+    <a class="est-modal-close" href="https://wa.me/971544996788?text=Hi%20The%20Walls%2C%20I'm%20trying%20to%20access%20my%20project%20portal%20but%20my%20email%20is%20not%20registered.%20Could%20you%20help%3F" target="_blank" rel="noopener" style="text-decoration:none;">Message us on WhatsApp</a>
+    <div style="margin-top:18px;"><button class="portal-link-btn" onclick="closeNotRegistered()">Try a different email</button></div>
+  </div>
+</div>
+
 <script src="../assets/js/main.js"></script>
 <script>
 const _sb = supabase.createClient(
@@ -85,6 +98,14 @@ function clearPortalErr() {
 function showLoginCard() {
   document.getElementById('sentCard').style.display = 'none';
   document.getElementById('loginCard').style.display = 'block';
+}
+
+function showNotRegistered(email) {
+  document.getElementById('nrEmail').textContent = email;
+  document.getElementById('notRegisteredModal').classList.add('show');
+}
+function closeNotRegistered() {
+  document.getElementById('notRegisteredModal').classList.remove('show');
 }
 
 async function sendMagicLink() {
@@ -107,9 +128,40 @@ async function sendMagicLink() {
   }
 
   btn.disabled = true;
-  btn.querySelector('span').textContent = 'Sending…';
+  btn.querySelector('span').textContent = 'Checking…';
   status.style.display = 'none';
 
+  // 1) Confirm the email belongs to a project the admin created. If not, do NOT
+  //    send a login link — show the "not registered" popup instead.
+  let exists = false;
+  try {
+    const r = await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/check-client', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    if (!r.ok) throw new Error('check failed');
+    exists = (await r.json()).exists === true;
+  } catch (e) {
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'Send Secure Link';
+    status.className = 'form-status error';
+    status.textContent = 'Something went wrong. Please try again.';
+    status.style.display = 'block';
+    if (window.turnstile) turnstile.reset();
+    return;
+  }
+
+  if (!exists) {
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'Send Secure Link';
+    if (window.turnstile) turnstile.reset();
+    showNotRegistered(email);
+    return;
+  }
+
+  // 2) Email is registered — send the secure magic link.
+  btn.querySelector('span').textContent = 'Sending…';
   const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
   const { error } = await _sb.auth.signInWithOtp({
     email,
