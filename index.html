@@ -666,8 +666,8 @@
       <div class="ba-label ba-label-after ar-only">بعد</div>
       <div class="ba-divider" id="baDivider"></div>
       <div class="ba-handle" id="baHandle"><svg viewBox="0 0 24 24">
-          <polyline points="15 18 9 12 15 6" />
-          <polyline points="9 18 3 12 9 6" style="transform:translateX(8px)" />
+          <polyline points="10 7 6 12 10 17" />
+          <polyline points="14 7 18 12 14 17" />
         </svg></div>
     </div>
   </section>
@@ -1711,8 +1711,51 @@
       document.getElementById('baHandle').style.left = p + '%';
     }
     setBA(50);
-    slider.addEventListener('mousedown', () => dragging = true);
-    slider.addEventListener('touchstart', () => dragging = true, { passive: true });
+
+    // ── Idle hint: gentle nudge loop that stops the moment the user takes over ──
+    let userInteracted = false;
+    let hintRAF = null;
+    const easeInOut = t => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+
+    function stopHint() {
+      userInteracted = true;
+      if (hintRAF) { cancelAnimationFrame(hintRAF); hintRAF = null; }
+      slider.classList.remove('is-hinting');
+    }
+
+    function runHint() {
+      if (userInteracted) return;
+      slider.classList.add('is-hinting');
+      // Eased keyframes (ms → position %): 50→62→38→50, twice, then rest at 50.
+      const keys = [
+        { t: 0, p: 50 }, { t: 900, p: 62 }, { t: 1800, p: 38 }, { t: 2700, p: 50 },
+        { t: 3600, p: 62 }, { t: 4500, p: 38 }, { t: 5400, p: 50 },
+      ];
+      const total = keys[keys.length - 1].t;
+      const start = performance.now();
+      function frame(now) {
+        if (userInteracted) return;
+        const elapsed = now - start;
+        if (elapsed >= total) { setBA(50); slider.classList.remove('is-hinting'); hintRAF = null; return; }
+        let i = 0;
+        while (i < keys.length - 1 && elapsed > keys[i + 1].t) i++;
+        const a = keys[i], b = keys[i + 1];
+        setBA(a.p + (b.p - a.p) * easeInOut((elapsed - a.t) / (b.t - a.t)));
+        hintRAF = requestAnimationFrame(frame);
+      }
+      hintRAF = requestAnimationFrame(frame);
+    }
+
+    // Kick off once the slider scrolls into view (skip if user prefers reduced motion).
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const hintIO = new IntersectionObserver((entries) => {
+        entries.forEach(en => { if (en.isIntersecting) { hintIO.disconnect(); runHint(); } });
+      }, { threshold: 0.4 });
+      hintIO.observe(slider);
+    }
+
+    slider.addEventListener('mousedown', () => { stopHint(); dragging = true; });
+    slider.addEventListener('touchstart', () => { stopHint(); dragging = true; }, { passive: true });
     window.addEventListener('mouseup', () => dragging = false);
     window.addEventListener('touchend', () => dragging = false);
     window.addEventListener('mousemove', e => { if (!dragging) return; const r = slider.getBoundingClientRect(); setBA((e.clientX - r.left) / r.width * 100); });
