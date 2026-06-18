@@ -49,14 +49,7 @@ function _twLogos(theme) {
 }
 
 function _twFonts(theme) {
-  var root = document.documentElement;
-  if (theme === 'light') {
-    root.style.setProperty('--serif', "'DM Sans', sans-serif");
-    root.style.setProperty('--display', "'DM Sans', sans-serif");
-  } else {
-    root.style.setProperty('--serif', "'Cormorant Garamond', Georgia, serif");
-    root.style.setProperty('--display', "'Bebas Neue', sans-serif");
-  }
+  // Fonts are the same in both modes — no switching
 }
 
 // ── COOKIE CONSENT (global — called by onclick in injected HTML) ────────────

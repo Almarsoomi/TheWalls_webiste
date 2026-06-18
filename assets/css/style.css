@@ -343,6 +343,16 @@ html[data-theme="light"] .mob-overlay .nav-links a.act { color: #0c0c0b !importa
 /* Mobile hamburger bars */
 html[data-theme="light"] .nav-toggle span,
 html[data-theme="light"] .mob-close span { background: #0c0c0b; }
+/* Text on images must stay light — photos don't change in light mode */
+html[data-theme="light"] .hero-h1,
+html[data-theme="light"] .hero-desc,
+html[data-theme="light"] .hero-stat-num,
+html[data-theme="light"] .hero-stat-label { color: #f5f0e8; }
+html[data-theme="light"] .project-name,
+html[data-theme="light"] .project-loc { color: #f5f0e8; }
+html[data-theme="light"] .ba-label-before,
+html[data-theme="light"] .ba-label-after { color: #f5f0e8; }
+
 /* Mobile at 480px — cap Arabic headings */
 @media(max-width:480px) {
   [dir="rtl"] .hero-h1 { font-size: 32px; }
