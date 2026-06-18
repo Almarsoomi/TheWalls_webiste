@@ -161,6 +161,8 @@ function formatDate(iso) {
 function renderMilestones(milestones) {
   const track = document.getElementById('milestoneTrack');
   const empty = document.getElementById('milestoneEmpty');
+  track.innerHTML = '';
+  track.appendChild(empty);
   if (!milestones || milestones.length === 0) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   milestones.forEach((m, i) => {
