@@ -77,7 +77,7 @@
   <section class="portal-section" id="sectionMilestones">
     <div class="portal-section-inner">
       <div class="portal-section-label">Project Progress</div>
-      <div class="milestone-track" id="milestoneTrack">
+      <div class="milestone-timeline" id="milestoneTrack">
         <div class="milestone-empty" id="milestoneEmpty" style="display:none;">No milestones added yet.</div>
       </div>
     </div>
@@ -147,11 +147,6 @@ function statusBadge(s) {
   return `<span class="portal-status-chip portal-status-${s}">${map[s] || s}</span>`;
 }
 
-function milestoneStatusIcon(s) {
-  if (s === 'done') return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-  if (s === 'active') return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>';
-  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/></svg>';
-}
 
 function formatDate(iso) {
   if (!iso) return '';
@@ -165,17 +160,22 @@ function renderMilestones(milestones) {
   track.appendChild(empty);
   if (!milestones || milestones.length === 0) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
+  const statusLabel = { done: 'Done', active: 'In Progress', pending: 'Upcoming' };
   milestones.forEach((m, i) => {
-    const step = document.createElement('div');
-    step.className = `milestone-step milestone-${m.status}`;
-    step.innerHTML = `
-      <div class="milestone-connector ${i === 0 ? 'first' : ''}"></div>
-      <div class="milestone-dot">${milestoneStatusIcon(m.status)}</div>
-      <div class="milestone-connector ${i === milestones.length - 1 ? 'last' : ''}"></div>
-      <div class="milestone-label">${m.title}</div>
-      <div class="milestone-status-tag">${m.status === 'done' ? 'Done' : m.status === 'active' ? 'In Progress' : 'Upcoming'}</div>
+    const isLast = i === milestones.length - 1;
+    const row = document.createElement('div');
+    row.className = `ms-row ms-${m.status}`;
+    row.innerHTML = `
+      <div class="ms-spine">
+        <div class="ms-dot"></div>
+        ${!isLast ? '<div class="ms-line"></div>' : ''}
+      </div>
+      <div class="ms-body">
+        <div class="ms-title">${m.title}</div>
+        <div class="ms-tag">${statusLabel[m.status] || 'Upcoming'}</div>
+      </div>
     `;
-    track.appendChild(step);
+    track.appendChild(row);
   });
 }
 

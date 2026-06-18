@@ -2036,22 +2036,23 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .portal-section-label{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:40px;display:flex;align-items:center;gap:14px}
 .portal-section-label::before{content:'';width:28px;height:.5px;background:var(--champagne)}
 
-/* Milestone track */
-.milestone-track{display:flex;flex-wrap:wrap;gap:0;position:relative}
-.milestone-step{display:flex;flex-direction:column;align-items:center;flex:1;min-width:100px;position:relative}
-.milestone-connector{flex:1;height:.5px;background:rgba(201,169,110,.15);width:100%;margin-top:19px}
-.milestone-connector.first,.milestone-connector.last{background:transparent}
-.milestone-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;position:relative}
-.milestone-dot svg{width:18px;height:18px}
-.milestone-pending .milestone-dot{border:1.5px solid rgba(201,169,110,.25);color:var(--gray-muted);background:var(--obsidian)}
-.milestone-active .milestone-dot{border:1.5px solid var(--champagne);color:var(--champagne);background:var(--obsidian)}
-.milestone-done .milestone-dot{background:var(--champagne);color:var(--obsidian);border:1.5px solid var(--champagne)}
-.milestone-label{font-size:12px;color:var(--cream);text-align:center;margin-top:14px;max-width:100px;line-height:1.4}
-.milestone-status-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
-.milestone-pending .milestone-status-tag{color:var(--gray-muted)}
-.milestone-active .milestone-status-tag{color:var(--champagne)}
-.milestone-done .milestone-status-tag{color:#7acc7a}
+/* Milestone vertical timeline */
+.milestone-timeline{display:flex;flex-direction:column;max-width:560px}
 .milestone-empty{font-size:14px;color:var(--gray-muted);padding:24px 0}
+.ms-row{display:flex;gap:0;align-items:flex-start}
+.ms-spine{display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0}
+.ms-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px;transition:background .3s,border .3s}
+.ms-pending .ms-dot{background:transparent;border:1.5px solid rgba(201,169,110,.3)}
+.ms-active .ms-dot{background:var(--champagne);border:1.5px solid var(--champagne);box-shadow:0 0 0 4px rgba(201,169,110,.12)}
+.ms-done .ms-dot{background:rgba(201,169,110,.5);border:1.5px solid rgba(201,169,110,.5)}
+.ms-line{width:.5px;background:rgba(201,169,110,.15);flex:1;min-height:32px;margin:6px 0}
+.ms-body{padding:0 0 32px 20px}
+.ms-title{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--cream);line-height:1.3}
+.ms-pending .ms-title{color:var(--gray-muted)}
+.ms-tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:5px}
+.ms-pending .ms-tag{color:rgba(201,169,110,.3)}
+.ms-active .ms-tag{color:var(--champagne)}
+.ms-done .ms-tag{color:rgba(201,169,110,.55)}
 
 /* Update feed */
 .update-feed{display:flex;flex-direction:column;gap:0}
@@ -2217,8 +2218,6 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
   .admin-wrap{padding:100px 24px 60px}
   .admin-two-col{grid-template-columns:1fr}
   .portal-photo-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
-  .milestone-track{gap:8px}
-  .milestone-step{min-width:80px}
   .admin-page-header{align-items:flex-start}
   .admin-page-header > div:last-child{margin-left:auto}
 }
@@ -2228,12 +2227,6 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
   .portal-section-inner{padding:0 16px}
   .portal-section{padding:48px 0}
   .admin-photo-grid{grid-template-columns:repeat(2,1fr)}
-  .milestone-track{flex-direction:column;gap:0}
-  .milestone-step{flex-direction:row;min-width:auto;width:100%}
-  .milestone-connector{width:.5px;height:24px;margin:0 19px}
-  .milestone-connector.first,.milestone-connector.last{background:transparent;height:12px}
-  .milestone-dot{flex-shrink:0}
-  .milestone-label{text-align:left;margin-top:0;margin-left:16px;max-width:none}
   .milestone-status-tag{margin-left:8px;margin-top:0}
 }
 .article-body ul li::before{content:'';position:absolute;left:0;top:12px;width:4px;height:4px;background:var(--champagne);border-radius:50%}
