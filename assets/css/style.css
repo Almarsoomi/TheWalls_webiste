@@ -1969,7 +1969,7 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .article-breadcrumb a:hover{opacity:.7}
 .article-breadcrumb span{color:var(--gray-muted)}
 .article-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--champagne);background:rgba(201,169,110,.1);padding:4px 10px;display:inline-block;margin-bottom:20px}
-.article-h1{font-family:var(--serif);font-size:clamp(36px,5vw,72px);font-weight:300;line-height:1.05;color:var(--cream);max-width:800px;opacity:0;animation:fu .9s .3s ease forwards}
+.article-h1{font-family:var(--serif);font-size:clamp(26px,5vw,72px);font-weight:300;line-height:1.1;color:var(--cream);max-width:800px;opacity:0;animation:fu .9s .3s ease forwards}
 .article-h1 em{font-style:italic;color:var(--champagne)}
 .article-meta{font-size:12px;letter-spacing:.08em;color:var(--gray-muted);margin-top:24px;display:flex;gap:20px;flex-wrap:wrap}
 
@@ -2008,11 +2008,15 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
   .related-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:600px){
-  .article-hero{padding:80px 16px 32px}
+  .article-hero{padding:90px 20px 36px}
   .article-body{padding:40px 16px}
   .article-cta{margin:0 16px 48px;padding:32px 16px}
   .article-related{padding:40px 16px}
   .related-grid{grid-template-columns:1fr}
+}
+@media(max-width:400px){
+  .article-hero{padding:85px 16px 32px}
+  .article-h1{font-size:22px;line-height:1.15}
 }
 
 /* ── PAGE: LEGAL ── */
