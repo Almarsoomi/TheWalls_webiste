@@ -2013,7 +2013,7 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .portal-nop-desc{font-size:14px;line-height:1.7;color:var(--gray-mid);margin:0}
 
 /* Portal project wrap */
-.portal-project-wrap{padding-top:80px}
+.portal-project-wrap{padding-top:120px}
 
 /* Project header */
 .portal-project-header{background:var(--obsidian-2);border-bottom:.5px solid rgba(201,169,110,.1);padding:60px 0 40px}
