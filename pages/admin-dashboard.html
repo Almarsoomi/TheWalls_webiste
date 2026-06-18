@@ -124,10 +124,10 @@ function adminLogout() {
 }
 
 function openNewProjectModal() {
-  document.getElementById('newProjectModal').classList.add('open');
+  document.getElementById('newProjectModal').classList.add('show');
 }
 function closeNewProjectModal() {
-  document.getElementById('newProjectModal').classList.remove('open');
+  document.getElementById('newProjectModal').classList.remove('show');
   document.getElementById('newProjectStatus').style.display = 'none';
   ['npName','npClientName','npClientEmail','npStartDate','npCompletion'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('npStatus').value = 'active';
