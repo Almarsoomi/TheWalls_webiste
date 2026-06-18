@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/style.css"/>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
 </head>
 <body>
@@ -30,6 +31,9 @@
       <input type="password" class="form-input" id="adminPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
       <div class="form-error-msg" id="adminPwdErr" style="display:none;">Incorrect password. Please try again.</div>
     </div>
+
+    <!-- Cloudflare Turnstile human verification -->
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-top:24px;margin-bottom:4px;"></div>
 
     <button class="btn-send-db" id="btnAdminLogin" onclick="doLogin()" style="margin-top:20px;width:100%;">
       <span>Enter Dashboard</span>
@@ -59,26 +63,40 @@ async function doLogin() {
   const err = document.getElementById('adminPwdErr');
   if (!pwd) return;
 
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+  if (!turnstileToken) {
+    err.textContent = 'Please complete the human verification check.';
+    err.style.display = 'block';
+    return;
+  }
+
   btn.disabled = true;
   btn.querySelector('span').textContent = 'Verifying…';
   err.style.display = 'none';
 
   try {
-    const res = await fetch(ADMIN_PROJECTS_URL, { headers: { 'x-admin-key': pwd } });
+    const res = await fetch(ADMIN_PROJECTS_URL, {
+      headers: { 'x-admin-key': pwd, 'x-turnstile-token': turnstileToken },
+    });
     if (res.ok) {
       localStorage.setItem('admin_key', pwd);
       window.location.href = './admin-dashboard.html';
     } else {
+      err.textContent = res.status === 403
+        ? 'Verification failed. Please try the check again.'
+        : 'Incorrect password. Please try again.';
       err.style.display = 'block';
       document.getElementById('adminPwd').classList.add('err');
       btn.disabled = false;
       btn.querySelector('span').textContent = 'Enter Dashboard';
+      if (window.turnstile) turnstile.reset();
     }
   } catch (e) {
     err.textContent = 'Connection error. Please try again.';
     err.style.display = 'block';
     btn.disabled = false;
     btn.querySelector('span').textContent = 'Enter Dashboard';
+    if (window.turnstile) turnstile.reset();
   }
 }
 </script>

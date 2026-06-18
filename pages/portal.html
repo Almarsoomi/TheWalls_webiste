@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
 </head>
 <body>
@@ -48,6 +49,9 @@
       <input type="email" class="form-input" id="portalEmail" placeholder="you@example.com" oninput="clearPortalErr()"/>
       <div class="form-error-msg" id="portalEmailErr" style="display:none;">Please enter a valid email address.</div>
     </div>
+
+    <!-- Cloudflare Turnstile human verification -->
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-top:24px;margin-bottom:4px;"></div>
 
     <button class="btn-send-db" id="btnSendLink" onclick="sendMagicLink()" style="margin-top:24px;width:100%;">
       <span>Send Secure Link</span>
@@ -93,6 +97,15 @@ async function sendMagicLink() {
 
   const btn = document.getElementById('btnSendLink');
   const status = document.getElementById('portalStatus');
+
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+  if (!turnstileToken) {
+    status.className = 'form-status error';
+    status.textContent = 'Please complete the human verification check.';
+    status.style.display = 'block';
+    return;
+  }
+
   btn.disabled = true;
   btn.querySelector('span').textContent = 'Sending…';
   status.style.display = 'none';
@@ -102,6 +115,7 @@ async function sendMagicLink() {
     email,
     options: {
       emailRedirectTo: base + 'portal-project.html',
+      captchaToken: turnstileToken,
     },
   });
 
@@ -111,6 +125,7 @@ async function sendMagicLink() {
     status.className = 'form-status error';
     status.textContent = 'Something went wrong. Please try again.';
     status.style.display = 'block';
+    if (window.turnstile) turnstile.reset();
     return;
   }
 
