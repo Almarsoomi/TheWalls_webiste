@@ -35,6 +35,7 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="./assets/css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -492,11 +493,10 @@
     <div class="pm-header reveal">
       <div class="pm-label en-only">Our Presence</div>
       <div class="pm-label ar-only">حضورنا</div>
-      <h2 class="pm-title en-only">Projects <em>Across Dubai</em></h2>
-      <h2 class="pm-title ar-only">مشاريعنا <em>في دبي</em></h2>
-      <p class="pm-desc en-only">From Palm Jumeirah to Business Bay — The Walls has delivered across Dubai's most
-        prestigious addresses.</p>
-      <p class="pm-desc ar-only">من نخلة جميرا إلى بيزنس باي — نفّذ ذا وولز مشاريع في أرقى العناوين في دبي.</p>
+      <h2 class="pm-title en-only">Projects <em>Across UAE</em></h2>
+      <h2 class="pm-title ar-only">مشاريعنا <em>في الأمارات</em></h2>
+      <p class="pm-desc en-only">The Walls has delivered across UAE's most prestigious addresses.</p>
+      <p class="pm-desc ar-only">نفّذ ذا وولز مشاريع في أرقى العناوين في الأمارات.</p>
       <a href="./pages/portfolio.html" class="section-link en-only">Full portfolio →</a>
       <a href="./pages/portfolio.html" class="section-link ar-only">جميع الأعمال ←</a>
     </div>
@@ -869,6 +869,12 @@
         <label class="form-label en-only">Email Address</label>
         <label class="form-label ar-only">البريد الإلكتروني</label>
         <input type="email" class="form-input" id="estimateEmail" placeholder="you@example.com" />
+      </div>
+      <!-- Honeypot: bots fill this, humans don't see it -->
+      <input type="text" name="website" id="hp_website" style="display:none!important" tabindex="-1" autocomplete="off"
+        aria-hidden="true" />
+      <!-- Turnstile human verification -->
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-bottom:16px;">
       </div>
       <button class="btn-send-db" id="btnSaveEstimate" onclick="saveEstimate()">
         <svg viewBox="0 0 24 24">
@@ -1748,39 +1754,56 @@
       document.querySelectorAll('.tier-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
       currentTier = 'standard';
       document.getElementById('estimateStatus').className = 'form-status';
+      if (window.turnstile) turnstile.reset();
     }
 
     // ── COST ESTIMATOR ──
     async function saveEstimate() {
+      // Honeypot: if filled, silently reject (bot)
+      if (document.getElementById('hp_website').value) return;
+
       const spaceEl = document.getElementById('spaceType');
       const name = document.getElementById('estimateName').value.trim();
       const email = document.getElementById('estimateEmail').value.trim();
       const isAr = currentLang === 'ar';
       if (!spaceEl.value) { alert(isAr ? 'يرجى اختيار نوع المساحة أولاً.' : 'Please select a space type first.'); return; }
       if (!name) { alert(isAr ? 'يرجى إدخال اسمك.' : 'Please enter your name.'); document.getElementById('estimateName').focus(); return; }
+
+      // Turnstile token check
+      const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+      if (!turnstileToken) {
+        alert(isAr ? 'يرجى إكمال التحقق من أنك لست روبوتاً.' : 'Please complete the human verification check.');
+        return;
+      }
+
       const btn = document.getElementById('btnSaveEstimate');
       const status = document.getElementById('estimateStatus');
       btn.disabled = true;
       btn.querySelector('span.en-only').textContent = 'Saving…';
       btn.querySelector('span.ar-only').textContent = 'جارٍ الحفظ…';
       status.className = 'form-status';
-      const { error } = await _sb.from('estimate_requests').insert({
-        space_type: spaceEl.value,
-        area_sqm: parseInt(document.getElementById('sqmRange').value),
-        tier: currentTier,
-        estimate_range: document.getElementById('estimateRange').textContent,
-        name,
-        email: email || null
+
+      const area_sqm = parseInt(document.getElementById('sqmRange').value);
+      const estimate_range = document.getElementById('estimateRange').textContent;
+
+      const res = await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/save-estimate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ turnstileToken, space_type: spaceEl.value, area_sqm, tier: currentTier, estimate_range, name, email: email || null })
       });
+
       btn.disabled = false;
       btn.querySelector('span.en-only').textContent = 'Save Estimate Request';
       btn.querySelector('span.ar-only').textContent = 'حفظ طلب التقدير';
-      if (error) {
+
+      if (!res.ok) {
         status.className = 'form-status error';
         status.textContent = isAr ? 'حدث خطأ. يرجى المحاولة مرة أخرى.' : 'Something went wrong. Please try again.';
+        if (window.turnstile) turnstile.reset();
         return;
       }
-      _notifyTeam('estimate', { name, email: email || null, space_type: spaceEl.value, area_sqm: parseInt(document.getElementById('sqmRange').value), tier: currentTier, estimate_range: document.getElementById('estimateRange').textContent });
+
+      _notifyTeam('estimate', { name, email: email || null, space_type: spaceEl.value, area_sqm, tier: currentTier, estimate_range });
       resetEstimatorForm();
       showEstimateModal();
     }

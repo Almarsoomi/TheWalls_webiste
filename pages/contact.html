@@ -28,6 +28,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@300;400&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
 <script>
   window._twLoadAnalytics=function(){
@@ -117,6 +118,10 @@
         <label class="form-label ar-only">رسالتك *</label>
         <textarea class="form-textarea" id="qfMessage" required></textarea>
       </div>
+      <!-- Honeypot -->
+      <input type="text" name="website" id="hp_website" style="display:none!important" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <!-- Turnstile -->
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-bottom:16px;"></div>
       <div class="form-send-options">
         <button type="button" class="btn-send-db" id="btnSendDb" onclick="sendToDatabase()">
           <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -343,27 +348,37 @@ async function _notifyTeam(formType, data){
 }
 
 async function sendToDatabase(){
+  if(document.getElementById('hp_website').value) return;
   const d = getFormData();
   if(!d) return;
   const isAr = document.documentElement.getAttribute('lang') === 'ar';
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+  if(!turnstileToken){
+    alert(isAr ? 'يرجى إكمال التحقق من أنك لست روبوتاً.' : 'Please complete the human verification check.');
+    return;
+  }
   const btn = document.getElementById('btnSendDb');
   const status = document.getElementById('qfStatus');
   btn.disabled = true;
   btn.querySelector('span.en-only').textContent = 'Sending…';
   btn.querySelector('span.ar-only').textContent = 'جارٍ الإرسال…';
   status.className = 'form-status';
-  const {error} = await _sb.from('contact_submissions').insert({
-    name: d.name, phone: d.phone, email: d.email, message: d.msg
+  const res = await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/save-contact', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ turnstileToken, name: d.name, phone: d.phone, email: d.email, message: d.msg })
   });
   btn.disabled = false;
   btn.querySelector('span.en-only').textContent = 'Send';
   btn.querySelector('span.ar-only').textContent = 'إرسال';
-  if(error){
+  if(!res.ok){
     status.className = 'form-status error';
     status.textContent = isAr ? 'حدث خطأ. يرجى المحاولة مرة أخرى.' : 'Something went wrong. Please try again.';
+    if(window.turnstile) turnstile.reset();
     return;
   }
   document.querySelector('.quick-form').reset();
+  if(window.turnstile) turnstile.reset();
   status.className = 'form-status';
   _notifyTeam('contact', {name:d.name, phone:d.phone, email:d.email, message:d.msg});
   showContactModal();

@@ -28,6 +28,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@300;400&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
 <script>
   window._twLoadAnalytics=function(){
@@ -194,6 +195,10 @@
         </div>
 
         <div class="form-submit-row">
+          <!-- Honeypot -->
+          <input type="text" name="website" id="hp_website" style="display:none!important" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <!-- Turnstile -->
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-bottom:16px;"></div>
           <button class="btn-send-db" id="btnBookingDb" onclick="submitToDatabase()">
             <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             <span>Send Booking Request</span>
@@ -371,19 +376,30 @@ function _getBookingData(){
 }
 
 async function submitToDatabase(){
+  if(document.getElementById('hp_website').value) return;
   const data = _getBookingData();
   if(!data) return;
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+  if(!turnstileToken){
+    alert('Please complete the human verification check.');
+    return;
+  }
   const btn = document.getElementById('btnBookingDb');
   const status = document.getElementById('bookingStatus');
   btn.disabled = true;
   btn.querySelector('span').textContent = 'Sending…';
   status.className = 'form-status';
-  const {error} = await _sb.from('bookings').insert(data);
+  const res = await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/save-booking', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ turnstileToken, ...data })
+  });
   btn.disabled = false;
   btn.querySelector('span').textContent = 'Send Booking Request';
-  if(error){
+  if(!res.ok){
     status.className = 'form-status error';
     status.textContent = 'Something went wrong. Please try again or use WhatsApp.';
+    if(window.turnstile) turnstile.reset();
     return;
   }
   _notifyTeam('booking', data);
@@ -416,6 +432,7 @@ function resetBookingForm(){
   ['fname','phone'].forEach(id => { clearErr(id); });
   document.getElementById('err-chips').style.display = 'none';
   document.getElementById('bookingStatus').className = 'form-status';
+  if(window.turnstile) turnstile.reset();
 }
 
 function submitForm(){
