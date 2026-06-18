@@ -180,6 +180,7 @@ function renderMilestones(milestones) {
 function renderUpdates(updates) {
   const feed = document.getElementById('updateFeed');
   const empty = document.getElementById('updateEmpty');
+  feed.innerHTML = '';
   if (!updates || updates.length === 0) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   updates.forEach(u => {
@@ -215,6 +216,7 @@ function closeLightbox() {
 function renderPhotos(photos) {
   const grid = document.getElementById('photoGrid');
   const empty = document.getElementById('photoEmpty');
+  grid.innerHTML = '';
   if (!photos || photos.length === 0) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   photos.forEach(p => {
@@ -245,6 +247,7 @@ function getFileIcon(name) {
 async function renderDocuments(documents) {
   const list = document.getElementById('docList');
   const empty = document.getElementById('docEmpty');
+  list.innerHTML = '';
   if (!documents || documents.length === 0) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   for (const doc of documents) {
@@ -325,12 +328,19 @@ async function loadProject() {
   document.getElementById('portalProject').style.display = 'block';
 }
 
-// Handle magic link token on page load
+// Handle magic link token on page load — only load once
+let _projectLoadStarted = false;
+function tryLoadProject() {
+  if (_projectLoadStarted) return;
+  _projectLoadStarted = true;
+  loadProject();
+}
+
 _sb.auth.onAuthStateChange((event, session) => {
-  if (event === 'SIGNED_IN' && session) loadProject();
+  if (session && (event === 'SIGNED_IN' || event === 'INITIAL_SESSION')) tryLoadProject();
 });
 
-loadProject();
+tryLoadProject();
 </script>
 </body>
 </html>

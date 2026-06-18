@@ -2219,6 +2219,8 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
   .portal-photo-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
   .milestone-track{gap:8px}
   .milestone-step{min-width:80px}
+  .admin-page-header{align-items:flex-start}
+  .admin-page-header > div:last-child{margin-left:auto}
 }
 @media(max-width:600px){
   .portal-login-card{padding:36px 24px}
