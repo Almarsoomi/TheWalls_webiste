@@ -97,10 +97,11 @@ async function sendMagicLink() {
   btn.querySelector('span').textContent = 'Sending…';
   status.style.display = 'none';
 
+  const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
   const { error } = await _sb.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: window.location.origin + '/pages/portal-project.html',
+      emailRedirectTo: base + 'portal-project.html',
     },
   });
 
