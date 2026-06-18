@@ -2013,10 +2013,10 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .portal-nop-desc{font-size:14px;line-height:1.7;color:var(--gray-mid);margin:0}
 
 /* Portal project wrap */
-.portal-project-wrap{padding-top:120px}
+.portal-project-wrap{padding-top:0}
 
 /* Project header */
-.portal-project-header{background:var(--obsidian-2);border-bottom:.5px solid rgba(201,169,110,.1);padding:60px 0 40px}
+.portal-project-header{background:var(--obsidian);border-bottom:.5px solid rgba(201,169,110,.15);padding:168px 0 48px}
 .portal-project-header-inner{max-width:1100px;margin:0 auto;padding:0 60px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
 .portal-project-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:14px}
 .portal-project-name{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--cream);margin:0 0 12px;line-height:1}
