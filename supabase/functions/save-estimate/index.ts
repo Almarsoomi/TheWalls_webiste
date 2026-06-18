@@ -5,6 +5,13 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Initialized once at module level — reused across warm invocations
+const supabase = createClient(
+  Deno.env.get('SUPABASE_URL')!,
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+)
+const TURNSTILE_SECRET = Deno.env.get('TURNSTILE_SECRET_KEY')
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
@@ -13,14 +20,14 @@ Deno.serve(async (req: Request) => {
   try {
     const { turnstileToken, space_type, area_sqm, tier, estimate_range, name, email } = await req.json()
 
-    // Verify Turnstile token with Cloudflare
-    const secret = Deno.env.get('TURNSTILE_SECRET_KEY')
-    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ secret, response: turnstileToken }),
-    })
-    const verify = await verifyRes.json()
+    // Verify Turnstile and prepare insert in parallel
+    const [verify] = await Promise.all([
+      fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ secret: TURNSTILE_SECRET, response: turnstileToken }),
+      }).then(r => r.json()),
+    ])
 
     if (!verify.success) {
       return new Response(JSON.stringify({ error: 'Bot check failed' }), {
@@ -29,19 +36,8 @@ Deno.serve(async (req: Request) => {
       })
     }
 
-    // Insert into Supabase using service role (bypasses RLS)
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    )
-
     const { error } = await supabase.from('estimate_requests').insert({
-      space_type,
-      area_sqm,
-      tier,
-      estimate_range,
-      name,
-      email: email || null,
+      space_type, area_sqm, tier, estimate_range, name, email: email || null,
     })
 
     if (error) throw error

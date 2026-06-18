@@ -343,6 +343,14 @@ const _sb = supabase.createClient(
   'sb_publishable_Ty3WM5F5Vp7Yuijz3UVSxw_r3RTb7c2'
 );
 
+// Pre-warm Edge Function on first field focus
+let _bookingWarmed = false;
+document.getElementById('fname').addEventListener('focus', () => {
+  if (_bookingWarmed) return;
+  _bookingWarmed = true;
+  fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/save-booking', { method: 'OPTIONS' }).catch(() => {});
+}, { once: true });
+
 async function _notifyTeam(formType, data){
   try {
     await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/notify-email',{

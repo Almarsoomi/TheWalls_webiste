@@ -1757,6 +1757,14 @@
       if (window.turnstile) turnstile.reset();
     }
 
+    // Pre-warm Edge Function when user starts interacting with the estimator form
+    let _estimateWarmed = false;
+    document.getElementById('estimateName').addEventListener('focus', () => {
+      if (_estimateWarmed) return;
+      _estimateWarmed = true;
+      fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/save-estimate', { method: 'OPTIONS' }).catch(() => {});
+    }, { once: true });
+
     // ── COST ESTIMATOR ──
     async function saveEstimate() {
       // Honeypot: if filled, silently reject (bot)
