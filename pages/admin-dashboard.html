@@ -48,6 +48,23 @@
     <p>Loading projects…</p>
   </div>
 
+  <!-- TOOLBAR: search + filter + sort -->
+  <div class="admin-toolbar" id="adminToolbar" style="display:none;">
+    <input type="text" class="admin-search" id="dashSearch" placeholder="Search projects or clients…" oninput="applyFilters()"/>
+    <select class="admin-filter-select" id="dashStatus" onchange="applyFilters()">
+      <option value="">All Statuses</option>
+      <option value="active">In Progress</option>
+      <option value="on-hold">On Hold</option>
+      <option value="completed">Completed</option>
+    </select>
+    <select class="admin-filter-select" id="dashSort" onchange="applyFilters()">
+      <option value="created_desc">Newest First</option>
+      <option value="created_asc">Oldest First</option>
+      <option value="start_asc">Start Date ↑</option>
+      <option value="start_desc">Start Date ↓</option>
+    </select>
+  </div>
+
   <!-- PROJECTS TABLE -->
   <div class="admin-table-wrap" id="adminTableWrap" style="display:none;">
     <table class="admin-table" id="projectsTable">
@@ -56,7 +73,6 @@
           <th>Project</th>
           <th>Client</th>
           <th>Status</th>
-          <th>Milestones</th>
           <th>Created</th>
           <th></th>
         </tr>
@@ -64,7 +80,7 @@
       <tbody id="projectsBody"></tbody>
     </table>
     <div class="admin-empty" id="adminEmpty" style="display:none;">
-      <p>No projects yet. Create your first one above.</p>
+      <p>No projects match your search.</p>
     </div>
   </div>
 </div>
@@ -118,6 +134,8 @@ const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v
 
 if (!ADMIN_KEY) window.location.href = './admin.html';
 
+let _allProjects = [];
+
 function adminLogout() {
   localStorage.removeItem('admin_key');
   window.location.href = './admin.html';
@@ -143,39 +161,78 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-function milestoneCount(project) {
-  return '—';
+function applyFilters() {
+  const q = document.getElementById('dashSearch').value.toLowerCase();
+  const status = document.getElementById('dashStatus').value;
+  const sort = document.getElementById('dashSort').value;
+
+  let list = _allProjects.filter(p => {
+    const matchQ = !q || p.name.toLowerCase().includes(q) || p.client_name.toLowerCase().includes(q) || p.client_email.toLowerCase().includes(q);
+    const matchStatus = !status || p.status === status;
+    return matchQ && matchStatus;
+  });
+
+  list.sort((a, b) => {
+    if (sort === 'created_asc') return new Date(a.created_at) - new Date(b.created_at);
+    if (sort === 'start_asc') return new Date(a.start_date || 0) - new Date(b.start_date || 0);
+    if (sort === 'start_desc') return new Date(b.start_date || 0) - new Date(a.start_date || 0);
+    return new Date(b.created_at) - new Date(a.created_at); // created_desc default
+  });
+
+  renderProjects(list);
+}
+
+function renderProjects(list) {
+  const body = document.getElementById('projectsBody');
+  const empty = document.getElementById('adminEmpty');
+  body.innerHTML = '';
+
+  if (!list || list.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.forEach(p => {
+    const tr = document.createElement('tr');
+    tr.id = `row-${p.id}`;
+    tr.innerHTML = `
+      <td class="admin-td-project"><a href="./admin-project.html?id=${p.id}" class="admin-project-link">${p.name}</a></td>
+      <td><div class="admin-client-name">${p.client_name}</div><div class="admin-client-email">${p.client_email}</div></td>
+      <td>${statusBadge(p.status)}</td>
+      <td>${formatDate(p.created_at)}</td>
+      <td style="display:flex;gap:8px;align-items:center;">
+        <a href="./admin-project.html?id=${p.id}" class="admin-edit-btn">Edit →</a>
+        <button class="admin-delete-row-btn" onclick="deleteProject('${p.id}','${p.name.replace(/'/g,"\\'")}'" title="Delete project">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+        </button>
+      </td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
+async function deleteProject(id, name) {
+  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+  await fetch(ADMIN_PROJECTS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'delete', id }),
+  });
+  _allProjects = _allProjects.filter(p => p.id !== id);
+  applyFilters();
 }
 
 async function loadProjects() {
   try {
     const res = await fetch(ADMIN_PROJECTS_URL, { headers: { 'x-admin-key': ADMIN_KEY } });
     if (res.status === 401) { window.location.href = './admin.html'; return; }
-    const projects = await res.json();
+    _allProjects = await res.json() || [];
 
     document.getElementById('adminLoading').style.display = 'none';
+    document.getElementById('adminToolbar').style.display = 'flex';
     document.getElementById('adminTableWrap').style.display = 'block';
-
-    const body = document.getElementById('projectsBody');
-    body.innerHTML = '';
-
-    if (!projects || projects.length === 0) {
-      document.getElementById('adminEmpty').style.display = 'block';
-      return;
-    }
-
-    projects.forEach(p => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="admin-td-project"><a href="./admin-project.html?id=${p.id}" class="admin-project-link">${p.name}</a></td>
-        <td><div class="admin-client-name">${p.client_name}</div><div class="admin-client-email">${p.client_email}</div></td>
-        <td>${statusBadge(p.status)}</td>
-        <td>${milestoneCount(p)}</td>
-        <td>${formatDate(p.created_at)}</td>
-        <td><a href="./admin-project.html?id=${p.id}" class="admin-edit-btn">Edit →</a></td>
-      `;
-      body.appendChild(tr);
-    });
+    applyFilters();
   } catch (e) {
     document.getElementById('adminLoading').textContent = 'Failed to load projects.';
   }

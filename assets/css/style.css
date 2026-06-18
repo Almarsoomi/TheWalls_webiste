@@ -2147,6 +2147,14 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 .admin-card-title{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--cream)}
 .admin-card-sub{font-size:12px;color:var(--gray-muted);margin-top:4px}
 .admin-empty-note{font-size:13px;color:var(--gray-muted);padding:16px 0}
+.admin-toolbar{display:flex;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.admin-search{flex:1;min-width:200px;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.2);color:var(--cream);padding:10px 16px;font-size:13px;font-family:var(--sans);outline:none}
+.admin-search::placeholder{color:var(--gray-muted)}
+.admin-search:focus{border-color:rgba(201,169,110,.5)}
+.admin-filter-select{background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.2);color:var(--cream);padding:10px 14px;font-size:12px;font-family:var(--sans);cursor:pointer;outline:none}
+.admin-filter-select:focus{border-color:rgba(201,169,110,.5)}
+.admin-delete-row-btn{background:transparent;border:.5px solid rgba(201,169,110,.15);color:var(--gray-muted);padding:6px 8px;cursor:pointer;display:flex;align-items:center;transition:color .2s,border-color .2s}
+.admin-delete-row-btn:hover{color:#e07070;border-color:rgba(224,112,112,.4)}
 
 /* Milestone admin */
 .milestone-admin-list{display:flex;flex-direction:column;gap:2px;margin-bottom:16px}

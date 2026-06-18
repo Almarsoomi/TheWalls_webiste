@@ -39,14 +39,16 @@
       <div class="admin-project-subtitle" id="adminProjectSubtitle"></div>
     </div>
     <div style="display:flex;gap:12px;align-items:center;">
-      <button class="admin-status-btn" id="adminStatusBtn" onclick="toggleStatusMenu()">
-        <span id="adminStatusLabel">Status</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="admin-status-menu" id="adminStatusMenu" style="display:none;">
-        <button onclick="updateStatus('active')">In Progress</button>
-        <button onclick="updateStatus('on-hold')">On Hold</button>
-        <button onclick="updateStatus('completed')">Completed</button>
+      <div style="position:relative;">
+        <button class="admin-status-btn" id="adminStatusBtn" onclick="toggleStatusMenu()">
+          <span id="adminStatusLabel">Status</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="admin-status-menu" id="adminStatusMenu" style="display:none;">
+          <button onclick="updateStatus('active')">In Progress</button>
+          <button onclick="updateStatus('on-hold')">On Hold</button>
+          <button onclick="updateStatus('completed')">Completed</button>
+        </div>
       </div>
       <a href="" id="viewPortalLink" target="_blank" class="admin-view-portal-btn" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -251,14 +253,21 @@ async function addMilestone() {
 }
 
 async function cycleMilestone(id, newStatus) {
-  await fetch(ADMIN_CONTENT_URL, {
+  const m = _projectData.milestones.find(x => x.id === id);
+  if (!m) return;
+  const oldStatus = m.status;
+  m.status = newStatus;
+  renderMilestones(_projectData.milestones);
+  const res = await fetch(ADMIN_CONTENT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
     body: JSON.stringify({ action: 'update-milestone', id, status: newStatus }),
   });
-  const m = _projectData.milestones.find(x => x.id === id);
-  if (m) m.status = newStatus;
-  renderMilestones(_projectData.milestones);
+  const data = await res.json();
+  if (!data.success) {
+    m.status = oldStatus;
+    renderMilestones(_projectData.milestones);
+  }
 }
 
 async function deleteMilestone(id) {
