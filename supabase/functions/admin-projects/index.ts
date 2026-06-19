@@ -2,13 +2,28 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-key',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-key, x-turnstile-token',
 }
 
 const supabase = createClient(
   Deno.env.get('SUPABASE_URL')!,
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 )
+const TURNSTILE_SECRET = Deno.env.get('TURNSTILE_SECRET_KEY')
+
+async function verifyTurnstile(token: string): Promise<boolean> {
+  if (!TURNSTILE_SECRET) return false
+  try {
+    const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret: TURNSTILE_SECRET, response: token }),
+    }).then(r => r.json())
+    return verify.success === true
+  } catch {
+    return false
+  }
+}
 
 function unauthorized() {
   return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -26,6 +41,13 @@ function json(data: unknown, status = 200) {
 
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+
+  // Cloudflare Turnstile gate for interactive logins. The login page sends a
+  // turnstile token; data calls from the dashboard (already authenticated) do not.
+  const turnstileToken = req.headers.get('x-turnstile-token')
+  if (turnstileToken && !(await verifyTurnstile(turnstileToken))) {
+    return json({ error: 'Bot verification failed' }, 403)
+  }
 
   const adminKey = req.headers.get('x-admin-key')
   if (!adminKey || adminKey !== Deno.env.get('ADMIN_PASSWORD')) return unauthorized()

@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
 </head>
 <body>
@@ -49,6 +50,9 @@
       <div class="form-error-msg" id="portalEmailErr" style="display:none;">Please enter a valid email address.</div>
     </div>
 
+    <!-- Cloudflare Turnstile human verification -->
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-top:24px;margin-bottom:4px;"></div>
+
     <button class="btn-send-db" id="btnSendLink" onclick="sendMagicLink()" style="margin-top:24px;width:100%;">
       <span>Send Secure Link</span>
     </button>
@@ -63,6 +67,19 @@
     <h2 class="portal-sent-title">Check your inbox</h2>
     <p class="portal-sent-msg">We've sent a secure link to <strong id="sentEmailDisplay"></strong>. Click it to access your project dashboard — the link expires in 1 hour.</p>
     <p class="portal-sent-note">Didn't receive it? Check your spam folder or <button class="portal-link-btn" onclick="showLoginCard()">try a different email</button>.</p>
+  </div>
+</div>
+
+<!-- Email-not-registered popup -->
+<div class="est-modal-overlay" id="notRegisteredModal" onclick="if(event.target===this)closeNotRegistered()">
+  <div class="est-modal">
+    <div class="est-modal-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <h2 class="est-modal-title">Email not registered</h2>
+    <p class="est-modal-msg">We couldn't find a project linked to <strong id="nrEmail" style="color:var(--cream)"></strong>. Please verify the email with The Walls team on WhatsApp, or try again later.</p>
+    <a class="est-modal-close" href="https://wa.me/971544996788?text=Hi%20The%20Walls%2C%20I'm%20trying%20to%20access%20my%20project%20portal%20but%20my%20email%20is%20not%20registered.%20Could%20you%20help%3F" target="_blank" rel="noopener" style="text-decoration:none;">Message us on WhatsApp</a>
+    <div style="margin-top:18px;"><button class="portal-link-btn" onclick="closeNotRegistered()">Try a different email</button></div>
   </div>
 </div>
 
@@ -83,6 +100,14 @@ function showLoginCard() {
   document.getElementById('loginCard').style.display = 'block';
 }
 
+function showNotRegistered(email) {
+  document.getElementById('nrEmail').textContent = email;
+  document.getElementById('notRegisteredModal').classList.add('show');
+}
+function closeNotRegistered() {
+  document.getElementById('notRegisteredModal').classList.remove('show');
+}
+
 async function sendMagicLink() {
   const email = document.getElementById('portalEmail').value.trim();
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -93,15 +118,56 @@ async function sendMagicLink() {
 
   const btn = document.getElementById('btnSendLink');
   const status = document.getElementById('portalStatus');
+
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+  if (!turnstileToken) {
+    status.className = 'form-status error';
+    status.textContent = 'Please complete the human verification check.';
+    status.style.display = 'block';
+    return;
+  }
+
   btn.disabled = true;
-  btn.querySelector('span').textContent = 'Sending…';
+  btn.querySelector('span').textContent = 'Checking…';
   status.style.display = 'none';
 
+  // 1) Confirm the email belongs to a project the admin created. If not, do NOT
+  //    send a login link — show the "not registered" popup instead.
+  let exists = false;
+  try {
+    const r = await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/check-client', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    if (!r.ok) throw new Error('check failed');
+    exists = (await r.json()).exists === true;
+  } catch (e) {
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'Send Secure Link';
+    status.className = 'form-status error';
+    status.textContent = 'Something went wrong. Please try again.';
+    status.style.display = 'block';
+    if (window.turnstile) turnstile.reset();
+    return;
+  }
+
+  if (!exists) {
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'Send Secure Link';
+    if (window.turnstile) turnstile.reset();
+    showNotRegistered(email);
+    return;
+  }
+
+  // 2) Email is registered — send the secure magic link.
+  btn.querySelector('span').textContent = 'Sending…';
   const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
   const { error } = await _sb.auth.signInWithOtp({
     email,
     options: {
       emailRedirectTo: base + 'portal-project.html',
+      captchaToken: turnstileToken,
     },
   });
 
@@ -111,6 +177,7 @@ async function sendMagicLink() {
     status.className = 'form-status error';
     status.textContent = 'Something went wrong. Please try again.';
     status.style.display = 'block';
+    if (window.turnstile) turnstile.reset();
     return;
   }
 
