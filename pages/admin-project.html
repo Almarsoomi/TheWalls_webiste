@@ -10,6 +10,79 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<style>
+/* ── TABS ──────────────────────────────────────────────────── */
+.admin-tabs{display:flex;gap:0;border-bottom:.5px solid rgba(201,169,110,.15);margin-bottom:32px}
+.admin-tab{background:none;border:none;border-bottom:2px solid transparent;padding:12px 24px;font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-muted);cursor:pointer;transition:color .2s,border-color .2s;margin-bottom:-1px}
+.admin-tab:hover{color:var(--cream)}
+.admin-tab.active{color:var(--champagne);border-bottom-color:var(--champagne)}
+
+/* ── OVERVIEW SECTIONS ─────────────────────────────────────── */
+.ov-section{padding:0 0 40px;margin-bottom:40px;border-bottom:.5px solid rgba(201,169,110,.08)}
+.ov-section:last-child{border-bottom:none;margin-bottom:0}
+.ov-section-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--champagne);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.ov-section-label::before{content:'';width:20px;height:.5px;background:var(--champagne)}
+.ov-empty{font-size:13px;color:var(--gray-muted);padding:8px 0}
+
+/* ── OVERVIEW MILESTONE TIMELINE ───────────────────────────── */
+.ov-timeline{display:flex;flex-direction:column}
+.ov-ms-row{display:flex;gap:0;align-items:stretch}
+.ov-ms-spine{display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0;padding-top:3px}
+.ov-ms-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;transition:background .2s,border .2s}
+.ov-ms-pending .ov-ms-dot{background:var(--obsidian-3);border:1.5px solid rgba(201,169,110,.4)}
+.ov-ms-active .ov-ms-dot{background:var(--champagne);border:1.5px solid var(--champagne);box-shadow:0 0 0 4px rgba(201,169,110,.12)}
+.ov-ms-done .ov-ms-dot{background:rgba(201,169,110,.6);border:1.5px solid rgba(201,169,110,.6)}
+.ov-ms-line{width:1px;background:rgba(201,169,110,.15);flex:1;margin:6px 0 0}
+.ov-ms-body{padding:0 0 28px 14px;flex:1}
+.ov-ms-title{font-family:var(--serif);font-size:16px;font-weight:300;color:var(--cream);line-height:1.3;margin-top:-1px}
+.ov-ms-pending .ov-ms-title{color:rgba(201,169,110,.4)}
+.ov-ms-tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:5px}
+.ov-ms-pending .ov-ms-tag{color:rgba(201,169,110,.25)}
+.ov-ms-active .ov-ms-tag{color:var(--champagne)}
+.ov-ms-done .ov-ms-tag{color:rgba(201,169,110,.6)}
+
+/* approval badges */
+.ov-approval{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.ov-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--sans)}
+.ov-badge-approved{background:rgba(122,204,122,.1);color:#7acc7a;border:.5px solid rgba(122,204,122,.3)}
+.ov-badge-changes{background:rgba(232,168,78,.08);color:#e8a84e;border:.5px solid rgba(232,168,78,.25)}
+.ov-badge-pending{background:rgba(107,107,104,.1);color:var(--gray-muted);border:.5px solid rgba(107,107,104,.2)}
+.ov-approval-comment{font-size:12px;color:var(--gray-muted);font-style:italic;margin-top:4px;padding-left:2px}
+.ov-approval-date{font-size:11px;color:var(--gray-muted)}
+
+/* ── OVERVIEW FEEDS ─────────────────────────────────────────── */
+.ov-feed{display:flex;flex-direction:column;gap:0}
+.ov-feed-item{display:flex;gap:20px;padding:18px 0;border-bottom:.5px solid rgba(201,169,110,.06)}
+.ov-feed-item:last-child{border-bottom:none}
+.ov-feed-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.ov-feed-dot-team{background:var(--champagne)}
+.ov-feed-dot-client{background:var(--champagne-muted);border:1.5px solid var(--champagne-muted)}
+.ov-feed-content{flex:1}
+.ov-feed-msg{font-size:13px;line-height:1.7;color:var(--cream-dark)}
+.ov-feed-date{font-size:11px;color:var(--gray-muted);margin-top:5px}
+
+/* ── OVERVIEW PHOTOS ────────────────────────────────────────── */
+.ov-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ov-photo-item{position:relative;overflow:hidden;background:var(--obsidian-3);aspect-ratio:4/3}
+.ov-photo-item img{width:100%;height:100%;object-fit:cover}
+.ov-photo-caption{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(transparent,rgba(12,12,11,.85));font-size:11px;color:var(--cream-dark)}
+
+/* ── OVERVIEW DOCS ──────────────────────────────────────────── */
+.ov-doc-list{display:flex;flex-direction:column;gap:2px}
+.ov-doc-item{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.06)}
+.ov-doc-name{font-size:13px;color:var(--cream);flex:1}
+.ov-doc-date{font-size:11px;color:var(--gray-muted)}
+
+/* ── OVERVIEW CLIENT MESSAGES ───────────────────────────────── */
+.ov-client-msg-item{background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.07);padding:14px 16px;margin-bottom:4px}
+.ov-client-msg-text{font-size:13px;color:var(--cream-dark);line-height:1.65}
+.ov-client-msg-meta{font-size:11px;color:var(--gray-muted);margin-top:6px}
+
+@media(max-width:768px){
+  .admin-tab{padding:10px 16px;font-size:11px}
+  .ov-photo-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+}
+</style>
 </head>
 <body>
 
@@ -69,100 +142,147 @@
 
   <div id="adminProjectContent" style="display:none;">
 
-    <!-- TWO-COLUMN GRID -->
-    <div class="admin-two-col">
-
-      <!-- LEFT COL: MILESTONES + MESSAGES -->
-      <div class="admin-col">
-
-        <!-- MILESTONES -->
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <div class="admin-card-title">Milestones</div>
-          </div>
-          <div class="milestone-admin-list" id="milestoneAdminList"></div>
-          <div class="admin-add-row">
-            <input type="text" class="form-input" id="newMilestoneInput" placeholder="Add milestone title…" onkeydown="if(event.key==='Enter')addMilestone()"/>
-            <button class="admin-add-btn" onclick="addMilestone()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Add
-            </button>
-          </div>
-        </div>
-
-        <!-- MESSAGES -->
-        <div class="admin-card" style="margin-top:24px;">
-          <div class="admin-card-header">
-            <div class="admin-card-title">Team Updates</div>
-            <div class="admin-card-sub">Posted to client's update feed</div>
-          </div>
-          <div class="admin-message-list" id="adminMessageList"></div>
-          <div class="admin-message-compose">
-            <textarea class="form-input" id="newMessageInput" placeholder="Write a project update for the client…" rows="3" style="resize:vertical;"></textarea>
-            <button class="admin-add-btn" onclick="postMessage()" style="margin-top:8px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              Post Update
-            </button>
-          </div>
-        </div>
-
-        <!-- CLIENT MESSAGES (read-only) -->
-        <div class="admin-card" style="margin-top:24px;">
-          <div class="admin-card-header">
-            <div class="admin-card-title">Client Messages</div>
-            <div class="admin-card-sub">Messages sent by the client</div>
-          </div>
-          <div class="admin-message-list" id="adminClientMsgList"></div>
-        </div>
-
-      </div>
-
-      <!-- RIGHT COL: PHOTOS + DOCUMENTS -->
-      <div class="admin-col">
-
-        <!-- PHOTOS -->
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <div class="admin-card-title">Site Photos</div>
-          </div>
-          <div class="admin-photo-grid" id="adminPhotoGrid"></div>
-          <div class="admin-upload-row" style="margin-top:16px;">
-            <input type="text" class="form-input" id="photoCaption" placeholder="Caption (optional)" style="margin-bottom:8px;"/>
-            <label class="admin-file-label" id="photoFileLabel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              <span id="photoFileLabelText">Choose photo</span>
-              <input type="file" id="photoFileInput" accept="image/*" style="display:none;" onchange="onPhotoSelected(this)"/>
-            </label>
-            <button class="admin-add-btn" id="btnUploadPhoto" onclick="uploadPhoto()" style="margin-top:8px;display:none;">
-              Upload Photo
-            </button>
-          </div>
-          <div class="form-status" id="photoStatus" style="display:none;margin-top:8px;"></div>
-        </div>
-
-        <!-- DOCUMENTS -->
-        <div class="admin-card" style="margin-top:24px;">
-          <div class="admin-card-header">
-            <div class="admin-card-title">Documents</div>
-            <div class="admin-card-sub">PDF, images, spreadsheets</div>
-          </div>
-          <div class="admin-doc-list" id="adminDocList"></div>
-          <div class="admin-upload-row" style="margin-top:16px;">
-            <input type="text" class="form-input" id="docName" placeholder="Document name *" style="margin-bottom:8px;"/>
-            <label class="admin-file-label" id="docFileLabel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              <span id="docFileLabelText">Choose file</span>
-              <input type="file" id="docFileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" style="display:none;" onchange="onDocSelected(this)"/>
-            </label>
-            <button class="admin-add-btn" id="btnUploadDoc" onclick="uploadDocument()" style="margin-top:8px;display:none;">
-              Upload Document
-            </button>
-          </div>
-          <div class="form-status" id="docStatus" style="display:none;margin-top:8px;"></div>
-        </div>
-
-      </div>
+    <!-- TAB BAR -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" id="tabOverview" onclick="switchTab('overview')">Overview</button>
+      <button class="admin-tab" id="tabManage" onclick="switchTab('manage')">Manage</button>
     </div>
+
+    <!-- ══ OVERVIEW PANE ══════════════════════════════════════════ -->
+    <div id="tabOverviewPane">
+
+      <!-- Milestone Timeline -->
+      <div class="ov-section">
+        <div class="ov-section-label">Milestones</div>
+        <div class="ov-timeline" id="ovMilestones"></div>
+      </div>
+
+      <!-- Team Updates -->
+      <div class="ov-section">
+        <div class="ov-section-label">Team Updates</div>
+        <div class="ov-feed" id="ovUpdates"></div>
+      </div>
+
+      <!-- Client Messages -->
+      <div class="ov-section">
+        <div class="ov-section-label">Client Messages</div>
+        <div id="ovClientMsgs"></div>
+      </div>
+
+      <!-- Site Photos -->
+      <div class="ov-section">
+        <div class="ov-section-label">Site Photos</div>
+        <div class="ov-photo-grid" id="ovPhotos"></div>
+      </div>
+
+      <!-- Documents -->
+      <div class="ov-section">
+        <div class="ov-section-label">Documents</div>
+        <div class="ov-doc-list" id="ovDocs"></div>
+      </div>
+
+    </div><!-- /tabOverviewPane -->
+
+    <!-- ══ MANAGE PANE ════════════════════════════════════════════ -->
+    <div id="tabManagePane" style="display:none;">
+
+      <!-- TWO-COLUMN GRID -->
+      <div class="admin-two-col">
+
+        <!-- LEFT COL: MILESTONES + MESSAGES -->
+        <div class="admin-col">
+
+          <!-- MILESTONES -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title">Milestones</div>
+            </div>
+            <div class="milestone-admin-list" id="milestoneAdminList"></div>
+            <div class="admin-add-row">
+              <input type="text" class="form-input" id="newMilestoneInput" placeholder="Add milestone title…" onkeydown="if(event.key==='Enter')addMilestone()"/>
+              <button class="admin-add-btn" onclick="addMilestone()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add
+              </button>
+            </div>
+          </div>
+
+          <!-- MESSAGES -->
+          <div class="admin-card" style="margin-top:24px;">
+            <div class="admin-card-header">
+              <div class="admin-card-title">Team Updates</div>
+              <div class="admin-card-sub">Posted to client's update feed</div>
+            </div>
+            <div class="admin-message-list" id="adminMessageList"></div>
+            <div class="admin-message-compose">
+              <textarea class="form-input" id="newMessageInput" placeholder="Write a project update for the client…" rows="3" style="resize:vertical;"></textarea>
+              <button class="admin-add-btn" onclick="postMessage()" style="margin-top:8px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Post Update
+              </button>
+            </div>
+          </div>
+
+          <!-- CLIENT MESSAGES (read-only) -->
+          <div class="admin-card" style="margin-top:24px;">
+            <div class="admin-card-header">
+              <div class="admin-card-title">Client Messages</div>
+              <div class="admin-card-sub">Messages sent by the client</div>
+            </div>
+            <div class="admin-message-list" id="adminClientMsgList"></div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COL: PHOTOS + DOCUMENTS -->
+        <div class="admin-col">
+
+          <!-- PHOTOS -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title">Site Photos</div>
+            </div>
+            <div class="admin-photo-grid" id="adminPhotoGrid"></div>
+            <div class="admin-upload-row" style="margin-top:16px;">
+              <input type="text" class="form-input" id="photoCaption" placeholder="Caption (optional)" style="margin-bottom:8px;"/>
+              <label class="admin-file-label" id="photoFileLabel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span id="photoFileLabelText">Choose photo</span>
+                <input type="file" id="photoFileInput" accept="image/*" style="display:none;" onchange="onPhotoSelected(this)"/>
+              </label>
+              <button class="admin-add-btn" id="btnUploadPhoto" onclick="uploadPhoto()" style="margin-top:8px;display:none;">
+                Upload Photo
+              </button>
+            </div>
+            <div class="form-status" id="photoStatus" style="display:none;margin-top:8px;"></div>
+          </div>
+
+          <!-- DOCUMENTS -->
+          <div class="admin-card" style="margin-top:24px;">
+            <div class="admin-card-header">
+              <div class="admin-card-title">Documents</div>
+              <div class="admin-card-sub">PDF, images, spreadsheets</div>
+            </div>
+            <div class="admin-doc-list" id="adminDocList"></div>
+            <div class="admin-upload-row" style="margin-top:16px;">
+              <input type="text" class="form-input" id="docName" placeholder="Document name *" style="margin-bottom:8px;"/>
+              <label class="admin-file-label" id="docFileLabel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span id="docFileLabelText">Choose file</span>
+                <input type="file" id="docFileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" style="display:none;" onchange="onDocSelected(this)"/>
+              </label>
+              <button class="admin-add-btn" id="btnUploadDoc" onclick="uploadDocument()" style="margin-top:8px;display:none;">
+                Upload Document
+              </button>
+            </div>
+            <div class="form-status" id="docStatus" style="display:none;margin-top:8px;"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /tabManagePane -->
+
   </div>
 </div>
 
@@ -185,7 +305,16 @@ function adminLogout() {
   window.location.href = './admin.html';
 }
 
-// ── STATUS ─────────────────────────────────────────────────────
+// ── TABS ────────────────────────────────────────────────────────
+
+function switchTab(name) {
+  document.getElementById('tabOverviewPane').style.display = name === 'overview' ? 'block' : 'none';
+  document.getElementById('tabManagePane').style.display  = name === 'manage'   ? 'block' : 'none';
+  document.getElementById('tabOverview').classList.toggle('active', name === 'overview');
+  document.getElementById('tabManage').classList.toggle('active', name === 'manage');
+}
+
+// ── STATUS ──────────────────────────────────────────────────────
 
 function toggleStatusMenu() {
   const m = document.getElementById('adminStatusMenu');
@@ -211,7 +340,19 @@ async function updateStatus(status) {
   if (_projectData.project) _projectData.project.status = status;
 }
 
-// ── MILESTONES ─────────────────────────────────────────────────
+// ── HELPERS ─────────────────────────────────────────────────────
+
+function formatDate(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function formatDateTime(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+// ── MILESTONES (Manage tab) ─────────────────────────────────────
 
 const statusCycle = { pending: 'active', active: 'done', done: 'pending' };
 const statusLabel = { pending: 'Upcoming', active: 'In Progress', done: 'Done' };
@@ -221,6 +362,7 @@ function renderMilestones(milestones) {
   list.innerHTML = '';
   if (!milestones || milestones.length === 0) {
     list.innerHTML = '<div class="admin-empty-note">No milestones yet.</div>';
+    renderOverviewMilestones(milestones);
     return;
   }
   milestones.forEach(m => {
@@ -241,6 +383,7 @@ function renderMilestones(milestones) {
     `;
     list.appendChild(item);
   });
+  renderOverviewMilestones(milestones);
 }
 
 async function addMilestone() {
@@ -290,18 +433,72 @@ async function deleteMilestone(id) {
   renderMilestones(_projectData.milestones);
 }
 
-// ── MESSAGES ───────────────────────────────────────────────────
+// ── OVERVIEW: MILESTONES ────────────────────────────────────────
 
-function formatDate(iso) {
-  if (!iso) return '';
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+function renderOverviewMilestones(milestones) {
+  const container = document.getElementById('ovMilestones');
+  container.innerHTML = '';
+  if (!milestones || milestones.length === 0) {
+    container.innerHTML = '<div class="ov-empty">No milestones added yet.</div>';
+    return;
+  }
+  milestones.forEach((m, i) => {
+    const isLast = i === milestones.length - 1;
+    const row = document.createElement('div');
+    row.className = `ov-ms-row ov-ms-${m.status}`;
+
+    let approvalHtml = '';
+    if (m.status === 'done') {
+      if (m.client_approved === true) {
+        approvalHtml = `
+          <div class="ov-approval">
+            <span class="ov-badge ov-badge-approved">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:10px;height:10px;"><polyline points="20 6 9 17 4 12"/></svg>
+              Client Approved
+            </span>
+            ${m.approved_at ? `<span class="ov-approval-date">${formatDateTime(m.approved_at)}</span>` : ''}
+          </div>
+          ${m.client_comment ? `<div class="ov-approval-comment">"${m.client_comment}"</div>` : ''}`;
+      } else if (m.client_approved === false) {
+        approvalHtml = `
+          <div class="ov-approval">
+            <span class="ov-badge ov-badge-changes">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:10px;height:10px;"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>
+              Changes Requested
+            </span>
+            ${m.approved_at ? `<span class="ov-approval-date">${formatDateTime(m.approved_at)}</span>` : ''}
+          </div>
+          ${m.client_comment ? `<div class="ov-approval-comment">"${m.client_comment}"</div>` : ''}`;
+      } else {
+        approvalHtml = `
+          <div class="ov-approval">
+            <span class="ov-badge ov-badge-pending">Awaiting client approval</span>
+          </div>`;
+      }
+    }
+
+    row.innerHTML = `
+      <div class="ov-ms-spine">
+        <div class="ov-ms-dot"></div>
+        ${!isLast ? '<div class="ov-ms-line"></div>' : ''}
+      </div>
+      <div class="ov-ms-body">
+        <div class="ov-ms-title">${m.title}</div>
+        <div class="ov-ms-tag">${statusLabel[m.status] || 'Upcoming'}</div>
+        ${approvalHtml}
+      </div>`;
+    container.appendChild(row);
+  });
 }
+
+// ── MESSAGES (Manage tab) ───────────────────────────────────────
 
 function renderMessages(updates) {
   const list = document.getElementById('adminMessageList');
   list.innerHTML = '';
   if (!updates || updates.length === 0) {
     list.innerHTML = '<div class="admin-empty-note">No updates posted yet.</div>';
+    renderOverviewUpdates(updates);
     return;
   }
   updates.forEach(u => {
@@ -318,6 +515,7 @@ function renderMessages(updates) {
     `;
     list.appendChild(item);
   });
+  renderOverviewUpdates(updates);
 }
 
 async function postMessage() {
@@ -348,13 +546,79 @@ async function deleteMessage(id) {
   renderMessages(_projectData.updates);
 }
 
-// ── PHOTOS ─────────────────────────────────────────────────────
+// ── OVERVIEW: TEAM UPDATES ──────────────────────────────────────
+
+function renderOverviewUpdates(updates) {
+  const feed = document.getElementById('ovUpdates');
+  feed.innerHTML = '';
+  if (!updates || updates.length === 0) {
+    feed.innerHTML = '<div class="ov-empty">No updates posted yet.</div>';
+    return;
+  }
+  updates.forEach(u => {
+    const item = document.createElement('div');
+    item.className = 'ov-feed-item';
+    item.innerHTML = `
+      <div class="ov-feed-dot ov-feed-dot-team"></div>
+      <div class="ov-feed-content">
+        <div class="ov-feed-msg">${u.message.replace(/\n/g, '<br/>')}</div>
+        <div class="ov-feed-date">${formatDate(u.created_at)}</div>
+      </div>`;
+    feed.appendChild(item);
+  });
+}
+
+// ── OVERVIEW: CLIENT MESSAGES ───────────────────────────────────
+
+function renderOverviewClientMsgs(messages) {
+  const container = document.getElementById('ovClientMsgs');
+  container.innerHTML = '';
+  if (!messages || messages.length === 0) {
+    container.innerHTML = '<div class="ov-empty">No messages from client yet.</div>';
+    return;
+  }
+  messages.forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'ov-client-msg-item';
+    item.innerHTML = `
+      <div class="ov-client-msg-text">${m.message.replace(/\n/g, '<br/>')}</div>
+      <div class="ov-client-msg-meta">${formatDateTime(m.created_at)}</div>`;
+    container.appendChild(item);
+  });
+}
+
+// ── CLIENT MESSAGES (Manage tab) ────────────────────────────────
+
+function renderClientMessages(messages) {
+  const list = document.getElementById('adminClientMsgList');
+  list.innerHTML = '';
+  if (!messages || messages.length === 0) {
+    list.innerHTML = '<div class="admin-empty-note">No messages from client yet.</div>';
+    renderOverviewClientMsgs(messages);
+    return;
+  }
+  messages.forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'admin-message-item';
+    item.innerHTML = `
+      <div class="admin-message-body">${m.message.replace(/\n/g, '<br/>')}</div>
+      <div class="admin-message-footer">
+        <span>${formatDateTime(m.created_at)}</span>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+  renderOverviewClientMsgs(messages);
+}
+
+// ── PHOTOS (Manage tab) ─────────────────────────────────────────
 
 function renderPhotos(photos) {
   const grid = document.getElementById('adminPhotoGrid');
   grid.innerHTML = '';
   if (!photos || photos.length === 0) {
     grid.innerHTML = '<div class="admin-empty-note" style="grid-column:1/-1;">No photos uploaded yet.</div>';
+    renderOverviewPhotos(photos);
     return;
   }
   photos.forEach(p => {
@@ -367,6 +631,7 @@ function renderPhotos(photos) {
     `;
     grid.appendChild(item);
   });
+  renderOverviewPhotos(photos);
 }
 
 function onPhotoSelected(input) {
@@ -421,13 +686,33 @@ async function deletePhoto(id) {
   renderPhotos(_projectData.photos);
 }
 
-// ── DOCUMENTS ──────────────────────────────────────────────────
+// ── OVERVIEW: PHOTOS ────────────────────────────────────────────
+
+function renderOverviewPhotos(photos) {
+  const grid = document.getElementById('ovPhotos');
+  grid.innerHTML = '';
+  if (!photos || photos.length === 0) {
+    grid.innerHTML = '<div class="ov-empty">No photos uploaded yet.</div>';
+    return;
+  }
+  photos.forEach(p => {
+    const item = document.createElement('div');
+    item.className = 'ov-photo-item';
+    item.innerHTML = `
+      <img src="${SUPABASE_PHOTOS_URL}${p.storage_path}" alt="${p.caption || ''}" loading="lazy"/>
+      ${p.caption ? `<div class="ov-photo-caption">${p.caption}</div>` : ''}`;
+    grid.appendChild(item);
+  });
+}
+
+// ── DOCUMENTS (Manage tab) ──────────────────────────────────────
 
 function renderDocuments(documents) {
   const list = document.getElementById('adminDocList');
   list.innerHTML = '';
   if (!documents || documents.length === 0) {
     list.innerHTML = '<div class="admin-empty-note">No documents uploaded yet.</div>';
+    renderOverviewDocs(documents);
     return;
   }
   documents.forEach(d => {
@@ -444,6 +729,7 @@ function renderDocuments(documents) {
     `;
     list.appendChild(item);
   });
+  renderOverviewDocs(documents);
 }
 
 function onDocSelected(input) {
@@ -506,29 +792,27 @@ async function deleteDocument(id) {
   renderDocuments(_projectData.documents);
 }
 
-// ── CLIENT MESSAGES ────────────────────────────────────────────
+// ── OVERVIEW: DOCUMENTS ─────────────────────────────────────────
 
-function renderClientMessages(messages) {
-  const list = document.getElementById('adminClientMsgList');
+function renderOverviewDocs(documents) {
+  const list = document.getElementById('ovDocs');
   list.innerHTML = '';
-  if (!messages || messages.length === 0) {
-    list.innerHTML = '<div class="admin-empty-note">No messages from client yet.</div>';
+  if (!documents || documents.length === 0) {
+    list.innerHTML = '<div class="ov-empty">No documents uploaded yet.</div>';
     return;
   }
-  messages.forEach(m => {
+  documents.forEach(d => {
     const item = document.createElement('div');
-    item.className = 'admin-message-item';
+    item.className = 'ov-doc-item';
     item.innerHTML = `
-      <div class="admin-message-body">${m.message.replace(/\n/g, '<br/>')}</div>
-      <div class="admin-message-footer">
-        <span>${formatDate(m.created_at)}</span>
-      </div>
-    `;
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;flex-shrink:0;color:var(--champagne-muted)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span class="ov-doc-name">${d.name}</span>
+      <span class="ov-doc-date">${formatDate(d.created_at)}</span>`;
     list.appendChild(item);
   });
 }
 
-// ── LOAD ───────────────────────────────────────────────────────
+// ── LOAD ────────────────────────────────────────────────────────
 
 async function loadProject() {
   try {
@@ -566,6 +850,7 @@ async function loadProject() {
     document.getElementById('adminProjectHeader').style.display = 'flex';
     document.getElementById('adminProjectContent').style.display = 'block';
 
+    // Manage tab renders (each also refreshes the overview counterpart)
     renderMilestones(data.milestones);
     renderMessages(data.updates);
     renderClientMessages(_projectData.clientMessages);
