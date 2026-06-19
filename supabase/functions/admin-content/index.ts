@@ -10,6 +10,33 @@ const supabase = createClient(
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 )
 
+const NOTIFY_URL = `${Deno.env.get('SUPABASE_URL')}/functions/v1/notify-email`
+const SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+
+async function notify(type: string, data: Record<string, unknown>) {
+  try {
+    await fetch(NOTIFY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SERVICE_KEY}`,
+      },
+      body: JSON.stringify({ type, data }),
+    })
+  } catch (e) {
+    console.error('notify failed:', e)
+  }
+}
+
+async function getProject(project_id: string) {
+  const { data } = await supabase
+    .from('projects')
+    .select('id, name, client_name, client_email')
+    .eq('id', project_id)
+    .single()
+  return data
+}
+
 function unauthorized() {
   return new Response(JSON.stringify({ error: 'Unauthorized' }), {
     status: 401,
@@ -65,6 +92,27 @@ Deno.serve(async (req: Request) => {
       if (position !== undefined) updates.position = position
       const { error } = await supabase.from('milestones').update(updates).eq('id', id)
       if (error) throw error
+
+      // Notify client when milestone is marked done
+      if (status === 'done') {
+        const { data: milestone } = await supabase
+          .from('milestones')
+          .select('title, project_id')
+          .eq('id', id)
+          .single()
+        if (milestone) {
+          const project = await getProject(milestone.project_id)
+          if (project) {
+            await notify('milestone-update', {
+              project_name: project.name,
+              client_name: project.client_name,
+              client_email: project.client_email,
+              milestone_title: milestone.title,
+            })
+          }
+        }
+      }
+
       return json({ success: true })
     }
 
@@ -85,6 +133,18 @@ Deno.serve(async (req: Request) => {
         .select()
         .single()
       if (error) throw error
+
+      // Notify client of new team update
+      const project = await getProject(project_id)
+      if (project) {
+        await notify('team-message', {
+          project_name: project.name,
+          client_name: project.client_name,
+          client_email: project.client_email,
+          message,
+        })
+      }
+
       return json({ success: true, update: data })
     }
 
@@ -93,6 +153,19 @@ Deno.serve(async (req: Request) => {
       const { error } = await supabase.from('project_updates').delete().eq('id', id)
       if (error) throw error
       return json({ success: true })
+    }
+
+    // ── CLIENT MESSAGES (read by admin) ───────────────────────
+
+    if (action === 'get-client-messages') {
+      const { project_id } = body
+      const { data, error } = await supabase
+        .from('client_messages')
+        .select('*')
+        .eq('project_id', project_id)
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      return json({ success: true, messages: data })
     }
 
     // ── PHOTOS ────────────────────────────────────────────────
@@ -111,6 +184,18 @@ Deno.serve(async (req: Request) => {
         .select()
         .single()
       if (error) throw error
+
+      // Notify client of new photos
+      const project = await getProject(project_id)
+      if (project) {
+        await notify('new-photos', {
+          project_name: project.name,
+          client_name: project.client_name,
+          client_email: project.client_email,
+          photo_count: 1,
+        })
+      }
+
       return json({ success: true, photo: data })
     }
 

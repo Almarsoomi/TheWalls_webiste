@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Page Not Found | The Walls</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./assets/css/style.css"/>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<style>
+.notfound-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center;background:var(--obsidian);position:relative;overflow:hidden}
+.notfound-wrap::before{content:'404';position:absolute;font-family:var(--display);font-size:clamp(200px,30vw,400px);color:rgba(201,169,110,.04);letter-spacing:-.02em;line-height:1;pointer-events:none;user-select:none;top:50%;left:50%;transform:translate(-50%,-50%)}
+.notfound-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:14px}
+.notfound-eyebrow::before,.notfound-eyebrow::after{content:'';width:28px;height:.5px;background:var(--champagne)}
+.notfound-title{font-family:var(--serif);font-size:clamp(40px,6vw,72px);font-weight:300;line-height:.95;color:var(--cream);margin:0 0 24px}
+.notfound-title em{font-style:italic;color:var(--champagne)}
+.notfound-desc{font-size:15px;line-height:1.75;color:var(--gray-mid);max-width:440px;margin:0 auto 48px}
+.notfound-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.notfound-btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--champagne);color:var(--obsidian);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;font-family:var(--sans);font-weight:500;transition:background .2s}
+.notfound-btn-primary:hover{background:var(--champagne-light)}
+.notfound-btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;background:transparent;color:var(--champagne);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;font-family:var(--sans);border:.5px solid rgba(201,169,110,.4);transition:background .2s,border-color .2s}
+.notfound-btn-secondary:hover{background:rgba(201,169,110,.06);border-color:rgba(201,169,110,.7)}
+.notfound-links{margin-top:56px;display:flex;gap:32px;flex-wrap:wrap;justify-content:center}
+.notfound-link{font-size:12px;color:var(--gray-muted);text-decoration:none;letter-spacing:.06em;transition:color .2s}
+.notfound-link:hover{color:var(--champagne)}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<nav id="mainNav">
+  <a href="./index.html" class="nav-logo">
+    <img src="./assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
+  </a>
+  <div class="nav-links">
+    <a href="./pages/services.html">Services</a>
+    <a href="./pages/portfolio.html">Portfolio</a>
+    <a href="./pages/about.html">About</a>
+    <a href="./pages/contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
+    <a href="./pages/quote.html" class="nav-cta" style="text-decoration:none;">Get a Quote</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main class="notfound-wrap">
+  <div class="notfound-eyebrow">Error 404</div>
+  <h1 class="notfound-title">This page<br/>doesn't <em>exist.</em></h1>
+  <p class="notfound-desc">The page you're looking for may have moved, been renamed, or never existed. Let's get you back on solid ground.</p>
+  <div class="notfound-actions">
+    <a href="./index.html" class="notfound-btn-primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Back to Homepage
+    </a>
+    <a href="./pages/contact.html" class="notfound-btn-secondary">Contact Us</a>
+  </div>
+  <nav class="notfound-links" aria-label="Quick links">
+    <a href="./pages/services.html" class="notfound-link">Services</a>
+    <a href="./pages/portfolio.html" class="notfound-link">Portfolio</a>
+    <a href="./pages/about.html" class="notfound-link">About</a>
+    <a href="./pages/quote.html" class="notfound-link">Get a Quote</a>
+    <a href="./pages/portal.html" class="notfound-link">Client Portal</a>
+  </nav>
+</main>
+
+<script src="./assets/js/main.js"></script>
+</body>
+</html>

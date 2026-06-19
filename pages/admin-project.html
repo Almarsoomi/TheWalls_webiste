@@ -106,6 +106,15 @@
           </div>
         </div>
 
+        <!-- CLIENT MESSAGES (read-only) -->
+        <div class="admin-card" style="margin-top:24px;">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Client Messages</div>
+            <div class="admin-card-sub">Messages sent by the client</div>
+          </div>
+          <div class="admin-message-list" id="adminClientMsgList"></div>
+        </div>
+
       </div>
 
       <!-- RIGHT COL: PHOTOS + DOCUMENTS -->
@@ -497,23 +506,53 @@ async function deleteDocument(id) {
   renderDocuments(_projectData.documents);
 }
 
+// ── CLIENT MESSAGES ────────────────────────────────────────────
+
+function renderClientMessages(messages) {
+  const list = document.getElementById('adminClientMsgList');
+  list.innerHTML = '';
+  if (!messages || messages.length === 0) {
+    list.innerHTML = '<div class="admin-empty-note">No messages from client yet.</div>';
+    return;
+  }
+  messages.forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'admin-message-item';
+    item.innerHTML = `
+      <div class="admin-message-body">${m.message.replace(/\n/g, '<br/>')}</div>
+      <div class="admin-message-footer">
+        <span>${formatDate(m.created_at)}</span>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+}
+
 // ── LOAD ───────────────────────────────────────────────────────
 
 async function loadProject() {
   try {
-    const res = await fetch(`${ADMIN_PROJECTS_URL}?id=${projectId}`, {
-      headers: { 'x-admin-key': ADMIN_KEY },
-    });
+    const [projectRes, clientMsgRes] = await Promise.all([
+      fetch(`${ADMIN_PROJECTS_URL}?id=${projectId}`, { headers: { 'x-admin-key': ADMIN_KEY } }),
+      fetch(ADMIN_CONTENT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+        body: JSON.stringify({ action: 'get-client-messages', project_id: projectId }),
+      }),
+    ]);
 
-    if (res.status === 401) { window.location.href = './admin.html'; return; }
+    if (projectRes.status === 401) { window.location.href = './admin.html'; return; }
 
-    const data = await res.json();
+    const data = await projectRes.json();
 
-    if (!res.ok || data.error || !data.project) {
-      throw new Error(data.error || `Server returned ${res.status}`);
+    if (!projectRes.ok || data.error || !data.project) {
+      throw new Error(data.error || `Server returned ${projectRes.status}`);
     }
 
     _projectData = data;
+
+    const clientMsgData = await clientMsgRes.json();
+    _projectData.clientMessages = clientMsgData.messages || [];
 
     document.getElementById('adminProjectLoading').style.display = 'none';
 
@@ -529,6 +568,7 @@ async function loadProject() {
 
     renderMilestones(data.milestones);
     renderMessages(data.updates);
+    renderClientMessages(_projectData.clientMessages);
     renderPhotos(data.photos);
     renderDocuments(data.documents);
   } catch (e) {

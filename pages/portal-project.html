@@ -11,6 +11,44 @@
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<style>
+/* ── MILESTONE APPROVAL ──────────────────────────────────── */
+.ms-approval{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.ms-approval-btns{display:flex;gap:8px;flex-wrap:wrap}
+.ms-approve-btn,.ms-reject-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);border:none;transition:background .2s,border-color .2s}
+.ms-approve-btn{background:rgba(122,204,122,.1);color:#7acc7a;border:.5px solid rgba(122,204,122,.35)}
+.ms-approve-btn:hover{background:rgba(122,204,122,.18);border-color:rgba(122,204,122,.6)}
+.ms-reject-btn{background:rgba(232,168,78,.08);color:#e8a84e;border:.5px solid rgba(232,168,78,.3)}
+.ms-reject-btn:hover{background:rgba(232,168,78,.16);border-color:rgba(232,168,78,.5)}
+.ms-approved-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7acc7a}
+.ms-changes-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#e8a84e}
+.ms-approval-comment{font-size:12px;color:var(--gray-muted);margin-top:4px;font-style:italic}
+.ms-reject-form{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.ms-reject-form textarea{background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.15);color:var(--cream);font-family:var(--sans);font-size:13px;padding:10px 12px;resize:vertical;outline:none;transition:border-color .2s}
+.ms-reject-form textarea:focus{border-color:rgba(201,169,110,.4)}
+.ms-reject-submit{align-self:flex-start;padding:7px 18px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);background:rgba(232,168,78,.1);color:#e8a84e;border:.5px solid rgba(232,168,78,.4)}
+.ms-reject-submit:hover{background:rgba(232,168,78,.2)}
+
+/* ── CLIENT MESSAGES ─────────────────────────────────────── */
+.client-msg-feed{display:flex;flex-direction:column;gap:0;margin-bottom:32px}
+.client-msg-item{display:flex;gap:24px;padding:20px 0;border-bottom:.5px solid rgba(201,169,110,.06)}
+.client-msg-item:last-child{border-bottom:none}
+.client-msg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;background:var(--champagne-muted);border:1.5px solid var(--champagne-muted)}
+.client-msg-content{flex:1}
+.client-msg-text{font-size:14px;line-height:1.75;color:var(--cream-dark)}
+.client-msg-date{font-size:12px;color:var(--gray-muted);margin-top:6px}
+.client-msg-empty{font-size:14px;color:var(--gray-muted);padding:0 0 24px}
+.client-msg-compose{display:flex;flex-direction:column;gap:10px;padding-top:24px;border-top:.5px solid rgba(201,169,110,.08)}
+.client-msg-compose textarea{background:var(--obsidian-3);border:.5px solid rgba(201,169,110,.15);color:var(--cream);font-family:var(--sans);font-size:14px;padding:14px 16px;resize:vertical;outline:none;min-height:80px;transition:border-color .2s}
+.client-msg-compose textarea:focus{border-color:rgba(201,169,110,.4)}
+.client-msg-send-btn{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:transparent;border:.5px solid rgba(201,169,110,.4);color:var(--champagne);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:background .2s,border-color .2s}
+.client-msg-send-btn:hover:not(:disabled){background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.6)}
+.client-msg-send-btn:disabled{opacity:.45;cursor:default}
+.client-msg-send-btn svg{width:14px;height:14px}
+.client-msg-status{font-size:12px;padding:6px 0}
+.client-msg-status.error{color:#e86e6e}
+.client-msg-status.success{color:#7acc7a}
+</style>
 </head>
 <body>
 
@@ -93,8 +131,26 @@
     </div>
   </section>
 
+  <!-- CLIENT MESSAGES -->
+  <section class="portal-section" id="sectionMessages">
+    <div class="portal-section-inner">
+      <div class="portal-section-label">Messages</div>
+      <div class="client-msg-feed" id="clientMsgFeed">
+        <div class="client-msg-empty" id="clientMsgEmpty">No messages sent yet.</div>
+      </div>
+      <div class="client-msg-compose">
+        <textarea id="clientMsgInput" placeholder="Send a note to your project team…" rows="3"></textarea>
+        <button class="client-msg-send-btn" id="clientMsgSend" onclick="sendClientMessage()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+        <div class="client-msg-status" id="clientMsgStatus" style="display:none;"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- PHOTO GALLERY -->
-  <section class="portal-section" id="sectionPhotos">
+  <section class="portal-section portal-section-alt" id="sectionPhotos">
     <div class="portal-section-inner">
       <div class="portal-section-label">Site Photos</div>
       <div class="portal-photo-grid" id="photoGrid">
@@ -113,7 +169,7 @@
   </div>
 
   <!-- DOCUMENTS -->
-  <section class="portal-section portal-section-alt" id="sectionDocs">
+  <section class="portal-section" id="sectionDocs">
     <div class="portal-section-inner">
       <div class="portal-section-label">Documents</div>
       <div class="doc-list" id="docList">
@@ -137,9 +193,19 @@ const _sb = supabase.createClient(
 );
 
 const SUPABASE_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co';
+const PORTAL_ACTION_URL = SUPABASE_URL + '/functions/v1/portal-action';
+
+let _currentProjectId = null;
+let _milestones = [];
+let _clientMessages = [];
 
 function signOut() {
   _sb.auth.signOut().then(() => { window.location.href = './portal.html'; });
+}
+
+async function getAuthHeader() {
+  const { data: { session } } = await _sb.auth.getSession();
+  return session ? { 'Authorization': `Bearer ${session.access_token}` } : {};
 }
 
 function statusBadge(s) {
@@ -147,11 +213,17 @@ function statusBadge(s) {
   return `<span class="portal-status-chip portal-status-${s}">${map[s] || s}</span>`;
 }
 
-
 function formatDate(iso) {
   if (!iso) return '';
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
+
+function formatDateTime(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+// ── MILESTONES ─────────────────────────────────────────────────
 
 function renderMilestones(milestones) {
   const track = document.getElementById('milestoneTrack');
@@ -165,6 +237,9 @@ function renderMilestones(milestones) {
     const isLast = i === milestones.length - 1;
     const row = document.createElement('div');
     row.className = `ms-row ms-${m.status}`;
+
+    const approvalHtml = buildApprovalHtml(m);
+
     row.innerHTML = `
       <div class="ms-spine">
         <div class="ms-dot"></div>
@@ -173,11 +248,86 @@ function renderMilestones(milestones) {
       <div class="ms-body">
         <div class="ms-title">${m.title}</div>
         <div class="ms-tag">${statusLabel[m.status] || 'Upcoming'}</div>
+        ${approvalHtml}
       </div>
     `;
     track.appendChild(row);
   });
 }
+
+function buildApprovalHtml(m) {
+  if (m.status !== 'done') return '';
+
+  if (m.client_approved === true) {
+    return `<div class="ms-approval">
+      <div class="ms-approved-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><polyline points="20 6 9 17 4 12"/></svg>
+        You approved this milestone
+      </div>
+      ${m.client_comment ? `<div class="ms-approval-comment">"${m.client_comment}"</div>` : ''}
+    </div>`;
+  }
+
+  if (m.client_approved === false) {
+    return `<div class="ms-approval">
+      <div class="ms-changes-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>
+        Changes requested
+      </div>
+      ${m.client_comment ? `<div class="ms-approval-comment">"${m.client_comment}"</div>` : ''}
+    </div>`;
+  }
+
+  // Not yet acted on — show approve / request changes buttons
+  return `<div class="ms-approval" id="approval-${m.id}">
+    <div class="ms-approval-btns">
+      <button class="ms-approve-btn" onclick="approveMilestone('${m.id}', true)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><polyline points="20 6 9 17 4 12"/></svg>
+        Approve
+      </button>
+      <button class="ms-reject-btn" onclick="showRejectForm('${m.id}')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>
+        Request Changes
+      </button>
+    </div>
+    <div class="ms-reject-form" id="reject-form-${m.id}" style="display:none;">
+      <textarea id="reject-comment-${m.id}" placeholder="Describe the changes needed (optional)…" rows="2"></textarea>
+      <button class="ms-reject-submit" onclick="approveMilestone('${m.id}', false)">Submit Request</button>
+    </div>
+  </div>`;
+}
+
+function showRejectForm(milestoneId) {
+  const form = document.getElementById(`reject-form-${milestoneId}`);
+  if (form) form.style.display = 'flex';
+}
+
+async function approveMilestone(milestoneId, approved) {
+  const commentEl = document.getElementById(`reject-comment-${milestoneId}`);
+  const comment = commentEl ? commentEl.value.trim() : '';
+
+  const approvalEl = document.getElementById(`approval-${milestoneId}`);
+  if (approvalEl) approvalEl.style.opacity = '0.5';
+
+  try {
+    const headers = await getAuthHeader();
+    const res = await fetch(PORTAL_ACTION_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...headers },
+      body: JSON.stringify({ action: 'approve-milestone', milestone_id: milestoneId, approved, comment }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      const m = _milestones.find(x => x.id === milestoneId);
+      if (m) { m.client_approved = approved; m.client_comment = comment; }
+      renderMilestones(_milestones);
+    }
+  } catch (e) {
+    if (approvalEl) approvalEl.style.opacity = '1';
+  }
+}
+
+// ── TEAM UPDATES ───────────────────────────────────────────────
 
 function renderUpdates(updates) {
   const feed = document.getElementById('updateFeed');
@@ -198,6 +348,72 @@ function renderUpdates(updates) {
     feed.appendChild(item);
   });
 }
+
+// ── CLIENT MESSAGES ────────────────────────────────────────────
+
+function renderClientMessages(messages) {
+  const feed = document.getElementById('clientMsgFeed');
+  const empty = document.getElementById('clientMsgEmpty');
+  feed.innerHTML = '';
+  if (!messages || messages.length === 0) {
+    feed.appendChild(empty);
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  messages.forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'client-msg-item';
+    item.innerHTML = `
+      <div class="client-msg-dot"></div>
+      <div class="client-msg-content">
+        <div class="client-msg-text">${m.message.replace(/\n/g, '<br/>')}</div>
+        <div class="client-msg-date">${formatDateTime(m.created_at)}</div>
+      </div>
+    `;
+    feed.appendChild(item);
+  });
+}
+
+async function sendClientMessage() {
+  const ta = document.getElementById('clientMsgInput');
+  const msg = ta.value.trim();
+  if (!msg || !_currentProjectId) return;
+
+  const btn = document.getElementById('clientMsgSend');
+  const status = document.getElementById('clientMsgStatus');
+  btn.disabled = true;
+  status.style.display = 'none';
+
+  try {
+    const headers = await getAuthHeader();
+    const res = await fetch(PORTAL_ACTION_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...headers },
+      body: JSON.stringify({ action: 'send-message', project_id: _currentProjectId, message: msg }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      ta.value = '';
+      _clientMessages = [data.message, ..._clientMessages];
+      renderClientMessages(_clientMessages);
+      status.className = 'client-msg-status success';
+      status.textContent = 'Message sent — your team will be notified.';
+    } else {
+      status.className = 'client-msg-status error';
+      status.textContent = data.error || 'Failed to send message.';
+    }
+  } catch (e) {
+    status.className = 'client-msg-status error';
+    status.textContent = 'Something went wrong. Please try again.';
+  }
+
+  btn.disabled = false;
+  status.style.display = 'block';
+  setTimeout(() => { if (status) status.style.display = 'none'; }, 4000);
+}
+
+// ── PHOTOS ─────────────────────────────────────────────────────
 
 function getPhotoUrl(storagePath) {
   return `${SUPABASE_URL}/storage/v1/object/public/project-photos/${storagePath}`;
@@ -232,6 +448,8 @@ function renderPhotos(photos) {
     grid.appendChild(item);
   });
 }
+
+// ── DOCUMENTS ──────────────────────────────────────────────────
 
 async function getSignedUrl(storagePath) {
   const { data, error } = await _sb.storage.from('project-documents').createSignedUrl(storagePath, 3600);
@@ -281,6 +499,8 @@ async function renderDocuments(documents) {
   }
 }
 
+// ── LOAD PROJECT ───────────────────────────────────────────────
+
 async function loadProject() {
   const { data: { session } } = await _sb.auth.getSession();
   if (!session) {
@@ -304,14 +524,25 @@ async function loadProject() {
   }
 
   const project = projects[0];
+  _currentProjectId = project.id;
 
   // Fetch all content in parallel
-  const [{ data: milestones }, { data: updates }, { data: photos }, { data: documents }] = await Promise.all([
+  const [
+    { data: milestones },
+    { data: updates },
+    { data: photos },
+    { data: documents },
+    { data: clientMessages },
+  ] = await Promise.all([
     _sb.from('milestones').select('*').eq('project_id', project.id).order('position'),
     _sb.from('project_updates').select('*').eq('project_id', project.id).order('created_at', { ascending: false }),
     _sb.from('project_photos').select('*').eq('project_id', project.id).order('created_at', { ascending: false }),
     _sb.from('project_documents').select('*').eq('project_id', project.id).order('created_at', { ascending: false }),
+    _sb.from('client_messages').select('*').eq('project_id', project.id).order('created_at', { ascending: false }),
   ]);
+
+  _milestones = milestones || [];
+  _clientMessages = clientMessages || [];
 
   // Render project header
   document.getElementById('projectName').textContent = project.name;
@@ -322,8 +553,9 @@ async function loadProject() {
   if (project.expected_completion) parts.push('Expected completion ' + formatDate(project.expected_completion));
   document.getElementById('projectMeta').textContent = parts.join('  ·  ');
 
-  renderMilestones(milestones);
+  renderMilestones(_milestones);
   renderUpdates(updates);
+  renderClientMessages(_clientMessages);
   renderPhotos(photos);
   await renderDocuments(documents);
 
