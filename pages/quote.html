@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Get a Quote | The Walls</title>
+<meta name="description" content="Request a detailed fit-out and interior design quote from The Walls Dubai. Share your floor plans and vision — we'll respond within 24 hours."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://thewalls.ae/pages/quote.html"/>
+<meta property="og:title" content="Get a Quote | The Walls"/>
+<meta property="og:description" content="Request a detailed fit-out and interior design quote from The Walls Dubai. Share your floor plans and vision — we'll respond within 24 hours."/>
+<meta property="og:url" content="https://thewalls.ae/pages/quote.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://thewalls.ae/assets/images/Logo/og-cover.png"/>
+<meta property="og:image:width" content="640"/>
+<meta property="og:image:height" content="640"/>
+<meta property="og:image:alt" content="The Walls — Premium Fit-Out &amp; Interior Design, Dubai"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@the_walls_dubai"/>
+<meta name="twitter:image" content="https://thewalls.ae/assets/images/Logo/og-cover.png"/>
+<meta name="theme-color" content="#0c0c0b"/>
+<link rel="icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/favicon/apple-touch-icon.png"/>
+<link rel="manifest" href="../assets/images/favicon/site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Noto+Naskh+Arabic:wght@300;400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<script>
+  window._twLoadAnalytics=function(){
+    if(window._twAnalyticsLoaded)return;window._twAnalyticsLoaded=true;
+    var s=document.createElement('script');s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-XEX65YMBMD';
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
+    gtag('js',new Date());gtag('config','G-XEX65YMBMD');gtag('config','GT-PHXZLZR');
+  };
+  if(localStorage.getItem('tw_cookie_consent')==='accept'){window._twLoadAnalytics();}
+</script>
+<style>
+/* ── Wizard progress indicator ───────────────────────── */
+.wizard-nav{display:flex;align-items:flex-start;gap:0;margin-bottom:32px;}
+.w-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;}
+.w-step-num{
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(138,114,83,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-family:var(--sans);
+  color:rgba(138,114,83,.55);transition:all .3s;
+}
+.w-step.active .w-step-num{border-color:var(--champagne);color:var(--champagne);background:rgba(201,169,110,.08);}
+.w-step.done .w-step-num{background:var(--champagne);border-color:var(--champagne);color:#0c0c0b;}
+.w-step-label{font-size:8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(138,114,83,.45);white-space:nowrap;}
+.w-step.active .w-step-label,.w-step.done .w-step-label{color:var(--champagne);}
+.w-line{flex:1;height:1px;background:rgba(138,114,83,.2);margin-top:15px;}
+
+/* ── Step panels ─────────────────────────────────────── */
+.wizard-panel{animation:wpFade .22s ease;}
+@keyframes wpFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.wizard-heading{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--cream);margin-bottom:4px;}
+.wizard-sub{font-size:13px;color:var(--champagne-muted);margin-bottom:24px;line-height:1.6;}
+
+/* ── Chips ───────────────────────────────────────────── */
+.budget-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.budget-chip{
+  padding:9px 14px;border-radius:4px;border:1px solid rgba(201,169,110,.2);
+  background:transparent;color:var(--cream-dark);font-size:12px;
+  font-family:var(--sans);letter-spacing:.03em;cursor:pointer;
+  transition:border-color .2s,background .2s,color .2s;
+}
+.budget-chip:hover{border-color:var(--champagne-muted);}
+.budget-chip.sel{border-color:var(--champagne);background:rgba(201,169,110,.1);color:var(--champagne);}
+
+/* ── Area input ──────────────────────────────────────── */
+.area-ctrl-row{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.area-unit-toggle{display:flex;border:1px solid rgba(201,169,110,.2);border-radius:4px;overflow:hidden;flex-shrink:0;}
+.area-unit-btn{
+  padding:8px 12px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  font-family:var(--sans);background:transparent;border:none;
+  color:var(--champagne-muted);cursor:pointer;transition:background .2s,color .2s;min-width:46px;
+}
+.area-unit-btn.active{background:rgba(201,169,110,.15);color:var(--champagne);}
+.area-num-input{width:90px;flex-shrink:0;}
+
+/* ── Drop zone ───────────────────────────────────────── */
+.drop-zone{
+  border:1px dashed rgba(201,169,110,.28);border-radius:8px;
+  padding:36px 20px;text-align:center;cursor:pointer;
+  transition:border-color .2s,background .2s;
+}
+.drop-zone:hover,.drop-zone.dz-over{border-color:var(--champagne);background:rgba(201,169,110,.04);}
+.drop-zone-icon{width:38px;height:38px;margin:0 auto 12px;color:var(--champagne-muted);}
+.drop-zone-icon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.5;}
+.drop-zone-title{font-size:14px;color:var(--cream-dark);margin-bottom:4px;}
+.drop-zone-sub{font-size:11px;color:var(--champagne-muted);letter-spacing:.04em;}
+.file-list{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+.file-item{display:flex;align-items:center;gap:10px;background:var(--obsidian-3);border:1px solid rgba(201,169,110,.1);border-radius:6px;padding:10px 12px;}
+.file-thumb{width:36px;height:36px;border-radius:4px;object-fit:cover;flex-shrink:0;}
+.file-thumb-icon{width:36px;height:36px;border-radius:4px;background:var(--obsidian-4);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--champagne-muted);}
+.file-thumb-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;}
+.file-info{flex:1;min-width:0;}
+.file-name{font-size:12px;color:var(--cream-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.file-size{font-size:10px;color:var(--champagne-muted);margin-top:2px;}
+.file-badge{font-size:9px;letter-spacing:.06em;margin-top:2px;}
+.file-badge.ok{color:#4caf72;}.file-badge.err{color:#ff6060;}
+.file-remove{background:none;border:none;cursor:pointer;color:var(--champagne-muted);padding:4px;border-radius:4px;transition:color .2s;flex-shrink:0;}
+.file-remove:hover{color:#ff6060;}
+.file-remove svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+.dz-hint{font-size:11px;color:var(--champagne-muted);text-align:center;margin-top:10px;}
+
+/* ── Review card ─────────────────────────────────────── */
+.review-card{background:var(--obsidian-3);border:1px solid rgba(201,169,110,.12);border-radius:8px;padding:20px;margin-bottom:24px;}
+.review-row{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);align-items:baseline;}
+.review-row:last-child{border-bottom:none;padding-bottom:0;}
+.review-lbl{font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--champagne-muted);min-width:85px;flex-shrink:0;padding-top:2px;}
+.review-val{font-size:13px;color:var(--cream-dark);line-height:1.5;flex:1;}
+.review-edit{font-size:9px;color:var(--champagne-muted);letter-spacing:.07em;text-transform:uppercase;cursor:pointer;flex-shrink:0;border:none;background:none;text-decoration:underline;padding:0;transition:color .2s;}
+.review-edit:hover{color:var(--champagne);}
+
+/* ── Wizard buttons ──────────────────────────────────── */
+.wizard-btns{display:flex;gap:12px;margin-top:28px;}
+.btn-wiz-back{
+  background:transparent;border:1px solid rgba(201,169,110,.22);
+  color:var(--champagne-muted);padding:13px 18px;border-radius:4px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  cursor:pointer;transition:border-color .2s,color .2s;white-space:nowrap;
+}
+.btn-wiz-back:hover{border-color:var(--champagne);color:var(--champagne);}
+.btn-wiz-next{
+  flex:1;background:var(--champagne);color:var(--obsidian);
+  border:none;padding:13px 20px;border-radius:4px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  cursor:pointer;transition:opacity .2s;display:flex;align-items:center;
+  justify-content:center;gap:8px;font-weight:500;
+}
+.btn-wiz-next:disabled{opacity:.5;cursor:not-allowed;}
+.btn-wiz-next svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
+  </a>
+  <div class="nav-links">
+    <a href="./services.html" data-en="Services" data-ar="خدماتنا">Services</a>
+    <a href="./portfolio.html" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a>
+    <a href="./about.html" data-en="About" data-ar="من نحن">About</a>
+    <a href="./contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+    <a href="./blog.html" data-en="Journal" data-ar="المدونة">Journal</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn" id="btnAR" onclick="setLang('ar')" style="font-family:var(--arabic);font-size:13px;letter-spacing:0;">عربي</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
+    <a href="./portal.html" class="nav-portal-icon" aria-label="Client Login"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c0-3.866 3.582-7 8-7s8 3.134 8 7"/></svg></a>
+    <a href="./quote.html" class="nav-cta en-only">Get a Quote</a>
+    <a href="./quote.html" class="nav-cta ar-only">احصل على عرض سعر</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-eyebrow en-only">Free quote</div>
+    <div class="left-eyebrow ar-only">عرض سعر مجاني</div>
+    <h1 class="left-h1 en-only">Let's build<br/>something<br/><em>remarkable</em></h1>
+    <h1 class="left-h1 ar-only">لنبني<br/>شيئاً<br/><em>استثنائياً</em></h1>
+    <p class="left-desc en-only">Share your floor plans, vision, and budget. Our architects will prepare a detailed, line-item quote and schedule a consultation — usually within 24 hours.</p>
+    <p class="left-desc ar-only">شارك مخططاتك ورؤيتك وميزانيتك. سيُعدّ مهندسونا عرض سعر تفصيلياً ومُقسَّماً ويرتبون استشارة — عادةً في غضون 24 ساعة.</p>
+    <div class="left-features">
+      <div class="left-feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div>
+          <div class="feat-text-title en-only">Upload floor plans</div>
+          <div class="feat-text-title ar-only">رفع المخططات</div>
+          <div class="feat-text-desc en-only">Share drawings, inspiration images, or any reference files</div>
+          <div class="feat-text-desc ar-only">شارك الرسومات وصور الإلهام وأي ملفات مرجعية</div>
+        </div>
+      </div>
+      <div class="left-feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div>
+          <div class="feat-text-title en-only">Schedule a consultation</div>
+          <div class="feat-text-title ar-only">حجز استشارة</div>
+          <div class="feat-text-desc en-only">Pick a date and time — in-person, video call, or site visit</div>
+          <div class="feat-text-desc ar-only">اختر التاريخ والوقت — حضورياً أو مكالمة فيديو أو زيارة موقع</div>
+        </div>
+      </div>
+      <div class="left-feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <div>
+          <div class="feat-text-title en-only">No obligation</div>
+          <div class="feat-text-title ar-only">بدون التزام</div>
+          <div class="feat-text-desc en-only">A free, honest assessment — no strings attached</div>
+          <div class="feat-text-desc ar-only">تقييم مجاني وصادق — بدون أي قيود</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-strip">
+      <div class="photo-strip-item"></div>
+      <div class="photo-strip-item"></div>
+      <div class="photo-strip-item"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div id="formWrap">
+
+      <!-- Step indicator (5 steps) -->
+      <div class="wizard-nav">
+        <div class="w-step active" id="ws1">
+          <div class="w-step-num"><span>1</span></div>
+          <div class="w-step-label"><span class="en-only">You</span><span class="ar-only">عنك</span></div>
+        </div>
+        <div class="w-line"></div>
+        <div class="w-step" id="ws2">
+          <div class="w-step-num"><span>2</span></div>
+          <div class="w-step-label"><span class="en-only">Project</span><span class="ar-only">المشروع</span></div>
+        </div>
+        <div class="w-line"></div>
+        <div class="w-step" id="ws3">
+          <div class="w-step-num"><span>3</span></div>
+          <div class="w-step-label"><span class="en-only">Consult</span><span class="ar-only">الاستشارة</span></div>
+        </div>
+        <div class="w-line"></div>
+        <div class="w-step" id="ws4">
+          <div class="w-step-num"><span>4</span></div>
+          <div class="w-step-label"><span class="en-only">Files</span><span class="ar-only">الملفات</span></div>
+        </div>
+        <div class="w-line"></div>
+        <div class="w-step" id="ws5">
+          <div class="w-step-num"><span>5</span></div>
+          <div class="w-step-label"><span class="en-only">Review</span><span class="ar-only">المراجعة</span></div>
+        </div>
+      </div>
+
+      <!-- ── STEP 1 — About You ──────────────────────────── -->
+      <div class="wizard-panel" id="step1">
+        <div class="wizard-heading en-only">Your contact details</div>
+        <div class="wizard-heading ar-only">بياناتك</div>
+        <p class="wizard-sub en-only">So we can send your quote and follow up on WhatsApp.</p>
+        <p class="wizard-sub ar-only">حتى نتمكن من إرسال عرض السعر ومتابعتك على واتساب.</p>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Full name *</span><span class="ar-only">الاسم الكامل *</span></label>
+            <input type="text" class="form-input" id="q_name" placeholder="Ahmed Al Rashidi" oninput="qClearErr('name')"/>
+            <div class="form-error-msg" id="err-name"><span class="en-only">Please enter your name.</span><span class="ar-only">يرجى إدخال اسمك.</span></div>
+          </div>
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">WhatsApp / Phone *</span><span class="ar-only">واتساب / الهاتف *</span></label>
+            <input type="tel" class="form-input" id="q_phone" placeholder="+971 50 XXX XXXX" oninput="qClearErr('phone')"/>
+            <div class="form-error-msg" id="err-phone"><span class="en-only">Enter a UAE number — e.g. +971 50 123 4567</span><span class="ar-only">أدخل رقم إماراتي — مثال: ‎+971 50 123 4567</span></div>
+          </div>
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Email address *</span><span class="ar-only">البريد الإلكتروني *</span></label>
+            <input type="email" class="form-input" id="q_email" placeholder="you@example.com" oninput="qClearErr('email')"/>
+            <div class="form-error-msg" id="err-email"><span class="en-only">Please enter a valid email address.</span><span class="ar-only">يرجى إدخال بريد إلكتروني صحيح.</span></div>
+          </div>
+        </div>
+
+        <div class="wizard-btns">
+          <button class="btn-wiz-next" onclick="step1Next()">
+            <span class="en-only">Next: Your Project</span>
+            <span class="ar-only">التالي: مشروعك</span>
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2 — Project ───────────────────────────── -->
+      <div class="wizard-panel" id="step2" style="display:none">
+        <div class="wizard-heading en-only">Tell us about your project</div>
+        <div class="wizard-heading ar-only">أخبرنا عن مشروعك</div>
+        <p class="wizard-sub en-only">The more detail you give, the more accurate the quote.</p>
+        <p class="wizard-sub ar-only">كلما أعطيت تفاصيل أكثر، كان عرض السعر أدق.</p>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Project type * (select all that apply)</span><span class="ar-only">نوع المشروع * (اختر كل ما ينطبق)</span></label>
+            <div class="chips" id="projChips">
+              <button class="chip" onclick="this.classList.toggle('sel');qClearErr('proj')"><span class="en-only">Joinery &amp; Carpentry</span><span class="ar-only">النجارة والأعمال الخشبية</span></button>
+              <button class="chip" onclick="this.classList.toggle('sel');qClearErr('proj')"><span class="en-only">Solid Surfaces</span><span class="ar-only">الأسطح الصلبة</span></button>
+              <button class="chip" onclick="this.classList.toggle('sel');qClearErr('proj')"><span class="en-only">Aluminum Works</span><span class="ar-only">الأعمال الألمنيوم</span></button>
+              <button class="chip" onclick="this.classList.toggle('sel');qClearErr('proj')"><span class="en-only">Interior Design</span><span class="ar-only">التصميم الداخلي</span></button>
+              <button class="chip" onclick="this.classList.toggle('sel');qClearErr('proj')"><span class="en-only">Turnkey Fit-out</span><span class="ar-only">التشطيب الكامل</span></button>
+              <button class="chip" onclick="this.classList.toggle('sel');qClearErr('proj')"><span class="en-only">Furniture Supply</span><span class="ar-only">توريد الأثاث</span></button>
+              <button class="chip" onclick="this.classList.toggle('sel');qClearErr('proj')"><span class="en-only">Other</span><span class="ar-only">أخرى</span></button>
+            </div>
+            <div class="form-error-msg" id="err-proj"><span class="en-only">Please select at least one project type.</span><span class="ar-only">يرجى اختيار نوع مشروع واحد على الأقل.</span></div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Space type</span><span class="ar-only">نوع المساحة</span></label>
+            <select class="form-select" id="q_space">
+              <option value="">— Select —</option>
+              <option value="Apartment">Apartment / شقة</option>
+              <option value="Villa">Villa / Townhouse / فيلا</option>
+              <option value="Penthouse">Penthouse / بنتهاوس</option>
+              <option value="Office">Office / مكتب</option>
+              <option value="Retail">Retail / Showroom / محل تجاري</option>
+              <option value="Restaurant">Restaurant / Café / مطعم</option>
+              <option value="Hotel">Hotel / Hospitality / فندق</option>
+              <option value="Other">Other / أخرى</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Approximate area</span><span class="ar-only">المساحة التقريبية</span></label>
+            <div class="area-ctrl-row">
+              <div class="area-unit-toggle">
+                <button class="area-unit-btn active" id="unitSqm" onclick="setUnit('sqm')">m²</button>
+                <button class="area-unit-btn" id="unitSqft" onclick="setUnit('sqft')">sqft</button>
+              </div>
+              <input type="number" class="form-input area-num-input" id="areaNum" min="10" max="5000" value="200" oninput="syncAreaFromNum()"/>
+            </div>
+            <input type="range" class="budget-range" id="q_area" min="20" max="2000" step="5" value="200" oninput="syncAreaFromSlider()" style="margin-top:12px;"/>
+            <div class="budget-limits" id="areaLimits">
+              <span class="area-limit-min">20 m²</span>
+              <span class="area-limit-max">2,000 m²</span>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Budget range</span><span class="ar-only">نطاق الميزانية</span></label>
+            <div class="budget-chips" id="budgetChips">
+              <button class="budget-chip" onclick="selectBudget(this)">Under AED 100K</button>
+              <button class="budget-chip" onclick="selectBudget(this)">AED 100K – 300K</button>
+              <button class="budget-chip" onclick="selectBudget(this)">AED 300K – 600K</button>
+              <button class="budget-chip" onclick="selectBudget(this)">AED 600K – 1M</button>
+              <button class="budget-chip" onclick="selectBudget(this)">Over AED 1M</button>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Brief description (optional)</span><span class="ar-only">وصف مختصر (اختياري)</span></label>
+            <textarea class="form-textarea" id="q_notes" placeholder="Tell us about your space, vision, any inspiration references, timelines…" style="min-height:90px;"></textarea>
+          </div>
+        </div>
+
+        <div class="wizard-btns">
+          <button class="btn-wiz-back" onclick="goToStep(1)"><span class="en-only">Back</span><span class="ar-only">رجوع</span></button>
+          <button class="btn-wiz-next" onclick="step2Next()">
+            <span class="en-only">Next: Consultation</span>
+            <span class="ar-only">التالي: الاستشارة</span>
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3 — Consultation ──────────────────────── -->
+      <div class="wizard-panel" id="step3" style="display:none">
+        <div class="wizard-heading en-only">Consultation preferences</div>
+        <div class="wizard-heading ar-only">تفضيلات الاستشارة</div>
+        <p class="wizard-sub en-only">Optional — skip if you just need a quote. We'll confirm your slot within 2 hours during business hours.</p>
+        <p class="wizard-sub ar-only">اختياري — تجاوزه إذا كنت تحتاج فقط لعرض سعر. سنؤكد موعدك في غضون ساعتين خلال ساعات العمل.</p>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Preferred date</span><span class="ar-only">التاريخ المفضل</span></label>
+            <input type="date" class="form-input" id="prefDate" onchange="checkWeekend(this.value)"/>
+            <div class="weekend-note" id="weekendNote"><span class="en-only">Friday is our day off — we'll suggest the nearest Saturday or Monday slot when we confirm.</span><span class="ar-only">الجمعة هي إجازتنا الأسبوعية — سنقترح أقرب موعد السبت أو الاثنين عند التأكيد.</span></div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Preferred time slot</span><span class="ar-only">الوقت المفضل</span></label>
+            <select class="form-select" id="prefTime">
+              <option value="">Flexible / مرن</option>
+              <option>09:00 – 10:00</option>
+              <option>10:00 – 11:00</option>
+              <option>11:00 – 12:00</option>
+              <option>13:00 – 14:00</option>
+              <option>14:00 – 15:00</option>
+              <option>15:00 – 16:00</option>
+              <option>16:00 – 17:00</option>
+              <option>Saturday 10:00 – 11:00</option>
+              <option>Saturday 11:00 – 12:00</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label"><span class="en-only">Format</span><span class="ar-only">نوع الاستشارة</span></label>
+            <select class="form-select" id="consultFormat">
+              <option value="In-person">In-person — The Walls Studio, Dubai / حضوري</option>
+              <option value="Video call">Video call (Zoom / Teams) / مكالمة فيديو</option>
+              <option value="Site visit">Site visit (my location) / زيارة الموقع</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="wizard-btns">
+          <button class="btn-wiz-back" onclick="goToStep(2)"><span class="en-only">Back</span><span class="ar-only">رجوع</span></button>
+          <button class="btn-wiz-next" onclick="goToStep(4)">
+            <span class="en-only">Next: Upload Files</span>
+            <span class="ar-only">التالي: رفع الملفات</span>
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4 — Files ─────────────────────────────── -->
+      <div class="wizard-panel" id="step4" style="display:none">
+        <div class="wizard-heading en-only">Share your files</div>
+        <div class="wizard-heading ar-only">شارك ملفاتك</div>
+        <p class="wizard-sub en-only">Floor plans, drawings, inspiration images — optional but very helpful. Max 5 files · 20 MB each · PDF, JPG, PNG.</p>
+        <p class="wizard-sub ar-only">مخططات الطوابق، الرسومات، صور الإلهام — اختياري لكنه مفيد جداً. حتى 5 ملفات · 20 ميغابايت لكل ملف · PDF، JPG، PNG.</p>
+
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()" ondragover="dzDrag(event,true)" ondragleave="dzDrag(event,false)" ondrop="dzDrop(event)">
+          <div class="drop-zone-icon">
+            <svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+          </div>
+          <div class="drop-zone-title en-only">Drag files here or click to browse</div>
+          <div class="drop-zone-title ar-only">اسحب الملفات هنا أو انقر للتصفح</div>
+          <div class="drop-zone-sub">PDF · JPG · PNG</div>
+        </div>
+        <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png" multiple style="display:none" onchange="handleFileInput(this.files)"/>
+
+        <div class="file-list" id="fileList"></div>
+        <div class="dz-hint en-only" id="dzHint" style="display:none">Max 5 files reached.</div>
+        <div class="dz-hint ar-only" id="dzHintAR" style="display:none">تم الوصول إلى الحد الأقصى (5 ملفات).</div>
+
+        <div class="wizard-btns">
+          <button class="btn-wiz-back" onclick="goToStep(3)"><span class="en-only">Back</span><span class="ar-only">رجوع</span></button>
+          <button class="btn-wiz-next" id="btnStep4Next" onclick="step4Next()">
+            <span class="en-only">Next: Review</span>
+            <span class="ar-only">التالي: المراجعة</span>
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 5 — Review & Submit ───────────────────── -->
+      <div class="wizard-panel" id="step5" style="display:none">
+        <div class="wizard-heading en-only">Review your request</div>
+        <div class="wizard-heading ar-only">راجع طلبك</div>
+        <p class="wizard-sub en-only">Check everything looks right, then submit.</p>
+        <p class="wizard-sub ar-only">تأكد من صحة المعلومات ثم أرسل الطلب.</p>
+
+        <div class="review-card" id="reviewCard"></div>
+
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-bottom:16px;"></div>
+
+        <button class="btn-send-db" id="btnSubmit" onclick="submitQuote()">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span class="en-only">Submit Request</span>
+          <span class="ar-only">إرسال الطلب</span>
+        </button>
+
+        <div id="quoteStatus" class="form-status"></div>
+
+        <div class="form-send-alt-row" style="margin-top:8px;">
+          <button class="btn-send-wa" onclick="submitViaWhatsApp()">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="en-only">Send via WhatsApp instead</span>
+            <span class="ar-only">إرسال عبر واتساب</span>
+          </button>
+        </div>
+
+        <div class="wizard-btns">
+          <button class="btn-wiz-back" onclick="goToStep(4)"><span class="en-only">Back</span><span class="ar-only">رجوع</span></button>
+        </div>
+
+        <p class="form-note">
+          <span class="en-only">By submitting you agree to be contacted by The Walls. We never share your data. <a href="./privacy-policy.html">Privacy policy</a>.</span>
+          <span class="ar-only">بالإرسال توافق على التواصل من قِبَل ذا وولز. لن نشارك بياناتك. <a href="./privacy-policy.html">سياسة الخصوصية</a>.</span>
+        </p>
+      </div>
+
+    </div><!-- /formWrap -->
+
+    <!-- SUCCESS PANEL -->
+    <div class="success-panel" id="successPanel">
+      <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h2 class="success-h en-only">Request sent!</h2>
+      <h2 class="success-h ar-only">تم إرسال الطلب!</h2>
+      <p class="success-p en-only">Thank you, <span id="successName"></span>. We've received your request and will send a detailed quote to your email within 24 hours.</p>
+      <p class="success-p ar-only">شكراً، <span id="successNameAR"></span>. استلمنا طلبك وسنرسل عرض سعر تفصيلياً إلى بريدك الإلكتروني خلال 24 ساعة.</p>
+      <a id="successWa" href="https://wa.me/971544996788" class="success-wa" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="en-only">Chat with us on WhatsApp</span>
+        <span class="ar-only">تحدث معنا على واتساب</span>
+      </a>
+    </div>
+
+  </div><!-- /right-panel -->
+</div><!-- /page -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand en-only">The <span>Walls</span></div>
+      <div class="footer-brand ar-only">ذا <span>وولز</span></div>
+      <p class="footer-tagline en-only">Specialists in joinery, solid surfaces, aluminum works, furniture, and complete fit-out. Founded by architects. Based in Dubai.</p>
+      <p class="footer-tagline ar-only">متخصصون في النجارة والأسطح الصلبة والأعمال الألمنيوم والأثاث والتشطيب الكامل. أسّسه معماريون. مقرنا دبي.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title en-only">Services</div>
+      <div class="footer-col-title ar-only">الخدمات</div>
+      <a href="./services.html" class="en-only">Joinery & Carpentry</a><a href="./services.html" class="en-only">Solid Surfaces</a><a href="./services.html" class="en-only">Aluminum Works</a><a href="./services.html" class="en-only">Interior Design</a>
+      <a href="./services.html" class="ar-only">النجارة والأعمال الخشبية</a><a href="./services.html" class="ar-only">الأسطح الصلبة</a><a href="./services.html" class="ar-only">الأعمال الألمنيوم</a><a href="./services.html" class="ar-only">التصميم الداخلي</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title en-only">Company</div>
+      <div class="footer-col-title ar-only">الشركة</div>
+      <a href="./about.html" class="en-only">About Us</a><a href="./portfolio.html" class="en-only">Portfolio</a><a href="./quote.html" class="en-only">Get a Quote</a><a href="./contact.html" class="en-only">Contact</a>
+      <a href="./about.html" class="ar-only">من نحن</a><a href="./portfolio.html" class="ar-only">أعمالنا</a><a href="./quote.html" class="ar-only">احصل على عرض سعر</a><a href="./contact.html" class="ar-only">تواصل معنا</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title en-only">Contact</div>
+      <div class="footer-col-title ar-only">تواصل معنا</div>
+      <p>Dubai, UAE</p>
+      <a href="mailto:info@thewalls.ae">info@thewalls.ae</a>
+      <a href="https://thewalls.ae">thewalls.ae</a>
+      <a href="https://wa.me/971544996788">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="en-only">© 2026 The Walls. All rights reserved.</span>
+    <span class="ar-only">© 2026 ذا وولز. جميع الحقوق محفوظة.</span>
+    <div class="footer-legal">
+      <a href="./privacy-policy.html" class="en-only">Privacy Policy</a><a href="./terms-of-use.html" class="en-only">Terms of Use</a><a href="javascript:void(0)" onclick="openCookieSettings()" class="en-only">Cookie Preferences</a>
+      <a href="./privacy-policy.html" class="ar-only">سياسة الخصوصية</a><a href="./terms-of-use.html" class="ar-only">شروط الاستخدام</a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/971544996788" target="_blank" rel="noopener noreferrer">
+  <div class="wa-pulse"></div>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+/* ── Language ──────────────────────────────────────── */
+function setLang(lang){
+  const root=document.documentElement;
+  const btnEN=document.getElementById('btnEN'),btnAR=document.getElementById('btnAR');
+  if(lang==='ar'){root.setAttribute('lang','ar');root.setAttribute('dir','rtl');btnAR.classList.add('active');btnEN.classList.remove('active');localStorage.setItem('tw_lang','ar');}
+  else{root.setAttribute('lang','en');root.setAttribute('dir','ltr');btnEN.classList.add('active');btnAR.classList.remove('active');localStorage.setItem('tw_lang','en');}
+}
+(function(){const s=localStorage.getItem('tw_lang');if(s==='ar')setLang('ar');})();
+
+/* ── Cursor ────────────────────────────────────────── */
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function t(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.18;ry+=(my-ry)*.18;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(t)})();
+document.querySelectorAll('a,button,input,select,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('h');curR.classList.add('h')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('h');curR.classList.remove('h')});
+});
+
+/* ── Supabase ──────────────────────────────────────── */
+const _sb = supabase.createClient(
+  'https://xpdfohzjjomrbzfatkpy.supabase.co',
+  'sb_publishable_Ty3WM5F5Vp7Yuijz3UVSxw_r3RTb7c2'
+);
+let _warmed = false;
+document.getElementById('q_name').addEventListener('focus', () => {
+  if (_warmed) return; _warmed = true;
+  fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/save-quote', { method: 'OPTIONS' }).catch(()=>{});
+}, { once: true });
+
+/* ── State ─────────────────────────────────────────── */
+let currentStep = 1;
+let areaUnit = 'sqm';
+const SQM_TO_SQFT = 10.7639;
+const pendingFiles = [];
+const MAX_FILES = 5;
+const MAX_SIZE = 20 * 1024 * 1024;
+
+/* ── Wizard navigation ─────────────────────────────── */
+function goToStep(n) {
+  document.getElementById('step' + currentStep).style.display = 'none';
+  document.getElementById('step' + n).style.display = 'block';
+  for (let i = 1; i <= 5; i++) {
+    const ws = document.getElementById('ws' + i);
+    ws.classList.remove('active', 'done');
+    if (i < n) ws.classList.add('done');
+    else if (i === n) ws.classList.add('active');
+  }
+  if (n === 5) populateReview();
+  currentStep = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Validation helpers ────────────────────────────── */
+function isUAEPhone(v){ return /^(\+971|00971|0)?(5[024568]\d{7}|[2-9]\d{7})$/.test(v.replace(/[\s\-()]/g,'')); }
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+function qShowErr(id){ document.getElementById('err-'+id).style.display='block'; const inp=document.getElementById('q_'+id); if(inp){inp.classList.add('err');inp.classList.remove('ok');} }
+function qClearErr(id){ document.getElementById('err-'+id).style.display='none'; const inp=document.getElementById('q_'+id); if(inp){inp.classList.remove('err');if(inp.value.trim())inp.classList.add('ok');} }
+
+/* ── Step 1 ────────────────────────────────────────── */
+function step1Next() {
+  const name=document.getElementById('q_name').value.trim();
+  const phone=document.getElementById('q_phone').value.trim();
+  const email=document.getElementById('q_email').value.trim();
+  let ok=true;
+  if(!name){qShowErr('name');ok=false;}else qClearErr('name');
+  if(!isUAEPhone(phone)){qShowErr('phone');ok=false;}else qClearErr('phone');
+  if(!isEmail(email)){qShowErr('email');ok=false;}else qClearErr('email');
+  if(ok) goToStep(2);
+}
+
+/* ── Step 2 — area & budget ────────────────────────── */
+function setUnit(unit) {
+  if (areaUnit === unit) return;
+  const slider = document.getElementById('q_area');
+  const num = document.getElementById('areaNum');
+  const cur = parseInt(num.value) || 200;
+  areaUnit = unit;
+  if (unit === 'sqft') {
+    const sqft = Math.round(cur * SQM_TO_SQFT / 10) * 10;
+    slider.min=100; slider.max=21000; slider.step=100;
+    num.min=10; num.max=25000;
+    const v = Math.min(sqft, 21000);
+    slider.value=v; num.value=sqft;
+    document.querySelector('.area-limit-min').textContent='100 sqft';
+    document.querySelector('.area-limit-max').textContent='21,000 sqft';
+  } else {
+    const sqm = Math.max(20, Math.round(cur / SQM_TO_SQFT / 5) * 5);
+    slider.min=20; slider.max=2000; slider.step=5;
+    num.min=10; num.max=5000;
+    const v = Math.min(sqm, 2000);
+    slider.value=v; num.value=sqm;
+    document.querySelector('.area-limit-min').textContent='20 m²';
+    document.querySelector('.area-limit-max').textContent='2,000 m²';
+  }
+  document.getElementById('unitSqm').classList.toggle('active', unit==='sqm');
+  document.getElementById('unitSqft').classList.toggle('active', unit==='sqft');
+}
+function syncAreaFromSlider() { document.getElementById('areaNum').value = document.getElementById('q_area').value; }
+function syncAreaFromNum() {
+  const v = parseInt(document.getElementById('areaNum').value) || 0;
+  const s = document.getElementById('q_area');
+  s.value = Math.max(parseInt(s.min), Math.min(parseInt(s.max), v));
+}
+function getAreaDisplay() {
+  const v = parseInt(document.getElementById('areaNum').value) || parseInt(document.getElementById('q_area').value) || 0;
+  return v.toLocaleString() + ' ' + (areaUnit === 'sqft' ? 'sqft' : 'm²');
+}
+function getAreaInSqm() {
+  const v = parseInt(document.getElementById('areaNum').value) || parseInt(document.getElementById('q_area').value) || 0;
+  return areaUnit === 'sqft' ? Math.round(v / SQM_TO_SQFT) : v;
+}
+function selectBudget(btn) {
+  document.querySelectorAll('#budgetChips .budget-chip').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function step2Next() {
+  const chips = [...document.querySelectorAll('#projChips .chip.sel')];
+  if (!chips.length) { document.getElementById('err-proj').style.display='block'; return; }
+  document.getElementById('err-proj').style.display='none';
+  goToStep(3);
+}
+
+/* ── Step 3 — consultation date ────────────────────── */
+document.getElementById('prefDate').min = new Date().toISOString().split('T')[0];
+function checkWeekend(val) {
+  if (!val) return;
+  const day = new Date(val).getUTCDay();
+  document.getElementById('weekendNote').classList.toggle('show', day === 5);
+}
+
+/* ── Step 4 — file upload ──────────────────────────── */
+function dzDrag(e, over) { e.preventDefault(); document.getElementById('dropZone').classList.toggle('dz-over', over); }
+function dzDrop(e) { e.preventDefault(); document.getElementById('dropZone').classList.remove('dz-over'); handleFiles(e.dataTransfer.files); }
+function handleFileInput(files) { handleFiles(files); }
+
+function handleFiles(files) {
+  for (const file of files) {
+    if (pendingFiles.length >= MAX_FILES) break;
+    if (file.size > MAX_SIZE) continue;
+    const allowed = ['image/jpeg','image/png','application/pdf'];
+    if (!allowed.includes(file.type)) continue;
+    if (pendingFiles.some(f=>f.file.name===file.name&&f.file.size===file.size)) continue;
+    const entry = { file, preview: null, path: null, error: false };
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      const idx = pendingFiles.length;
+      reader.onload = e => { pendingFiles[idx].preview = e.target.result; renderFileList(); };
+      reader.readAsDataURL(file);
+    }
+    pendingFiles.push(entry);
+  }
+  renderFileList();
+  document.getElementById('fileInput').value = '';
+}
+
+function removeFile(idx) { pendingFiles.splice(idx, 1); renderFileList(); }
+
+function fmtSize(b) { return b<1048576?(b/1024).toFixed(0)+' KB':(b/1048576).toFixed(1)+' MB'; }
+
+function renderFileList() {
+  const list=document.getElementById('fileList');
+  const hint=document.getElementById('dzHint');
+  const hintAR=document.getElementById('dzHintAR');
+  const full=pendingFiles.length>=MAX_FILES;
+  hint.style.display=full?'block':'none';
+  hintAR.style.display=full?'block':'none';
+  list.innerHTML=pendingFiles.map((f,i)=>{
+    const thumb=f.preview
+      ?`<img class="file-thumb" src="${f.preview}" alt=""/>`
+      :`<div class="file-thumb-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>`;
+    const badge=f.path?`<div class="file-badge ok">✓ Uploaded</div>`:f.error?`<div class="file-badge err">Upload failed</div>`:'';
+    return `<div class="file-item">${thumb}<div class="file-info"><div class="file-name">${f.file.name}</div><div class="file-size">${fmtSize(f.file.size)}</div>${badge}</div><button class="file-remove" onclick="removeFile(${i})"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>`;
+  }).join('');
+}
+
+async function step4Next() {
+  const btn = document.getElementById('btnStep4Next');
+  const toUpload = pendingFiles.filter(f=>!f.path&&!f.error);
+  if (toUpload.length) {
+    btn.disabled = true;
+    btn.querySelector('.en-only').textContent = 'Uploading…';
+    btn.querySelector('.ar-only').textContent = 'جارٍ الرفع…';
+    const folder = `${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
+    for (const entry of toUpload) {
+      const path = `quotes/${folder}/${entry.file.name}`;
+      const { error } = await _sb.storage.from('quote-uploads').upload(path, entry.file, { cacheControl:'3600', upsert:false });
+      if (error) { entry.error=true; } else { entry.path=path; }
+    }
+    btn.disabled = false;
+    btn.querySelector('.en-only').textContent = 'Next: Review';
+    btn.querySelector('.ar-only').textContent = 'التالي: المراجعة';
+    renderFileList();
+  }
+  goToStep(5);
+}
+
+/* ── Step 5 — Review ───────────────────────────────── */
+function esc(s){ const d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML; }
+
+function populateReview() {
+  const name=document.getElementById('q_name').value.trim();
+  const phone=document.getElementById('q_phone').value.trim();
+  const email=document.getElementById('q_email').value.trim();
+  const projTypes=[...document.querySelectorAll('#projChips .chip.sel')].map(c=>{const en=c.querySelector('.en-only');return en?en.textContent.trim():c.textContent.trim();}).join(', ');
+  const spaceEl=document.getElementById('q_space');
+  const space=spaceEl.value?spaceEl.options[spaceEl.selectedIndex].text:'—';
+  const area=getAreaDisplay();
+  const budgetEl=document.querySelector('#budgetChips .budget-chip.sel');
+  const budget=budgetEl?budgetEl.textContent.trim():'—';
+  const notes=document.getElementById('q_notes').value.trim();
+  const prefDate=document.getElementById('prefDate').value;
+  const prefTime=document.getElementById('prefTime').value||'Flexible';
+  const format=document.getElementById('consultFormat').value;
+  const fileCount=pendingFiles.length;
+
+  const row=(lbl,val,step)=>`<div class="review-row"><div class="review-lbl">${lbl}</div><div class="review-val">${val||'—'}</div><button class="review-edit" onclick="goToStep(${step})"><span class="en-only">Edit</span><span class="ar-only">تعديل</span></button></div>`;
+
+  document.getElementById('reviewCard').innerHTML = [
+    row('<span class="en-only">Name</span><span class="ar-only">الاسم</span>', esc(name), 1),
+    row('<span class="en-only">Phone</span><span class="ar-only">الهاتف</span>', esc(phone), 1),
+    row('<span class="en-only">Email</span><span class="ar-only">البريد</span>', esc(email), 1),
+    row('<span class="en-only">Project</span><span class="ar-only">المشروع</span>', esc(projTypes), 2),
+    row('<span class="en-only">Space</span><span class="ar-only">المكان</span>', esc(space), 2),
+    row('<span class="en-only">Area</span><span class="ar-only">المساحة</span>', esc(area), 2),
+    budget!=='—'?row('<span class="en-only">Budget</span><span class="ar-only">الميزانية</span>', esc(budget), 2):'',
+    notes?row('<span class="en-only">Notes</span><span class="ar-only">ملاحظات</span>', esc(notes), 2):'',
+    prefDate?row('<span class="en-only">Date</span><span class="ar-only">التاريخ</span>', esc(prefDate), 3):'',
+    row('<span class="en-only">Time</span><span class="ar-only">الوقت</span>', esc(prefTime), 3),
+    row('<span class="en-only">Format</span><span class="ar-only">النوع</span>', esc(format), 3),
+    row('<span class="en-only">Files</span><span class="ar-only">الملفات</span>', fileCount?fileCount+' file(s) attached':'None', 4),
+  ].join('');
+}
+
+/* ── Collect & submit ──────────────────────────────── */
+function _getData() {
+  return {
+    name: document.getElementById('q_name').value.trim(),
+    phone: document.getElementById('q_phone').value.trim(),
+    email: document.getElementById('q_email').value.trim(),
+    project_types: [...document.querySelectorAll('#projChips .chip.sel')].map(c=>{const en=c.querySelector('.en-only');return en?en.textContent.trim():c.textContent.trim();}).join(', '),
+    space_type: document.getElementById('q_space').value,
+    area_sqm: getAreaInSqm(),
+    area_display: getAreaDisplay(),
+    budget_range: (document.querySelector('#budgetChips .budget-chip.sel')||{textContent:''}).textContent.trim(),
+    description: document.getElementById('q_notes').value.trim(),
+    preferred_date: document.getElementById('prefDate').value || null,
+    preferred_time: document.getElementById('prefTime').value || 'Flexible',
+    consultation_format: document.getElementById('consultFormat').value,
+    file_paths: pendingFiles.filter(f=>f.path).map(f=>f.path)
+  };
+}
+
+async function submitQuote() {
+  const data = _getData();
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+  if (!turnstileToken) {
+    alert(document.documentElement.lang==='ar'?'يرجى إكمال التحقق البشري.':'Please complete the human verification check.');
+    return;
+  }
+  const btn=document.getElementById('btnSubmit');
+  const status=document.getElementById('quoteStatus');
+  btn.disabled=true;
+  btn.querySelector('.en-only').textContent='Sending…';
+  btn.querySelector('.ar-only').textContent='جارٍ الإرسال…';
+  status.className='form-status'; status.textContent='';
+
+  const res = await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/save-quote',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({turnstileToken,...data})
+  });
+
+  btn.disabled=false;
+  btn.querySelector('.en-only').textContent='Submit Request';
+  btn.querySelector('.ar-only').textContent='إرسال الطلب';
+
+  if (!res.ok) {
+    status.className='form-status error';
+    status.textContent=document.documentElement.lang==='ar'?'حدث خطأ. يرجى المحاولة مرة أخرى أو استخدام واتساب.':'Something went wrong. Please try again or send via WhatsApp.';
+    if(window.turnstile) turnstile.reset();
+    return;
+  }
+  _notifyTeam(data);
+  showSuccess(data.name);
+}
+
+function submitViaWhatsApp() {
+  const d=_getData();
+  const msg=`New quote request from The Walls website:\n\nName: ${d.name}\nPhone: ${d.phone}\nEmail: ${d.email}\nProject: ${d.project_types}\nSpace: ${d.space_type||'—'}\nArea: ${d.area_display}\nBudget: ${d.budget_range||'—'}\nDate: ${d.preferred_date||'Flexible'}\nTime: ${d.preferred_time}\nFormat: ${d.consultation_format}${d.description?'\nNotes: '+d.description:''}${d.file_paths.length?'\nFiles: '+d.file_paths.length+' uploaded':''}`;
+  window.open('https://wa.me/971544996788?text='+encodeURIComponent(msg),'_blank');
+  _notifyTeam(d);
+  showSuccess(d.name);
+}
+
+async function _notifyTeam(data) {
+  try {
+    await fetch('https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/notify-email',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({formType:'quote', data})
+    });
+  } catch(e){ console.warn('Notification skipped:', e); }
+}
+
+function showSuccess(name) {
+  document.getElementById('successName').textContent=name;
+  document.getElementById('successNameAR').textContent=name;
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('successPanel').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

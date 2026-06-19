@@ -478,15 +478,15 @@ document.addEventListener('DOMContentLoaded', function() {
   portal.textContent = 'Client Login';
   overlay.appendChild(portal);
 
-  // Add Book Consultation CTA
+  // Add Get a Quote CTA
   var cta = document.createElement('a');
   cta.href = window.location.pathname.includes('/blog/')
-    ? '../pages/booking.html'
+    ? '../pages/quote.html'
     : window.location.pathname.includes('/pages/')
-      ? './booking.html'
-      : './pages/booking.html';
+      ? './quote.html'
+      : './pages/quote.html';
   cta.className = 'mob-cta';
-  cta.textContent = 'Book Consultation';
+  cta.textContent = 'Get a Quote';
   overlay.appendChild(cta);
 
   // Add close button inside overlay (top-right X)
