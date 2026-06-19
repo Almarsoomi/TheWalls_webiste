@@ -142,12 +142,17 @@ nav.sc {
   padding: 10px 24px; text-decoration: none; transition: all 0.3s; white-space: nowrap;
 }
 .nav-cta:hover { background: var(--champagne); color: var(--obsidian); }
-.nav-portal {
-  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--gray-mid); text-decoration: none; transition: color 0.25s; white-space: nowrap;
+.nav-portal-icon {
+  width: 36px; height: 36px;
+  background: transparent;
+  border: 0.5px solid rgba(201,169,110,0.35);
+  color: var(--gray-mid);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; flex-shrink: 0;
+  transition: color 0.25s, border-color 0.25s;
 }
-.nav-portal:hover { color: var(--champagne); }
-[dir="rtl"] .nav-portal { font-family: var(--arabic); letter-spacing: 0; font-size: 13px; }
+.nav-portal-icon:hover { color: var(--cream); border-color: rgba(201,169,110,0.6); }
+.nav-portal-icon svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 .nav-right { display: flex; align-items: center; gap: 16px; }
 .lang-toggle {
   display: flex; align-items: center; gap: 0;
@@ -602,8 +607,8 @@ body.nav-open { overflow: hidden; }
   .nav-right  { display: flex !important; gap: 8px !important; }
   .nav-right .nav-cta { display: none !important; }
   .nav-cta    { display: none !important; }
-  /* Hide the desktop Client Login link on mobile — footer "Track Your Project" covers it */
-  .nav-portal { display: none !important; }
+  /* Hide the Client Login icon on mobile — footer "Track Your Project" covers it */
+  .nav-portal-icon { display: none !important; }
   /* Always show logout/sign-out on mobile (no hamburger menu for auth pages) */
   .nav-right .nav-cta.nav-logout { display: flex !important; padding: 7px 14px !important; font-size: 11px !important; }
 
