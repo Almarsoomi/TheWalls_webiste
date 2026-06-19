@@ -7,15 +7,17 @@ const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
 const TEAM_EMAIL = Deno.env.get('TEAM_EMAIL') || 'info@thewalls.ae'
 const FROM_EMAIL = Deno.env.get('FROM_EMAIL') || 'The Walls <donotreply@contact.thewalls.ae>'
 
-async function sendEmail(to: string, subject: string, html: string) {
+async function sendEmail(to: string, subject: string, html: string, cc?: string[]) {
   if (!RESEND_API_KEY) {
     console.warn('RESEND_API_KEY not set — email skipped')
     return
   }
+  const payload: Record<string, unknown> = { from: FROM_EMAIL, to, subject, html }
+  if (cc?.length) payload.cc = cc
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: FROM_EMAIL, to, subject, html }),
+    body: JSON.stringify(payload),
   })
   if (!res.ok) {
     const err = await res.text()
@@ -30,7 +32,7 @@ Deno.serve(async (req: Request) => {
     const { formType, data } = await req.json()
 
     // Team notification
-    await sendEmail(TEAM_EMAIL, `New Quote Request — ${data.name}`, teamHtml(data))
+    await sendEmail(TEAM_EMAIL, `New Quote Request — ${data.name}`, teamHtml(data), ['ahmed@thewalls.ae'])
 
     // Client confirmation
     if (data.email) {
