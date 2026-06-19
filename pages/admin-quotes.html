@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Quotes | Admin — The Walls</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<style>
+.aq-detail-overlay {
+  position: fixed; inset: 0; z-index: 1100;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(4px);
+  display: none; align-items: flex-start; justify-content: flex-end;
+}
+.aq-detail-overlay.show { display: flex; }
+.aq-detail-panel {
+  width: min(560px, 100vw);
+  height: 100vh;
+  background: var(--bg-card, #141413);
+  border-left: 1px solid rgba(201,169,110,.15);
+  overflow-y: auto;
+  display: flex; flex-direction: column;
+  animation: slideInRight .25s ease;
+}
+@keyframes slideInRight { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.aq-panel-head {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid rgba(201,169,110,.1);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+}
+.aq-panel-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 300; color: var(--text-primary, #f5f0e8);
+  margin: 0 0 4px;
+}
+.aq-panel-date { font-size: 11px; color: var(--text-muted, #8a7253); letter-spacing: .06em; }
+.aq-panel-close {
+  background: transparent; border: 1px solid rgba(201,169,110,.2);
+  color: var(--champagne, #c9a96e); width: 32px; height: 32px;
+  border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.aq-panel-close:hover { background: rgba(201,169,110,.1); }
+.aq-panel-body { padding: 20px 28px; flex: 1; }
+.aq-section { margin-bottom: 24px; }
+.aq-section-label {
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--champagne, #c9a96e); margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 1px solid rgba(201,169,110,.1);
+}
+.aq-field { display: flex; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+.aq-field-label { color: var(--text-muted, #8a7253); min-width: 110px; flex-shrink: 0; }
+.aq-field-val { color: var(--text-primary, #e8e0d0); }
+.aq-contact-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.aq-contact-link {
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--champagne, #c9a96e); text-decoration: none;
+  border: 1px solid rgba(201,169,110,.25); padding: 6px 14px; border-radius: 4px;
+  transition: background .2s;
+}
+.aq-contact-link:hover { background: rgba(201,169,110,.1); }
+.aq-notes-text {
+  font-size: 13px; color: var(--text-primary, #e8e0d0);
+  line-height: 1.7; margin: 0; white-space: pre-wrap;
+}
+.aq-files-list { display: flex; flex-direction: column; gap: 8px; }
+.aq-file-item {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(201,169,110,.08);
+  border-radius: 4px; padding: 8px 12px;
+}
+.aq-file-name { font-size: 12px; color: var(--text-primary, #e8e0d0); }
+.aq-file-dl {
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--champagne, #c9a96e); text-decoration: none; cursor: pointer;
+  background: none; border: none; padding: 0; transition: opacity .2s;
+}
+.aq-file-dl:hover { opacity: .7; }
+.aq-panel-foot {
+  padding: 20px 28px;
+  border-top: 1px solid rgba(201,169,110,.1);
+  display: flex; gap: 12px;
+}
+.aq-btn-delete {
+  flex: 1; background: rgba(220,38,38,.08); border: 1px solid rgba(220,38,38,.25);
+  color: #f87171; padding: 12px; border-radius: 4px; font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+  transition: background .2s;
+}
+.aq-btn-delete:hover { background: rgba(220,38,38,.15); }
+.aq-btn-close {
+  flex: 1; background: transparent; border: 1px solid rgba(201,169,110,.2);
+  color: var(--champagne, #c9a96e); padding: 12px; border-radius: 4px; font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+  transition: background .2s;
+}
+.aq-btn-close:hover { background: rgba(201,169,110,.08); }
+.aq-files-badge {
+  display: inline-block; font-size: 11px; font-weight: 500;
+  padding: 2px 8px; border-radius: 10px; letter-spacing: .04em;
+}
+.aq-files-badge.has { background: rgba(201,169,110,.12); color: var(--champagne,#c9a96e); }
+.aq-files-badge.none { color: rgba(138,114,83,.4); }
+.admin-nav-tab {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  text-decoration: none; padding: 7px 14px; border-radius: 4px;
+  transition: all .2s;
+}
+.admin-nav-tab.active { color: var(--champagne,#c9a96e); background: rgba(201,169,110,.1); }
+.admin-nav-tab:not(.active) { color: rgba(201,169,110,.45); }
+.admin-nav-tab:not(.active):hover { color: rgba(201,169,110,.75); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- ADMIN NAV -->
+<nav id="mainNav" class="admin-nav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
+  </a>
+  <div class="nav-links" style="display:flex;align-items:center;gap:4px;">
+    <a href="./admin-dashboard.html" class="admin-nav-tab">Projects</a>
+    <a href="./admin-quotes.html" class="admin-nav-tab active">Quotes</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
+    <button class="nav-cta nav-logout" onclick="adminLogout()" style="background:transparent;border:0.5px solid rgba(201,169,110,0.4);cursor:pointer;">Log Out</button>
+  </div>
+</nav>
+
+<div class="admin-wrap">
+  <div class="admin-page-header">
+    <div>
+      <div class="admin-eyebrow">The Walls</div>
+      <h1 class="admin-page-title">Quote Requests</h1>
+    </div>
+    <div id="quoteCountBadge" style="display:none;font-size:12px;color:var(--text-muted,#8a7253);letter-spacing:.06em;align-self:flex-end;padding-bottom:6px;"></div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="admin-loading" id="adminLoading">
+    <div class="portal-loading-spinner"></div>
+    <p>Loading quotes…</p>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="admin-toolbar" id="adminToolbar" style="display:none;">
+    <input type="text" class="admin-search" id="dashSearch" placeholder="Search by name, email or phone…" oninput="applyFilters()"/>
+    <select class="admin-filter-select" id="dashSort" onchange="applyFilters()">
+      <option value="created_desc">Newest First</option>
+      <option value="created_asc">Oldest First</option>
+    </select>
+  </div>
+
+  <!-- TABLE -->
+  <div class="admin-table-wrap" id="adminTableWrap" style="display:none;">
+    <table class="admin-table" id="quotesTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Client</th>
+          <th>Project</th>
+          <th>Budget</th>
+          <th>Consult.</th>
+          <th>Files</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="quotesBody"></tbody>
+    </table>
+    <div class="admin-empty" id="adminEmpty" style="display:none;">
+      <p>No quote requests yet.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="aq-detail-overlay" id="detailOverlay" onclick="closeDetail()">
+  <div class="aq-detail-panel" onclick="event.stopPropagation()">
+    <div class="aq-panel-head">
+      <div>
+        <p class="aq-panel-name" id="dpName"></p>
+        <span class="aq-panel-date" id="dpDate"></span>
+      </div>
+      <button class="aq-panel-close" onclick="closeDetail()">×</button>
+    </div>
+
+    <div class="aq-panel-body">
+      <!-- Contact -->
+      <div class="aq-section">
+        <div class="aq-section-label">Contact</div>
+        <div class="aq-field"><span class="aq-field-label">Email</span><span class="aq-field-val" id="dpEmail"></span></div>
+        <div class="aq-field"><span class="aq-field-label">Phone</span><span class="aq-field-val" id="dpPhone"></span></div>
+        <div class="aq-contact-links" id="dpContactLinks"></div>
+      </div>
+
+      <!-- Project -->
+      <div class="aq-section">
+        <div class="aq-section-label">Project Details</div>
+        <div class="aq-field"><span class="aq-field-label">Type</span><span class="aq-field-val" id="dpType"></span></div>
+        <div class="aq-field"><span class="aq-field-label">Space</span><span class="aq-field-val" id="dpSpace"></span></div>
+        <div class="aq-field"><span class="aq-field-label">Area</span><span class="aq-field-val" id="dpArea"></span></div>
+        <div class="aq-field"><span class="aq-field-label">Budget</span><span class="aq-field-val" id="dpBudget"></span></div>
+      </div>
+
+      <!-- Consultation -->
+      <div class="aq-section" id="dpConsultSection">
+        <div class="aq-section-label">Consultation Preference</div>
+        <div class="aq-field"><span class="aq-field-label">Date</span><span class="aq-field-val" id="dpConsultDate"></span></div>
+        <div class="aq-field"><span class="aq-field-label">Time</span><span class="aq-field-val" id="dpConsultTime"></span></div>
+        <div class="aq-field"><span class="aq-field-label">Format</span><span class="aq-field-val" id="dpConsultFormat"></span></div>
+      </div>
+
+      <!-- Notes -->
+      <div class="aq-section" id="dpNotesSection">
+        <div class="aq-section-label">Notes</div>
+        <p class="aq-notes-text" id="dpNotes"></p>
+      </div>
+
+      <!-- Files -->
+      <div class="aq-section" id="dpFilesSection">
+        <div class="aq-section-label">Uploaded Files</div>
+        <div class="aq-files-list" id="dpFilesList"></div>
+      </div>
+    </div>
+
+    <div class="aq-panel-foot">
+      <button class="aq-btn-delete" onclick="deleteFromPanel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:13px;height:13px;margin-right:6px;vertical-align:middle;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+        Delete Quote
+      </button>
+      <button class="aq-btn-close" onclick="closeDetail()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const ADMIN_KEY = localStorage.getItem('admin_key');
+const QUOTES_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-quotes';
+
+if (!ADMIN_KEY) window.location.href = './admin.html';
+
+let _allQuotes = [];
+let _activeQuote = null;
+
+function adminLogout() {
+  localStorage.removeItem('admin_key');
+  window.location.href = './admin.html';
+}
+
+// ── Formatting ──────────────────────────────────────────────────────────────
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function fmtDateTime(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function fileName(path) {
+  return path ? path.split('/').pop() : path;
+}
+
+// ── Load & filter ────────────────────────────────────────────────────────────
+
+async function loadQuotes() {
+  try {
+    const res = await fetch(QUOTES_URL, { headers: { 'x-admin-key': ADMIN_KEY } });
+    if (res.status === 401) { window.location.href = './admin.html'; return; }
+    _allQuotes = await res.json() || [];
+
+    const badge = document.getElementById('quoteCountBadge');
+    badge.textContent = _allQuotes.length + ' quote' + (_allQuotes.length !== 1 ? 's' : '') + ' received';
+    badge.style.display = 'block';
+
+    document.getElementById('adminLoading').style.display = 'none';
+    document.getElementById('adminToolbar').style.display = 'flex';
+    document.getElementById('adminTableWrap').style.display = 'block';
+    applyFilters();
+  } catch (e) {
+    document.getElementById('adminLoading').textContent = 'Failed to load quotes.';
+  }
+}
+
+function applyFilters() {
+  const q = document.getElementById('dashSearch').value.toLowerCase().trim();
+  const sort = document.getElementById('dashSort').value;
+
+  let list = _allQuotes.filter(r => {
+    if (!q) return true;
+    return (r.name || '').toLowerCase().includes(q)
+      || (r.email || '').toLowerCase().includes(q)
+      || (r.phone || '').toLowerCase().includes(q)
+      || (r.project_types || '').toLowerCase().includes(q);
+  });
+
+  list.sort((a, b) => sort === 'created_asc'
+    ? new Date(a.created_at) - new Date(b.created_at)
+    : new Date(b.created_at) - new Date(a.created_at));
+
+  renderQuotes(list);
+}
+
+function renderQuotes(list) {
+  const body = document.getElementById('quotesBody');
+  const empty = document.getElementById('adminEmpty');
+  body.innerHTML = '';
+
+  if (!list.length) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.forEach(q => {
+    const fileCount = q.file_paths?.length || 0;
+    const filesBadge = fileCount
+      ? `<span class="aq-files-badge has">${fileCount} file${fileCount > 1 ? 's' : ''}</span>`
+      : `<span class="aq-files-badge none">—</span>`;
+
+    const consultDate = q.preferred_date
+      ? fmtDate(q.preferred_date)
+      : (q.preferred_time && q.preferred_time !== 'Flexible' ? q.preferred_time : '—');
+
+    const tr = document.createElement('tr');
+    tr.id = `row-${q.id}`;
+    tr.style.cursor = 'pointer';
+    tr.innerHTML = `
+      <td style="white-space:nowrap;">${fmtDate(q.created_at)}</td>
+      <td>
+        <div class="admin-client-name">${q.name || '—'}</div>
+        <div class="admin-client-email">${q.email || ''}</div>
+        <div class="admin-client-email" style="margin-top:1px;">${q.phone || ''}</div>
+      </td>
+      <td>
+        <div style="font-size:13px;color:var(--text-primary,#e8e0d0);">${q.project_types || '—'}</div>
+        ${q.space_type ? `<div class="admin-client-email">${q.space_type}${q.area_display ? ' · ' + q.area_display : ''}</div>` : ''}
+      </td>
+      <td style="font-size:13px;color:var(--text-primary,#e8e0d0);white-space:nowrap;">${q.budget_range || '—'}</td>
+      <td style="font-size:13px;color:var(--text-primary,#e8e0d0);white-space:nowrap;">${consultDate}</td>
+      <td>${filesBadge}</td>
+      <td class="admin-td-actions">
+        <button class="admin-edit-btn" style="background:transparent;border:none;cursor:pointer;color:var(--champagne,#c9a96e);font-size:12px;letter-spacing:.06em;">View →</button>
+        <button class="admin-delete-row-btn" title="Delete quote">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+        </button>
+      </td>
+    `;
+    tr.addEventListener('click', e => {
+      if (e.target.closest('.admin-delete-row-btn')) return;
+      openDetail(q);
+    });
+    tr.querySelector('.admin-delete-row-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      confirmDelete(q);
+    });
+    body.appendChild(tr);
+  });
+}
+
+// ── Detail panel ─────────────────────────────────────────────────────────────
+
+function openDetail(q) {
+  _activeQuote = q;
+
+  document.getElementById('dpName').textContent = q.name || '—';
+  document.getElementById('dpDate').textContent = 'Received ' + fmtDateTime(q.created_at);
+  document.getElementById('dpEmail').textContent = q.email || '—';
+  document.getElementById('dpPhone').textContent = q.phone || '—';
+
+  // Contact action links
+  const links = document.getElementById('dpContactLinks');
+  links.innerHTML = '';
+  if (q.email) links.innerHTML += `<a class="aq-contact-link" href="mailto:${q.email}">Email Client</a>`;
+  if (q.phone) {
+    const digits = (q.phone || '').replace(/[\s+\-()]/g, '');
+    links.innerHTML += `<a class="aq-contact-link" href="tel:+${digits}">Call</a>`;
+    links.innerHTML += `<a class="aq-contact-link" href="https://wa.me/${digits}" target="_blank" rel="noopener">WhatsApp ↗</a>`;
+  }
+
+  // Project
+  document.getElementById('dpType').textContent = q.project_types || '—';
+  document.getElementById('dpSpace').textContent = q.space_type || '—';
+  document.getElementById('dpArea').textContent = q.area_display || (q.area_sqm ? q.area_sqm + ' m²' : '—');
+  document.getElementById('dpBudget').textContent = q.budget_range || '—';
+
+  // Consultation
+  document.getElementById('dpConsultDate').textContent = q.preferred_date ? fmtDate(q.preferred_date) : '—';
+  document.getElementById('dpConsultTime').textContent = q.preferred_time || '—';
+  document.getElementById('dpConsultFormat').textContent = q.consultation_format || '—';
+
+  // Notes
+  const notesSection = document.getElementById('dpNotesSection');
+  if (q.description) {
+    document.getElementById('dpNotes').textContent = q.description;
+    notesSection.style.display = 'block';
+  } else {
+    notesSection.style.display = 'none';
+  }
+
+  // Files
+  const filesSection = document.getElementById('dpFilesSection');
+  const filesList = document.getElementById('dpFilesList');
+  const files = q.file_paths || [];
+  if (files.length) {
+    filesList.innerHTML = files.map(path => `
+      <div class="aq-file-item">
+        <span class="aq-file-name">${fileName(path)}</span>
+        <button class="aq-file-dl" onclick="downloadFile('${path.replace(/'/g, "\\'")}', this)">Download ↗</button>
+      </div>
+    `).join('');
+    filesSection.style.display = 'block';
+  } else {
+    filesSection.style.display = 'none';
+  }
+
+  document.getElementById('detailOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+  _activeQuote = null;
+}
+
+// ── File download (signed URL) ────────────────────────────────────────────────
+
+async function downloadFile(path, btn) {
+  const orig = btn.textContent;
+  btn.textContent = '…';
+  btn.disabled = true;
+  try {
+    const res = await fetch(`${QUOTES_URL}?file=${encodeURIComponent(path)}`, {
+      headers: { 'x-admin-key': ADMIN_KEY },
+    });
+    const { url, error } = await res.json();
+    if (error) throw new Error(error);
+    window.open(url, '_blank', 'noopener');
+  } catch (e) {
+    alert('Could not open file: ' + e.message);
+  } finally {
+    btn.textContent = orig;
+    btn.disabled = false;
+  }
+}
+
+// ── Delete ───────────────────────────────────────────────────────────────────
+
+function deleteFromPanel() {
+  if (_activeQuote) confirmDelete(_activeQuote);
+}
+
+async function confirmDelete(q) {
+  if (!confirm(`Delete quote from ${q.name}? This cannot be undone.`)) return;
+  try {
+    const res = await fetch(QUOTES_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ action: 'delete', id: q.id }),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    _allQuotes = _allQuotes.filter(r => r.id !== q.id);
+    closeDetail();
+    applyFilters();
+
+    const badge = document.getElementById('quoteCountBadge');
+    badge.textContent = _allQuotes.length + ' quote' + (_allQuotes.length !== 1 ? 's' : '') + ' received';
+  } catch (e) {
+    alert('Delete failed: ' + e.message);
+  }
+}
+
+loadQuotes();
+</script>
+</body>
+</html>
