@@ -107,7 +107,7 @@
       <div class="form-group">
         <label class="form-label en-only">Phone / WhatsApp *</label>
         <label class="form-label ar-only">رقم الهاتف / واتساب *</label>
-        <input type="tel" class="form-input" id="qfPhone" placeholder="+971 50 XXX XXXX" required/>
+        <input type="tel" class="form-input" id="qfPhone" placeholder="+1 212 XXX XXXX" required/>
       </div>
       <div class="form-group">
         <label class="form-label en-only">Email Address *</label>
@@ -325,9 +325,8 @@ function getFormData(){
     alert(isAr ? 'يرجى إدخال بريد إلكتروني صحيح.' : 'Please enter a valid email address.');
     return null;
   }
-  const cleanPhone = phone.replace(/[\s\-]/g, '');
-  if(!/^(\+971|00971|0)?[0-9]{8,12}$/.test(cleanPhone)){
-    alert(isAr ? 'يرجى إدخال رقم هاتف إماراتي صحيح.' : 'Please enter a valid UAE phone number (e.g. +971 50 XXX XXXX).');
+  if(!/^\+?[\d\s\-()\[\]]{6,20}$/.test(phone.trim())){
+    alert(isAr ? 'يرجى إدخال رقم هاتف صحيح.' : 'Please enter a valid phone number.');
     return null;
   }
   return {name, phone, email, msg};
