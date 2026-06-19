@@ -5,7 +5,7 @@ const corsHeaders = {
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
 const TEAM_EMAIL = Deno.env.get('TEAM_EMAIL') || 'info@thewalls.ae'
-const FROM_EMAIL = Deno.env.get('FROM_EMAIL') || 'The Walls <quotes@contact.thewalls.ae>'
+const FROM_EMAIL = Deno.env.get('FROM_EMAIL') || 'The Walls <donotreply@contact.thewalls.ae>'
 
 async function sendEmail(to: string, subject: string, html: string) {
   if (!RESEND_API_KEY) {
