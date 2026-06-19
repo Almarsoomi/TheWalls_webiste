@@ -268,8 +268,8 @@
           </div>
           <div class="form-group full">
             <label class="form-label"><span class="en-only">WhatsApp / Phone *</span><span class="ar-only">واتساب / الهاتف *</span></label>
-            <input type="tel" class="form-input" id="q_phone" placeholder="+971 50 XXX XXXX" oninput="qClearErr('phone')"/>
-            <div class="form-error-msg" id="err-phone"><span class="en-only">Enter a UAE number — e.g. +971 50 123 4567</span><span class="ar-only">أدخل رقم إماراتي — مثال: ‎+971 50 123 4567</span></div>
+            <input type="tel" class="form-input" id="q_phone" placeholder="+1 212 XXX XXXX" oninput="qClearErr('phone')"/>
+            <div class="form-error-msg" id="err-phone"><span class="en-only">Please enter a valid phone number.</span><span class="ar-only">يرجى إدخال رقم هاتف صحيح.</span></div>
           </div>
           <div class="form-group full">
             <label class="form-label"><span class="en-only">Email address *</span><span class="ar-only">البريد الإلكتروني *</span></label>
@@ -604,7 +604,7 @@ function goToStep(n) {
 }
 
 /* ── Validation helpers ────────────────────────────── */
-function isUAEPhone(v){ return /^(\+971|00971|0)?(5[024568]\d{7}|[2-9]\d{7})$/.test(v.replace(/[\s\-()]/g,'')); }
+function isUAEPhone(v){ return /^\+?[\d\s\-()\[\]]{6,20}$/.test(v.trim()); }
 function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
 function qShowErr(id){ document.getElementById('err-'+id).style.display='block'; const inp=document.getElementById('q_'+id); if(inp){inp.classList.add('err');inp.classList.remove('ok');} }
 function qClearErr(id){ document.getElementById('err-'+id).style.display='none'; const inp=document.getElementById('q_'+id); if(inp){inp.classList.remove('err');if(inp.value.trim())inp.classList.add('ok');} }
