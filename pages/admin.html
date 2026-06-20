@@ -11,6 +11,19 @@
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<style>
+.blocked-screen{text-align:center;padding:12px 0 0}
+.blocked-lock{width:40px;height:40px;margin:0 auto 20px;color:rgba(201,169,110,.45)}
+.blocked-heading{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--cream);margin-bottom:10px;line-height:1.2}
+.blocked-sub{font-size:13px;color:var(--gray-mid);line-height:1.65;max-width:280px;margin:0 auto 32px}
+.blocked-countdown{font-family:var(--display);font-size:80px;letter-spacing:.04em;line-height:1;color:var(--champagne);margin-bottom:8px}
+.blocked-unit{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-muted);margin-bottom:24px}
+.blocked-footer{font-size:11px;color:rgba(107,107,104,.55);letter-spacing:.04em}
+.attempt-bar{display:flex;gap:5px;justify-content:center;margin-top:16px;margin-bottom:4px}
+.attempt-pip{width:8px;height:8px;border-radius:50%;background:rgba(201,169,110,.18);transition:background .3s}
+.attempt-pip.used{background:rgba(201,169,110,.55)}
+.attempt-pip.danger{background:rgba(210,80,80,.7)}
+</style>
 </head>
 <body>
 
@@ -22,30 +35,65 @@
     <div class="admin-login-logo">
       <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:80px;width:auto;filter:brightness(0.9);"/>
     </div>
-    <div class="admin-login-eyebrow">Internal Access</div>
-    <h1 class="admin-login-title">Dashboard</h1>
-    <p class="admin-login-desc">Enter your admin password to access the project management dashboard.</p>
 
-    <div class="form-group" style="margin-top:28px;">
-      <label class="form-label">Admin Password</label>
-      <input type="password" class="form-input" id="adminPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
-      <div class="form-error-msg" id="adminPwdErr" style="display:none;">Incorrect password. Please try again.</div>
+    <!-- NORMAL LOGIN FORM -->
+    <div id="loginFormBody">
+      <div class="admin-login-eyebrow">Internal Access</div>
+      <h1 class="admin-login-title">Dashboard</h1>
+      <p class="admin-login-desc">Enter your admin password to access the project management dashboard.</p>
+
+      <div class="form-group" style="margin-top:28px;">
+        <label class="form-label">Admin Password</label>
+        <input type="password" class="form-input" id="adminPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+        <div class="form-error-msg" id="adminPwdErr" style="display:none;margin-top:8px;"></div>
+        <div class="attempt-bar" id="attemptBar" style="display:none;"></div>
+      </div>
+
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-top:24px;margin-bottom:4px;"></div>
+
+      <button class="btn-send-db" id="btnAdminLogin" onclick="doLogin()" style="margin-top:20px;width:100%;">
+        <span>Enter Dashboard</span>
+      </button>
     </div>
 
-    <!-- Cloudflare Turnstile human verification -->
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAADnKDrkmUEVsWND9" data-theme="dark" style="margin-top:24px;margin-bottom:4px;"></div>
-
-    <button class="btn-send-db" id="btnAdminLogin" onclick="doLogin()" style="margin-top:20px;width:100%;">
-      <span>Enter Dashboard</span>
-    </button>
+    <!-- BLOCKED SCREEN -->
+    <div id="blockedScreen" style="display:none;" class="blocked-screen">
+      <svg class="blocked-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      <div class="blocked-heading">Access Blocked</div>
+      <div class="blocked-sub">Too many failed login attempts from your connection.</div>
+      <div class="blocked-countdown" id="blockedCountdown">--:--</div>
+      <div class="blocked-unit">remaining</div>
+      <div class="blocked-footer">The form will restore automatically when the timer reaches zero.</div>
+    </div>
   </div>
 </div>
 
 <script src="../assets/js/main.js"></script>
 <script>
 const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-projects';
+const BLOCK_KEY = 'tw_admin_blocked_until';
 
-if (localStorage.getItem('admin_key')) verifyAndRedirect(localStorage.getItem('admin_key'));
+let _countdownInterval = null;
+
+// On load: check localStorage block, then try auto-login if key stored
+if (checkLocalBlock()) {
+  // already showing blocked screen — don't try to redirect
+} else if (localStorage.getItem('admin_key')) {
+  verifyAndRedirect(localStorage.getItem('admin_key'));
+}
+
+function checkLocalBlock() {
+  const until = localStorage.getItem(BLOCK_KEY);
+  if (until && new Date(until) > new Date()) {
+    showBlockedScreen(until);
+    return true;
+  }
+  localStorage.removeItem(BLOCK_KEY);
+  return false;
+}
 
 async function verifyAndRedirect(key) {
   try {
@@ -53,11 +101,16 @@ async function verifyAndRedirect(key) {
     if (res.ok) {
       localStorage.setItem('admin_key', key);
       window.location.href = './admin-dashboard.html';
+    } else if (res.status === 429) {
+      const data = await res.json();
+      if (data.blocked_until) enterBlockedState(data.blocked_until);
     }
-  } catch (e) { /* not logged in */ }
+  } catch {}
 }
 
 async function doLogin() {
+  if (checkLocalBlock()) return;
+
   const pwd = document.getElementById('adminPwd').value;
   const btn = document.getElementById('btnAdminLogin');
   const err = document.getElementById('adminPwdErr');
@@ -65,8 +118,7 @@ async function doLogin() {
 
   const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
   if (!turnstileToken) {
-    err.textContent = 'Please complete the human verification check.';
-    err.style.display = 'block';
+    showErr('Please complete the human verification check.');
     return;
   }
 
@@ -78,26 +130,120 @@ async function doLogin() {
     const res = await fetch(ADMIN_PROJECTS_URL, {
       headers: { 'x-admin-key': pwd, 'x-turnstile-token': turnstileToken },
     });
+
     if (res.ok) {
       localStorage.setItem('admin_key', pwd);
       window.location.href = './admin-dashboard.html';
-    } else {
-      err.textContent = res.status === 403
-        ? 'Verification failed. Please try the check again.'
-        : 'Incorrect password. Please try again.';
-      err.style.display = 'block';
-      document.getElementById('adminPwd').classList.add('err');
-      btn.disabled = false;
-      btn.querySelector('span').textContent = 'Enter Dashboard';
-      if (window.turnstile) turnstile.reset();
+      return;
     }
-  } catch (e) {
-    err.textContent = 'Connection error. Please try again.';
-    err.style.display = 'block';
+
+    const data = await res.json();
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'Enter Dashboard';
+
+    if (res.status === 429 || data.error === 'blocked') {
+      if (data.blocked_until) enterBlockedState(data.blocked_until);
+      return;
+    }
+
+    if (res.status === 401) {
+      document.getElementById('adminPwd').classList.add('err');
+      const remaining = data.remaining_attempts;
+      const nextBlock = data.block_duration || '15 minutes';
+      if (remaining !== undefined) {
+        showErr(
+          remaining === 1
+            ? `Wrong password — 1 attempt remaining before a ${nextBlock} block.`
+            : `Wrong password — ${remaining} attempts remaining before a ${nextBlock} block.`
+        );
+        renderAttemptBar(data);
+      } else {
+        showErr('Wrong password. Please try again.');
+      }
+      if (window.turnstile) turnstile.reset();
+      return;
+    }
+
+    if (res.status === 403) {
+      showErr('Verification failed. Please try the check again.');
+      if (window.turnstile) turnstile.reset();
+      return;
+    }
+
+    showErr('Something went wrong. Please try again.');
+    if (window.turnstile) turnstile.reset();
+  } catch {
+    showErr('Connection error. Please try again.');
     btn.disabled = false;
     btn.querySelector('span').textContent = 'Enter Dashboard';
     if (window.turnstile) turnstile.reset();
   }
+}
+
+function showErr(msg) {
+  const err = document.getElementById('adminPwdErr');
+  err.textContent = msg;
+  err.style.display = 'block';
+}
+
+function renderAttemptBar(data) {
+  const bar = document.getElementById('attemptBar');
+  const remaining = data.remaining_attempts ?? 0;
+  const tier = data.block_tier ?? 0;
+  const total = tier === 0 ? 5 : tier === 1 ? 2 : 1;
+  const used = total - remaining;
+
+  bar.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'attempt-pip' + (i < used ? (remaining <= 1 ? ' danger' : ' used') : '');
+    bar.appendChild(pip);
+  }
+  bar.style.display = 'flex';
+}
+
+function enterBlockedState(blockedUntil) {
+  localStorage.setItem(BLOCK_KEY, blockedUntil);
+  showBlockedScreen(blockedUntil);
+}
+
+function showBlockedScreen(blockedUntil) {
+  document.getElementById('loginFormBody').style.display = 'none';
+  document.getElementById('blockedScreen').style.display = 'block';
+  updateCountdown(blockedUntil);
+  if (_countdownInterval) clearInterval(_countdownInterval);
+  _countdownInterval = setInterval(() => {
+    const remaining = updateCountdown(blockedUntil);
+    if (remaining <= 0) {
+      clearInterval(_countdownInterval);
+      _countdownInterval = null;
+      localStorage.removeItem(BLOCK_KEY);
+      restoreLoginForm();
+    }
+  }, 1000);
+}
+
+function updateCountdown(blockedUntil) {
+  const ms = Math.max(0, new Date(blockedUntil) - Date.now());
+  const total = Math.ceil(ms / 1000);
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  const display = h > 0
+    ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
+    : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('blockedCountdown').textContent = display;
+  return ms;
+}
+
+function restoreLoginForm() {
+  document.getElementById('blockedScreen').style.display = 'none';
+  document.getElementById('loginFormBody').style.display = 'block';
+  document.getElementById('adminPwd').value = '';
+  document.getElementById('adminPwd').classList.remove('err');
+  document.getElementById('adminPwdErr').style.display = 'none';
+  document.getElementById('attemptBar').style.display = 'none';
+  if (window.turnstile) turnstile.reset();
 }
 </script>
 </body>

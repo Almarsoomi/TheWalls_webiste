@@ -229,6 +229,25 @@ Deno.serve(async (req: Request) => {
       return json({ success: true })
     }
 
+    // ── SECURITY LOG ──────────────────────────────────────────
+
+    if (action === 'get-security-log') {
+      const { data, error } = await supabase
+        .from('admin_login_attempts')
+        .select('*')
+        .order('last_attempt', { ascending: false })
+      if (error) throw error
+      return json({ success: true, attempts: data })
+    }
+
+    if (action === 'unblock-ip') {
+      const { ip } = body
+      if (!ip) return json({ error: 'ip required' }, 400)
+      const { error } = await supabase.from('admin_login_attempts').delete().eq('ip', ip)
+      if (error) throw error
+      return json({ success: true })
+    }
+
     return json({ error: 'Unknown action' }, 400)
   } catch (e) {
     return json({ error: e.message }, 500)

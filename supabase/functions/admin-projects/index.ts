@@ -12,49 +12,77 @@ const supabase = createClient(
 )
 const TURNSTILE_SECRET = Deno.env.get('TURNSTILE_SECRET_KEY')
 
+// Tier config: [max_attempts, block_duration_ms, label]
+const TIERS = [
+  { limit: 5, ms: 15 * 60 * 1000,       label: '15 minutes' },
+  { limit: 2, ms: 60 * 60 * 1000,       label: '1 hour'     },
+  { limit: 0, ms: 24 * 60 * 60 * 1000,  label: '24 hours'   }, // limit 0 = any wrong = instant block
+]
+
 async function verifyTurnstile(token: string): Promise<boolean> {
   if (!TURNSTILE_SECRET) return false
   try {
-    const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    const r = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ secret: TURNSTILE_SECRET, response: token }),
     }).then(r => r.json())
-    return verify.success === true
-  } catch {
-    return false
-  }
+    return r.success === true
+  } catch { return false }
 }
 
-async function checkRateLimit(ip: string): Promise<boolean> {
+async function getBlockStatus(ip: string): Promise<{ blocked: boolean; blocked_until?: string }> {
   const { data } = await supabase
     .from('admin_login_attempts')
     .select('blocked_until')
     .eq('ip', ip)
     .maybeSingle()
-  if (data?.blocked_until && new Date(data.blocked_until) > new Date()) return false
-  return true
+  if (data?.blocked_until && new Date(data.blocked_until) > new Date()) {
+    return { blocked: true, blocked_until: data.blocked_until }
+  }
+  return { blocked: false }
 }
 
-async function recordFailedAttempt(ip: string) {
-  const { data } = await supabase
+async function recordWrongPassword(ip: string) {
+  const { data: record } = await supabase
     .from('admin_login_attempts')
-    .select('attempts')
+    .select('*')
     .eq('ip', ip)
     .maybeSingle()
-  const attempts = (data?.attempts ?? 0) + 1
-  const blocked_until = attempts >= 5
-    ? new Date(Date.now() + 15 * 60 * 1000).toISOString()
-    : null
-  await supabase.from('admin_login_attempts').upsert({
-    ip, attempts, blocked_until, last_attempt: new Date().toISOString(),
-  })
+
+  const now = new Date()
+
+  // If a previous block has expired, advance to the next tier and reset attempt count
+  const blockExpired = record?.blocked_until && new Date(record.blocked_until) <= now
+  let tier = Math.min(record?.block_tier ?? 0, 2)
+  let attempts: number
+
+  if (blockExpired) {
+    tier = Math.min(tier + 1, 2)
+    attempts = 1
+  } else {
+    attempts = (record?.attempts ?? 0) + 1
+  }
+
+  const { limit, ms, label } = TIERS[tier]
+  const shouldBlock = tier >= 2 || attempts >= limit
+
+  if (shouldBlock) {
+    const blocked_until = new Date(now.getTime() + ms).toISOString()
+    await supabase.from('admin_login_attempts').upsert({
+      ip, attempts, blocked_until, block_tier: tier, last_attempt: now.toISOString(),
+    })
+    return { blocked: true, blocked_until, block_duration: label }
+  } else {
+    await supabase.from('admin_login_attempts').upsert({
+      ip, attempts, blocked_until: null, block_tier: tier, last_attempt: now.toISOString(),
+    })
+    return { blocked: false, remaining: limit - attempts, block_duration: label }
+  }
 }
 
-async function resetAttempts(ip: string) {
-  await supabase.from('admin_login_attempts').upsert({
-    ip, attempts: 0, blocked_until: null, last_attempt: new Date().toISOString(),
-  })
+async function clearAttempts(ip: string) {
+  await supabase.from('admin_login_attempts').delete().eq('ip', ip)
 }
 
 Deno.serve(async (req: Request) => {
@@ -70,24 +98,31 @@ Deno.serve(async (req: Request) => {
 
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors })
 
-  // Turnstile gate (login page sends this; dashboard data calls do not)
+  // Turnstile gate — only enforced when a token is present (login page sends it; dashboard calls do not)
   const turnstileToken = req.headers.get('x-turnstile-token')
   if (turnstileToken && !(await verifyTurnstile(turnstileToken))) {
     return json({ error: 'Bot verification failed' }, 403)
   }
 
-  // Rate limiting — block IPs with too many recent failures
   const ip = req.headers.get('cf-connecting-ip') ?? req.headers.get('x-forwarded-for') ?? 'unknown'
-  if (!(await checkRateLimit(ip))) {
-    return json({ error: 'Too many failed attempts. Try again in 15 minutes.' }, 429)
+  const adminKey = req.headers.get('x-admin-key')
+  const isCorrectPassword = adminKey && adminKey === Deno.env.get('ADMIN_PASSWORD')
+
+  if (!isCorrectPassword) {
+    // Wrong password — check and update rate limit
+    const blockStatus = await getBlockStatus(ip)
+    if (blockStatus.blocked) {
+      return json({ error: 'blocked', blocked_until: blockStatus.blocked_until }, 429)
+    }
+    const result = await recordWrongPassword(ip)
+    if (result.blocked) {
+      return json({ error: 'blocked', blocked_until: result.blocked_until, block_duration: result.block_duration }, 429)
+    }
+    return json({ error: 'Wrong password', remaining_attempts: result.remaining, block_duration: result.block_duration }, 401)
   }
 
-  const adminKey = req.headers.get('x-admin-key')
-  if (!adminKey || adminKey !== Deno.env.get('ADMIN_PASSWORD')) {
-    await recordFailedAttempt(ip)
-    return json({ error: 'Unauthorized' }, 401)
-  }
-  await resetAttempts(ip)
+  // Correct password — clear any previous attempt record
+  await clearAttempts(ip)
 
   const url = new URL(req.url)
   const projectId = url.searchParams.get('id')
@@ -123,8 +158,7 @@ Deno.serve(async (req: Request) => {
         const { data, error } = await supabase
           .from('projects')
           .insert({ name, client_name, client_email: client_email.toLowerCase(), status: status || 'active', start_date: start_date || null, expected_completion: expected_completion || null })
-          .select()
-          .single()
+          .select().single()
         if (error) throw error
         return json({ success: true, project: data })
       }

@@ -10,6 +10,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/style.css"/>
 <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<style>
+/* ── SECURITY SECTION ──────────────────────────────────────── */
+.security-section{margin-top:56px;padding-top:40px;border-top:.5px solid rgba(201,169,110,.08)}
+.security-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.security-title-row{display:flex;align-items:center;gap:10px}
+.security-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--champagne);margin-bottom:6px}
+.security-title{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--cream)}
+.security-badge{display:inline-flex;align-items:center;padding:3px 9px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--sans)}
+.security-badge-blocked{background:rgba(210,80,80,.1);color:#d25050;border:.5px solid rgba(210,80,80,.3)}
+.security-badge-warning{background:rgba(232,168,78,.08);color:#e8a84e;border:.5px solid rgba(232,168,78,.25)}
+.security-badge-clear{background:rgba(122,204,122,.08);color:#7acc7a;border:.5px solid rgba(122,204,122,.2)}
+.security-refresh-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;background:transparent;border:.5px solid rgba(201,169,110,.3);color:var(--champagne);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.security-refresh-btn:hover{background:rgba(201,169,110,.06)}
+.sec-table{width:100%;border-collapse:collapse;font-size:13px}
+.sec-table th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-muted);padding:8px 12px;text-align:left;border-bottom:.5px solid rgba(201,169,110,.1)}
+.sec-table td{padding:12px;border-bottom:.5px solid rgba(201,169,110,.05);vertical-align:middle}
+.sec-table tr:last-child td{border-bottom:none}
+.sec-ip{font-family:monospace;font-size:12px;color:var(--cream)}
+.sec-tier-chip{display:inline-block;padding:2px 8px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:rgba(107,107,104,.12);color:var(--gray-mid)}
+.sec-blocked-text{color:#d25050;font-size:12px}
+.sec-timer{font-family:var(--display);font-size:18px;color:#d25050;letter-spacing:.04em}
+.sec-clear-text{color:rgba(107,107,104,.4);font-size:12px}
+.sec-unblock-btn{padding:4px 12px;background:transparent;border:.5px solid rgba(201,169,110,.3);color:var(--champagne);font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.sec-unblock-btn:hover{background:rgba(201,169,110,.08)}
+.security-empty{padding:24px 12px;color:var(--gray-muted);font-size:13px;display:flex;align-items:center;gap:10px}
+.security-empty::before{content:'';width:20px;height:.5px;background:var(--gray-muted)}
+.security-auto{font-size:11px;color:rgba(107,107,104,.4);margin-top:10px;letter-spacing:.04em}
+</style>
 </head>
 <body>
 
@@ -49,7 +77,7 @@
     <p>Loading projects…</p>
   </div>
 
-  <!-- TOOLBAR: search + filter + sort -->
+  <!-- TOOLBAR -->
   <div class="admin-toolbar" id="adminToolbar" style="display:none;">
     <input type="text" class="admin-search" id="dashSearch" placeholder="Search projects or clients…" oninput="applyFilters()"/>
     <select class="admin-filter-select" id="dashStatus" onchange="applyFilters()">
@@ -84,7 +112,37 @@
       <p>No projects match your search.</p>
     </div>
   </div>
-</div>
+
+  <!-- SECURITY SECTION -->
+  <div class="security-section" id="securitySection" style="display:none;">
+    <div class="security-header">
+      <div>
+        <div class="security-eyebrow">Monitoring</div>
+        <div class="security-title">Login Security</div>
+      </div>
+      <button class="security-refresh-btn" onclick="loadSecurityLog()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:13px;height:13px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Refresh
+      </button>
+    </div>
+    <table class="sec-table" id="secTable">
+      <thead>
+        <tr>
+          <th>IP Address</th>
+          <th>Phase</th>
+          <th>Attempts</th>
+          <th>Block Expires</th>
+          <th>Last Attempt</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="secBody"></tbody>
+    </table>
+    <div class="security-empty" id="secEmpty" style="display:none;">No suspicious activity recorded.</div>
+    <div class="security-auto" id="secAutoLabel"></div>
+  </div>
+
+</div><!-- /admin-wrap -->
 
 <!-- NEW PROJECT MODAL -->
 <div class="est-modal-overlay" id="newProjectModal" onclick="closeNewProjectModal()">
@@ -132,19 +190,20 @@
 <script>
 const ADMIN_KEY = localStorage.getItem('admin_key');
 const ADMIN_PROJECTS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-projects';
+const ADMIN_CONTENT_URL  = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-content';
 
 if (!ADMIN_KEY) window.location.href = './admin.html';
 
 let _allProjects = [];
+let _securityTimers = {};
+let _securityRefreshTimer = null;
 
 function adminLogout() {
   localStorage.removeItem('admin_key');
   window.location.href = './admin.html';
 }
 
-function openNewProjectModal() {
-  document.getElementById('newProjectModal').classList.add('show');
-}
+function openNewProjectModal() { document.getElementById('newProjectModal').classList.add('show'); }
 function closeNewProjectModal() {
   document.getElementById('newProjectModal').classList.remove('show');
   document.getElementById('newProjectStatus').style.display = 'none';
@@ -162,6 +221,13 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+function formatDateTime(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+// ── PROJECTS ─────────────────────────────────────────────────
+
 function applyFilters() {
   const q = document.getElementById('dashSearch').value.toLowerCase();
   const status = document.getElementById('dashStatus').value;
@@ -177,7 +243,7 @@ function applyFilters() {
     if (sort === 'created_asc') return new Date(a.created_at) - new Date(b.created_at);
     if (sort === 'start_asc') return new Date(a.start_date || 0) - new Date(b.start_date || 0);
     if (sort === 'start_desc') return new Date(b.start_date || 0) - new Date(a.start_date || 0);
-    return new Date(b.created_at) - new Date(a.created_at); // created_desc default
+    return new Date(b.created_at) - new Date(a.created_at);
   });
 
   renderProjects(list);
@@ -187,13 +253,8 @@ function renderProjects(list) {
   const body = document.getElementById('projectsBody');
   const empty = document.getElementById('adminEmpty');
   body.innerHTML = '';
-
-  if (!list || list.length === 0) {
-    empty.style.display = 'block';
-    return;
-  }
+  if (!list || list.length === 0) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
-
   list.forEach(p => {
     const tr = document.createElement('tr');
     tr.id = `row-${p.id}`;
@@ -230,7 +291,6 @@ async function loadProjects() {
     const res = await fetch(ADMIN_PROJECTS_URL, { headers: { 'x-admin-key': ADMIN_KEY } });
     if (res.status === 401) { window.location.href = './admin.html'; return; }
     _allProjects = await res.json() || [];
-
     document.getElementById('adminLoading').style.display = 'none';
     document.getElementById('adminToolbar').style.display = 'flex';
     document.getElementById('adminTableWrap').style.display = 'block';
@@ -275,7 +335,117 @@ async function createProject() {
   }
 }
 
+// ── SECURITY LOG ──────────────────────────────────────────────
+
+const TIER_LABELS = ['Initial phase', 'Post 15-min block', 'Post 1-hour block'];
+
+function secCountdown(blockedUntil, cellId) {
+  function tick() {
+    const el = document.getElementById(cellId);
+    if (!el) return;
+    const ms = Math.max(0, new Date(blockedUntil) - Date.now());
+    if (ms <= 0) {
+      el.innerHTML = '<span class="sec-clear-text">Expired</span>';
+      return;
+    }
+    const total = Math.ceil(ms / 1000);
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    const display = h > 0
+      ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
+      : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    el.innerHTML = `<span class="sec-timer">${display}</span>`;
+  }
+  tick();
+  if (_securityTimers[cellId]) clearInterval(_securityTimers[cellId]);
+  _securityTimers[cellId] = setInterval(tick, 1000);
+}
+
+async function loadSecurityLog() {
+  // Clear existing per-cell timers
+  Object.values(_securityTimers).forEach(t => clearInterval(t));
+  _securityTimers = {};
+
+  const res = await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'get-security-log' }),
+  });
+  const data = await res.json();
+  const attempts = data.attempts || [];
+
+  const section = document.getElementById('securitySection');
+  section.style.display = 'block';
+
+  const body = document.getElementById('secBody');
+  const empty = document.getElementById('secEmpty');
+  body.innerHTML = '';
+
+  if (attempts.length === 0) {
+    empty.style.display = 'flex';
+    document.getElementById('secTable').style.display = 'none';
+    document.getElementById('secAutoLabel').textContent = '';
+    return;
+  }
+
+  empty.style.display = 'none';
+  document.getElementById('secTable').style.display = 'table';
+
+  attempts.forEach(a => {
+    const isBlocked = a.blocked_until && new Date(a.blocked_until) > new Date();
+    const tier = Math.min(a.block_tier ?? 0, 2);
+    const cellId = `sec-timer-${a.ip.replace(/[.:]/g, '-')}`;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <span class="sec-ip">${a.ip}</span>
+        ${isBlocked ? ' <span class="security-badge security-badge-blocked">Blocked</span>' : a.attempts > 2 ? ' <span class="security-badge security-badge-warning">Flagged</span>' : ''}
+      </td>
+      <td><span class="sec-tier-chip">${TIER_LABELS[tier] || 'Post 24h block'}</span></td>
+      <td style="color:var(--cream)">${a.attempts}</td>
+      <td id="${cellId}">—</td>
+      <td style="color:var(--gray-mid);font-size:12px">${formatDateTime(a.last_attempt)}</td>
+      <td>
+        ${isBlocked
+          ? `<button class="sec-unblock-btn" onclick="unblockIp('${a.ip}')">Unblock</button>`
+          : `<span class="sec-clear-text" style="font-size:11px">Not blocked</span>`}
+      </td>
+    `;
+    body.appendChild(tr);
+
+    if (isBlocked) {
+      secCountdown(a.blocked_until, cellId);
+    } else if (a.blocked_until) {
+      document.getElementById(cellId).innerHTML = '<span class="sec-clear-text">Expired</span>';
+    } else {
+      document.getElementById(cellId).innerHTML = '<span class="sec-clear-text">—</span>';
+    }
+  });
+
+  const now = new Date();
+  document.getElementById('secAutoLabel').textContent =
+    `Last refreshed ${now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })} · auto-refreshes every 30s`;
+}
+
+async function unblockIp(ip) {
+  if (!confirm(`Unblock ${ip}?`)) return;
+  await fetch(ADMIN_CONTENT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ action: 'unblock-ip', ip }),
+  });
+  loadSecurityLog();
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+
 loadProjects();
+loadSecurityLog();
+
+// Auto-refresh security log every 30 seconds
+_securityRefreshTimer = setInterval(loadSecurityLog, 30000);
 </script>
 </body>
 </html>
