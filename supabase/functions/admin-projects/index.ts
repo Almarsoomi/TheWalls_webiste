@@ -82,7 +82,10 @@ async function recordWrongPassword(ip: string) {
 }
 
 async function clearAttempts(ip: string) {
-  await supabase.from('admin_login_attempts').delete().eq('ip', ip)
+  // Soft-reset: keep the record visible in the security log but lift the block
+  await supabase.from('admin_login_attempts')
+    .update({ attempts: 0, blocked_until: null, last_attempt: new Date().toISOString() })
+    .eq('ip', ip)
 }
 
 Deno.serve(async (req: Request) => {
