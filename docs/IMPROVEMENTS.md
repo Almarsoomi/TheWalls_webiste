@@ -108,6 +108,10 @@ That's already ahead of most local competitors. The ideas below are the gaps.
 19. **Structured data (schema.org)**: `LocalBusiness`/`HomeAndConstructionBusiness`,
     `FAQPage`, `Article` for blog, `BreadcrumbList`. *Why:* rich results + local
     SEO. *Effort: S · Priority: High.*
+    > ✅ **Done** — `LocalBusiness` + `WebSite` schema already in `index.html`.
+    > `Article` JSON-LD added to all 5 blog posts with headline, description,
+    > datePublished, author, publisher, keywords. `FAQPage` schema with 12 Q&As
+    > added to `pages/faq.html`. Done 2026-06-20.
 
 20. **`hreflang` tags for EN/AR** + per-language URLs. *Why:* correct bilingual
     indexing. *Effort: S · Priority: High.*
@@ -126,6 +130,10 @@ That's already ahead of most local competitors. The ideas below are the gaps.
 
 25. **FAQ page** (cost, timelines, permits, warranty) — feeds FAQ schema and
     deflects repetitive inquiries. *Effort: S · Priority: High.*
+    > ✅ **Done** — `pages/faq.html` built with 12 Q&As across 5 categories
+    > (Costs, Timelines, Process, Materials, Warranty). Accordion UI using
+    > `<details>`/`<summary>`. FAQPage JSON-LD schema. FAQ added to nav on all
+    > pages and footers. Done 2026-06-20.
 
 ## F. UX, performance & accessibility
 
@@ -147,11 +155,12 @@ That's already ahead of most local competitors. The ideas below are the gaps.
 ---
 
 ## Suggested first sprint (impact ÷ effort)
-1. Per-service SEO landing pages (#12) + schema/hreflang (#19, #20)
-2. Pricing tiers (#4) + FAQ page (#25)
+1. Per-service SEO landing pages (#12) + hreflang (#20)
+2. Pricing tiers (#4)
 3. Brochure capture (#2) + Google Reviews (#6) + Awards page (#7)
-4. Image optimization (#27) + custom 404 (#26) ← #26 done
+4. Image optimization (#27)
 5. Real scheduling (#3) ← partially done
+> Items #19, #25, #26 already done.
 
 ## Competitor inspiration (for benchmarking, not copying)
 Look at premium fit-out/joinery and design studios for patterns to beat:
