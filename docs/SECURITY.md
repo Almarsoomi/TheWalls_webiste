@@ -2,7 +2,7 @@
 
 > Audience: developer/owner. Scope: this repo (static HTML/CSS/JS on GitHub Pages)
 > + Supabase backend (Edge Functions, Postgres with RLS, Auth magic links) +
-> Cloudflare Turnstile. Last reviewed: 2026-06-18.
+> Cloudflare Turnstile. Last reviewed: 2026-06-20.
 
 This document explains **how to check** the security of the site and the
 **concrete fixes** to make the database and APIs safe. Items are tagged by
@@ -34,27 +34,35 @@ Do this before every release and after any backend change.
 
 ## 1. Authentication & Access Control
 
-### 🔴 1.1 Admin login can be brute-forced at the API level
-`pages/admin.html` stores the password in `localStorage` and sends it as the
-`x-admin-key` header. `admin-projects` only verifies Turnstile **when a token is
-present**:
-```ts
-if (turnstileToken && !(await verifyTurnstile(turnstileToken))) return 403
-if (!adminKey || adminKey !== ADMIN_PASSWORD) return unauthorized()
-```
-An attacker who calls the endpoint directly **without** a token skips the bot
-check entirely and can guess the password unlimited times. The Turnstile widget
-only protects the browser UI, not the API.
+### ✅ 1.1 Admin login brute-force protection — IMPLEMENTED
 
-**Fixes (pick one, in order of preference):**
-- **Best:** migrate admin to **Supabase Auth** (a real user account + role claim)
-  instead of a shared password. Gate data with RLS / `auth.role()`.
-- **Good:** add **rate limiting / lockout** keyed by IP in the Edge Function
-  (e.g. store attempt counts in a `login_attempts` table or Upstash Redis; block
-  after N failures for M minutes).
-- **Minimum:** require a **valid Turnstile token on every credential check**
-  (remove the `turnstileToken &&` short-circuit so a missing token = reject),
-  and use a long, high-entropy password (32+ random chars).
+**Implemented 2026-06-20** via `admin_login_attempts` Postgres table +
+`admin-projects` Edge Function (migration `004_rate_limiting.sql`,
+`005_block_tier.sql`).
+
+**How it works — progressive lockout tiers:**
+
+| Tier | Trigger | Block duration |
+|------|---------|----------------|
+| 0 — Initial | 5 wrong passwords | 15 minutes |
+| 1 — Post first block | 2 more wrong passwords | 1 hour |
+| 2+ — Persistent | Any wrong password after that | 24 hours (repeating) |
+
+- Keyed by IP (`cf-connecting-ip` / `x-forwarded-for`).
+- Correct password **always** succeeds and lifts any active block — the real admin
+  can never be permanently locked out.
+- On block: the UI shows a full-screen countdown timer (Bebas Neue) that persists
+  across page refreshes via `localStorage` key `tw_admin_blocked_until`.
+- On wrong password (not yet blocked): shows remaining-attempts count + visual
+  pip bar; final warning before block is highlighted in red.
+- **Security monitoring dashboard** in `admin-dashboard.html` → Login Security
+  section: shows all IPs with attempt history, live block countdown timers,
+  one-click Unblock, auto-refreshes every 30 s.
+- Attempt history is preserved after successful login (only the block is lifted,
+  not the count) so monitoring always reflects real activity.
+
+**Remaining gap:** the raw `x-admin-key` password still lives in `localStorage`
+(§1.2). Long-term, migrate to Supabase Auth.
 
 ### 🟠 1.2 Admin password lives in `localStorage`
 Any XSS on an admin page would exfiltrate it, and it persists indefinitely.
@@ -78,28 +86,31 @@ someone who controls the inbox.
 
 ## 2. API / Edge Function security
 
-### 🔴 2.1 CORS is wide open (`Access-Control-Allow-Origin: '*'`)
-Every function (`save-contact`, `save-booking`, `save-estimate`, `check-client`,
-`admin-projects`, `admin-content`) allows **any** website to call it. That lets
-third-party sites drive your APIs (spam inserts, admin-login guessing, email
-enumeration).
+### ✅ 2.1 CORS locked to known origins — IMPLEMENTED
 
-**Fix:** validate the `Origin` header and echo back only allowed origins:
+**Implemented 2026-06-20.** All 9 Edge Functions now validate the `Origin` header
+and echo back only allowed origins (replacing the previous `'*'`):
+
 ```ts
-const ALLOWED = new Set([
+const ALLOWED_ORIGINS = new Set([
   'https://thewalls.ae',
   'https://www.thewalls.ae',
   'https://almarsoomi.github.io',
 ])
 const origin = req.headers.get('Origin') ?? ''
 const cors = {
-  'Access-Control-Allow-Origin': ALLOWED.has(origin) ? origin : 'https://thewalls.ae',
+  'Access-Control-Allow-Origin': ALLOWED_ORIGINS.has(origin) ? origin : 'https://thewalls.ae',
   'Vary': 'Origin',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-key, x-turnstile-token',
 }
 ```
-(CORS is a browser control, not a hard server boundary — still pair it with the
-auth/rate-limit fixes above.)
+
+Functions covered: `admin-projects`, `admin-content`, `admin-quotes`,
+`portal-action`, `check-client`, `save-contact`, `save-booking`,
+`save-estimate`, `save-quote`.
+
+(CORS is a browser control, not a hard server boundary — auth + rate-limit fixes
+above are the real enforcement layer.)
 
 ### 🟠 2.2 Email enumeration via `check-client`
 `check-client` returns `{ exists: true|false }` for any email. This is inherent
@@ -185,8 +196,8 @@ admin link is `rel="nofollow"`. Keep it that way and exclude them in `robots.txt
 
 ## 5. Priority checklist (do these first)
 
-- [ ] 🔴 Add rate-limiting/lockout (or Supabase Auth) to admin login — §1.1
-- [ ] 🔴 Lock down CORS to known origins on all functions — §2.1
+- [x] 🔴 Add rate-limiting/lockout to admin login — §1.1 ✅ done 2026-06-20
+- [x] 🔴 Lock down CORS to known origins on all functions — §2.1 ✅ done 2026-06-20
 - [ ] 🟠 Set strict Supabase Auth redirect allow-list — §1.3
 - [ ] 🟠 Verify storage buckets are private + signed URLs — §3.3
 - [ ] 🟠 Add Turnstile + rate limit to `check-client` and public forms — §2.2/2.3
