@@ -1,9 +1,10 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+const ALLOWED_ORIGINS = new Set([
+  'https://thewalls.ae',
+  'https://www.thewalls.ae',
+  'https://almarsoomi.github.io',
+])
 
 const supabase = createClient(
   Deno.env.get('SUPABASE_URL')!,
@@ -13,18 +14,24 @@ const supabase = createClient(
 // Returns whether a project exists for the given client email. Used by the
 // client portal to avoid sending a magic link to an unregistered address.
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+  const origin = req.headers.get('Origin') ?? ''
+  const cors = {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.has(origin) ? origin : 'https://thewalls.ae',
+    'Vary': 'Origin',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  }
+
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors })
 
   try {
     const { email } = await req.json()
     if (!email || typeof email !== 'string') {
       return new Response(JSON.stringify({ error: 'Email required' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...cors, 'Content-Type': 'application/json' },
       })
     }
 
-    // Admin stores client_email lowercased, so match on the normalized value.
     const { data, error } = await supabase
       .from('projects')
       .select('id')
@@ -33,12 +40,12 @@ Deno.serve(async (req: Request) => {
     if (error) throw error
 
     return new Response(JSON.stringify({ exists: (data?.length ?? 0) > 0 }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...cors, 'Content-Type': 'application/json' },
     })
   } catch (e) {
     return new Response(JSON.stringify({ error: e.message }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...cors, 'Content-Type': 'application/json' },
     })
   }
 })

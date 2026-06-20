@@ -1,9 +1,10 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-key, x-turnstile-token',
-}
+const ALLOWED_ORIGINS = new Set([
+  'https://thewalls.ae',
+  'https://www.thewalls.ae',
+  'https://almarsoomi.github.io',
+])
 
 const supabase = createClient(
   Deno.env.get('SUPABASE_URL')!,
@@ -25,38 +26,73 @@ async function verifyTurnstile(token: string): Promise<boolean> {
   }
 }
 
-function unauthorized() {
-  return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-    status: 401,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+async function checkRateLimit(ip: string): Promise<boolean> {
+  const { data } = await supabase
+    .from('admin_login_attempts')
+    .select('blocked_until')
+    .eq('ip', ip)
+    .maybeSingle()
+  if (data?.blocked_until && new Date(data.blocked_until) > new Date()) return false
+  return true
+}
+
+async function recordFailedAttempt(ip: string) {
+  const { data } = await supabase
+    .from('admin_login_attempts')
+    .select('attempts')
+    .eq('ip', ip)
+    .maybeSingle()
+  const attempts = (data?.attempts ?? 0) + 1
+  const blocked_until = attempts >= 5
+    ? new Date(Date.now() + 15 * 60 * 1000).toISOString()
+    : null
+  await supabase.from('admin_login_attempts').upsert({
+    ip, attempts, blocked_until, last_attempt: new Date().toISOString(),
   })
 }
 
-function json(data: unknown, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+async function resetAttempts(ip: string) {
+  await supabase.from('admin_login_attempts').upsert({
+    ip, attempts: 0, blocked_until: null, last_attempt: new Date().toISOString(),
   })
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+  const origin = req.headers.get('Origin') ?? ''
+  const cors = {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.has(origin) ? origin : 'https://thewalls.ae',
+    'Vary': 'Origin',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-key, x-turnstile-token',
+  }
 
-  // Cloudflare Turnstile gate for interactive logins. The login page sends a
-  // turnstile token; data calls from the dashboard (already authenticated) do not.
+  const json = (data: unknown, status = 200) =>
+    new Response(JSON.stringify(data), { status, headers: { ...cors, 'Content-Type': 'application/json' } })
+
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors })
+
+  // Turnstile gate (login page sends this; dashboard data calls do not)
   const turnstileToken = req.headers.get('x-turnstile-token')
   if (turnstileToken && !(await verifyTurnstile(turnstileToken))) {
     return json({ error: 'Bot verification failed' }, 403)
   }
 
+  // Rate limiting — block IPs with too many recent failures
+  const ip = req.headers.get('cf-connecting-ip') ?? req.headers.get('x-forwarded-for') ?? 'unknown'
+  if (!(await checkRateLimit(ip))) {
+    return json({ error: 'Too many failed attempts. Try again in 15 minutes.' }, 429)
+  }
+
   const adminKey = req.headers.get('x-admin-key')
-  if (!adminKey || adminKey !== Deno.env.get('ADMIN_PASSWORD')) return unauthorized()
+  if (!adminKey || adminKey !== Deno.env.get('ADMIN_PASSWORD')) {
+    await recordFailedAttempt(ip)
+    return json({ error: 'Unauthorized' }, 401)
+  }
+  await resetAttempts(ip)
 
   const url = new URL(req.url)
   const projectId = url.searchParams.get('id')
 
   try {
-    // GET /admin-projects?id=xxx — full project with all content
     if (req.method === 'GET' && projectId) {
       const [{ data: project, error: pErr }, { data: milestones }, { data: updates }, { data: photos }, { data: documents }] =
         await Promise.all([
@@ -70,7 +106,6 @@ Deno.serve(async (req: Request) => {
       return json({ project, milestones, updates, photos, documents })
     }
 
-    // GET /admin-projects — list all projects
     if (req.method === 'GET') {
       const { data, error } = await supabase
         .from('projects')
@@ -80,7 +115,6 @@ Deno.serve(async (req: Request) => {
       return json(data)
     }
 
-    // POST /admin-projects — create or update project
     if (req.method === 'POST') {
       const body = await req.json()
       const { action, id, name, client_name, client_email, status, start_date, expected_completion } = body

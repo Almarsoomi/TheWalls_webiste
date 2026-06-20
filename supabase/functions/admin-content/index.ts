@@ -1,9 +1,10 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-key',
-}
+const ALLOWED_ORIGINS = new Set([
+  'https://thewalls.ae',
+  'https://www.thewalls.ae',
+  'https://almarsoomi.github.io',
+])
 
 const supabase = createClient(
   Deno.env.get('SUPABASE_URL')!,
@@ -37,21 +38,6 @@ async function getProject(project_id: string) {
   return data
 }
 
-function unauthorized() {
-  return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-    status: 401,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-  })
-}
-
-function json(data: unknown, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-  })
-}
-
-// Decode base64 data URI to Uint8Array
 function decodeBase64File(dataUri: string): { bytes: Uint8Array; mime: string } {
   const [header, b64] = dataUri.split(',')
   const mime = header.match(/:(.*?);/)?.[1] ?? 'application/octet-stream'
@@ -62,10 +48,20 @@ function decodeBase64File(dataUri: string): { bytes: Uint8Array; mime: string } 
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+  const origin = req.headers.get('Origin') ?? ''
+  const cors = {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.has(origin) ? origin : 'https://thewalls.ae',
+    'Vary': 'Origin',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-key',
+  }
+
+  const json = (data: unknown, status = 200) =>
+    new Response(JSON.stringify(data), { status, headers: { ...cors, 'Content-Type': 'application/json' } })
+
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors })
 
   const adminKey = req.headers.get('x-admin-key')
-  if (!adminKey || adminKey !== Deno.env.get('ADMIN_PASSWORD')) return unauthorized()
+  if (!adminKey || adminKey !== Deno.env.get('ADMIN_PASSWORD')) return json({ error: 'Unauthorized' }, 401)
 
   try {
     const body = await req.json()
@@ -93,7 +89,6 @@ Deno.serve(async (req: Request) => {
       const { error } = await supabase.from('milestones').update(updates).eq('id', id)
       if (error) throw error
 
-      // Notify client when milestone is marked done
       if (status === 'done') {
         const { data: milestone } = await supabase
           .from('milestones')
@@ -134,7 +129,6 @@ Deno.serve(async (req: Request) => {
         .single()
       if (error) throw error
 
-      // Notify client of new team update
       const project = await getProject(project_id)
       if (project) {
         await notify('team-message', {
@@ -185,7 +179,6 @@ Deno.serve(async (req: Request) => {
         .single()
       if (error) throw error
 
-      // Notify client of new photos
       const project = await getProject(project_id)
       if (project) {
         await notify('new-photos', {
