@@ -140,6 +140,13 @@
 }
 .btn-wiz-next:disabled{opacity:.5;cursor:not-allowed;}
 .btn-wiz-next svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+.btn-wiz-skip{
+  background:transparent;border:none;color:var(--champagne-muted);
+  padding:13px 14px;font-family:var(--sans);font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;cursor:pointer;transition:color .2s;white-space:nowrap;
+  text-decoration:underline;text-underline-offset:3px;
+}
+.btn-wiz-skip:hover{color:var(--champagne);}
 </style>
 </head>
 <body>
@@ -409,6 +416,7 @@
 
         <div class="wizard-btns">
           <button class="btn-wiz-back" onclick="goToStep(2)"><span class="en-only">Back</span><span class="ar-only">رجوع</span></button>
+          <button type="button" class="btn-wiz-skip" onclick="skipStep(3)"><span class="en-only">Skip</span><span class="ar-only">تخطّي</span></button>
           <button class="btn-wiz-next" onclick="goToStep(4)">
             <span class="en-only">Next: Upload Files</span>
             <span class="ar-only">التالي: رفع الملفات</span>
@@ -440,6 +448,7 @@
 
         <div class="wizard-btns">
           <button class="btn-wiz-back" onclick="goToStep(3)"><span class="en-only">Back</span><span class="ar-only">رجوع</span></button>
+          <button type="button" class="btn-wiz-skip" onclick="skipStep(4)"><span class="en-only">Skip</span><span class="ar-only">تخطّي</span></button>
           <button class="btn-wiz-next" id="btnStep4Next" onclick="step4Next()">
             <span class="en-only">Next: Review</span>
             <span class="ar-only">التالي: المراجعة</span>
@@ -601,6 +610,23 @@ function goToStep(n) {
   if (n === 5) populateReview();
   currentStep = n;
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* Skip an optional step (3: consultation, 4: files) and move on */
+function skipStep(n) {
+  if (n === 3) {
+    // discard any consultation preferences entered
+    document.getElementById('prefDate').value = '';
+    document.getElementById('prefTime').value = '';
+    document.getElementById('consultFormat').selectedIndex = 0;
+    checkWeekend('');
+    goToStep(4);
+  } else if (n === 4) {
+    // discard any selected files
+    pendingFiles.length = 0;
+    renderFileList();
+    goToStep(5);
+  }
 }
 
 /* ── Validation helpers ────────────────────────────── */
