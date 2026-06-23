@@ -177,7 +177,8 @@
     var cart = getCart();
     if (!cart.length) return;
     var items = cart.map(function (l) {
-      return { stripePriceId: PRODUCT_BY_ID[l.id].stripePriceId, qty: l.qty };
+      var p = PRODUCT_BY_ID[l.id];
+      return { stripePriceId: p.stripePriceId, id: p.id, name_en: p.name_en, price_aed: p.price_aed, qty: l.qty };
     });
     var btn = document.getElementById('btnPayOnline');
     btn.disabled = true;

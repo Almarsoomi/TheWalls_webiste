@@ -67,7 +67,13 @@ Deno.serve(async (req: Request) => {
       customer_name: 'Pending (Stripe)',
       phone: '-',
       email: '-',
-      items: items.map((it: any) => ({ stripePriceId: it.stripePriceId, qty: it.qty })),
+      items: items.map((it: any) => ({
+        stripePriceId: it.stripePriceId,
+        id: it.id ?? null,
+        name_en: it.name_en ?? null,
+        price_aed: it.price_aed ?? null,
+        qty: it.qty,
+      })),
       total_aed: session.amount_total != null ? session.amount_total / 100 : null,
       stripe_session_id: session.id,
     })
