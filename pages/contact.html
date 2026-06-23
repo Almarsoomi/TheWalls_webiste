@@ -89,19 +89,25 @@
 <!-- MAP + FORM — side by side on desktop -->
 <div class="map-form-grid rev">
   <div class="map-col">
-    <div class="map-label">Studio Location</div>
-    <h2 class="map-title">Visit our <em style="color:var(--champagne);font-style:italic;">studio</em> in Dubai</h2>
+    <div class="map-label en-only">Studio Location</div>
+    <div class="map-label ar-only">موقع الاستوديو</div>
+    <h2 class="map-title en-only">Visit our <em style="color:var(--champagne);font-style:italic;">studio</em> in Dubai</h2>
+    <h2 class="map-title ar-only">زر <em style="color:var(--champagne);font-style:italic;">استوديونا</em> في دبي</h2>
     <div class="map-container">
       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14449.545431970506!2d55.2209567!3d25.1226256!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b3022e84ee7%3A0x1c03557023d6d8cc!2sThe%20Walls%20DXB!5e0!3m2!1sen!2sae!4v1691660793560!5m2!1sen!2sae" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    <p class="map-note">Studio location shown. Exact showroom address is available via WhatsApp.</p>
+    <p class="map-note en-only">Studio location shown. Exact showroom address is available via WhatsApp.</p>
+    <p class="map-note ar-only">الموقع المعروض للاستوديو. عنوان صالة العرض الدقيق متاح عبر واتساب.</p>
   </div>
   <div class="form-col">
-    <h2 class="qf-title">Quick <em style="color:var(--champagne);font-style:italic;">inquiry</em></h2>
-    <p class="qf-sub">Send us a message and we'll get back to you within 2 hours on WhatsApp or email.</p>
+    <h2 class="qf-title en-only">Quick <em style="color:var(--champagne);font-style:italic;">inquiry</em></h2>
+    <h2 class="qf-title ar-only">استفسار <em style="color:var(--champagne);font-style:italic;">سريع</em></h2>
+    <p class="qf-sub en-only">Send us a message and we'll get back to you within 2 hours on WhatsApp or email.</p>
+    <p class="qf-sub ar-only">أرسل لنا رسالة وسنرد عليك خلال ساعتين عبر واتساب أو البريد الإلكتروني.</p>
     <form class="quick-form">
       <div class="form-group">
-        <label class="form-label">Your Name *</label>
+        <label class="form-label en-only">Your Name *</label>
+        <label class="form-label ar-only">اسمك *</label>
         <input type="text" class="form-input" id="qfName" required/>
       </div>
       <div class="form-group">
@@ -173,55 +179,63 @@
 
 <!-- FAQ SECTION -->
 <div class="faq-section rev">
-  <div class="faq-label">Common Questions</div>
-  <h2 class="faq-title">Frequently <em style="color:var(--champagne);font-style:italic;">asked</em></h2>
+  <div class="faq-label en-only">Common Questions</div>
+  <div class="faq-label ar-only">أسئلة شائعة</div>
+  <h2 class="faq-title en-only">Frequently <em style="color:var(--champagne);font-style:italic;">asked</em></h2>
+  <h2 class="faq-title ar-only">الأسئلة <em style="color:var(--champagne);font-style:italic;">المتكررة</em></h2>
   <div class="faq-grid">
     <div class="faq-item" onclick="toggleFAQ(this)">
       <div class="faq-question">
         <div class="faq-toggle">+</div>
-        <div>Do you offer a free consultation?</div>
+        <div><span class="en-only">Do you offer a free consultation?</span><span class="ar-only">هل تقدمون استشارة مجانية؟</span></div>
       </div>
-      <div class="faq-answer">Yes, we offer a complimentary 30-minute consultation with our architects to discuss your requirements, space, timeline, and budget. This includes a site visit if needed.</div>
+      <div class="faq-answer en-only">Yes, we offer a complimentary 30-minute consultation with our architects to discuss your requirements, space, timeline, and budget. This includes a site visit if needed.</div>
+      <div class="faq-answer ar-only">نعم، نقدم استشارة مجانية مدتها 30 دقيقة مع معماريينا لمناقشة متطلباتك ومساحتك والجدول الزمني والميزانية. يشمل ذلك زيارة الموقع عند الحاجة.</div>
     </div>
 
     <div class="faq-item" onclick="toggleFAQ(this)">
       <div class="faq-question">
         <div class="faq-toggle">+</div>
-        <div>How long does a typical fit-out take?</div>
+        <div><span class="en-only">How long does a typical fit-out take?</span><span class="ar-only">كم يستغرق التشطيب الداخلي عادةً؟</span></div>
       </div>
-      <div class="faq-answer">Timeline depends on scope: joinery-only projects take 2–4 weeks, complete villa interiors 8–16 weeks, office fit-outs 6–10 weeks. We provide a detailed project schedule after the design phase.</div>
+      <div class="faq-answer en-only">Timeline depends on scope: joinery-only projects take 2–4 weeks, complete villa interiors 8–16 weeks, office fit-outs 6–10 weeks. We provide a detailed project schedule after the design phase.</div>
+      <div class="faq-answer ar-only">تعتمد المدة على نطاق العمل: مشاريع النجارة فقط تستغرق من 2 إلى 4 أسابيع، والتشطيب الكامل للفلل من 8 إلى 16 أسبوعاً، وتشطيب المكاتب من 6 إلى 10 أسابيع. نقدم جدولاً زمنياً مفصلاً للمشروع بعد مرحلة التصميم.</div>
     </div>
 
     <div class="faq-item" onclick="toggleFAQ(this)">
       <div class="faq-question">
         <div class="faq-toggle">+</div>
-        <div>Do you work outside Dubai?</div>
+        <div><span class="en-only">Do you work outside Dubai?</span><span class="ar-only">هل تعملون خارج دبي؟</span></div>
       </div>
-      <div class="faq-answer">Yes, we work across the UAE (Abu Dhabi, Sharjah, etc.) and on request for GCC countries. Travel and logistics costs may apply depending on location and project scope.</div>
+      <div class="faq-answer en-only">Yes, we work across the UAE (Abu Dhabi, Sharjah, etc.) and on request for GCC countries. Travel and logistics costs may apply depending on location and project scope.</div>
+      <div class="faq-answer ar-only">نعم، نعمل في جميع أنحاء الإمارات (أبوظبي، الشارقة، وغيرها) وعند الطلب في دول مجلس التعاون الخليجي. قد تُطبَّق تكاليف السفر والخدمات اللوجستية حسب الموقع ونطاق المشروع.</div>
     </div>
 
     <div class="faq-item" onclick="toggleFAQ(this)">
       <div class="faq-question">
         <div class="faq-toggle">+</div>
-        <div>Can you work from my existing design drawings?</div>
+        <div><span class="en-only">Can you work from my existing design drawings?</span><span class="ar-only">هل يمكنكم العمل وفق مخططات التصميم الحالية لدي؟</span></div>
       </div>
-      <div class="faq-answer">Absolutely. We can build from any approved design drawings or work collaboratively with your existing interior designer. We're equally comfortable leading the design process from scratch.</div>
+      <div class="faq-answer en-only">Absolutely. We can build from any approved design drawings or work collaboratively with your existing interior designer. We're equally comfortable leading the design process from scratch.</div>
+      <div class="faq-answer ar-only">بالتأكيد. يمكننا التنفيذ وفق أي مخططات تصميم معتمدة أو العمل بالتعاون مع مصمم الديكور الداخلي الخاص بك. كما يسعدنا قيادة عملية التصميم من البداية.</div>
     </div>
 
     <div class="faq-item" onclick="toggleFAQ(this)">
       <div class="faq-question">
         <div class="faq-toggle">+</div>
-        <div>What is the minimum project size?</div>
+        <div><span class="en-only">What is the minimum project size?</span><span class="ar-only">ما هو الحد الأدنى لحجم المشروع؟</span></div>
       </div>
-      <div class="faq-answer">There is no minimum. We undertake single custom pieces (bespoke wardrobes, TV units, decorative installations) as well as complete residential and commercial fit-outs.</div>
+      <div class="faq-answer en-only">There is no minimum. We undertake single custom pieces (bespoke wardrobes, TV units, decorative installations) as well as complete residential and commercial fit-outs.</div>
+      <div class="faq-answer ar-only">لا يوجد حد أدنى. ننفذ القطع المخصصة المفردة (خزائن الملابس وحدات التلفزيون والتركيبات الديكورية المصممة حسب الطلب) إضافةً إلى التشطيب السكني والتجاري الكامل.</div>
     </div>
 
     <div class="faq-item" onclick="toggleFAQ(this)">
       <div class="faq-question">
         <div class="faq-toggle">+</div>
-        <div>Do you provide a warranty?</div>
+        <div><span class="en-only">Do you provide a warranty?</span><span class="ar-only">هل تقدمون ضماناً؟</span></div>
       </div>
-      <div class="faq-answer">Yes, all custom joinery and installation work carries a 1-year workmanship warranty covering manufacturing defects and installation quality.</div>
+      <div class="faq-answer en-only">Yes, all custom joinery and installation work carries a 1-year workmanship warranty covering manufacturing defects and installation quality.</div>
+      <div class="faq-answer ar-only">نعم، تتمتع جميع أعمال النجارة المخصصة والتركيب بضمان جودة صناعة لمدة عام واحد يغطي عيوب التصنيع وجودة التركيب.</div>
     </div>
   </div>
 </div>

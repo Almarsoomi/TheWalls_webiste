@@ -76,19 +76,22 @@
 
 <!-- PAGE HERO -->
 <div class="page-hero">
-  <div class="ph-eyebrow">Our Work</div>
-  <h1 class="ph-h1">Our <em>Work</em></h1>
-  <p class="ph-desc">A selection of completed projects spanning residential villas, corporate offices, retail spaces, and hospitality venues across Dubai and the UAE. Each project showcases our commitment to precision joinery, custom manufacturing, and architectural excellence.</p>
+  <div class="ph-eyebrow en-only">Our Work</div>
+  <div class="ph-eyebrow ar-only">أعمالنا</div>
+  <h1 class="ph-h1 en-only">Our <em>Work</em></h1>
+  <h1 class="ph-h1 ar-only">أعمـ<em>النا</em></h1>
+  <p class="ph-desc en-only">A selection of completed projects spanning residential villas, corporate offices, retail spaces, and hospitality venues across Dubai and the UAE. Each project showcases our commitment to precision joinery, custom manufacturing, and architectural excellence.</p>
+  <p class="ph-desc ar-only">مجموعة مختارة من المشاريع المنجزة تشمل الفلل السكنية والمكاتب المؤسسية ومساحات التجزئة ومنشآت الضيافة في أنحاء دبي والإمارات. يجسّد كل مشروع التزامنا بدقة النجارة والتصنيع المفصّل والتميّز المعماري.</p>
 </div>
 
 <!-- FILTER BAR -->
 <div class="filter-bar">
-  <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
-  <button class="filter-btn" onclick="filterProjects('residential', this)">Residential</button>
-  <button class="filter-btn" onclick="filterProjects('office', this)">Office</button>
-  <button class="filter-btn" onclick="filterProjects('retail', this)">Retail</button>
-  <button class="filter-btn" onclick="filterProjects('hospitality', this)">Hospitality</button>
-  <button class="filter-btn" onclick="filterProjects('joinery', this)">Joinery Only</button>
+  <button class="filter-btn active" onclick="filterProjects('all', this)"><span class="en-only">All</span><span class="ar-only">الكل</span></button>
+  <button class="filter-btn" onclick="filterProjects('residential', this)"><span class="en-only">Residential</span><span class="ar-only">سكني</span></button>
+  <button class="filter-btn" onclick="filterProjects('office', this)"><span class="en-only">Office</span><span class="ar-only">المكاتب</span></button>
+  <button class="filter-btn" onclick="filterProjects('retail', this)"><span class="en-only">Retail</span><span class="ar-only">التجزئة</span></button>
+  <button class="filter-btn" onclick="filterProjects('hospitality', this)"><span class="en-only">Hospitality</span><span class="ar-only">الضيافة</span></button>
+  <button class="filter-btn" onclick="filterProjects('joinery', this)"><span class="en-only">Joinery Only</span><span class="ar-only">النجارة فقط</span></button>
 </div>
 
 <!-- SEARCH BAR -->
@@ -103,80 +106,113 @@
 <div class="portfolio-grid" id="portfolioGrid">
   <div class="portfolio-card" data-category="hospitality" data-search="lento restaurant hospitality um al sheif dubai steel concrete leather bespoke furniture signage lighting" data-link="./case-study-lento.html" style="background-image:url('../assets/images/LENTO_PROJ/LENTO%201.jpg');background-size:cover;background-position:center;">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Hospitality</div>
-      <div class="portfolio-name">Lento Restaurant</div>
-      <div class="portfolio-meta">Um Al Sheif, Dubai · 2024</div>
+      <div class="portfolio-cat en-only">Hospitality</div>
+      <div class="portfolio-cat ar-only">الضيافة</div>
+      <div class="portfolio-name en-only">Lento Restaurant</div>
+      <div class="portfolio-name ar-only">مطعم لينتو</div>
+      <div class="portfolio-meta en-only">Um Al Sheif, Dubai · 2024</div>
+      <div class="portfolio-meta ar-only">أم الشيف، دبي · 2024</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="residential" data-search="palm jumeirah villa residential luxury" data-link="./case-study-villa.html">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Residential</div>
-      <div class="portfolio-name">Palm Jumeirah Villa</div>
-      <div class="portfolio-meta">Palm Jumeirah, Dubai · 2024</div>
+      <div class="portfolio-cat en-only">Residential</div>
+      <div class="portfolio-cat ar-only">سكني</div>
+      <div class="portfolio-name en-only">Palm Jumeirah Villa</div>
+      <div class="portfolio-name ar-only">فيلا نخلة جميرا</div>
+      <div class="portfolio-meta en-only">Palm Jumeirah, Dubai · 2024</div>
+      <div class="portfolio-meta ar-only">نخلة جميرا، دبي · 2024</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="residential" data-search="master suite villa emirates hills private">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Residential</div>
-      <div class="portfolio-name">Master Suite — Private Villa</div>
-      <div class="portfolio-meta">Emirates Hills, Dubai · 2024</div>
+      <div class="portfolio-cat en-only">Residential</div>
+      <div class="portfolio-cat ar-only">سكني</div>
+      <div class="portfolio-name en-only">Master Suite — Private Villa</div>
+      <div class="portfolio-name ar-only">الجناح الرئيسي — فيلا خاصة</div>
+      <div class="portfolio-meta en-only">Emirates Hills, Dubai · 2024</div>
+      <div class="portfolio-meta ar-only">تلال الإمارات، دبي · 2024</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="residential joinery" data-search="walk-in wardrobe villa jumeirah ivory lacquer">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Residential · Joinery</div>
-      <div class="portfolio-name">Walk-in Wardrobe</div>
-      <div class="portfolio-meta">Jumeirah, Dubai · 2024</div>
+      <div class="portfolio-cat en-only">Residential · Joinery</div>
+      <div class="portfolio-cat ar-only">سكني · النجارة</div>
+      <div class="portfolio-name en-only">Walk-in Wardrobe</div>
+      <div class="portfolio-name ar-only">خزانة ملابس قابلة للدخول</div>
+      <div class="portfolio-meta en-only">Jumeirah, Dubai · 2024</div>
+      <div class="portfolio-meta ar-only">جميرا، دبي · 2024</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="residential joinery" data-search="home office study arabian ranches timber desk">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Residential · Joinery</div>
-      <div class="portfolio-name">Home Office & Study</div>
-      <div class="portfolio-meta">Arabian Ranches, Dubai · 2023</div>
+      <div class="portfolio-cat en-only">Residential · Joinery</div>
+      <div class="portfolio-cat ar-only">سكني · النجارة</div>
+      <div class="portfolio-name en-only">Home Office & Study</div>
+      <div class="portfolio-name ar-only">مكتب منزلي وغرفة دراسة</div>
+      <div class="portfolio-meta en-only">Arabian Ranches, Dubai · 2023</div>
+      <div class="portfolio-meta ar-only">المرابع العربية، دبي · 2023</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="residential joinery" data-search="tv wall walnut joinery al barsha feature">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Residential · Joinery</div>
-      <div class="portfolio-name">TV Feature Wall</div>
-      <div class="portfolio-meta">Al Barsha, Dubai · 2023</div>
+      <div class="portfolio-cat en-only">Residential · Joinery</div>
+      <div class="portfolio-cat ar-only">سكني · النجارة</div>
+      <div class="portfolio-name en-only">TV Feature Wall</div>
+      <div class="portfolio-name ar-only">جدار تلفزيون مميّز</div>
+      <div class="portfolio-meta en-only">Al Barsha, Dubai · 2023</div>
+      <div class="portfolio-meta ar-only">البرشاء، دبي · 2023</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="office" data-search="corporate office fit-out difc solid surfaces joinery" data-link="./case-study-office.html">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Office</div>
-      <div class="portfolio-name">Corporate Office Fit-Out</div>
-      <div class="portfolio-meta">DIFC, Dubai · 2024</div>
+      <div class="portfolio-cat en-only">Office</div>
+      <div class="portfolio-cat ar-only">المكاتب</div>
+      <div class="portfolio-name en-only">Corporate Office Fit-Out</div>
+      <div class="portfolio-name ar-only">تشطيب مكتب مؤسسي</div>
+      <div class="portfolio-meta en-only">DIFC, Dubai · 2024</div>
+      <div class="portfolio-meta ar-only">مركز دبي المالي العالمي، دبي · 2024</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="office" data-search="medical clinic dubai hills park mustafa" data-link="./case-study-clinic.html">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Office · Medical</div>
-      <div class="portfolio-name">Medical Clinic Fit-Out</div>
-      <div class="portfolio-meta">Dubai Hills Park, Dubai · 2024</div>
+      <div class="portfolio-cat en-only">Office · Medical</div>
+      <div class="portfolio-cat ar-only">المكاتب · طبي</div>
+      <div class="portfolio-name en-only">Medical Clinic Fit-Out</div>
+      <div class="portfolio-name ar-only">تشطيب عيادة طبية</div>
+      <div class="portfolio-meta en-only">Dubai Hills Park, Dubai · 2024</div>
+      <div class="portfolio-meta ar-only">دبي هيلز بارك، دبي · 2024</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="retail" data-search="retail boutique mall emirates luxury display">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Retail</div>
-      <div class="portfolio-name">Luxury Boutique</div>
-      <div class="portfolio-meta">Mall of the Emirates, Dubai · 2023</div>
+      <div class="portfolio-cat en-only">Retail</div>
+      <div class="portfolio-cat ar-only">التجزئة</div>
+      <div class="portfolio-name en-only">Luxury Boutique</div>
+      <div class="portfolio-name ar-only">بوتيك فاخر</div>
+      <div class="portfolio-meta en-only">Mall of the Emirates, Dubai · 2023</div>
+      <div class="portfolio-meta ar-only">مول الإمارات، دبي · 2023</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="hospitality" data-search="gym fitness oxygen dubai hospitality">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Hospitality</div>
-      <div class="portfolio-name">Oxygen Gym Fit-Out</div>
-      <div class="portfolio-meta">Dubai, UAE · 2024</div>
+      <div class="portfolio-cat en-only">Hospitality</div>
+      <div class="portfolio-cat ar-only">الضيافة</div>
+      <div class="portfolio-name en-only">Oxygen Gym Fit-Out</div>
+      <div class="portfolio-name ar-only">تشطيب صالة أوكسجن الرياضية</div>
+      <div class="portfolio-meta en-only">Dubai, UAE · 2024</div>
+      <div class="portfolio-meta ar-only">دبي، الإمارات · 2024</div>
     </div>
   </div>
   <div class="portfolio-card" data-category="residential" data-search="modern penthouse downtown dubai residential luxury">
     <div class="portfolio-card-content">
-      <div class="portfolio-cat">Residential</div>
-      <div class="portfolio-name">Modern Penthouse — Downtown</div>
+      <div class="portfolio-cat en-only">Residential</div>
+      <div class="portfolio-cat ar-only">سكني</div>
+      <div class="portfolio-name en-only">Modern Penthouse — Downtown</div>
+      <div class="portfolio-name ar-only">بنتهاوس عصري — وسط المدينة</div>
       <!-- TODO: replace placeholder with real photo when client provides -->
-      <div class="portfolio-meta">Downtown Dubai · 2025</div>
+      <div class="portfolio-meta en-only">Downtown Dubai · 2025</div>
+      <div class="portfolio-meta ar-only">وسط مدينة دبي · 2025</div>
     </div>
   </div>
 </div>
