@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Orders | Admin — The Walls</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tw_theme')||'dark');</script>
+<style>
+.ao-detail-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:flex-end}
+.ao-detail-overlay.show{display:flex}
+.ao-detail-panel{width:min(560px,100vw);height:100vh;background:#141413;border-left:1px solid rgba(201,169,110,.15);overflow-y:auto;display:flex;flex-direction:column;animation:slideInRight .25s ease}
+@keyframes slideInRight{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
+.ao-panel-head{padding:28px 28px 20px;border-bottom:1px solid rgba(201,169,110,.1);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.ao-panel-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:300;color:#f5f0e8;margin:0 0 4px}
+.ao-panel-date{font-size:11px;color:#8a7253;letter-spacing:.06em}
+.ao-panel-close{background:transparent;border:1px solid rgba(201,169,110,.2);color:#c9a96e;width:32px;height:32px;border-radius:4px;cursor:pointer;font-size:18px;line-height:1;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.ao-panel-close:hover{background:rgba(201,169,110,.1)}
+.ao-panel-body{padding:20px 28px;flex:1}
+.ao-section{margin-bottom:24px}
+.ao-section-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#c9a96e;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(201,169,110,.1)}
+.ao-field{display:flex;gap:8px;margin-bottom:8px;font-size:13px}
+.ao-field-label{color:#8a7253;min-width:110px;flex-shrink:0}
+.ao-field-val{color:#e8e0d0}
+.ao-contact-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.ao-contact-link{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#c9a96e;text-decoration:none;border:1px solid rgba(201,169,110,.25);padding:6px 14px;border-radius:4px;transition:background .2s}
+.ao-contact-link:hover{background:rgba(201,169,110,.1)}
+.ao-items{display:flex;flex-direction:column;gap:6px}
+.ao-item-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:#e8e0d0;padding:8px 0;border-bottom:1px solid rgba(201,169,110,.08)}
+.ao-item-total{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#c9a96e;padding-top:10px;font-weight:500}
+.ao-panel-foot{padding:20px 28px;border-top:1px solid rgba(201,169,110,.1);display:flex;gap:12px}
+.ao-btn-delete{flex:1;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);color:#f87171;padding:12px;border-radius:4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.ao-btn-delete:hover{background:rgba(220,38,38,.15)}
+.ao-btn-close{flex:1;background:transparent;border:1px solid rgba(201,169,110,.2);color:#c9a96e;padding:12px;border-radius:4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.ao-btn-close:hover{background:rgba(201,169,110,.08)}
+.admin-nav-tab{font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:7px 14px;border-radius:4px;transition:all .2s}
+.admin-nav-tab.active{color:#c9a96e;background:rgba(201,169,110,.1)}
+.admin-nav-tab:not(.active){color:rgba(201,169,110,.45)}
+.admin-nav-tab:not(.active):hover{color:rgba(201,169,110,.75)}
+/* status + payment badges */
+.pay-badge{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:10px;border:1px solid rgba(201,169,110,.25);color:#c9a96e}
+.pay-badge.stripe{color:#7aa2f7;border-color:rgba(122,162,247,.3)}
+.status-select{font-family:var(--sans);font-size:11px;letter-spacing:.04em;padding:6px 10px;border-radius:4px;border:1px solid rgba(201,169,110,.25);background:#1c1c1a;color:#e8e0d0;cursor:pointer;text-transform:capitalize}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle}
+.st-pending{background:#e8a84e}.st-paid{background:#7acc7a}.st-out_for_delivery{background:#7aa2f7}.st-delivered{background:#3fae8d}.st-cancelled{background:#e06a6a}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- ADMIN NAV -->
+<nav id="mainNav" class="admin-nav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../assets/images/Logo/TheWallsLogo.png" alt="The Walls" style="height:100px;width:auto;"/>
+  </a>
+  <div class="nav-links" style="display:flex;align-items:center;gap:4px;">
+    <a href="./admin-dashboard.html" class="admin-nav-tab">Projects</a>
+    <a href="./admin-quotes.html" class="admin-nav-tab">Quotes</a>
+    <a href="./admin-orders.html" class="admin-nav-tab active">Orders</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/></svg></button>
+    <button class="nav-cta nav-logout" onclick="adminLogout()" style="background:transparent;border:0.5px solid rgba(201,169,110,0.4);cursor:pointer;">Log Out</button>
+  </div>
+</nav>
+
+<div class="admin-wrap">
+  <div class="admin-page-header">
+    <div>
+      <div class="admin-eyebrow">The Walls</div>
+      <h1 class="admin-page-title">Shop Orders</h1>
+    </div>
+    <div id="orderCountBadge" style="display:none;font-size:12px;color:#8a7253;letter-spacing:.06em;align-self:flex-end;padding-bottom:6px;"></div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="admin-loading" id="adminLoading">
+    <div class="portal-loading-spinner"></div>
+    <p>Loading orders…</p>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="admin-toolbar" id="adminToolbar" style="display:none;">
+    <input type="text" class="admin-search" id="dashSearch" placeholder="Search by name, email or phone…" oninput="applyFilters()"/>
+    <select class="admin-filter-select" id="statusFilter" onchange="applyFilters()">
+      <option value="all">All statuses</option>
+      <option value="pending">Pending</option>
+      <option value="paid">Paid</option>
+      <option value="out_for_delivery">Out for delivery</option>
+      <option value="delivered">Delivered</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+    <select class="admin-filter-select" id="payFilter" onchange="applyFilters()">
+      <option value="all">All payments</option>
+      <option value="cod">Cash on delivery</option>
+      <option value="stripe">Card</option>
+    </select>
+    <select class="admin-filter-select" id="dashSort" onchange="applyFilters()">
+      <option value="created_desc">Newest First</option>
+      <option value="created_asc">Oldest First</option>
+    </select>
+  </div>
+
+  <!-- TABLE -->
+  <div class="admin-table-wrap" id="adminTableWrap" style="display:none;">
+    <table class="admin-table" id="ordersTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Customer</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="ordersBody"></tbody>
+    </table>
+    <div class="admin-empty" id="adminEmpty" style="display:none;">
+      <p>No orders yet.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="ao-detail-overlay" id="detailOverlay" onclick="closeDetail()">
+  <div class="ao-detail-panel" onclick="event.stopPropagation()">
+    <div class="ao-panel-head">
+      <div>
+        <p class="ao-panel-name" id="dpName"></p>
+        <span class="ao-panel-date" id="dpDate"></span>
+      </div>
+      <button class="ao-panel-close" onclick="closeDetail()">×</button>
+    </div>
+
+    <div class="ao-panel-body">
+      <div class="ao-section">
+        <div class="ao-section-label">Status</div>
+        <select class="status-select" id="dpStatus" style="width:100%;" onchange="setStatusFromPanel(this.value)">
+          <option value="pending">Pending</option>
+          <option value="paid">Paid</option>
+          <option value="out_for_delivery">Out for delivery</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div class="ao-section">
+        <div class="ao-section-label">Items</div>
+        <div class="ao-items" id="dpItems"></div>
+        <div class="ao-item-total"><span>Total (excl. delivery)</span><span id="dpTotal"></span></div>
+      </div>
+
+      <div class="ao-section">
+        <div class="ao-section-label">Contact</div>
+        <div class="ao-field"><span class="ao-field-label">Email</span><span class="ao-field-val" id="dpEmail"></span></div>
+        <div class="ao-field"><span class="ao-field-label">Phone</span><span class="ao-field-val" id="dpPhone"></span></div>
+        <div class="ao-contact-links" id="dpContactLinks"></div>
+      </div>
+
+      <div class="ao-section" id="dpDeliverySection">
+        <div class="ao-section-label">Delivery</div>
+        <div class="ao-field"><span class="ao-field-label">Address</span><span class="ao-field-val" id="dpAddress"></span></div>
+        <div class="ao-field"><span class="ao-field-label">Emirate</span><span class="ao-field-val" id="dpEmirate"></span></div>
+        <div class="ao-field"><span class="ao-field-label">Payment</span><span class="ao-field-val" id="dpPayment"></span></div>
+      </div>
+    </div>
+
+    <div class="ao-panel-foot">
+      <button class="ao-btn-delete" onclick="deleteFromPanel()">Delete Order</button>
+      <button class="ao-btn-close" onclick="closeDetail()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const ADMIN_KEY = localStorage.getItem('admin_key');
+const ORDERS_URL = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1/admin-orders';
+if (!ADMIN_KEY) window.location.href = './admin.html';
+
+const STATUS_LABELS = {
+  pending: 'Pending', paid: 'Paid', out_for_delivery: 'Out for delivery',
+  delivered: 'Delivered', cancelled: 'Cancelled'
+};
+
+let _all = [];
+let _active = null;
+
+function adminLogout(){ localStorage.removeItem('admin_key'); window.location.href = './admin.html'; }
+
+function fmtDate(iso){ return iso ? new Date(iso).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '—'; }
+function fmtDateTime(iso){ return iso ? new Date(iso).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '—'; }
+function money(n){ return n==null ? '—' : 'AED ' + Number(n).toLocaleString('en-AE'); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function itemsSummary(items){
+  if(!Array.isArray(items)||!items.length) return '—';
+  return items.map(it => esc(it.name_en || it.id || 'Item') + ' ×' + (it.qty||1)).join(', ');
+}
+
+async function loadOrders(){
+  try{
+    const res = await fetch(ORDERS_URL, { headers: { 'x-admin-key': ADMIN_KEY } });
+    if(res.status === 401){ window.location.href = './admin.html'; return; }
+    _all = await res.json() || [];
+    const badge = document.getElementById('orderCountBadge');
+    badge.textContent = _all.length + ' order' + (_all.length!==1?'s':'');
+    badge.style.display = 'block';
+    document.getElementById('adminLoading').style.display = 'none';
+    document.getElementById('adminToolbar').style.display = 'flex';
+    document.getElementById('adminTableWrap').style.display = 'block';
+    applyFilters();
+  }catch(e){ document.getElementById('adminLoading').textContent = 'Failed to load orders.'; }
+}
+
+function applyFilters(){
+  const q = document.getElementById('dashSearch').value.toLowerCase().trim();
+  const sf = document.getElementById('statusFilter').value;
+  const pf = document.getElementById('payFilter').value;
+  const sort = document.getElementById('dashSort').value;
+  let list = _all.filter(o => {
+    if(sf!=='all' && o.status!==sf) return false;
+    if(pf!=='all' && o.payment_method!==pf) return false;
+    if(!q) return true;
+    return (o.customer_name||'').toLowerCase().includes(q)
+      || (o.email||'').toLowerCase().includes(q)
+      || (o.phone||'').toLowerCase().includes(q);
+  });
+  list.sort((a,b)=> sort==='created_asc'
+    ? new Date(a.created_at)-new Date(b.created_at)
+    : new Date(b.created_at)-new Date(a.created_at));
+  renderOrders(list);
+}
+
+function statusSelectHtml(o){
+  const opts = Object.keys(STATUS_LABELS).map(k =>
+    `<option value="${k}"${o.status===k?' selected':''}>${STATUS_LABELS[k]}</option>`).join('');
+  return `<span class="status-dot st-${esc(o.status)}"></span>`
+    + `<select class="status-select" data-id="${o.id}" onclick="event.stopPropagation()" onchange="setStatus('${o.id}', this.value)">${opts}</select>`;
+}
+
+function renderOrders(list){
+  const body = document.getElementById('ordersBody');
+  const empty = document.getElementById('adminEmpty');
+  body.innerHTML = '';
+  if(!list.length){ empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  list.forEach(o => {
+    const pay = o.payment_method === 'stripe'
+      ? '<span class="pay-badge stripe">Card</span>'
+      : '<span class="pay-badge">COD</span>';
+    const tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
+    tr.innerHTML = `
+      <td style="white-space:nowrap;">${fmtDate(o.created_at)}</td>
+      <td>
+        <div class="admin-client-name">${esc(o.customer_name)||'—'}</div>
+        <div class="admin-client-email">${esc(o.email)||''}</div>
+        <div class="admin-client-email" style="margin-top:1px;">${esc(o.phone)||''}</div>
+      </td>
+      <td style="font-size:13px;color:#e8e0d0;max-width:240px;">${itemsSummary(o.items)}</td>
+      <td style="font-size:13px;color:#e8e0d0;white-space:nowrap;">${money(o.total_aed)}</td>
+      <td>${pay}</td>
+      <td style="white-space:nowrap;">${statusSelectHtml(o)}</td>
+      <td class="admin-td-actions">
+        <button class="admin-edit-btn" style="background:transparent;border:none;cursor:pointer;color:#c9a96e;font-size:12px;letter-spacing:.06em;">View →</button>
+      </td>`;
+    tr.addEventListener('click', e => {
+      if(e.target.closest('.status-select')) return;
+      openDetail(o);
+    });
+    body.appendChild(tr);
+  });
+}
+
+async function setStatus(id, status){
+  try{
+    const res = await fetch(ORDERS_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY},
+      body: JSON.stringify({ action:'set-status', id, status })
+    });
+    const data = await res.json();
+    if(!data.success) throw new Error(data.error || 'failed');
+    const o = _all.find(x => x.id === id);
+    if(o) o.status = status;
+    // update the row dot without full re-render
+    const sel = document.querySelector(`.status-select[data-id="${id}"]`);
+    if(sel){ const dot = sel.previousElementSibling; if(dot) dot.className = 'status-dot st-'+status; }
+  }catch(e){ alert('Could not update status: ' + e.message); applyFilters(); }
+}
+
+function openDetail(o){
+  _active = o;
+  document.getElementById('dpName').textContent = o.customer_name || '—';
+  document.getElementById('dpDate').textContent = 'Received ' + fmtDateTime(o.created_at);
+  document.getElementById('dpStatus').value = o.status;
+  document.getElementById('dpEmail').textContent = o.email || '—';
+  document.getElementById('dpPhone').textContent = o.phone || '—';
+
+  const items = Array.isArray(o.items) ? o.items : [];
+  document.getElementById('dpItems').innerHTML = items.map(it =>
+    `<div class="ao-item-row"><span>${esc(it.name_en || it.id || 'Item')} ×${it.qty||1}</span>`
+    + `<span>${it.price_aed!=null ? money(it.price_aed*(it.qty||1)) : ''}</span></div>`).join('') || '<div class="ao-item-row">—</div>';
+  document.getElementById('dpTotal').textContent = money(o.total_aed);
+
+  const links = document.getElementById('dpContactLinks');
+  links.innerHTML = '';
+  if(o.email) links.innerHTML += `<a class="ao-contact-link" href="mailto:${esc(o.email)}">Email</a>`;
+  if(o.phone){
+    const d = (o.phone||'').replace(/[\s+\-()]/g,'');
+    links.innerHTML += `<a class="ao-contact-link" href="tel:+${d}">Call</a>`;
+    links.innerHTML += `<a class="ao-contact-link" href="https://wa.me/${d}" target="_blank" rel="noopener">WhatsApp ↗</a>`;
+  }
+
+  document.getElementById('dpAddress').textContent = o.address || '—';
+  document.getElementById('dpEmirate').textContent = o.emirate || '—';
+  document.getElementById('dpPayment').textContent = o.payment_method === 'stripe' ? 'Card (paid online)' : 'Cash on delivery';
+
+  document.getElementById('detailOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail(){
+  document.getElementById('detailOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+  _active = null;
+}
+
+function setStatusFromPanel(status){
+  if(!_active) return;
+  setStatus(_active.id, status);
+  _active.status = status;
+}
+
+async function deleteFromPanel(){
+  if(!_active) return;
+  if(!confirm(`Delete order from ${_active.customer_name}? This cannot be undone.`)) return;
+  try{
+    const res = await fetch(ORDERS_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY},
+      body: JSON.stringify({ action:'delete', id:_active.id })
+    });
+    const data = await res.json();
+    if(!data.success) throw new Error(data.error || 'failed');
+    _all = _all.filter(x => x.id !== _active.id);
+    closeDetail();
+    applyFilters();
+    const badge = document.getElementById('orderCountBadge');
+    badge.textContent = _all.length + ' order' + (_all.length!==1?'s':'');
+  }catch(e){ alert('Delete failed: ' + e.message); }
+}
+
+loadOrders();
+</script>
+</body>
+</html>
