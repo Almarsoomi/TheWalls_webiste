@@ -1,0 +1,62 @@
+[
+  {
+    "id": "oak-floating-shelf",
+    "name_en": "Oak Floating Shelf",
+    "name_ar": "رف عائم من البلوط",
+    "desc_en": "Solid oak floating shelf, 80cm. Custom joinery finish with concealed brackets.",
+    "desc_ar": "رف عائم من خشب البلوط الصلب، 80 سم. تشطيب نجارة مخصص مع حوامل خفية.",
+    "price_aed": 450,
+    "stripePriceId": "price_1TlYhGJtwTBLIN9zt67iLMkz",
+    "image": "../assets/images/shop/oak-floating-shelf.jpg",
+    "category": "joinery",
+    "in_stock": true
+  },
+  {
+    "id": "walnut-side-table",
+    "name_en": "Walnut Side Table",
+    "name_ar": "طاولة جانبية من الجوز",
+    "desc_en": "Handcrafted walnut side table with a hand-rubbed oil finish. 45 × 45 × 55cm.",
+    "desc_ar": "طاولة جانبية من خشب الجوز مصنوعة يدوياً بتشطيب زيتي. 45 × 45 × 55 سم.",
+    "price_aed": 1200,
+    "stripePriceId": "price_REPLACE_ME_walnut_table",
+    "image": "../assets/images/shop/walnut-side-table.jpg",
+    "category": "furniture",
+    "in_stock": false
+  },
+  {
+    "id": "corian-tray",
+    "name_en": "Corian Serving Tray",
+    "name_ar": "صينية تقديم من الكوريان",
+    "desc_en": "Seamless solid-surface serving tray, offcut from our fabrication studio. 40 × 28cm.",
+    "desc_ar": "صينية تقديم من سطح صلب متواصل من بقايا استوديو التصنيع لدينا. 40 × 28 سم.",
+    "price_aed": 280,
+    "stripePriceId": "price_REPLACE_ME_corian_tray",
+    "image": "../assets/images/shop/corian-tray.jpg",
+    "category": "accessories",
+    "in_stock": false
+  },
+  {
+    "id": "brass-coat-hook-set",
+    "name_en": "Brass Coat Hook Set",
+    "name_ar": "طقم علاقات نحاسية",
+    "desc_en": "Set of 4 solid brass coat hooks with brushed finish. Wall fixings included.",
+    "desc_ar": "طقم من 4 علاقات نحاسية صلبة بتشطيب مصقول. تتضمن مثبتات الجدار.",
+    "price_aed": 180,
+    "stripePriceId": "price_REPLACE_ME_brass_hooks",
+    "image": "../assets/images/shop/brass-coat-hook-set.jpg",
+    "category": "accessories",
+    "in_stock": false
+  },
+  {
+    "id": "oak-tv-unit",
+    "name_en": "Oak Media Unit",
+    "name_ar": "وحدة تلفاز من البلوط",
+    "desc_en": "Wall-mounted oak TV & media unit, 160cm, with soft-close drawers and cable management.",
+    "desc_ar": "وحدة تلفاز ووسائط معلقة من البلوط، 160 سم، مع أدراج بإغلاق ناعم وتنظيم للكابلات.",
+    "price_aed": 3400,
+    "stripePriceId": "price_REPLACE_ME_oak_tv_unit",
+    "image": "../assets/images/shop/oak-tv-unit.jpg",
+    "category": "furniture",
+    "in_stock": false
+  }
+]

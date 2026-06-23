@@ -40,6 +40,18 @@ Deno.serve(async (req: Request) => {
       if (d.email) await sendEmail(d.email, 'We received your request — The Walls', quoteClientHtml(d))
     }
 
+    // ── SHOP ORDER (Stripe paid or Cash on Delivery) ──────────
+    else if (type === 'order') {
+      const isCod = (d.payment_method || 'cod') === 'cod'
+      await sendEmail(
+        TEAM_EMAIL,
+        `New ${isCod ? 'COD' : 'paid'} order — ${d.name}`,
+        orderTeamHtml(d),
+        ['ahmed@thewalls.ae']
+      )
+      if (d.email) await sendEmail(d.email, 'Your order — The Walls', orderClientHtml(d))
+    }
+
     // ── TEAM → CLIENT: new project update posted ──────────────
     else if (type === 'team-message') {
       await sendEmail(
@@ -193,6 +205,69 @@ function quoteClientHtml(d: Record<string, any>) {
     </td></tr>`
 
   return emailWrap('Dubai · Premium Fit-Out &amp; Interior Design', body)
+}
+
+// ── SHOP ORDER templates ──────────────────────────────────────
+
+function orderItemsTable(d: Record<string, any>) {
+  const items = Array.isArray(d.items) ? d.items : []
+  const rows = items.map((it: any) => `
+    <tr>
+      <td style="padding:10px 16px;font-size:14px;color:#e8e0d0;">${it.name_en || it.id || 'Item'}</td>
+      <td style="padding:10px 16px;font-size:14px;color:#8a7253;text-align:center;width:60px;">×${it.qty}</td>
+      <td style="padding:10px 16px;font-size:14px;color:#e8e0d0;text-align:right;white-space:nowrap;">AED ${Number((it.price_aed || 0) * (it.qty || 1)).toLocaleString('en-AE')}</td>
+    </tr>`).join('')
+  return `
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid rgba(201,169,110,.1);border-radius:6px;overflow:hidden;">
+      ${rows}
+      <tr><td colspan="2" style="padding:12px 16px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#8a7253;border-top:1px solid rgba(201,169,110,.15);">Total (excl. delivery)</td>
+        <td style="padding:12px 16px;font-size:16px;color:#c9a96e;text-align:right;border-top:1px solid rgba(201,169,110,.15);white-space:nowrap;">AED ${Number(d.total_aed || 0).toLocaleString('en-AE')}</td></tr>
+    </table>`
+}
+
+function orderTeamHtml(d: Record<string, any>) {
+  const isCod = (d.payment_method || 'cod') === 'cod'
+  const body = `
+    <tr><td style="padding:24px 32px 8px;">
+      <div style="font-size:13px;color:#8a7253;margin-bottom:8px;">Received ${new Date().toLocaleString('en-AE',{timeZone:'Asia/Dubai',dateStyle:'full',timeStyle:'short'})}</div>
+      <div style="display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${isCod ? '#e8a84e' : '#7acc7a'};border:1px solid ${isCod ? 'rgba(232,168,78,.4)' : 'rgba(122,204,122,.4)'};padding:4px 10px;border-radius:3px;margin-bottom:16px;">${isCod ? 'Cash on Delivery' : 'Paid online'}</div>
+      ${orderItemsTable(d)}
+      <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid rgba(201,169,110,.1);border-radius:6px;overflow:hidden;margin-top:16px;">
+        ${row('Name', d.name)}
+        ${row('Phone', d.phone)}
+        ${row('Email', d.email)}
+        ${row('Address', d.address)}
+        ${row('Emirate', d.emirate)}
+        ${row('Order ID', d.order_id)}
+      </table>
+    </td></tr>
+    <tr><td style="padding:24px 32px 32px;">
+      <a href="https://wa.me/${d.phone?.replace(/[\s+\-()]/g,'')}" style="display:inline-block;background:#25D366;color:#fff;padding:11px 22px;border-radius:4px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;font-weight:500;">WhatsApp Customer</a>
+      <a href="https://app.supabase.com" style="display:inline-block;margin-left:10px;background:transparent;color:#c9a96e;padding:10px 22px;border-radius:4px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(201,169,110,.3);">View in Dashboard</a>
+    </td></tr>`
+  return emailWrap('New Shop Order', body)
+}
+
+function orderClientHtml(d: Record<string, any>) {
+  const isCod = (d.payment_method || 'cod') === 'cod'
+  const body = `
+    <tr><td style="padding:32px 32px 8px;">
+      <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:300;color:#f5f0e8;margin:0 0 8px;">Thank you, ${d.name}.</h1>
+      <p style="font-size:14px;color:#8a7253;line-height:1.7;margin:0 0 24px;">${isCod
+        ? 'We\'ve received your cash-on-delivery order. Our team will contact you shortly to confirm delivery details and timing.'
+        : 'We\'ve received your order and payment. Our team will be in touch with delivery details and timing.'}</p>
+      ${orderItemsTable(d)}
+      <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid rgba(201,169,110,.1);border-radius:6px;overflow:hidden;margin-top:16px;">
+        ${row('Deliver to', d.address)}
+        ${row('Emirate', d.emirate)}
+        ${row('Payment', isCod ? 'Cash on delivery' : 'Paid online')}
+      </table>
+    </td></tr>
+    <tr><td style="padding:28px 32px 32px;">
+      <p style="font-size:13px;color:#8a7253;margin:0 0 20px;line-height:1.7;">Questions about your order? Reach us on WhatsApp — we typically respond within minutes during business hours (Mon–Sat, 9 AM – 6 PM GST).</p>
+      <a href="https://wa.me/971544996788" style="display:inline-block;background:#25D366;color:#fff;padding:12px 24px;border-radius:4px;font-size:12px;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;font-weight:500;">Chat on WhatsApp</a>
+    </td></tr>`
+  return emailWrap('Order Confirmation', body)
 }
 
 // ── TEAM → CLIENT: new update ─────────────────────────────────
