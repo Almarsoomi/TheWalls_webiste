@@ -188,8 +188,8 @@
   <div class="left-panel">
     <div class="left-eyebrow en-only">Free quote</div>
     <div class="left-eyebrow ar-only">عرض سعر مجاني</div>
-    <h1 class="left-h1 en-only">Let's build<br/>something<br/><em>remarkable</em></h1>
-    <h1 class="left-h1 ar-only">لنبني<br/>شيئاً<br/><em>استثنائياً</em></h1>
+    <h1 class="left-h1 en-only">Let's build<br/>something<br/><em><span class="hero-cycle-slot"><span class="hero-cycle-word">remarkable</span></span></em></h1>
+    <h1 class="left-h1 ar-only">لنبني<br/>شيئاً<br/><em><span class="hero-cycle-slot"><span class="hero-cycle-word">استثنائياً</span></span></em></h1>
     <p class="left-desc en-only">Share your floor plans, vision, and budget. Our architects will prepare a detailed, line-item quote and schedule a consultation — usually within 24 hours.</p>
     <p class="left-desc ar-only">شارك مخططاتك ورؤيتك وميزانيتك. سيُعدّ مهندسونا عرض سعر تفصيلياً ومُقسَّماً ويرتبون استشارة — عادةً في غضون 24 ساعة.</p>
     <div class="left-features">
@@ -912,5 +912,31 @@ function showSuccess(name) {
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 <script src="../assets/js/main.js"></script>
+<script>
+/* Hero word cycle — "Let's build something <word>" (reuses .hero-cycle-* CSS) */
+(function () {
+  var EN = ['remarkable', 'timeless', 'exceptional', 'enduring', 'iconic'];
+  var AR = ['استثنائياً', 'خالداً', 'فريداً', 'باقياً', 'أيقونياً'];
+  var enW = document.querySelector('.left-h1.en-only .hero-cycle-word');
+  var arW = document.querySelector('.left-h1.ar-only .hero-cycle-word');
+  if (!enW && !arW) return;
+  var i = 0;
+  function swap() {
+    i = (i + 1) % EN.length;
+    [[enW, EN], [arW, AR]].forEach(function (pair) {
+      var w = pair[0]; if (!w) return;
+      w.classList.add('is-out');
+      setTimeout(function () {
+        w.textContent = pair[1][i];
+        w.classList.remove('is-out');
+        w.classList.add('is-in');
+        w.getBoundingClientRect();          // force reflow
+        w.classList.remove('is-in');
+      }, 480);
+    });
+  }
+  setInterval(swap, 3200);
+}());
+</script>
 </body>
 </html>
