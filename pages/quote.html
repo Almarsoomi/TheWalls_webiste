@@ -808,7 +808,7 @@ function populateReview() {
   const budget=budgetEl?budgetEl.textContent.trim():'—';
   const notes=document.getElementById('q_notes').value.trim();
   const prefDate=document.getElementById('prefDate').value;
-  const prefTime=document.getElementById('prefTime').value||'Flexible';
+  const prefTime=document.getElementById('prefTime').value;
   const format=document.getElementById('consultFormat').value;
   const fileCount=pendingFiles.length;
 
@@ -824,8 +824,8 @@ function populateReview() {
     budget!=='—'?row('<span class="en-only">Budget</span><span class="ar-only">الميزانية</span>', esc(budget), 2):'',
     notes?row('<span class="en-only">Notes</span><span class="ar-only">ملاحظات</span>', esc(notes), 2):'',
     prefDate?row('<span class="en-only">Date</span><span class="ar-only">التاريخ</span>', esc(prefDate), 3):'',
-    row('<span class="en-only">Time</span><span class="ar-only">الوقت</span>', esc(prefTime), 3),
-    row('<span class="en-only">Format</span><span class="ar-only">النوع</span>', esc(format), 3),
+    prefTime?row('<span class="en-only">Time</span><span class="ar-only">الوقت</span>', esc(prefTime), 3):'',
+    format?row('<span class="en-only">Format</span><span class="ar-only">النوع</span>', esc(format), 3):'',
     row('<span class="en-only">Files</span><span class="ar-only">الملفات</span>', fileCount?fileCount+' file(s) attached':'None', 4),
   ].join('');
 }
