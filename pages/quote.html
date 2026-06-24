@@ -317,8 +317,8 @@
           </div>
 
           <div class="form-group full">
-            <label class="form-label"><span class="en-only">Space type</span><span class="ar-only">نوع المساحة</span></label>
-            <select class="form-select" id="q_space">
+            <label class="form-label"><span class="en-only">Space type *</span><span class="ar-only">نوع المساحة *</span></label>
+            <select class="form-select" id="q_space" onchange="qClearErr('space')">
               <option value="">— Select —</option>
               <option value="Apartment">Apartment / شقة</option>
               <option value="Villa">Villa / Townhouse / فيلا</option>
@@ -329,26 +329,28 @@
               <option value="Hotel">Hotel / Hospitality / فندق</option>
               <option value="Other">Other / أخرى</option>
             </select>
+            <div class="form-error-msg" id="err-space"><span class="en-only">Please select a space type.</span><span class="ar-only">يرجى اختيار نوع المساحة.</span></div>
           </div>
 
           <div class="form-group full">
-            <label class="form-label"><span class="en-only">Approximate area</span><span class="ar-only">المساحة التقريبية</span></label>
+            <label class="form-label"><span class="en-only">Approximate area *</span><span class="ar-only">المساحة التقريبية *</span></label>
             <div class="area-ctrl-row">
               <div class="area-unit-toggle">
                 <button class="area-unit-btn active" id="unitSqm" onclick="setUnit('sqm')">m²</button>
                 <button class="area-unit-btn" id="unitSqft" onclick="setUnit('sqft')">sqft</button>
               </div>
-              <input type="number" class="form-input area-num-input" id="areaNum" min="10" max="5000" value="200" oninput="syncAreaFromNum()"/>
+              <input type="number" class="form-input area-num-input" id="areaNum" min="10" max="5000" placeholder="e.g. 200" oninput="syncAreaFromNum()"/>
             </div>
-            <input type="range" class="budget-range" id="q_area" min="20" max="2000" step="5" value="200" oninput="syncAreaFromSlider()" style="margin-top:12px;"/>
+            <input type="range" class="budget-range" id="q_area" min="20" max="2000" step="5" value="20" oninput="syncAreaFromSlider()" style="margin-top:12px;"/>
             <div class="budget-limits" id="areaLimits">
               <span class="area-limit-min">20 m²</span>
               <span class="area-limit-max">2,000 m²</span>
             </div>
+            <div class="form-error-msg" id="err-area"><span class="en-only">Please enter the approximate area.</span><span class="ar-only">يرجى إدخال المساحة التقريبية.</span></div>
           </div>
 
           <div class="form-group full">
-            <label class="form-label"><span class="en-only">Budget range</span><span class="ar-only">نطاق الميزانية</span></label>
+            <label class="form-label"><span class="en-only">Budget range *</span><span class="ar-only">نطاق الميزانية *</span></label>
             <div class="budget-chips" id="budgetChips">
               <button class="budget-chip" onclick="selectBudget(this)">Under AED 100K</button>
               <button class="budget-chip" onclick="selectBudget(this)">AED 100K – 300K</button>
@@ -356,6 +358,7 @@
               <button class="budget-chip" onclick="selectBudget(this)">AED 600K – 1M</button>
               <button class="budget-chip" onclick="selectBudget(this)">Over AED 1M</button>
             </div>
+            <div class="form-error-msg" id="err-budget"><span class="en-only">Please select a budget range.</span><span class="ar-only">يرجى اختيار نطاق الميزانية.</span></div>
           </div>
 
           <div class="form-group full">
@@ -391,7 +394,7 @@
           <div class="form-group full">
             <label class="form-label"><span class="en-only">Preferred time slot</span><span class="ar-only">الوقت المفضل</span></label>
             <select class="form-select" id="prefTime">
-              <option value="">Flexible / مرن</option>
+              <option value="" disabled selected hidden>Select a time slot / اختر الوقت المفضل</option>
               <option>09:00 – 10:00</option>
               <option>10:00 – 11:00</option>
               <option>11:00 – 12:00</option>
@@ -407,6 +410,7 @@
           <div class="form-group full">
             <label class="form-label"><span class="en-only">Format</span><span class="ar-only">نوع الاستشارة</span></label>
             <select class="form-select" id="consultFormat">
+              <option value="" disabled selected hidden>Select format / اختر نوع الاستشارة</option>
               <option value="In-person">In-person — The Walls Studio, Dubai / حضوري</option>
               <option value="Video call">Video call (Zoom / Teams) / مكالمة فيديو</option>
               <option value="Site visit">Site visit (my location) / زيارة الموقع</option>
@@ -674,11 +678,15 @@ function setUnit(unit) {
   document.getElementById('unitSqm').classList.toggle('active', unit==='sqm');
   document.getElementById('unitSqft').classList.toggle('active', unit==='sqft');
 }
-function syncAreaFromSlider() { document.getElementById('areaNum').value = document.getElementById('q_area').value; }
+function syncAreaFromSlider() {
+  document.getElementById('areaNum').value = document.getElementById('q_area').value;
+  const e = document.getElementById('err-area'); if (e) e.style.display='none';
+}
 function syncAreaFromNum() {
   const v = parseInt(document.getElementById('areaNum').value) || 0;
   const s = document.getElementById('q_area');
   s.value = Math.max(parseInt(s.min), Math.min(parseInt(s.max), v));
+  const e = document.getElementById('err-area'); if (e) e.style.display='none';
 }
 function getAreaDisplay() {
   const v = parseInt(document.getElementById('areaNum').value) || parseInt(document.getElementById('q_area').value) || 0;
@@ -691,12 +699,24 @@ function getAreaInSqm() {
 function selectBudget(btn) {
   document.querySelectorAll('#budgetChips .budget-chip').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');
+  document.getElementById('err-budget').style.display='none';
 }
 function step2Next() {
+  let ok = true;
+  // Project type — at least one
   const chips = [...document.querySelectorAll('#projChips .chip.sel')];
-  if (!chips.length) { document.getElementById('err-proj').style.display='block'; return; }
-  document.getElementById('err-proj').style.display='none';
-  goToStep(3);
+  if (!chips.length) { document.getElementById('err-proj').style.display='block'; ok=false; }
+  else document.getElementById('err-proj').style.display='none';
+  // Space type — required
+  if (!document.getElementById('q_space').value) { qShowErr('space'); ok=false; } else qClearErr('space');
+  // Approximate area — required
+  const areaVal = parseInt(document.getElementById('areaNum').value);
+  if (!areaVal || areaVal <= 0) { document.getElementById('err-area').style.display='block'; ok=false; }
+  else document.getElementById('err-area').style.display='none';
+  // Budget range — required
+  if (!document.querySelector('#budgetChips .budget-chip.sel')) { document.getElementById('err-budget').style.display='block'; ok=false; }
+  else document.getElementById('err-budget').style.display='none';
+  if (ok) goToStep(3);
 }
 
 /* ── Step 3 — consultation date ────────────────────── */
