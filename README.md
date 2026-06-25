@@ -47,8 +47,10 @@ Static HTML/CSS/JS · Bilingual EN/AR · Luxury dark aesthetic · GitHub Pages r
         ├── before.png / after.jpg
         ├── Palm_PROJ/              # Palm Jumeirah villa photos
         ├── Office/                 # Office project photos
-        ├── LENTO_PROJ/             # Lento project photos
         └── VIC_PROJ/               # Victoria project photos
+
+> Lento project photos are now served from Cloudflare Images
+> (`imagedelivery.net/B0K744mvCN7KCJEt14pPFw/…`), not the local folder.
 ```
 
 ---
