@@ -1,0 +1,14 @@
+# Normalize line endings across platforms (repo authored on Windows)
+* text=auto eol=lf
+
+# Treat binary assets as binary (no diff/merge, no eol conversion)
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.ico  binary
+*.woff  binary
+*.woff2 binary
+
+# SVG is text
+*.svg text
