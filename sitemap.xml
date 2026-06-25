@@ -53,6 +53,44 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Service landing pages -->
+  <url>
+    <loc>https://thewalls.ae/pages/joinery-dubai.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thewalls.ae/pages/solid-surfaces-dubai.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thewalls.ae/pages/aluminum-works-dubai.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thewalls.ae/pages/interior-design-dubai.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thewalls.ae/pages/complete-fit-out-dubai.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thewalls.ae/pages/architecture-supervision-dubai.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Case studies -->
   <url>
     <loc>https://thewalls.ae/pages/case-study-villa.html</loc>

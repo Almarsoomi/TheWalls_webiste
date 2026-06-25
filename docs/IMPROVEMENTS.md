@@ -71,6 +71,14 @@ That's already ahead of most local competitors. The ideas below are the gaps.
 12. **Per-service landing pages** (Joinery, Solid Surfaces, Aluminum, Furniture,
     Turnkey Fit-out, MEP) each SEO-optimized for "<service> Dubai". *Why:* huge
     organic search opportunity. *Effort: M · Priority: High for SEO.*
+    > ✅ **Done** — 6 dedicated SEO pages built in `pages/`:
+    > `joinery-dubai.html`, `solid-surfaces-dubai.html`, `aluminum-works-dubai.html`,
+    > `interior-design-dubai.html`, `complete-fit-out-dubai.html`,
+    > `architecture-supervision-dubai.html`. Each is bilingual EN/AR with a
+    > `<service> in Dubai` H1, breadcrumb, why-us, process, related projects, FAQ,
+    > and `Service` + `BreadcrumbList` + `FAQPage` JSON-LD. Linked from each
+    > `services.html` section + footer (site links repointed) and added to
+    > `sitemap.xml`. Done 2026-06-25.
 
 13. **Room/space cost calculator** (kitchen, wardrobe, office) — extends the
     estimator into specific verticals. *Effort: M.*
