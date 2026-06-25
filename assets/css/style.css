@@ -1116,6 +1116,16 @@ nav.scrolled { background: rgba(12,12,11,.95); backdrop-filter: blur(12px); padd
 .ig-modal-link { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--champagne); text-decoration: none; border: 0.5px solid rgba(201,169,110,0.4); padding: 8px 18px; transition: background .25s, color .25s; cursor: pointer; }
 .ig-modal-link:hover { background: var(--champagne); color: var(--obsidian); }
 [dir="rtl"] .ig-modal-link { font-family: var(--arabic); letter-spacing: 0; }
+/* Services nav dropdown (injected by main.js) */
+.nav-dd { position: relative; display: inline-flex; align-items: center; }
+.nav-links .nav-dd-menu { position: absolute; top: calc(100% + 6px); left: 0; min-width: 230px; background: rgba(12,12,11,0.97); backdrop-filter: blur(12px); border: 0.5px solid rgba(201,169,110,0.18); padding: 8px 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .25s, visibility .25s; z-index: 300; }
+.nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-links .nav-dd-menu a { padding: 10px 22px; font-size: 13px; letter-spacing: 0.04em; text-transform: none; color: var(--gray-mid); text-decoration: none; white-space: nowrap; transition: color .2s, background .2s; }
+.nav-links .nav-dd-menu a::after { display: none; }
+.nav-links .nav-dd-menu a:hover { color: var(--cream); background: rgba(201,169,110,0.08); }
+[dir="rtl"] .nav-links .nav-dd-menu { left: auto; right: 0; }
+[dir="rtl"] .nav-links .nav-dd-menu a { font-family: var(--arabic); }
+html[data-theme="light"] .nav-links .nav-dd-menu { background: rgba(245,240,232,0.98); }
 
 /* TESTIMONIALS */
 .testimonials { padding: 100px 60px; background: var(--obsidian-2); }

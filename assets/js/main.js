@@ -662,3 +662,45 @@ function toggleFAQ(item) {
     footerObs.observe(lastStep);
   }
 }());
+
+// SERVICES NAV DROPDOWN — inject a sub-menu of the per-service landing pages.
+// Runs after the mobile-nav clone above, so the mobile overlay keeps the simple
+// "Services" link while desktop gets the hover dropdown. Paths are computed from
+// the current location so it works from root, /pages/ and /blog/.
+(function () {
+  var link = document.querySelector('.nav-links a[data-en="Services"]');
+  if (!link || link.closest('.nav-dd')) return;
+
+  var p = window.location.pathname;
+  var base = p.indexOf('/blog/') > -1 ? '../pages/'
+           : p.indexOf('/pages/') > -1 ? './'
+           : './pages/';
+
+  var items = [
+    { h: 'services.html',                       en: 'All Services',              ar: 'كل الخدمات' },
+    { h: 'joinery-dubai.html',                  en: 'Joinery',                   ar: 'النجارة' },
+    { h: 'solid-surfaces-dubai.html',           en: 'Solid Surfaces',            ar: 'الأسطح الصلبة' },
+    { h: 'aluminum-works-dubai.html',           en: 'Aluminum Works',            ar: 'الأعمال الألمنيوم' },
+    { h: 'interior-design-dubai.html',          en: 'Interior Design',           ar: 'التصميم الداخلي' },
+    { h: 'complete-fit-out-dubai.html',         en: 'Complete Fit-Out',          ar: 'التشطيب الكامل' },
+    { h: 'architecture-supervision-dubai.html', en: 'Architecture & Supervision', ar: 'الهندسة والإشراف' }
+  ];
+
+  var lang = localStorage.getItem('tw_lang') || 'en';
+  var wrap = document.createElement('div');
+  wrap.className = 'nav-dd';
+  link.parentNode.insertBefore(wrap, link);
+  wrap.appendChild(link);
+
+  var menu = document.createElement('div');
+  menu.className = 'nav-dd-menu';
+  items.forEach(function (it) {
+    var a = document.createElement('a');
+    a.href = base + it.h;
+    a.setAttribute('data-en', it.en);
+    a.setAttribute('data-ar', it.ar);
+    a.textContent = lang === 'ar' ? it.ar : it.en;
+    menu.appendChild(a);
+  });
+  wrap.appendChild(menu);
+})();
