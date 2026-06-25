@@ -79,6 +79,53 @@
     return s.length > n ? s.slice(0, n - 1).trim() + '…' : s;
   }
 
+  /* ── In-page player (lightbox) ──
+     Clicking a card plays the Reel inside the site with sound — the user
+     never has to open Instagram. */
+  var modal = null, modalVideo = null, modalLink = null;
+
+  function ensureModal() {
+    if (modal) return;
+    modal = document.createElement('div');
+    modal.className = 'ig-modal';
+    modal.innerHTML =
+      '<button class="ig-modal-close" aria-label="Close">&times;</button>' +
+      '<div class="ig-modal-inner">' +
+        '<video class="ig-modal-video" controls playsinline></video>' +
+        '<a class="ig-modal-link" target="_blank" rel="noopener noreferrer">' +
+          '<span class="en-only">View on Instagram ↗</span>' +
+          '<span class="ar-only">شاهد على إنستغرام ↗</span>' +
+        '</a>' +
+      '</div>';
+    document.body.appendChild(modal);
+    modalVideo = modal.querySelector('.ig-modal-video');
+    modalLink = modal.querySelector('.ig-modal-link');
+
+    modal.querySelector('.ig-modal-close').addEventListener('click', closePlayer);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closePlayer(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePlayer(); });
+  }
+
+  function openPlayer(item) {
+    ensureModal();
+    modalVideo.src = item.media_url;
+    if (item.thumbnail_url) modalVideo.poster = item.thumbnail_url;
+    modalLink.href = item.permalink || PROFILE;
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    modalVideo.currentTime = 0;
+    modalVideo.play().catch(function () {});
+  }
+
+  function closePlayer() {
+    if (!modal) return;
+    modalVideo.pause();
+    modalVideo.removeAttribute('src');
+    modalVideo.load();
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
   function buildCard(item) {
     var caption = captionFor(item);
     var shortCap = shorten(caption, 80);
@@ -94,6 +141,14 @@
       '<div class="ig-badge" aria-hidden="true">' + REEL_SVG + '</div>' +
       '<div class="ig-play" aria-hidden="true"><div class="ig-play-icon">' + PLAY_SVG + '</div></div>' +
       (shortCap ? '<div class="ig-caption">' + esc(shortCap) + '</div>' : '');
+
+    /* Play inside the site instead of navigating to Instagram. Falls back to
+       the link (real navigation) only if there's no playable video. */
+    card.addEventListener('click', function (e) {
+      if (!item.media_url) return;
+      e.preventDefault();
+      openPlayer(item);
+    });
 
     wireHoverPlay(card, item);
     return card;
