@@ -78,7 +78,9 @@ That's already ahead of most local competitors. The ideas below are the gaps.
     > `<service> in Dubai` H1, breadcrumb, why-us, process, related projects, FAQ,
     > and `Service` + `BreadcrumbList` + `FAQPage` JSON-LD. Linked from each
     > `services.html` section + footer (site links repointed) and added to
-    > `sitemap.xml`. Done 2026-06-25.
+    > `sitemap.xml`. A **Services hover dropdown** was also added to the top nav
+    > site-wide (injected by `main.js`, bilingual, desktop-only) linking all 6
+    > pages. Done 2026-06-25.
 
 13. **Room/space cost calculator** (kitchen, wardrobe, office) — extends the
     estimator into specific verticals. *Effort: M.*
