@@ -438,10 +438,8 @@ window.setLang = window.setLang || function(lang) {
   root.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
   if (btnEN) btnEN.classList.toggle('active', lang !== 'ar');
   if (btnAR) btnAR.classList.toggle('active', lang === 'ar');
-  localStorage.setItem('tw_lang', lang);
-  document.querySelectorAll('.nav-links a[data-en]').forEach(function(a) {
-    a.textContent = lang === 'ar' ? (a.dataset.ar || a.textContent) : (a.dataset.en || a.textContent);
-  });
+  // localStorage persistence + nav-link text are applied once by the
+  // DOMContentLoaded wrapper below (kept out of here to avoid doing it twice).
 };
 
 document.addEventListener('DOMContentLoaded', function() {
