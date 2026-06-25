@@ -16,6 +16,18 @@
   document.documentElement.setAttribute('data-theme', t);
 })();
 
+// ── rAF SCROLL THROTTLE ──────────────────────────────────────────────────────
+// Wraps a scroll handler so its (often layout-reading) work runs at most once
+// per animation frame instead of on every scroll event — avoids layout thrash.
+function _twRafThrottle(fn) {
+  var ticking = false;
+  return function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { fn(); ticking = false; });
+  };
+}
+
 // ── THEME TOGGLE (global — called by onclick in HTML) ──────────────────────
 window.toggleTheme = function() {
   var cur  = document.documentElement.getAttribute('data-theme') || 'dark';
@@ -400,9 +412,9 @@ document.addEventListener('DOMContentLoaded', function(){
 // NAV SCROLL DETECTION — wrapped in IIFE to avoid const conflict with page scripts
 (function(){
   var nav = document.querySelector('nav');
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', _twRafThrottle(function() {
     if (nav) nav.classList.toggle('sc', window.scrollY > 20);
-  });
+  }), { passive: true });
 })();
 
 // REVEAL ON SCROLL ANIMATION — wrapped in IIFE to avoid const conflict
@@ -533,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function checkFooter() {
       btn.classList.toggle('visible', footerEl.getBoundingClientRect().top < window.innerHeight);
     }
-    window.addEventListener('scroll', checkFooter, { passive: true });
+    window.addEventListener('scroll', _twRafThrottle(checkFooter), { passive: true });
     checkFooter();
   }
   if (document.readyState === 'loading') {
@@ -622,7 +634,7 @@ function toggleFAQ(item) {
     fill.style.height = (progress * 100) + '%';
   }
 
-  window.addEventListener('scroll', updateFill, { passive: true });
+  window.addEventListener('scroll', _twRafThrottle(updateFill), { passive: true });
   updateFill();
 }());
 
