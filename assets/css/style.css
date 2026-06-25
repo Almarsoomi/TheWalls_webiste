@@ -1072,6 +1072,41 @@ nav.scrolled { background: rgba(12,12,11,.95); backdrop-filter: blur(12px); padd
 .tours-360-desc { font-size: 15px; color: var(--gray-mid); max-width: 600px; line-height: 1.75; margin-top: 16px; }
 [dir="rtl"] .tours-360-desc { font-family: var(--arabic); font-size: 16px; }
 
+/* INSTAGRAM FEED */
+.ig-feed { padding: 100px 60px; background: var(--obsidian); }
+.ig-feed-desc { font-size: 15px; color: var(--gray-mid); max-width: 600px; line-height: 1.75; margin-top: 16px; }
+[dir="rtl"] .ig-feed-desc { font-family: var(--arabic); font-size: 16px; }
+.ig-rail {
+  display: flex; gap: 20px; margin-top: 48px; padding-bottom: 16px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+  scrollbar-color: var(--champagne-muted) transparent;
+}
+[dir="rtl"] .ig-rail { direction: rtl; }
+.ig-rail::-webkit-scrollbar { height: 6px; }
+.ig-rail::-webkit-scrollbar-track { background: transparent; }
+.ig-rail::-webkit-scrollbar-thumb { background: var(--champagne-muted); border-radius: 3px; }
+.ig-card {
+  flex: 0 0 auto; width: 260px; aspect-ratio: 9/16; position: relative;
+  overflow: hidden; scroll-snap-align: start; cursor: pointer;
+  background: var(--obsidian-3); border: 0.5px solid rgba(201,169,110,0.15);
+  text-decoration: none; display: block;
+}
+.ig-card-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: transform .8s var(--transition), filter .4s var(--transition); }
+.ig-card:hover .ig-card-media { transform: scale(1.05); filter: brightness(0.55); }
+.ig-badge { position: absolute; top: 14px; left: 14px; z-index: 3; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(12,12,11,0.5); border: 0.5px solid rgba(201,169,110,0.5); backdrop-filter: blur(4px); }
+[dir="rtl"] .ig-badge { left: auto; right: 14px; }
+.ig-badge svg { width: 16px; height: 16px; stroke: var(--champagne); fill: none; stroke-width: 1.5; }
+.ig-play { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity .3s; }
+.ig-card:hover .ig-play { opacity: 0; }
+.ig-play-icon { width: 54px; height: 54px; border: 1.5px solid rgba(201,169,110,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(12,12,11,0.45); backdrop-filter: blur(8px); transition: transform .3s, background .3s, border-color .3s; }
+.ig-card:hover .ig-play-icon { background: rgba(201,169,110,0.12); transform: scale(1.1); border-color: rgba(201,169,110,0.8); }
+.ig-play-icon svg { width: 20px; height: 20px; fill: var(--champagne); stroke: none; margin-left: 3px; }
+.ig-caption { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 36px 18px 16px; background: linear-gradient(to top, rgba(12,12,11,0.95) 0%, transparent 100%); font-family: var(--serif); font-size: 15px; font-weight: 300; color: var(--cream); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+[dir="rtl"] .ig-caption { text-align: right; font-family: var(--arabic); font-size: 14px; }
+.ig-feed-error { margin-top: 32px; font-size: 13px; color: var(--gray-muted); }
+[dir="rtl"] .ig-feed-error { font-family: var(--arabic); font-size: 14px; }
+
 /* TESTIMONIALS */
 .testimonials { padding: 100px 60px; background: var(--obsidian-2); }
 .testimonials-track { overflow: hidden; margin-top: 56px; position: relative; direction: ltr; }
@@ -1229,6 +1264,7 @@ footer { background: var(--obsidian); border-top: 0.5px solid rgba(201,169,110,.
   .services, .ba-section, .process, .cta-strip, footer, .testimonials { padding: 72px 32px; }
   .portfolio { padding: 72px 32px; }
   .tours-360 { padding: 72px 32px; }
+  .ig-feed { padding: 72px 32px; }
   .tours-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
   .portfolio-grid .project-name { font-size: clamp(16px, 2vw, 24px); }
@@ -1249,6 +1285,8 @@ footer { background: var(--obsidian); border-top: 0.5px solid rgba(201,169,110,.
   .services, .ba-section, .process, .cta-strip, footer, .about-strip, .estimator { padding: 60px 20px; }
   .portfolio { padding: 60px 20px; }
   .tours-360 { padding: 60px 20px; }
+  .ig-feed { padding: 60px 20px; }
+  .ig-card { width: 220px; }
   .tours-grid { grid-template-columns: 1fr; gap: 12px; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .portfolio-grid .project-name { font-size: 22px; }
