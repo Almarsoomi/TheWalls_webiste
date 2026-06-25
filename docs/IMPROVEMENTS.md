@@ -125,6 +125,12 @@ That's already ahead of most local competitors. The ideas below are the gaps.
 
 20. **`hreflang` tags for EN/AR** + per-language URLs. *Why:* correct bilingual
     indexing. *Effort: S · Priority: High.*
+    > ✅ **Done** — `en` / `ar` / `x-default` `<link rel="alternate" hreflang>`
+    > tags added after the canonical on all 26 indexable bilingual pages
+    > (admin/portal/404/shop-success skipped — noindex). Arabic is served at a
+    > shareable `?lang=ar` URL: `main.js` reads the `?lang=` param on load,
+    > switches to Arabic, and rewrites the canonical to the `?lang=ar` variant so
+    > it's self-canonical and separately indexable. Done 2026-06-25.
 
 21. **Newsletter + email automation** (welcome, nurture, seasonal offers).
     *Effort: S.*

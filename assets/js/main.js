@@ -454,7 +454,16 @@ document.addEventListener('DOMContentLoaded', function() {
       a.textContent = lang === 'ar' ? (a.dataset.ar || a.textContent) : (a.dataset.en || a.textContent);
     });
   };
-  window.setLang(localStorage.getItem('tw_lang') || 'en');
+  // Honour ?lang= URL param (shareable Arabic URLs / hreflang), else stored preference
+  var _params = new URLSearchParams(window.location.search);
+  var _urlLang = _params.get('lang');
+  var _lang = (_urlLang === 'ar' || _urlLang === 'en') ? _urlLang : (localStorage.getItem('tw_lang') || 'en');
+  window.setLang(_lang);
+  // Make the Arabic URL variant self-canonical so it can be indexed separately
+  if (_urlLang === 'ar') {
+    var _canon = document.querySelector('link[rel="canonical"]');
+    if (_canon) _canon.setAttribute('href', _canon.getAttribute('href').split('?')[0] + '?lang=ar');
+  }
 });
 
 // MOBILE HAMBURGER NAV
