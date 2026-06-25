@@ -45,13 +45,13 @@ Static HTML/CSS/JS · Bilingual EN/AR · Luxury dark aesthetic · GitHub Pages r
         ├── favicon.svg
         ├── placeholder-interior.svg
         ├── before.png / after.jpg
-        ├── Palm_PROJ/              # Palm Jumeirah villa photos
         ├── Office/                 # Office project photos
         └── VIC_PROJ/               # Victoria project photos
-
-> Lento project photos are now served from Cloudflare Images
-> (`imagedelivery.net/B0K744mvCN7KCJEt14pPFw/…`), not the local folder.
 ```
+
+> **Lento** and **Palm Jumeirah villa** project photos are served from
+> Cloudflare Images (`imagedelivery.net/B0K744mvCN7KCJEt14pPFw/…`), not the
+> local `assets/images/` folders.
 
 ---
 
