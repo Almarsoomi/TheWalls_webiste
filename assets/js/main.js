@@ -454,15 +454,20 @@ document.addEventListener('DOMContentLoaded', function() {
       a.textContent = lang === 'ar' ? (a.dataset.ar || a.textContent) : (a.dataset.en || a.textContent);
     });
   };
-  // Honour ?lang= URL param (shareable Arabic URLs / hreflang), else stored preference
+  // Real Arabic pages live under /ar/ — always Arabic, regardless of stored pref.
+  var _isArPage = window.location.pathname.indexOf('/ar/') === 0;
   var _params = new URLSearchParams(window.location.search);
   var _urlLang = _params.get('lang');
-  var _lang = (_urlLang === 'ar' || _urlLang === 'en') ? _urlLang : (localStorage.getItem('tw_lang') || 'en');
+  var _lang = _isArPage ? 'ar'
+            : (_urlLang === 'ar' || _urlLang === 'en') ? _urlLang
+            : (localStorage.getItem('tw_lang') || 'en');
   window.setLang(_lang);
-  // Make the Arabic URL variant self-canonical so it can be indexed separately
-  if (_urlLang === 'ar') {
+  // For an English page hit with ?lang=ar, canonicalise to the real Arabic URL
+  // (its `ar` hreflang) if one exists, else self-canonical to the ?lang=ar variant.
+  if (!_isArPage && _urlLang === 'ar') {
     var _canon = document.querySelector('link[rel="canonical"]');
-    if (_canon) _canon.setAttribute('href', _canon.getAttribute('href').split('?')[0] + '?lang=ar');
+    var _arAlt = document.querySelector('link[rel="alternate"][hreflang="ar"]');
+    if (_canon) _canon.setAttribute('href', _arAlt ? _arAlt.getAttribute('href') : (_canon.getAttribute('href').split('?')[0] + '?lang=ar'));
   }
 });
 

@@ -163,4 +163,19 @@
     <priority>0.4</priority>
   </url>
 
+  <!-- Arabic pages (Phase 1) -->
+  <url><loc>https://thewalls.ae/ar/</loc><lastmod>2026-06-25</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/services.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/contact.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/joinery-dubai.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/solid-surfaces-dubai.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/aluminum-works-dubai.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/interior-design-dubai.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/complete-fit-out-dubai.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/architecture-supervision-dubai.html</loc><lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/case-study-villa.html</loc><lastmod>2026-06-25</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/case-study-office.html</loc><lastmod>2026-06-25</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/case-study-clinic.html</loc><lastmod>2026-06-25</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://thewalls.ae/ar/pages/case-study-lento.html</loc><lastmod>2026-06-25</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+
 </urlset>

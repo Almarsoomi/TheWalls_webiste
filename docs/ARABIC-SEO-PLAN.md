@@ -6,6 +6,20 @@
 > Decisions (2026-06-25): **script-generated** Arabic pages · **`/ar/` subdirectory** ·
 > **phased rollout, top pages first.**
 
+## STATUS — Phase 1 ✅ done (2026-06-25)
+13 Arabic pages generated under `/ar/` (home, 6 service pages, 4 case studies,
+services, contact) via `scripts/build-ar.js` (`npm run build:ar`). Each: Arabic
+`<head>` + `lang="ar"`, self-canonical, hreflang both ways, localized JSON-LD,
+root-absolute assets, AR↔EN links, and a language toggle that navigates between
+the two URLs (setting the `tw_lang` preference first). English pages were patched
+so their «عربي» button + `ar` hreflang point to the `/ar/` URLs. `?lang=ar` on an
+English page now canonicalises to the real `/ar/` URL (via `main.js`), so no Vercel
+redirect was needed. `index.html` and `contact.html` keep both languages (their
+inline JS manipulates the language spans); all other AR pages are English-stripped.
+**To regenerate after editing an English page: `npm run build:ar`.**
+**Remaining:** Phase 2 (about, portfolio, shop, faq, quote, blog + 5 posts, legal),
+then submit `/ar/` in Search Console after deploy + native review of Arabic head copy.
+
 ## Why this is needed
 The site already contains full Arabic body text inline (shown via `dir="rtl"`),
 and we added `hreflang` + `?lang=ar`. But on every page the **`<title>`, meta

@@ -1,10 +1,14 @@
 {
+  "scripts": {
+    "build:ar": "node scripts/build-ar.js"
+  },
   "dependencies": {
     "@microsoft/clarity": "^1.0.2",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.106.1"
   },
   "devDependencies": {
+    "cheerio": "^1.2.0",
     "playwright": "^1.61.0"
   }
 }

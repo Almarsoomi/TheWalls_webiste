@@ -131,6 +131,11 @@ That's already ahead of most local competitors. The ideas below are the gaps.
     > shareable `?lang=ar` URL: `main.js` reads the `?lang=` param on load,
     > switches to Arabic, and rewrites the canonical to the `?lang=ar` variant so
     > it's self-canonical and separately indexable. Done 2026-06-25.
+    > **Upgrade (2026-06-25):** Arabic is now a priority — real `/ar/` static pages
+    > are being built (Phase 1 done: 13 pages) via `scripts/build-ar.js`
+    > (`npm run build:ar`), with Arabic `<head>`/`lang=ar`, self-canonical, hreflang
+    > both ways and localized JSON-LD. See `docs/ARABIC-SEO-PLAN.md`. `?lang=ar` now
+    > canonicalises to the matching `/ar/` URL.
 
 21. **Newsletter + email automation** (welcome, nurture, seasonal offers).
     *Effort: S.*
