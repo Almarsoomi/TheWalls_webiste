@@ -1,46 +1,36 @@
 /* ─────────────────────────────────────────────────────────────
    The Walls — Instagram Reels feed (home page)
 
-   PHASE A (now): renders MOCK reels so the section is visible while
-   the backend is being set up.
-   PHASE B (later): set USE_LIVE = true. The script then fetches
-   /functions/v1/instagram-feed (Supabase Edge Function), which
-   returns the real Reels from the Instagram Graph API. If the live
-   call fails for any reason, it silently falls back to the mock set
-   so the page never looks broken.
+   Behaviour:
+   - All Reels AUTOPLAY, muted & looping, right in the page (a video wall).
+     Off-screen videos pause (IntersectionObserver) to save bandwidth.
+   - Clicking a Reel opens THAT specific video on Instagram in a new tab.
 
-   Live response shape expected from the Edge Function:
-     { items: [ { id, permalink, thumbnail_url, media_url, caption } ] }
-   media_url = the .mp4 (used for hover-to-play); thumbnail_url = poster.
+   Data: fetched from the Supabase `instagram-feed` Edge Function. A mock set
+   renders first as an instant placeholder and as a fallback if the live call
+   fails (e.g. on localhost without CORS access).
    ───────────────────────────────────────────────────────────── */
 (function () {
   'use strict';
 
-  /* Live: fetches real Reels from the Supabase `instagram-feed` function.
-     Mock still renders first as an instant placeholder / fallback. */
   var USE_LIVE = true;
 
   var FN_BASE = 'https://xpdfohzjjomrbzfatkpy.supabase.co/functions/v1';
   var PROFILE = 'https://www.instagram.com/the_walls_dubai';
   var MAX_CARDS = 8;
-
-  /* Placeholder visual until real Reels load. */
   var MOCK_THUMB = './assets/images/placeholder-interior.svg';
 
-  /* Mock reels — captions are bilingual; real reels use the IG caption. */
+  /* Mock reels (no video) — placeholders until the live feed loads. */
   var MOCK = [
     { id: 'm1', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Bespoke joinery — start to finish', caption_ar: 'نجارة مخصصة من البداية للنهاية' },
     { id: 'm2', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Seamless solid-surface worktops', caption_ar: 'أسطح صلبة بلا فواصل' },
     { id: 'm3', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'DIFC office reveal', caption_ar: 'افتتاح مكتب في مركز دبي المالي' },
     { id: 'm4', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Aluminium & glass detailing', caption_ar: 'تفاصيل الألمنيوم والزجاج' },
     { id: 'm5', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Inside the workshop', caption_ar: 'من داخل الورشة' },
-    { id: 'm6', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Palm villa walk-through', caption_ar: 'جولة في فيلا النخلة' },
-    { id: 'm7', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Custom wardrobe install', caption_ar: 'تركيب خزانة مخصصة' },
-    { id: 'm8', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Material selection day', caption_ar: 'يوم اختيار المواد' }
+    { id: 'm6', permalink: PROFILE, thumbnail_url: MOCK_THUMB, media_url: null, caption: 'Palm villa walk-through', caption_ar: 'جولة في فيلا النخلة' }
   ];
 
   var REEL_SVG = '<svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M7 2l3 5M13 2l3 5M2 7h20"/><path d="M10 11l5 3-5 3z" fill="currentColor" stroke="none"/></svg>';
-  var PLAY_SVG = '<svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>';
 
   function isAr() { return document.documentElement.getAttribute('lang') === 'ar'; }
   function esc(s) {
@@ -48,119 +38,79 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
-  function captionFor(item) {
-    if (isAr() && item.caption_ar) return item.caption_ar;
-    return item.caption || '';
-  }
-
-  /* Hover-to-play: lazily swap in a muted, looping <video> on enter,
-     restore the poster on leave. Only runs when a media_url exists. */
-  function wireHoverPlay(card, item) {
-    if (!item.media_url) return;
-    var video = null;
-    card.addEventListener('mouseenter', function () {
-      if (video) { video.play().catch(function () {}); return; }
-      video = document.createElement('video');
-      video.className = 'ig-card-media';
-      video.src = item.media_url;
-      video.muted = true; video.loop = true; video.playsInline = true;
-      video.setAttribute('preload', 'none');
-      if (item.thumbnail_url) video.poster = item.thumbnail_url;
-      card.insertBefore(video, card.firstChild);
-      video.play().catch(function () {});
-    });
-    card.addEventListener('mouseleave', function () {
-      if (video) { video.pause(); video.currentTime = 0; }
-    });
-  }
-
+  function captionFor(item) { return (isAr() && item.caption_ar) ? item.caption_ar : (item.caption || ''); }
   function shorten(s, n) {
     s = String(s || '').replace(/\s+/g, ' ').trim();
     return s.length > n ? s.slice(0, n - 1).trim() + '…' : s;
   }
 
-  /* ── In-page player (lightbox) ──
-     Clicking a card plays the Reel inside the site with sound — the user
-     never has to open Instagram. */
-  var modal = null, modalVideo = null, modalLink = null;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function ensureModal() {
-    if (modal) return;
-    modal = document.createElement('div');
-    modal.className = 'ig-modal';
-    modal.innerHTML =
-      '<button class="ig-modal-close" aria-label="Close">&times;</button>' +
-      '<div class="ig-modal-inner">' +
-        '<video class="ig-modal-video" controls playsinline></video>' +
-        '<a class="ig-modal-link" target="_blank" rel="noopener noreferrer">' +
-          '<span class="en-only">View on Instagram ↗</span>' +
-          '<span class="ar-only">شاهد على إنستغرام ↗</span>' +
-        '</a>' +
-      '</div>';
-    document.body.appendChild(modal);
-    modalVideo = modal.querySelector('.ig-modal-video');
-    modalLink = modal.querySelector('.ig-modal-link');
-
-    modal.querySelector('.ig-modal-close').addEventListener('click', closePlayer);
-    modal.addEventListener('click', function (e) { if (e.target === modal) closePlayer(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePlayer(); });
-  }
-
-  function openPlayer(item) {
-    ensureModal();
-    modalVideo.src = item.media_url;
-    if (item.thumbnail_url) modalVideo.poster = item.thumbnail_url;
-    modalLink.href = item.permalink || PROFILE;
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-    modalVideo.currentTime = 0;
-    modalVideo.play().catch(function () {});
-  }
-
-  function closePlayer() {
-    if (!modal) return;
-    modalVideo.pause();
-    modalVideo.removeAttribute('src');
-    modalVideo.load();
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
+  /* Play videos only while they're in view; pause when scrolled away. */
+  var playObserver = (typeof IntersectionObserver !== 'undefined')
+    ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.play().catch(function () {}); }
+          else { en.target.pause(); }
+        });
+      }, { threshold: 0.25 })
+    : null;
 
   function buildCard(item) {
-    var caption = captionFor(item);
-    var shortCap = shorten(caption, 80);
+    var shortCap = shorten(captionFor(item), 80);
     var card = document.createElement('a');
     card.className = 'ig-card';
-    card.href = item.permalink || PROFILE;
+    card.href = item.permalink || PROFILE;     // click → this reel on Instagram
     card.target = '_blank';
     card.rel = 'noopener noreferrer';
     card.setAttribute('aria-label', shortCap || 'View on Instagram');
 
-    card.innerHTML =
-      '<img class="ig-card-media" src="' + esc(item.thumbnail_url || MOCK_THUMB) + '" alt="' + esc(shortCap) + '" loading="lazy" decoding="async" />' +
-      '<div class="ig-badge" aria-hidden="true">' + REEL_SVG + '</div>' +
-      '<div class="ig-play" aria-hidden="true"><div class="ig-play-icon">' + PLAY_SVG + '</div></div>' +
-      (shortCap ? '<div class="ig-caption">' + esc(shortCap) + '</div>' : '');
+    var media;
+    if (item.media_url && !reduceMotion) {
+      media = document.createElement('video');
+      media.className = 'ig-card-media';
+      media.src = item.media_url;
+      media.muted = true; media.defaultMuted = true;
+      media.loop = true; media.playsInline = true; media.autoplay = true;
+      media.setAttribute('muted', ''); media.setAttribute('playsinline', '');
+      media.preload = 'metadata';
+      if (item.thumbnail_url) media.poster = item.thumbnail_url;
+    } else {
+      media = document.createElement('img');
+      media.className = 'ig-card-media';
+      media.src = item.thumbnail_url || MOCK_THUMB;
+      media.loading = 'lazy'; media.decoding = 'async';
+      media.alt = shortCap;
+    }
+    card.appendChild(media);
 
-    /* Play inside the site instead of navigating to Instagram. Falls back to
-       the link (real navigation) only if there's no playable video. */
-    card.addEventListener('click', function (e) {
-      if (!item.media_url) return;
-      e.preventDefault();
-      openPlayer(item);
-    });
+    var badge = document.createElement('div');
+    badge.className = 'ig-badge';
+    badge.setAttribute('aria-hidden', 'true');
+    badge.innerHTML = REEL_SVG;
+    card.appendChild(badge);
 
-    wireHoverPlay(card, item);
+    if (shortCap) {
+      var cap = document.createElement('div');
+      cap.className = 'ig-caption';
+      cap.textContent = shortCap;
+      card.appendChild(cap);
+    }
+
+    if (media.tagName === 'VIDEO') {
+      if (playObserver) playObserver.observe(media);
+      else media.play().catch(function () {});
+    }
     return card;
   }
 
   function render(items) {
     var rail = document.getElementById('igFeed');
     if (!rail) return;
+    if (playObserver) playObserver.disconnect();
     rail.innerHTML = '';
     var list = (items || []).slice(0, MAX_CARDS);
     if (!list.length) {
-      /* Hide the whole section if there is genuinely nothing to show. */
       var section = document.getElementById('instagram');
       if (section) section.style.display = 'none';
       return;
@@ -168,13 +118,16 @@
     list.forEach(function (item) { rail.appendChild(buildCard(item)); });
   }
 
+  var LIVE_ITEMS = null;
+
   async function loadLive() {
     try {
       var res = await fetch(FN_BASE + '/instagram-feed', { method: 'GET' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       var data = await res.json();
       if (data && Array.isArray(data.items) && data.items.length) {
-        render(data.items);
+        LIVE_ITEMS = data.items;
+        render(LIVE_ITEMS);
         return true;
       }
     } catch (e) {
@@ -184,8 +137,7 @@
   }
 
   async function init() {
-    /* Show mock immediately so the section is never empty on first paint. */
-    render(MOCK);
+    render(MOCK);                 // instant placeholder
     if (USE_LIVE) { await loadLive(); }
   }
 
@@ -195,16 +147,12 @@
     init();
   }
 
-  /* Re-render captions in the right language when the user toggles EN/AR. */
+  /* Re-render captions in the right language on EN/AR toggle. */
   document.addEventListener('click', function (e) {
     var btn = e.target.closest && e.target.closest('#btnEN, #btnAR');
-    if (btn) { setTimeout(function () {
+    if (btn) setTimeout(function () {
       var rail = document.getElementById('igFeed');
-      if (rail && rail.children.length) {
-        /* Cheap refresh: rebuild from whichever set is currently shown.
-           Mock keeps bilingual captions; live captions are single-language. */
-        if (!USE_LIVE) render(MOCK);
-      }
-    }, 0); }
+      if (rail && rail.children.length) render(LIVE_ITEMS || MOCK);
+    }, 0);
   });
 })();

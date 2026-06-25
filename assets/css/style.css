@@ -1092,8 +1092,8 @@ nav.scrolled { background: rgba(12,12,11,.95); backdrop-filter: blur(12px); padd
   background: var(--obsidian-3); border: 0.5px solid rgba(201,169,110,0.15);
   text-decoration: none; display: block;
 }
-.ig-card-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: transform .8s var(--transition), filter .4s var(--transition); }
-.ig-card:hover .ig-card-media { transform: scale(1.05); filter: brightness(0.55); }
+.ig-card-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.92); transition: transform .8s var(--transition), filter .4s var(--transition); }
+.ig-card:hover .ig-card-media { transform: scale(1.05); filter: brightness(1); }
 .ig-badge { position: absolute; top: 14px; left: 14px; z-index: 3; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(12,12,11,0.5); border: 0.5px solid rgba(201,169,110,0.5); backdrop-filter: blur(4px); }
 [dir="rtl"] .ig-badge { left: auto; right: 14px; }
 .ig-badge svg { width: 16px; height: 16px; stroke: var(--champagne); fill: none; stroke-width: 1.5; }
