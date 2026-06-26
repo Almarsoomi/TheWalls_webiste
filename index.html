@@ -144,7 +144,7 @@
       <div class="lang-toggle">
         <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
         <div class="lang-sep"></div>
-        <button class="lang-btn" id="btnAR" onclick="localStorage.setItem('tw_lang','ar');location.href='/ar/'"
+        <button class="lang-btn" id="btnAR" onclick="location.href='./ar/index.html'"
           style="font-family:var(--arabic);font-size:13px;letter-spacing:0;">عربي</button>
       </div>
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch to light mode"><svg
@@ -1677,7 +1677,7 @@
 
 
     // ── LANGUAGE TOGGLE ──
-    let currentLang = location.pathname.indexOf('/ar/')===0?'ar':'en';
+    let currentLang = /\/ar\//.test(location.pathname)?'ar':'en';
     function setLang(lang) {
       currentLang = lang;
       localStorage.setItem('tw_lang', lang);

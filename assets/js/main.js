@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // for the legacy soft variant). We intentionally do NOT fall back to the stored
   // tw_lang preference, otherwise an English URL would render Arabic (with the
   // wrong toggle button active) for anyone who previously viewed an Arabic page.
-  var _isArPage = window.location.pathname.indexOf('/ar/') === 0;
+  var _isArPage = /\/ar\//.test(window.location.pathname);
   var _params = new URLSearchParams(window.location.search);
   var _urlLang = _params.get('lang');
   var _lang = _isArPage ? 'ar'

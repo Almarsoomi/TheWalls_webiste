@@ -108,7 +108,7 @@ function setLang(lang){
   else{root.setAttribute('lang','en');root.setAttribute('dir','ltr');btnEN.classList.add('active');btnAR.classList.remove('active');localStorage.setItem('tw_lang','en');}
   document.querySelectorAll('[data-en],[data-ar]').forEach(el=>{const v=el.getAttribute('data-'+lang);if(v!=null)el.textContent=v;});
 }
-(function(){ setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
+(function(){ setLang(/\/ar\//.test(location.pathname)?'ar':'en'); })();
 </script>
 <script src="../assets/js/main.js"></script>
 </body>

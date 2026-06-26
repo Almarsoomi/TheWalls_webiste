@@ -162,8 +162,20 @@ const AR_SET = new Set(Object.keys(T));
 
 const enUrl = (src) => 'https://thewalls.ae/' + (src === 'index.html' ? '' : src);
 const arUrl = (src) => 'https://thewalls.ae/ar/' + (src === 'index.html' ? '' : src);
-const arAbs = (src) => '/ar/' + (src === 'index.html' ? '' : src);
-const enAbs = (src) => '/' + (src === 'index.html' ? '' : src);
+const dirOf = (p) => (p.includes('/') ? p.slice(0, p.lastIndexOf('/')) : '');
+
+// Relative paths so the output works at the domain root (thewalls.ae) AND on a
+// subpath (e.g. GitHub Pages /TheWalls_webiste/). Never root-absolute.
+function relFromAr(src, destSitePath) {
+  let r = path.posix.relative(dirOf('ar/' + src), destSitePath);
+  if (!r.startsWith('.')) r = './' + r;
+  return r;
+}
+function relEnToAr(src) {
+  let r = path.posix.relative(dirOf(src) || '.', 'ar/' + src);
+  if (!r.startsWith('.')) r = './' + r;
+  return r;
+}
 
 function resolveLink(value, src) {
   if (/^(https?:|mailto:|tel:|#|javascript:|data:)/i.test(value)) return null;
@@ -171,12 +183,10 @@ function resolveLink(value, src) {
   const hi = core.indexOf('#'); if (hi >= 0) { hash = core.slice(hi); core = core.slice(0, hi); }
   const qi = core.indexOf('?'); if (qi >= 0) { q = core.slice(qi); core = core.slice(0, qi); }
   if (!core.endsWith('.html')) return null;
-  const dir = src.includes('/') ? src.slice(0, src.lastIndexOf('/')) : '';
-  let target = path.posix.normalize((dir ? dir + '/' : '') + core).replace(/^\.\//, '');
-  const abs = AR_SET.has(target)
-    ? '/ar/' + (target === 'index.html' ? '' : target)
-    : '/' + (target === 'index.html' ? '' : target);
-  return abs + q + hash;
+  const dir = dirOf(src);
+  const target = path.posix.normalize((dir ? dir + '/' : '') + core).replace(/^\.\//, '');
+  const dest = AR_SET.has(target) ? ('ar/' + target) : target; // AR counterpart, else English
+  return relFromAr(src, dest) + q + hash;
 }
 
 function localizeJsonLd(raw, src, meta, faqAr) {
@@ -291,7 +301,7 @@ function buildPage(src) {
 
   // Language toggle → navigation (set the language preference before leaving,
   // so the destination page renders in the chosen language)
-  $('#btnEN').removeClass('active').attr('onclick', "localStorage.setItem('tw_lang','en');location.href='" + enAbs(src) + "'");
+  $('#btnEN').removeClass('active').attr('onclick', "location.href='" + relFromAr(src, src) + "'");
   $('#btnAR').addClass('active').attr('onclick', 'return false;');
 
   // Rewrite internal .html links to AR (or EN fallback)
@@ -302,8 +312,12 @@ function buildPage(src) {
   });
 
   let out = $.html();
-  // Asset paths → root-absolute (covers href/src + inline style url())
-  out = out.replace(/(?:\.\.\/)+assets\//g, '/assets/').replace(/\.\/assets\//g, '/assets/');
+  // Asset paths → relative to this Arabic file (works on root domain AND subpath
+  // like GitHub Pages). e.g. ar/pages/* → ../../assets/ , ar/index.html → ../assets/
+  const assetBase = relFromAr(src, 'assets') + '/';
+  // Single pass — matches ./ , ../ , ../../ … prefixes. (Two chained replaces
+  // corrupt each other because "./assets/" is a substring of "../assets/".)
+  out = out.replace(/(?:\.\.?\/)+assets\//g, assetBase);
   // (Inline language init is URL-based — `…indexOf('/ar/')===0?'ar':'en'` — so it
   // already resolves to Arabic on /ar/ pages; no swap needed here.)
 
@@ -321,7 +335,7 @@ function patchEnglish(src) {
   // Idempotent: matches the original setLang form or a previously-patched form
   s = s.replace(
     /id="btnAR" onclick="[^"]*"/,
-    'id="btnAR" onclick="localStorage.setItem(\'tw_lang\',\'ar\');location.href=\'' + arAbs(src) + '\'"'
+    'id="btnAR" onclick="location.href=\'' + relEnToAr(src) + '\'"'
   );
   s = s.replace(
     /<link rel="alternate" hreflang="ar" href="[^"]*"\/>/,
