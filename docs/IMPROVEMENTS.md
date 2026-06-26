@@ -135,7 +135,9 @@ That's already ahead of most local competitors. The ideas below are the gaps.
     > are being built (Phase 1 done: 13 pages) via `scripts/build-ar.js`
     > (`npm run build:ar`), with Arabic `<head>`/`lang=ar`, self-canonical, hreflang
     > both ways and localized JSON-LD. See `docs/ARABIC-SEO-PLAN.md`. `?lang=ar` now
-    > canonicalises to the matching `/ar/` URL.
+    > canonicalises to the matching `/ar/` URL. **Phase 2 done 2026-06-26** — all 26
+    > bilingual pages now have `/ar/` counterparts (incl. blog with localized Article
+    > schema, faq with rebuilt Arabic FAQ schema). Next: deploy + Search Console.
 
 21. **Newsletter + email automation** (welcome, nurture, seasonal offers).
     *Effort: S.*

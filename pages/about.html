@@ -10,7 +10,7 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thewalls.ae/pages/about.html" />
   <link rel="alternate" hreflang="en" href="https://thewalls.ae/pages/about.html"/>
-  <link rel="alternate" hreflang="ar" href="https://thewalls.ae/pages/about.html?lang=ar"/>
+  <link rel="alternate" hreflang="ar" href="https://thewalls.ae/ar/pages/about.html"/>
   <link rel="alternate" hreflang="x-default" href="https://thewalls.ae/pages/about.html"/>
   <meta property="og:title" content="About Us | The Walls — Dubai Fit-Out Specialists" />
   <meta property="og:description"
@@ -71,7 +71,7 @@
       <div class="lang-toggle">
         <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
         <div class="lang-sep"></div>
-        <button class="lang-btn" id="btnAR" onclick="setLang('ar')"
+        <button class="lang-btn" id="btnAR" onclick="localStorage.setItem('tw_lang','ar');location.href='/ar/pages/about.html'"
           style="font-family:var(--arabic);font-size:13px;letter-spacing:0;">عربي</button>
       </div>
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch theme"><svg

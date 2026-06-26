@@ -102,6 +102,60 @@ const T = {
     title: 'دراسة حالة: مطعم لينتو في أم الشيف — ذا وولز',
     desc: 'أثاث مخصص وإشارات لمطعم لينتو في أم الشيف بدبي — أكثر من 18 قطعة فريدة من الفولاذ والخرسانة والجلد، من ذا وولز.',
   },
+
+  // ── Phase 2 ──
+  'pages/about.html': {
+    title: 'من نحن | ذا وولز — متخصصو التشطيب في دبي',
+    desc: 'تعرّف على ذا وولز — شركة تشطيب وديكور داخلي في دبي أسّسها مهندسون معماريون. قصتنا وقيمنا وفريقنا وكيف ننفّذ المشاريع من التصميم حتى التسليم.',
+  },
+  'pages/portfolio.html': {
+    title: 'أعمالنا | ذا وولز — تشطيب وتصميم داخلي في دبي',
+    desc: 'تصفّح أعمال ذا وولز من المشاريع المنجزة في دبي — تشطيبات سكنية ومكتبية وتجارية وضيافة بأعمال نجارة فاخرة ولمسات مخصصة.',
+  },
+  'pages/shop.html': {
+    title: 'المتجر | ذا وولز — نجارة وأثاث ومستلزمات منزلية، دبي',
+    desc: 'تسوّق منتجات النجارة والأثاث والمستلزمات المنزلية المصنوعة بيد ذا وولز في دبي. ادفع بأمان عبر الإنترنت أو عند الاستلام في جميع أنحاء الإمارات.',
+  },
+  'pages/faq.html': {
+    title: 'الأسئلة الشائعة | ذا وولز — تشطيب وتصميم داخلي في دبي',
+    desc: 'إجابات على أكثر الأسئلة شيوعاً حول تكاليف التشطيب والجداول الزمنية والتصاريح والضمانات والتعامل مع ذا وولز في دبي والإمارات.',
+  },
+  'pages/quote.html': {
+    title: 'احصل على عرض سعر | ذا وولز',
+    desc: 'اطلب عرض سعر تفصيلياً للتشطيب والتصميم الداخلي من ذا وولز دبي. شارك مخططاتك ورؤيتك وسنرد عليك خلال 24 ساعة.',
+  },
+  'pages/privacy-policy.html': {
+    title: 'سياسة الخصوصية | ذا وولز — تشطيب وتصميم داخلي في دبي',
+    desc: 'سياسة خصوصية ذا وولز — كيف نجمع معلوماتك الشخصية ونستخدمها ونحميها عند استخدام موقعنا أو خدماتنا في دبي.',
+  },
+  'pages/terms-of-use.html': {
+    title: 'شروط الاستخدام | ذا وولز — تشطيب وتصميم داخلي في دبي',
+    desc: 'شروط استخدام موقع ذا وولز وخدمات التشطيب في دبي. يُرجى قراءة الشروط قبل استخدام الموقع أو التعاقد على خدمات التصميم والنجارة.',
+  },
+  'pages/blog.html': {
+    title: 'المدونة | ذا وولز — رؤى حول التشطيب الداخلي في دبي',
+    desc: 'أدلة ونصائح عملية حول التشطيب الداخلي في دبي — النجارة والأسطح الصلبة وتشطيب المكاتب والجداول الزمنية وكيفية اختيار المقاول المناسب في الإمارات.',
+  },
+  'blog/villa-fitout-timeline-dubai.html': {
+    title: 'كم يستغرق تشطيب الفيلا في دبي؟ | مدونة ذا وولز',
+    desc: 'من اعتماد التصميم حتى التسليم النهائي، يستغرق تشطيب الفلل في دبي عادةً 8–16 أسبوعاً. نشرح كل مرحلة بجداول زمنية واقعية وأسباب التأخير الشائعة.',
+  },
+  'blog/joinery-vs-offshelf-furniture.html': {
+    title: 'النجارة المخصصة مقابل الأثاث الجاهز — متى يوفّر التفصيل المال؟ | مدونة ذا وولز',
+    desc: 'النجارة المخصصة أعلى تكلفة مبدئياً لكنها غالباً أفضل قيمة على المدى الطويل لفلل وشقق دبي. نوضّح متى يكون التفصيل خياراً ذكياً ومتى لا يكون.',
+  },
+  'blog/solid-surfaces-corian-vs-quartz.html': {
+    title: 'الأسطح الصلبة: كوريان مقابل الكوارتز — أين يتفوق كل منهما | مدونة ذا وولز',
+    desc: 'كوريان والكوارتز الهندسي شائعان في تشطيبات دبي لكنهما ليسا بديلين متطابقين. دليل يغطي المتانة والتكلفة والمظهر وأفضل استخدام لكل مادة.',
+  },
+  'blog/hiring-fitout-contractor-uae.html': {
+    title: 'ما الذي يجب سؤاله قبل اختيار مقاول تشطيب في الإمارات | مدونة ذا وولز',
+    desc: 'اختيار مقاول التشطيب الخطأ في دبي خطأ مكلف. نشارك الأسئلة الدقيقة التي يجب طرحها قبل التوقيع — من الترخيص والتأمين إلى الضمان وإدارة المشروع.',
+  },
+  'blog/office-fitout-difc-dmcc-checklist.html': {
+    title: 'قائمة تشطيب المكاتب لمستأجري مركز دبي المالي وDMCC | مدونة ذا وولز',
+    desc: 'لدى مركز دبي المالي العالمي وDMCC متطلبات خاصة تفاجئ المستأجرين لأول مرة. قائمة تغطي الموافقات ومؤهلات المقاول ومواصفات البناء والجداول الزمنية للمنطقتين.',
+  },
 };
 
 const AR_SET = new Set(Object.keys(T));
@@ -139,23 +193,37 @@ function localizeJsonLd(raw, src, meta, faqAr) {
     }
     if (types.includes('FAQPage')) {
       node.inLanguage = 'ar';
-      if (faqAr.length && node.mainEntity && node.mainEntity.length === faqAr.length) {
-        node.mainEntity.forEach((q, i) => {
-          q.name = faqAr[i].q;
-          if (q.acceptedAnswer) q.acceptedAnswer.text = faqAr[i].a;
-        });
+      // Rebuild from the visible Arabic accordion so the schema always matches
+      // the on-page content (Google requires this) and is fully Arabic.
+      if (faqAr.length) {
+        node.mainEntity = faqAr.map((x) => ({
+          '@type': 'Question',
+          name: x.q,
+          acceptedAnswer: { '@type': 'Answer', text: x.a },
+        }));
       }
     }
+    if (types.includes('Article') || types.includes('BlogPosting') || types.includes('NewsArticle')) {
+      node.inLanguage = 'ar';
+      node.headline = meta.title.split(' | ')[0];
+      node.description = meta.desc;
+    }
     if (types.includes('BreadcrumbList') && node.itemListElement) {
+      const NAMES = {
+        'Home': 'الرئيسية', 'Services': 'خدماتنا', 'Journal': 'المدونة', 'Blog': 'المدونة',
+        'Portfolio': 'أعمالنا', 'Shop': 'المتجر', 'About': 'من نحن', 'About Us': 'من نحن',
+        'Contact': 'تواصل معنا', 'FAQ': 'الأسئلة الشائعة',
+      };
+      const last = node.itemListElement.length;
       node.itemListElement.forEach((li) => {
-        if (li.position === 1) li.name = 'الرئيسية';
-        else if (li.position === 2) li.name = 'خدماتنا';
-        else if (li.position === 3 && meta.crumb) li.name = meta.crumb;
+        if (NAMES[li.name]) li.name = NAMES[li.name];
+        else if (li.position === last && meta.crumb) li.name = meta.crumb;
       });
     }
   }
   let out = JSON.stringify(obj, null, 2);
-  // EN → AR urls (breadcrumb items, page url/@id, provider/home)
+  // EN → AR urls (page's own url/@id; then breadcrumb items & home)
+  if (src !== 'index.html') out = out.split(enUrl(src)).join(arUrl(src));
   out = out.split('https://thewalls.ae/pages/').join('https://thewalls.ae/ar/pages/');
   out = out.split('"https://thewalls.ae/"').join('"https://thewalls.ae/ar/"');
   return out;
@@ -170,11 +238,23 @@ function buildPage(src) {
 
   // Extract Arabic FAQ (before stripping en-only) from accordions, in order
   const faqAr = [];
+  const clean = (t) => t.replace(/\s+/g, ' ').trim();
+  // Service-page accordions (.faq-acc)
   $('.faq-acc').each((_, el) => {
-    const q = $(el).find('summary .ar-only').first().text().trim();
-    const a = $(el).find('p.ar-only').first().text().trim();
-    if (q && a) faqAr.push({ q, a });
+    const enQ = clean($(el).find('summary .en-only').first().text());
+    const q = clean($(el).find('summary .ar-only').first().text());
+    const a = clean($(el).find('p.ar-only').first().text());
+    if (q && a) faqAr.push({ enQ, q, a });
   });
+  // faq.html accordions (.faq-item › .faq-q / .faq-answer)
+  if (!faqAr.length) {
+    $('.faq-item').each((_, el) => {
+      const enQ = clean($(el).find('.faq-q .en-only').first().text());
+      const q = clean($(el).find('.faq-q .ar-only').first().text());
+      const a = clean($(el).find('.faq-answer .ar-only').first().text());
+      if (q && a) faqAr.push({ enQ, q, a });
+    });
+  }
 
   // Localize JSON-LD
   $('script[type="application/ld+json"]').each((_, el) => {
@@ -201,7 +281,9 @@ function buildPage(src) {
   // JS manipulates the language spans (e.g. estimator / contact button states),
   // where removing them would break scripts. Those keep both languages (Arabic
   // shown, English hidden via dir=rtl).
-  const stripSafe = !/span\.(en|ar)-only/.test(html);
+  // Unsafe if inline JS queries the language spans, e.g. querySelector('.en-only')
+  // or querySelector('span.ar-only') — removing them would null-crash that JS.
+  const stripSafe = !/\.(en|ar)-only['"]\s*\)/.test(html);
   if (stripSafe) $('.en-only').remove();
 
   // Static Arabic nav labels (in case JS is slow/off)

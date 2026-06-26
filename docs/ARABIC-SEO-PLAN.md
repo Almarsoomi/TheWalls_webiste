@@ -17,8 +17,22 @@ English page now canonicalises to the real `/ar/` URL (via `main.js`), so no Ver
 redirect was needed. `index.html` and `contact.html` keep both languages (their
 inline JS manipulates the language spans); all other AR pages are English-stripped.
 **To regenerate after editing an English page: `npm run build:ar`.**
-**Remaining:** Phase 2 (about, portfolio, shop, faq, quote, blog + 5 posts, legal),
-then submit `/ar/` in Search Console after deploy + native review of Arabic head copy.
+
+## STATUS — Phase 2 ✅ done (2026-06-26)
+All remaining bilingual pages now have Arabic counterparts — total **26** `/ar/`
+pages: + about, portfolio, shop, faq, quote, blog hub, 5 blog posts, privacy,
+terms. Notes:
+- `faq.html`: the English FAQ schema didn't match its visible FAQ (a pre-existing
+  English-side inconsistency), so the generator now **rebuilds the FAQPage schema
+  from the visible Arabic accordion** — schema always matches on-page content
+  (Google requirement) and is fully Arabic. Service-page FAQs do the same.
+- Blog posts: `Article` JSON-LD localized (Arabic headline/description, `inLanguage:ar`, `/ar/` urls).
+- `quote.html` keeps both languages (its inline JS reads `.en-only` spans); strip
+  guard widened to `/\.(en|ar)-only['"]\)/`. `shop.html` is stripped (shop.js injects
+  its own spans at runtime, hidden via dir=rtl).
+- 13 Phase-2 Arabic URLs added to `sitemap.xml`.
+
+**Remaining:** deploy, native review of Arabic head copy, submit `/ar/` in Search Console.
 
 ## Why this is needed
 The site already contains full Arabic body text inline (shown via `dir="rtl"`),
