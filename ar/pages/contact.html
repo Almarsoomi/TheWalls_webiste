@@ -325,7 +325,7 @@ function setLang(lang){
     localStorage.setItem('tw_lang','en');
   }
 }
-(function(){ setLang('ar'); })();
+(function(){ setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
 
 // Cursor tracking
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');

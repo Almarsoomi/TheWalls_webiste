@@ -273,7 +273,7 @@ function setLang(lang){
   });
   if(window.renderCart) window.renderCart();
 }
-(function(){ setLang('ar'); })();
+(function(){ setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
 </script>
 
 <script src="/assets/js/main.js"></script>

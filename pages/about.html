@@ -611,7 +611,7 @@
         localStorage.setItem('tw_lang', 'en');
       }
     }
-    (function () { setLang(localStorage.getItem('tw_lang') || 'en'); })();
+    (function () { setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
   </script>
 
   <!-- SCROLL TO TOP -->

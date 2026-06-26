@@ -300,7 +300,7 @@ function setLang(lang){
     localStorage.setItem('tw_lang','en');
   }
 }
-(function(){ setLang('ar'); })();
+(function(){ setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
 
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;

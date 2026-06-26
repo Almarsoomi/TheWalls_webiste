@@ -405,7 +405,7 @@ function setLang(lang){
     localStorage.setItem('tw_lang','en');
   }
 }
-(function(){ setLang(localStorage.getItem('tw_lang') || 'en'); })();
+(function(){ setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
 
 // scroll reveal
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});

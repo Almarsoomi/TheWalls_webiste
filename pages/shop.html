@@ -276,7 +276,7 @@ function setLang(lang){
   });
   if(window.renderCart) window.renderCart();
 }
-(function(){ setLang(localStorage.getItem('tw_lang') || 'en'); })();
+(function(){ setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
 </script>
 
 <script src="../assets/js/main.js"></script>

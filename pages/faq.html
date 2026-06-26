@@ -503,7 +503,7 @@ function setLang(lang){
     localStorage.setItem('tw_lang','en');
   }
 }
-(function(){ setLang(localStorage.getItem('tw_lang') || 'en'); })();
+(function(){ setLang(location.pathname.indexOf('/ar/')===0?'ar':'en'); })();
 
 document.querySelectorAll('.faq-q').forEach(function(btn) {
   btn.addEventListener('click', function() {

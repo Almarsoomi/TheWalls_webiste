@@ -454,13 +454,17 @@ document.addEventListener('DOMContentLoaded', function() {
       a.textContent = lang === 'ar' ? (a.dataset.ar || a.textContent) : (a.dataset.en || a.textContent);
     });
   };
-  // Real Arabic pages live under /ar/ — always Arabic, regardless of stored pref.
+  // Language is decided by the URL now that EN and AR have separate pages:
+  // /ar/* → Arabic, every other page → English (a ?lang= override still works
+  // for the legacy soft variant). We intentionally do NOT fall back to the stored
+  // tw_lang preference, otherwise an English URL would render Arabic (with the
+  // wrong toggle button active) for anyone who previously viewed an Arabic page.
   var _isArPage = window.location.pathname.indexOf('/ar/') === 0;
   var _params = new URLSearchParams(window.location.search);
   var _urlLang = _params.get('lang');
   var _lang = _isArPage ? 'ar'
             : (_urlLang === 'ar' || _urlLang === 'en') ? _urlLang
-            : (localStorage.getItem('tw_lang') || 'en');
+            : 'en';
   window.setLang(_lang);
   // For an English page hit with ?lang=ar, canonicalise to the real Arabic URL
   // (its `ar` hreflang) if one exists, else self-canonical to the ?lang=ar variant.

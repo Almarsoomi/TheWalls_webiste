@@ -1677,7 +1677,7 @@
 
 
     // ── LANGUAGE TOGGLE ──
-    let currentLang = localStorage.getItem('tw_lang') || 'en';
+    let currentLang = location.pathname.indexOf('/ar/')===0?'ar':'en';
     function setLang(lang) {
       currentLang = lang;
       localStorage.setItem('tw_lang', lang);

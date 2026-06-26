@@ -304,8 +304,8 @@ function buildPage(src) {
   let out = $.html();
   // Asset paths → root-absolute (covers href/src + inline style url())
   out = out.replace(/(?:\.\.\/)+assets\//g, '/assets/').replace(/\.\/assets\//g, '/assets/');
-  // Force Arabic on initial inline language init (no flash of English)
-  out = out.replace(/localStorage\.getItem\('tw_lang'\)\s*\|\|\s*'en'/g, "'ar'");
+  // (Inline language init is URL-based — `…indexOf('/ar/')===0?'ar':'en'` — so it
+  // already resolves to Arabic on /ar/ pages; no swap needed here.)
 
   const outPath = path.join(ROOT, 'ar', src);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
