@@ -291,8 +291,71 @@
     };
   })();
 
+  // ════════════════════════════════════════════════════════════════════════════
+  // 4. SLAT-SWEEP PAGE TRANSITION
+  //    A curtain of vertical slats drops closed on internal navigation and
+  //    retracts open on arrival — like wall panels being set into place.
+  //    Continuity is only shown between internal page moves (sessionStorage flag),
+  //    so direct visits / refreshes load instantly with no overlay.
+  // ════════════════════════════════════════════════════════════════════════════
+  function initCurtain() {
+    if (REDUCE) return; // no transition under reduced motion
+    var SLATS = 12;
+    var curtain = document.createElement('div');
+    curtain.className = 'tw-curtain';
+    curtain.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < SLATS; i++) {
+      var s = document.createElement('span');
+      s.className = 'tw-slat';
+      curtain.appendChild(s);
+    }
+    document.body.appendChild(curtain);
+
+    // Retract open if we arrived here via an internal sweep.
+    if (sessionStorage.getItem('tw_sweep')) {
+      sessionStorage.removeItem('tw_sweep');
+      curtain.classList.add('is-closed');
+      curtain.getBoundingClientRect(); // flush the covered state before animating
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          curtain.classList.add('is-opening');
+          curtain.classList.remove('is-closed');
+        });
+      });
+      setTimeout(function () { curtain.classList.remove('is-opening'); }, 750);
+    }
+
+    function destFor(a, e) {
+      if (!a || e.defaultPrevented || e.button !== 0 ||
+          e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
+      var href = a.getAttribute('href');
+      if (!href || (a.target && a.target !== '_self') || a.hasAttribute('download')) return null;
+      if (/^(#|mailto:|tel:|javascript:|wa\.me)/i.test(href)) return null;
+      var url;
+      try { url = new URL(a.href, location.href); } catch (_) { return null; }
+      if (url.origin !== location.origin) return null;            // external → let it go
+      if (url.pathname === location.pathname && url.hash) return null; // same-page anchor
+      return url.href;
+    }
+
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      var dest = destFor(a, e);
+      if (!dest) return;
+      e.preventDefault();
+      sessionStorage.setItem('tw_sweep', '1');
+      curtain.classList.add('is-closing', 'is-closed');
+      setTimeout(function () { location.href = dest; }, 480);
+    }, true);
+
+    // Clear the overlay if the page is restored from bfcache (back/forward).
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) curtain.classList.remove('is-closed', 'is-closing', 'is-opening');
+    });
+  }
+
   // ── INIT ───────────────────────────────────────────────────────────────────
-  function init() { initHero(); initDividers(); initFooter(); }
+  function init() { initHero(); initDividers(); initFooter(); initCurtain(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

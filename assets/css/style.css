@@ -2681,3 +2681,51 @@ footer { position: relative; }
   }
   .tw-divider.is-drawn .tw-contour-path--0 { opacity: .85; }
 }
+
+/* 4. Slat-sweep page transition — vertical panels that drop in / retract out */
+.tw-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  pointer-events: none;       /* never blocks interaction; we navigate anyway */
+}
+.tw-slat {
+  flex: 1 1 0;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: linear-gradient(180deg, var(--obsidian-3) 0%, var(--obsidian) 100%);
+  border-right: 0.5px solid rgba(201, 169, 110, .14);
+  will-change: transform;
+  transition: transform .42s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.tw-slat:last-child { border-right: 0; }
+/* Covered state */
+.tw-curtain.is-closed .tw-slat { transform: scaleY(1); }
+/* Stagger left→right while closing, right→left while opening */
+.tw-curtain.is-closing  .tw-slat:nth-child(1)  { transition-delay: .00s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(2)  { transition-delay: .03s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(3)  { transition-delay: .06s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(4)  { transition-delay: .09s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(5)  { transition-delay: .12s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(6)  { transition-delay: .15s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(7)  { transition-delay: .18s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(8)  { transition-delay: .21s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(9)  { transition-delay: .24s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(10) { transition-delay: .27s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(11) { transition-delay: .30s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(12) { transition-delay: .33s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(12) { transition-delay: .00s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(11) { transition-delay: .03s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(10) { transition-delay: .06s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(9)  { transition-delay: .09s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(8)  { transition-delay: .12s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(7)  { transition-delay: .15s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(6)  { transition-delay: .18s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(5)  { transition-delay: .21s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(4)  { transition-delay: .24s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(3)  { transition-delay: .27s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(2)  { transition-delay: .30s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(1)  { transition-delay: .33s; }
+@media (prefers-reduced-motion: reduce) { .tw-curtain { display: none; } }
