@@ -2729,3 +2729,25 @@ footer { position: relative; }
 .tw-curtain.is-opening  .tw-slat:nth-child(2)  { transition-delay: .30s; }
 .tw-curtain.is-opening  .tw-slat:nth-child(1)  { transition-delay: .33s; }
 @media (prefers-reduced-motion: reduce) { .tw-curtain { display: none; } }
+
+/* 5. Voronoi material background — faint cellular veining behind card sections */
+[data-parametric-bg] { position: relative; }
+[data-parametric-bg] > *:not(.tw-voronoi) { position: relative; z-index: 1; }
+.tw-voronoi {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .7;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+.tw-voronoi-path {
+  fill: none;
+  stroke: var(--champagne);
+  stroke-width: 0.5;
+  vector-effect: non-scaling-stroke;
+  opacity: .13;
+}

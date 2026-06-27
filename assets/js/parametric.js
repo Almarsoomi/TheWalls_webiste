@@ -292,6 +292,78 @@
   })();
 
   // ════════════════════════════════════════════════════════════════════════════
+  // 5. VORONOI MATERIAL BACKGROUND
+  //    A faint cellular tessellation behind card sections — reads like the veining
+  //    in Corian/stone and the modular logic of a panelled wall. Computed once
+  //    (static SVG, zero runtime cost) by clipping the bounds with each site's
+  //    perpendicular bisectors — cheap at this cell count.
+  // ════════════════════════════════════════════════════════════════════════════
+  function voronoiCells(sites, w, h) {
+    // Sutherland–Hodgman clip of a polygon by the half-plane nx*x+ny*y <= d.
+    function clip(poly, nx, ny, d) {
+      var out = [], n = poly.length;
+      for (var i = 0; i < n; i++) {
+        var a = poly[i], b = poly[(i + 1) % n];
+        var da = nx * a[0] + ny * a[1] - d, db = nx * b[0] + ny * b[1] - d;
+        if (da <= 0) out.push(a);
+        if ((da < 0 && db > 0) || (da > 0 && db < 0)) {
+          var t = da / (da - db);
+          out.push([a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]);
+        }
+      }
+      return out;
+    }
+    var cells = [];
+    for (var i = 0; i < sites.length; i++) {
+      var s = sites[i];
+      var poly = [[0, 0], [w, 0], [w, h], [0, h]];
+      for (var j = 0; j < sites.length && poly.length; j++) {
+        if (i === j) continue;
+        var p = sites[j];
+        var nx = p[0] - s[0], ny = p[1] - s[1];
+        poly = clip(poly, nx, ny, nx * (p[0] + s[0]) / 2 + ny * (p[1] + s[1]) / 2);
+      }
+      if (poly.length > 2) cells.push(poly);
+    }
+    return cells;
+  }
+
+  function initVoronoi() {
+    var nodes = document.querySelectorAll('[data-parametric-bg]');
+    if (!nodes.length) return;
+    var NS = 'http://www.w3.org/2000/svg';
+    nodes.forEach(function (node) {
+      if (node.querySelector('.tw-voronoi')) return;
+      var svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'tw-voronoi');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('preserveAspectRatio', 'none');
+      node.insertBefore(svg, node.firstChild);
+
+      function build() {
+        var w = node.clientWidth || 1200, h = node.clientHeight || 600;
+        svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        var count = Math.max(14, Math.min(64, Math.round((w * h) / 26000)));
+        var sites = [];
+        for (var i = 0; i < count; i++) {
+          sites.push([noise(i * 1.7 + 0.3) * w, noise(i * 2.3 + 9.1) * h]);
+        }
+        var d = '';
+        voronoiCells(sites, w, h).forEach(function (poly) {
+          d += 'M' + poly.map(function (pt) { return pt[0].toFixed(1) + ',' + pt[1].toFixed(1); }).join(' L') + 'Z ';
+        });
+        var path = document.createElementNS(NS, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('class', 'tw-voronoi-path');
+        svg.appendChild(path);
+      }
+      build();
+      window.addEventListener('resize', debounce(build, 200));
+    });
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
   // 4. SLAT-SWEEP PAGE TRANSITION
   //    A curtain of vertical slats drops closed on internal navigation and
   //    retracts open on arrival — like wall panels being set into place.
@@ -355,7 +427,7 @@
   }
 
   // ── INIT ───────────────────────────────────────────────────────────────────
-  function init() { initHero(); initDividers(); initFooter(); initCurtain(); }
+  function init() { initHero(); initDividers(); initFooter(); initVoronoi(); initCurtain(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
