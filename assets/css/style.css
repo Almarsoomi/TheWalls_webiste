@@ -919,6 +919,32 @@ nav.scrolled { background: rgba(12,12,11,.95); backdrop-filter: blur(12px); padd
 .service-tag { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--champagne-muted); border: 0.5px solid rgba(201,169,110,.2); padding: 4px 10px; }
 [dir="rtl"] .service-tag { font-family: var(--arabic); font-size: 12px; letter-spacing: 0; text-transform: none; }
 
+/* SERVICES — "What we do" reveal choreography (entrance stagger + number slide + blueprint icon draw + subtle parallax) */
+/* Per-column stagger so cards build in left→right, row by row. Mirrored for RTL. */
+.services-grid .service-card { --stagger: 0ms; --py: 0px; }
+.services-grid .service-card:nth-child(3n+2) { --stagger: 100ms; }
+.services-grid .service-card:nth-child(3n+3) { --stagger: 200ms; }
+[dir="rtl"] .services-grid .service-card:nth-child(3n+1) { --stagger: 200ms; }
+[dir="rtl"] .services-grid .service-card:nth-child(3n+2) { --stagger: 100ms; }
+[dir="rtl"] .services-grid .service-card:nth-child(3n+3) { --stagger: 0ms; }
+
+/* Card transform is driven by --py once revealed so the parallax can ride on top of the entrance. */
+.services-grid .service-card.reveal.visible { transform: translateY(var(--py)); transition: opacity .65s ease, transform .4s ease-out, background var(--transition); will-change: transform; }
+
+/* #3 Number slides up into its slot (final faint-gold look preserved). */
+.services-grid .service-num { transform: translateY(30px); opacity: 0; transition: transform .8s cubic-bezier(.22,.61,.36,1), opacity .8s ease, color .3s ease; transition-delay: var(--stagger), var(--stagger), 0s; }
+.services-grid .service-card.visible .service-num { transform: translateY(0); opacity: 1; }
+
+/* #4 Blueprint draw-on: SVG strokes draw themselves like a measured line. */
+.services-grid .service-icon svg > * { stroke-dasharray: 240; stroke-dashoffset: 240; transition: stroke-dashoffset 1s ease; transition-delay: calc(var(--stagger) + 140ms); }
+.services-grid .service-card.visible .service-icon svg > * { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .services-grid .service-card.reveal.visible { transform: none; transition: opacity .4s ease, background var(--transition); }
+  .services-grid .service-num { transform: none; opacity: 1; transition: color .3s ease; }
+  .services-grid .service-icon svg > * { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; }
+}
+
 /* PORTFOLIO */
 .portfolio { padding: 100px 60px; }
 .portfolio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 32px; }

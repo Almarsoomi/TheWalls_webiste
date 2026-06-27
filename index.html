@@ -1675,6 +1675,30 @@
     const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+    // ── SERVICES PARALLAX (subtle alternating lift — odd cards rise, even sink) ──
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const svcCards = Array.from(document.querySelectorAll('.services-grid .service-card'));
+      if (svcCards.length) {
+        let ticking = false;
+        const updateSvc = () => {
+          const vh = window.innerHeight, mid = vh / 2;
+          svcCards.forEach((card, i) => {
+            const r = card.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > vh) return; // skip offscreen
+            const dist = ((r.top + r.height / 2) - mid) / vh; // ~ -0.5..0.5
+            const dir = (i % 2 === 0) ? -1 : 1;               // checkerboard up/down
+            const py = Math.max(-16, Math.min(16, dir * dist * 32));
+            card.style.setProperty('--py', py.toFixed(1) + 'px');
+          });
+          ticking = false;
+        };
+        const onSvcScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(updateSvc); } };
+        window.addEventListener('scroll', onSvcScroll, { passive: true });
+        window.addEventListener('resize', onSvcScroll);
+        updateSvc();
+      }
+    }
+
 
     // ── LANGUAGE TOGGLE ──
     let currentLang = /\/ar\//.test(location.pathname)?'ar':'en';
