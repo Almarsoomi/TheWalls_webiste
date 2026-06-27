@@ -16,6 +16,22 @@
   document.documentElement.setAttribute('data-theme', t);
 })();
 
+// PARAMETRIC FIELD — load the generative louver system on every page.
+// Path is resolved from main.js's own src so it works from root, /pages/ and
+// /blog/ (and the /ar/ mirror) without per-page <script> tags.
+(function(){
+  var self = document.currentScript;
+  var src = self && self.src ? self.src : '';
+  var base = src.replace(/main\.js(\?.*)?$/, '');
+  if (!base) return;
+  if (document.querySelector('script[data-tw-parametric]')) return;
+  var s = document.createElement('script');
+  s.src = base + 'parametric.js';
+  s.defer = true;
+  s.setAttribute('data-tw-parametric', '');
+  (document.head || document.documentElement).appendChild(s);
+})();
+
 // ── rAF SCROLL THROTTLE ──────────────────────────────────────────────────────
 // Wraps a scroll handler so its (often layout-reading) work runs at most once
 // per animation frame instead of on every scroll event — avoids layout thrash.
