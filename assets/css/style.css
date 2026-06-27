@@ -2751,3 +2751,26 @@ footer { position: relative; }
   vector-effect: non-scaling-stroke;
   opacity: .13;
 }
+
+/* 6. Portfolio slat-wipe reveal — shutter of vertical slats lifts off each card */
+.portfolio-card { position: relative; }
+.tw-card-shutter {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  pointer-events: none;
+  overflow: hidden;
+}
+.tw-card-shutter .tw-cs {
+  flex: 1 1 0;
+  height: 100%;
+  background: var(--obsidian);
+  transform: scaleY(1);
+  transform-origin: top;
+  border-right: 0.5px solid rgba(201, 169, 110, .08);
+  transition: transform .58s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.tw-card-shutter .tw-cs:last-child { border-right: 0; }
+.portfolio-card.is-revealed .tw-card-shutter .tw-cs { transform: scaleY(0); }
+@media (prefers-reduced-motion: reduce) { .tw-card-shutter { display: none; } }

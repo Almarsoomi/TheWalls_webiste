@@ -364,6 +364,41 @@
   }
 
   // ════════════════════════════════════════════════════════════════════════════
+  // 6. PORTFOLIO SLAT-WIPE REVEAL
+  //    Each project card is covered by a shutter of vertical slats that retract
+  //    upward (staggered) as the card scrolls into view — like panels lifting off
+  //    to reveal the work behind them.
+  // ════════════════════════════════════════════════════════════════════════════
+  function initPortfolio() {
+    var cards = document.querySelectorAll('.portfolio-card, [data-slat-wipe]');
+    if (!cards.length) return;
+    var SLATS = 5;
+
+    if (REDUCE) return; // cards just show normally
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-revealed'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.18 });
+
+    cards.forEach(function (card) {
+      if (card.querySelector('.tw-card-shutter')) return;
+      var shutter = document.createElement('div');
+      shutter.className = 'tw-card-shutter';
+      shutter.setAttribute('aria-hidden', 'true');
+      for (var i = 0; i < SLATS; i++) {
+        var s = document.createElement('span');
+        s.className = 'tw-cs';
+        s.style.transitionDelay = (i * 0.06) + 's';
+        shutter.appendChild(s);
+      }
+      card.appendChild(shutter);
+      io.observe(card);
+    });
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
   // 4. SLAT-SWEEP PAGE TRANSITION
   //    A curtain of vertical slats drops closed on internal navigation and
   //    retracts open on arrival — like wall panels being set into place.
@@ -427,7 +462,7 @@
   }
 
   // ── INIT ───────────────────────────────────────────────────────────────────
-  function init() { initHero(); initDividers(); initFooter(); initVoronoi(); initCurtain(); }
+  function init() { initHero(); initDividers(); initFooter(); initVoronoi(); initPortfolio(); initCurtain(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
