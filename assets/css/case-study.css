@@ -150,7 +150,7 @@ nav.sc{background:rgba(12,12,11,.95);backdrop-filter:blur(12px);padding:16px 60p
 .rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}
 
 /* WA FLOAT */
-.wa-float{position:fixed;bottom:88px;right:32px;z-index:500;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .3s}
+.wa-float{position:fixed;bottom:90px;right:32px;z-index:500;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .3s}
 .wa-float:hover{transform:scale(1.1)}
 .wa-float svg{width:28px;height:28px;fill:white}
 .wa-pulse{position:absolute;inset:0;border-radius:50%;background:rgba(37,211,102,.3);animation:wap 2.5s ease-in-out infinite}
