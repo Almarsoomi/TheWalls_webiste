@@ -2605,3 +2605,172 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
   .shop-card-name{font-size:18px}
   .cart-drawer{width:100%;max-width:100vw}
 }
+
+/* ============================================================
+   PARAMETRIC — "The Field" visual system (parametric.js)
+   Louver hero, contour dividers, footer signature, slat curtain.
+   ============================================================ */
+
+/* 1. Living Wall hero — canvas above the photo, below .hero-content (z 10) */
+.tw-hero-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: screen;        /* gold lines glow over the dark photo */
+  opacity: .9;
+}
+/* Hero stays dark in both themes (its text is always light), so the field
+   always uses screen — switching to multiply would make it vanish on the photo. */
+
+/* 2. Contour dividers — replaces the flat scaleX line with sine ribbons.
+   Neutralise the old single-line look; the SVG carries the visual now. */
+.tw-divider {
+  position: relative;
+  height: 48px;
+  background: none !important;
+  transform: none !important;
+  overflow: hidden;
+}
+.tw-divider::after { content: none !important; }   /* drop the old vertical tick */
+.tw-contour {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.tw-contour-path {
+  fill: none;
+  stroke: var(--champagne-muted);
+  stroke-width: 0.75;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 1.2s ease;
+  opacity: 0;
+}
+.tw-contour-path--0 { stroke: var(--champagne); transition-delay: 0s, 0s; }
+.tw-contour-path--1 { opacity: 0; transition-delay: 0.12s, 0.12s; }
+.tw-contour-path--2 { transition-delay: 0.24s, 0.24s; }
+.tw-divider.is-drawn .tw-contour-path { stroke-dashoffset: 0; opacity: .55; }
+.tw-divider.is-drawn .tw-contour-path--0 { opacity: .9; }
+.tw-divider.is-drawn .tw-contour-path--1 { opacity: .4; }
+
+/* 3. Footer signature — louver strip pinned to the top edge of the footer */
+footer { position: relative; }
+.tw-footer-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  pointer-events: none;
+  opacity: 1;
+}
+
+/* Reduced motion: keep everything, just no animated draw-on */
+@media (prefers-reduced-motion: reduce) {
+  .tw-contour-path {
+    transition: none;
+    stroke-dashoffset: 0;
+    opacity: .5;
+  }
+  .tw-divider.is-drawn .tw-contour-path--0 { opacity: .85; }
+}
+
+/* 4. Slat-sweep page transition — vertical panels that drop in / retract out */
+.tw-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  pointer-events: none;       /* never blocks interaction; we navigate anyway */
+}
+.tw-slat {
+  flex: 1 1 0;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: linear-gradient(180deg, var(--obsidian-3) 0%, var(--obsidian) 100%);
+  border-right: 0.5px solid rgba(201, 169, 110, .14);
+  will-change: transform;
+  transition: transform .42s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.tw-slat:last-child { border-right: 0; }
+/* Covered state */
+.tw-curtain.is-closed .tw-slat { transform: scaleY(1); }
+/* Stagger left→right while closing, right→left while opening */
+.tw-curtain.is-closing  .tw-slat:nth-child(1)  { transition-delay: .00s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(2)  { transition-delay: .03s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(3)  { transition-delay: .06s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(4)  { transition-delay: .09s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(5)  { transition-delay: .12s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(6)  { transition-delay: .15s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(7)  { transition-delay: .18s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(8)  { transition-delay: .21s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(9)  { transition-delay: .24s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(10) { transition-delay: .27s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(11) { transition-delay: .30s; }
+.tw-curtain.is-closing  .tw-slat:nth-child(12) { transition-delay: .33s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(12) { transition-delay: .00s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(11) { transition-delay: .03s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(10) { transition-delay: .06s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(9)  { transition-delay: .09s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(8)  { transition-delay: .12s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(7)  { transition-delay: .15s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(6)  { transition-delay: .18s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(5)  { transition-delay: .21s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(4)  { transition-delay: .24s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(3)  { transition-delay: .27s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(2)  { transition-delay: .30s; }
+.tw-curtain.is-opening  .tw-slat:nth-child(1)  { transition-delay: .33s; }
+@media (prefers-reduced-motion: reduce) { .tw-curtain { display: none; } }
+
+/* 5. Voronoi material background — faint cellular veining behind card sections */
+[data-parametric-bg] { position: relative; }
+[data-parametric-bg] > *:not(.tw-voronoi) { position: relative; z-index: 1; }
+.tw-voronoi {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .7;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+.tw-voronoi-path {
+  fill: none;
+  stroke: var(--champagne);
+  stroke-width: 0.5;
+  vector-effect: non-scaling-stroke;
+  opacity: .13;
+}
+
+/* 6. Portfolio slat-wipe reveal — shutter of vertical slats lifts off each card */
+.portfolio-card { position: relative; }
+.tw-card-shutter {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  pointer-events: none;
+  overflow: hidden;
+}
+.tw-card-shutter .tw-cs {
+  flex: 1 1 0;
+  height: 100%;
+  background: var(--obsidian);
+  transform: scaleY(1);
+  transform-origin: top;
+  border-right: 0.5px solid rgba(201, 169, 110, .08);
+  transition: transform .58s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.tw-card-shutter .tw-cs:last-child { border-right: 0; }
+.portfolio-card.is-revealed .tw-card-shutter .tw-cs { transform: scaleY(0); }
+@media (prefers-reduced-motion: reduce) { .tw-card-shutter { display: none; } }
