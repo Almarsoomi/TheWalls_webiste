@@ -3,8 +3,7 @@
    Home-page-only modules (index.html). Loaded after main.js,
    ONLY on the homepage, so inner pages don't download, parse,
    or run home-specific behaviour.
-   Modules: before/after slider, project search, pulse-glow,
-   scroll-divider expand.
+   Modules: before/after slider, project search, pulse-glow.
    ============================================================ */
 
 /* ── BEFORE / AFTER SLIDER ── */
@@ -122,21 +121,4 @@ document.addEventListener('DOMContentLoaded', function () {
   }, { threshold: 0.8 });
 
   targets.forEach(function (el) { obs.observe(el); });
-}());
-
-/* ── SCROLL DIVIDER EXPAND ──────────────────────────────────────────────────── */
-(function () {
-  var dividers = document.querySelectorAll('[data-divider]');
-  if (!dividers.length) return;
-
-  var obs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-expanded');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0, rootMargin: '-42% 0px -42% 0px' });
-
-  dividers.forEach(function (d) { obs.observe(d); });
 }());

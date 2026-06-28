@@ -162,6 +162,7 @@
     };
     if (localStorage.getItem('tw_cookie_consent') === 'accept') { window._twLoadAnalytics(); }
   </script>
+  <script>/* slat-sweep arrival cover — keeps the page covered until the JS curtain mounts (see parametric.js / style.css) */(function(){try{if(sessionStorage.getItem('tw_sweep')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var d=document.documentElement;d.setAttribute('data-sweeping','');setTimeout(function(){d.removeAttribute('data-sweeping');},1500);}}catch(e){}})();</script>
 </head>
 
 <body>
@@ -361,7 +362,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="about-strip" id="about">
+  <section class="about-strip" id="about" data-parametric-bg="">
     <div>
       <div class="about-label reveal en-only">About the Walls</div>
       <div class="about-label reveal ar-only">عن الاستوديو</div>
@@ -689,10 +690,8 @@
     </div>
   </section>
 
-  <div class="scroll-divider" data-divider=""></div>
-
   <!-- HOW WE WORK -->
-  <section class="process" id="how-we-work">
+  <section class="process" id="how-we-work" data-parametric-bg="">
     <div class="section-header reveal">
       <div>
         <div class="section-label" data-num="04"><span class="en-only">How we work</span><span class="ar-only">كيف

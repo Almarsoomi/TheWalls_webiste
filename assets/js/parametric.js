@@ -5,9 +5,8 @@
 
    One field engine drives several renderers:
      1. Living Wall hero  — canvas louvers that ripple toward the cursor
-     2. Contour dividers  — stacked sine ribbons that draw on when scrolled to
-     3. Footer signature  — a slow undulating louver strip
-     4. Slat-sweep        — a vertical-slat curtain on page navigation
+     2. Footer signature  — a slow undulating louver strip
+     3. Slat-sweep        — a vertical-slat curtain on page navigation
 
    Vanilla JS, no dependencies. Injected sitewide by main.js so it runs on
    every page (and the /ar/ mirror) with zero per-page markup.
@@ -180,50 +179,6 @@
     if (REDUCE) { px = W * 0.5; py = H * 0.5; draw(0); }
     else registerRenderer(canvas, draw);
     canvas.__redraw = function () { if (REDUCE) draw(0); }; // for theme re-colour
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // 2. CONTOUR DIVIDERS
-  //    Replace the flat scaleX line with stacked sine "contour" paths (think wood
-  //    grain / topographic CNC passes) that draw on via stroke-dashoffset.
-  // ════════════════════════════════════════════════════════════════════════════
-  function initDividers() {
-    var nodes = document.querySelectorAll('[data-divider], .scroll-divider');
-    if (!nodes.length) return;
-    var VBW = 1200, VBH = 48, LINES = 3;
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-drawn'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0, rootMargin: '-30% 0px -30% 0px' });
-
-    nodes.forEach(function (node, idx) {
-      if (node.querySelector('.tw-contour')) return;
-      node.classList.add('tw-divider');
-      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('class', 'tw-contour');
-      svg.setAttribute('viewBox', '0 0 ' + VBW + ' ' + VBH);
-      svg.setAttribute('preserveAspectRatio', 'none');
-      svg.setAttribute('aria-hidden', 'true');
-      for (var l = 0; l < LINES; l++) {
-        var amp = 5 + l * 3.5;
-        var freq = 0.012 + l * 0.004;
-        var phase = idx * 0.7 + l * 1.3;
-        var d = 'M 0 ' + VBH / 2;
-        for (var x = 0; x <= VBW; x += 12) {
-          var y = VBH / 2 + amp * Math.sin(x * freq + phase) + (amp * 0.4) * Math.sin(x * freq * 2.3 + phase);
-          d += ' L ' + x + ' ' + y.toFixed(1);
-        }
-        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', d);
-        path.setAttribute('class', 'tw-contour-path tw-contour-path--' + l);
-        svg.appendChild(path);
-      }
-      node.appendChild(svg);
-      if (REDUCE) node.classList.add('is-drawn');
-      else io.observe(node);
-    });
   }
 
   // ════════════════════════════════════════════════════════════════════════════
@@ -402,12 +357,18 @@
   // 4. SLAT-SWEEP PAGE TRANSITION
   //    A curtain of vertical slats drops closed on internal navigation and
   //    retracts open on arrival — like wall panels being set into place.
+  //    The destination is prefetched on hover / touch / focus, so the page swap
+  //    under the curtain is instant; a "Loading…" sign shows while it's covered.
   //    Continuity is only shown between internal page moves (sessionStorage flag),
   //    so direct visits / refreshes load instantly with no overlay.
   // ════════════════════════════════════════════════════════════════════════════
   function initCurtain() {
-    if (REDUCE) return; // no transition under reduced motion
+    if (REDUCE) return; // no transition (or loader) under reduced motion
+
+    var CLOSE_MS = 620;   // cover the screen for this long before swapping pages
+    var OPEN_MS = 1050;   // how long the slower retract-open runs on arrival
     var SLATS = 12;
+
     var curtain = document.createElement('div');
     curtain.className = 'tw-curtain';
     curtain.setAttribute('aria-hidden', 'true');
@@ -416,53 +377,99 @@
       s.className = 'tw-slat';
       curtain.appendChild(s);
     }
+    // "Loading…" sign — revealed only while the outgoing page is being covered.
+    var loader = document.createElement('div');
+    loader.className = 'tw-curtain-loader';
+    var isAr = document.documentElement.lang === 'ar' || /(^|\/)ar(\/|$)/.test(location.pathname);
+    loader.innerHTML = '<span class="tw-loader-label">' + (isAr ? 'جارٍ التحميل' : 'Loading') +
+      '</span><span class="tw-loader-dots"><i></i><i></i><i></i></span>';
+    curtain.appendChild(loader);
     document.body.appendChild(curtain);
 
     // Retract open if we arrived here via an internal sweep.
     if (sessionStorage.getItem('tw_sweep')) {
       sessionStorage.removeItem('tw_sweep');
       curtain.classList.add('is-closed');
-      curtain.getBoundingClientRect(); // flush the covered state before animating
+      curtain.getBoundingClientRect(); // flush so the curtain paints fully covered…
+      // …then drop the <head> pre-paint cover. The curtain is now the cover (same
+      // obsidian fill, higher z), so this hands off in a single frame with no gap.
+      document.documentElement.removeAttribute('data-sweeping');
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           curtain.classList.add('is-opening');
           curtain.classList.remove('is-closed');
         });
       });
-      setTimeout(function () { curtain.classList.remove('is-opening'); }, 750);
+      setTimeout(function () { curtain.classList.remove('is-opening'); }, OPEN_MS);
+    } else {
+      // Not a sweep arrival — make sure no stale cover lingers.
+      document.documentElement.removeAttribute('data-sweeping');
     }
 
-    function destFor(a, e) {
-      if (!a || e.defaultPrevented || e.button !== 0 ||
-          e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
+    // Resolve an <a> to an internal cross-page destination, or null.
+    function navUrl(a) {
+      if (!a) return null;
       var href = a.getAttribute('href');
       if (!href || (a.target && a.target !== '_self') || a.hasAttribute('download')) return null;
       if (/^(#|mailto:|tel:|javascript:|wa\.me)/i.test(href)) return null;
       var url;
       try { url = new URL(a.href, location.href); } catch (_) { return null; }
-      if (url.origin !== location.origin) return null;            // external → let it go
-      if (url.pathname === location.pathname && url.hash) return null; // same-page anchor
+      if (url.origin !== location.origin) return null;      // external → leave it
+      if (url.pathname === location.pathname) return null;  // same page / anchor → ignore
       return url.href;
     }
 
-    document.addEventListener('click', function (e) {
+    // Warm the destination in the background so the swap under the curtain is
+    // instant. Driven by intent (hover / touch / focus) — only links the user
+    // actually targets get fetched, and each at most once. Skipped on Data Saver.
+    var warmed = {};
+    var saveData = navigator.connection && navigator.connection.saveData;
+    function prefetch(href) {
+      if (!href || warmed[href] || saveData) return;
+      warmed[href] = 1;
+      var link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.as = 'document';
+      link.href = href;
+      document.head.appendChild(link);
+    }
+    function onIntent(e) {
       var a = e.target && e.target.closest ? e.target.closest('a') : null;
-      var dest = destFor(a, e);
+      prefetch(navUrl(a));
+    }
+    document.addEventListener('mouseover', onIntent, { passive: true });
+    document.addEventListener('touchstart', onIntent, { passive: true });
+    document.addEventListener('focusin', onIntent);
+
+    // Intercept internal clicks: warm (if not already), drop the curtain with the
+    // loader, then navigate once the screen is covered.
+    var navigating = false;
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 ||
+          e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      var dest = navUrl(a);
       if (!dest) return;
       e.preventDefault();
+      if (navigating) return;
+      navigating = true;
+      prefetch(dest);
       sessionStorage.setItem('tw_sweep', '1');
-      curtain.classList.add('is-closing', 'is-closed');
-      setTimeout(function () { location.href = dest; }, 480);
+      curtain.classList.add('is-closing', 'is-closed', 'is-loading');
+      setTimeout(function () { location.href = dest; }, CLOSE_MS);
     }, true);
 
     // Clear the overlay if the page is restored from bfcache (back/forward).
     window.addEventListener('pageshow', function (ev) {
-      if (ev.persisted) curtain.classList.remove('is-closed', 'is-closing', 'is-opening');
+      if (ev.persisted) {
+        curtain.classList.remove('is-closed', 'is-closing', 'is-opening', 'is-loading');
+        document.documentElement.removeAttribute('data-sweeping');
+      }
     });
   }
 
   // ── INIT ───────────────────────────────────────────────────────────────────
-  function init() { initHero(); initDividers(); initFooter(); initVoronoi(); initPortfolio(); initCurtain(); }
+  function init() { initHero(); initFooter(); initVoronoi(); initPortfolio(); initCurtain(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
