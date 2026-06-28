@@ -466,11 +466,16 @@ footer { background: var(--obsidian); border-top: 0.5px solid rgba(201,169,110,.
   footer { padding: 48px 24px 32px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
   .footer-grid > :first-child, .footer-grid > .footer-col:last-child { grid-column: 1 / -1; }
+  .footer-grid > :first-child { margin-bottom: 18px; }   /* clean gap below the W strip */
   .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
-  .tw-footer-field {
-    opacity: 0.55;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 42%, transparent 65%);
-            mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 42%, transparent 65%);
+  /* Confine the W to a clean strip behind the brand only — the link columns
+     below sit on clear background so text is never crossed by louver lines.
+     Selector is `footer .tw-footer-field` (specificity 0,1,1) so it beats the
+     unconditional base rule later in the file (`.tw-footer-field`, 0,1,0). */
+  footer .tw-footer-field {
+    opacity: 0.5;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 17%, transparent 28%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 17%, transparent 28%);
   }
 }
 

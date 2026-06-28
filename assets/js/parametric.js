@@ -216,7 +216,7 @@
       var narrow = W < 600;
       var padX = W * (W < 400 ? 0.11 : (narrow ? 0.14 : 0.17));
       var spanX = W - padX * 2;
-      var Hd = narrow ? Math.min(H, W * 1.15) : H;
+      var Hd = narrow ? Math.min(H, W * 0.8) : H;
       var topY = Hd * 0.15;
       var band = Math.min(Hd * 0.44, spanX * 0.6, 380);   // width-capped, never giant
       var LINES = Math.max(10, Math.min(48, Math.round(Hd / 18)));
