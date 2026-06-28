@@ -1104,7 +1104,14 @@ nav.scrolled { background: rgba(12,12,11,.95); backdrop-filter: blur(12px); padd
 [dir="rtl"] .ig-rail { direction: rtl; }
 .ig-rail::-webkit-scrollbar { height: 6px; }
 .ig-rail::-webkit-scrollbar-track { background: transparent; }
-.ig-rail::-webkit-scrollbar-thumb { background: var(--champagne-muted); border-radius: 3px; }
+.ig-rail::-webkit-scrollbar-thumb { background: var(--champagne-muted); border-radius: 3px; border: 0; }
+
+/* Gold scrollbar to match the brand (WebKit + Firefox), theme-aware via vars */
+html { scrollbar-width: thin; scrollbar-color: var(--champagne) var(--obsidian-2); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--obsidian-2); }
+::-webkit-scrollbar-thumb { background: var(--champagne); border: 3px solid var(--obsidian-2); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--champagne-light); }
 .ig-card {
   flex: 0 0 auto; width: 260px; aspect-ratio: 9/16; position: relative;
   overflow: hidden; scroll-snap-align: start; cursor: pointer;
