@@ -465,12 +465,12 @@ footer { background: var(--obsidian); border-top: 0.5px solid rgba(201,169,110,.
 @media (max-width: 640px) {
   footer { padding: 48px 24px 32px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
-  .footer-grid > .footer-col:last-child { grid-column: 1 / -1; }
+  .footer-grid > :first-child, .footer-grid > .footer-col:last-child { grid-column: 1 / -1; }
   .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
   .tw-footer-field {
-    opacity: 0.4;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 15%, #000 50%, transparent 100%);
-            mask-image: linear-gradient(180deg, transparent 0%, #000 15%, #000 50%, transparent 100%);
+    opacity: 0.55;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 42%, transparent 65%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 42%, transparent 65%);
   }
 }
 
@@ -1351,7 +1351,8 @@ footer { background: var(--obsidian); border-top: 0.5px solid rgba(201,169,110,.
   .hero-bottom { flex-direction: column; gap: 28px; align-items: flex-start; }
   /* Override the higher-specificity desktop RTL rule so Arabic stacks like English */
   [dir="rtl"] .hero-bottom { flex-direction: column; align-items: flex-end; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
+  .footer-grid > :first-child, .footer-grid > .footer-col:last-child { grid-column: 1 / -1; }
   .process { padding: 60px 20px; }
   .process .section-header { padding-right: 0; }
   .wa-float { bottom: 100px; right: 20px; }

@@ -209,9 +209,12 @@
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
       var padX = W * 0.17, spanX = W - padX * 2;
-      var topY = H * 0.15, band = H * 0.44;
-      var LINES = Math.max(10, Math.round(H / 18));
-      var step = (H * 0.82) / LINES;
+      // On narrow/tall footers (mobile), the mark is contained in a top band and
+      // its amplitude is capped by width — otherwise the W stretches into a spike.
+      var Hd = W < 600 ? Math.min(H, W * 1.15) : H;
+      var topY = Hd * 0.15, band = Math.min(Hd * 0.44, spanX * 0.6);
+      var LINES = Math.max(10, Math.round(Hd / 18));
+      var step = (Hd * 0.82) / LINES;
       for (var k = 0; k < LINES; k++) {
         var depth = LINES > 1 ? k / (LINES - 1) : 0;
         var dy = topY + k * step;
