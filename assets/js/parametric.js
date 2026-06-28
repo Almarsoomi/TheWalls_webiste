@@ -208,12 +208,18 @@
 
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
-      var padX = W * 0.17, spanX = W - padX * 2;
-      // On narrow/tall footers (mobile), the mark is contained in a top band and
-      // its amplitude is capped by width — otherwise the W stretches into a spike.
-      var Hd = W < 600 ? Math.min(H, W * 1.15) : H;
-      var topY = Hd * 0.15, band = Math.min(Hd * 0.44, spanX * 0.6);
-      var LINES = Math.max(10, Math.round(Hd / 18));
+      // Responsive geometry — the mark must stay in proportion at ANY footer
+      // aspect ratio. Tall/narrow footers (mobile) would stretch the W into a
+      // spike, so on narrow screens the drawn height is contained (Hd) and the
+      // amplitude is driven by width. Tighter side padding on small phones keeps
+      // the W from looking cramped. Wide/desktop path is unchanged.
+      var narrow = W < 600;
+      var padX = W * (W < 400 ? 0.11 : (narrow ? 0.14 : 0.17));
+      var spanX = W - padX * 2;
+      var Hd = narrow ? Math.min(H, W * 1.15) : H;
+      var topY = Hd * 0.15;
+      var band = Math.min(Hd * 0.44, spanX * 0.6, 380);   // width-capped, never giant
+      var LINES = Math.max(10, Math.min(48, Math.round(Hd / 18)));
       var step = (Hd * 0.82) / LINES;
       for (var k = 0; k < LINES; k++) {
         var depth = LINES > 1 ? k / (LINES - 1) : 0;
