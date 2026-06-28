@@ -182,7 +182,8 @@
   }
 
   // ════════════════════════════════════════════════════════════════════════════
-  // 3. FOOTER SIGNATURE — a calm louver strip as a brand sign-off, sitewide.
+  // 3. FOOTER SIGNATURE — the logo's "W" as a glowing louver field, sitewide.
+  //    Lead chevrons + outer ascender slats echo the brand mark.
   // ════════════════════════════════════════════════════════════════════════════
   function initFooter() {
     var footer = document.querySelector('footer');
@@ -197,24 +198,56 @@
     function resize() { var d = fitCanvas(canvas); ctx = d.ctx; W = d.w; H = d.h; if (REDUCE) draw(0); }
     window.addEventListener('resize', debounce(resize, 150));
 
+    // The Walls "W": tops at the sides + centre, two valleys between (y runs down).
+    var PTS = [[0.00, 0.00], [0.27, 1.00], [0.50, 0.32], [0.73, 1.00], [1.00, 0.00]];
+    function mix(a, b, t) {                       // lerp two #rrggbb colours
+      function p(h) { h = h.replace('#', ''); if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2]; var n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+      var x = p(a), y = p(b);
+      return 'rgb(' + Math.round(x[0]+(y[0]-x[0])*t) + ',' + Math.round(x[1]+(y[1]-x[1])*t) + ',' + Math.round(x[2]+(y[2]-x[2])*t) + ')';
+    }
+
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
-      var spacing = W < 640 ? 18 : 26;
-      var count = Math.min(140, Math.floor(W / spacing));
-      var step = W / count;
-      for (var i = 0; i <= count; i++) {
-        var baseX = i * step;
+      var padX = W * 0.17, spanX = W - padX * 2;
+      var topY = H * 0.15, band = H * 0.44;
+      var LINES = Math.max(10, Math.round(H / 18));
+      var step = (H * 0.82) / LINES;
+      for (var k = 0; k < LINES; k++) {
+        var depth = LINES > 1 ? k / (LINES - 1) : 0;
+        var dy = topY + k * step;
+        var b = band * (1 - depth * 0.55);        // chevrons flatten as they descend
         ctx.beginPath();
-        for (var y = 0; y <= H; y += 10) {
-          var amp = 3 + 6 * (y / H);             // splay wider toward the bottom edge
-          var x = baseX + amp * Math.sin(y * 0.02 + t * 0.4 + i * 0.3)
-                        + 3 * (noise(i * 0.4 + t * 0.1) - 0.5);
-          if (y === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        for (var i = 0; i < PTS.length; i++) {
+          var px = padX + PTS[i][0] * spanX;
+          var py = dy + PTS[i][1] * b;
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
         }
-        ctx.strokeStyle = hexA(COLORS.goldMuted, 0.22 + 0.08 * Math.sin(i * 0.5 + t * 0.3));
-        ctx.lineWidth = 0.7;
+        var lead = k < 3;                         // crisp glowing "mark" lines on top
+        var wave = REDUCE ? 0.8 : 0.5 + 0.5 * Math.sin(t * 0.9 - k * 0.42);
+        var base = lead ? 0.72 : (0.10 + 0.34 * (1 - depth));
+        ctx.globalAlpha = Math.min(0.95, base * (0.6 + 0.4 * wave));
+        ctx.strokeStyle = mix(COLORS.goldLight, COLORS.goldMuted, lead ? 0 : depth);
+        ctx.lineWidth = lead ? 2.4 : (depth < 0.5 ? 1.6 : 1.05);
+        ctx.shadowColor = hexA(COLORS.gold, 0.65);
+        ctx.shadowBlur = lead ? 16 : (depth < 0.4 ? 4 : 0);
         ctx.stroke();
       }
+      ctx.shadowBlur = 0;
+
+      // Outer vertical slats rising from the W's wing-tops — the logo's ascenders.
+      var slatTop = topY * 0.30, slatBot = topY + band * 0.18;
+      ctx.strokeStyle = COLORS.goldLight;
+      ctx.lineWidth = 1.8;
+      ctx.shadowColor = hexA(COLORS.gold, 0.5);
+      for (var s = 0; s < 6; s++) {
+        var off = s * (spanX * 0.015), fade = 1 - s / 6;
+        ctx.globalAlpha = 0.42 * fade * (REDUCE ? 1 : (0.7 + 0.3 * Math.sin(t * 0.9 - s * 0.5)));
+        ctx.shadowBlur = s < 2 ? 6 : 0;
+        ctx.beginPath(); ctx.moveTo(padX + off, slatTop); ctx.lineTo(padX + off, slatBot); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(W - padX - off, slatTop); ctx.lineTo(W - padX - off, slatBot); ctx.stroke();
+      }
+      ctx.shadowBlur = 0;
+      ctx.globalAlpha = 1;
     }
 
     if (REDUCE) draw(0);

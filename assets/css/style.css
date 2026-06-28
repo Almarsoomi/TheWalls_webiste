@@ -2618,17 +2618,33 @@ body{background:var(--obsidian);color:var(--cream);font-family:var(--sans);font-
 /* Hero stays dark in both themes (its text is always light), so the field
    always uses screen — switching to multiply would make it vanish on the photo. */
 
-/* 3. Footer signature — louver strip pinned to the top edge of the footer */
-footer { position: relative; }
+/* 3. Footer signature — the logo's "W" rendered as a louver field across the footer */
+footer { position: relative; overflow: hidden; border-top: none; }
+footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,.45), transparent); }
 .tw-footer-field {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: 90px;
+  height: 100%;
+  z-index: 0;
   pointer-events: none;
-  opacity: 1;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
 }
+footer > *:not(.tw-footer-field) { position: relative; z-index: 1; }
+/* keep footer text crisp over the mark — thin obsidian halo per glyph (theme-aware via --obsidian) */
+footer .footer-grid, footer .footer-bottom { text-shadow: 0 0 7px var(--obsidian), 0 0 4px var(--obsidian), 0 1px 2px var(--obsidian); }
+/* brighter text (--cream is light on dark theme, dark on light) + refined gold hover */
+footer .footer-col-title { color: var(--champagne); }
+footer .footer-col a, footer .footer-col p, footer .footer-tagline { color: var(--cream); }
+footer .footer-col a { display: block; position: relative; transition: color .25s ease, padding-left .25s ease, padding-right .25s ease; }
+footer .footer-col a::before { content: ''; position: absolute; left: 0; top: 50%; width: 0; height: 1px;
+  background: var(--champagne); transform: translateY(-50%); transition: width .25s ease; }
+footer .footer-col a:hover { color: var(--champagne); padding-left: 14px; }
+footer .footer-col a:hover::before { width: 8px; }
+[dir="rtl"] footer .footer-col a::before { left: auto; right: 0; }
+[dir="rtl"] footer .footer-col a:hover { padding-left: 0; padding-right: 14px; }
 
 /* 4. Slat-sweep page transition — vertical panels that drop in / retract out */
 /* Pre-paint cover: a <head> snippet sets [data-sweeping] the instant we arrive
