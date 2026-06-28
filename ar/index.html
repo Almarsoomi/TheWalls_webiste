@@ -1689,6 +1689,7 @@
         if (btnAR) btnAR.classList.add('active');
         if (btnEN) btnEN.classList.remove('active');
         document.querySelectorAll('.nav-links a[data-ar]').forEach(a => a.textContent = a.dataset.ar);
+        document.querySelectorAll('#spaceType option[data-ar]').forEach(o => o.textContent = o.dataset.ar);
         const sqmEl = document.getElementById('sqmRange');
         if (sqmEl) document.getElementById('sqmDisplay').textContent = sqmEl.value + ' م²';
       } else {
@@ -1698,6 +1699,7 @@
         if (btnEN) btnEN.classList.add('active');
         if (btnAR) btnAR.classList.remove('active');
         document.querySelectorAll('.nav-links a[data-en]').forEach(a => a.textContent = a.dataset.en);
+        document.querySelectorAll('#spaceType option[data-en]').forEach(o => o.textContent = o.dataset.en);
         const sqmEl = document.getElementById('sqmRange');
         if (sqmEl) document.getElementById('sqmDisplay').textContent = sqmEl.value + ' sqm';
       }
